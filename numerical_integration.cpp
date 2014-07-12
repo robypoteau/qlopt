@@ -38,24 +38,24 @@ mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&), const vec
 
 mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&, const mat&, const int&), const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
 {
-	int N = time.size() - 1;
+	int N = time.size();
 	mpreal a = time(0);
-	mpreal b = time(N);
+	mpreal b = time(N-1);
 	
 	//number of equations
 	int m = yNot.size();
 	
 	//timesteps
-	mpreal h = (b-a)/N;
+	mpreal h = (b-a)/(N-1);
 	
 	//Init stuff
-	mat w(m, N+1);
+	mat w(m, N);
 	w.fill(0);
 	w.col(0) = yNot;
 	
 	vec k1(m), k2(m), k3(m), k4(m);
 
-	for (int i = 1; i<N+1; i++)
+	for (int i = 1; i<N; i++)
 	{
 		k1 = h*fhandle(time(i), w.col(i-1), u, xNminus, i);
 		k2 = h*fhandle(time(i) + h/2, w.col(i-1) + k1/2, u, xNminus, i);

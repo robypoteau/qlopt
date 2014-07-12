@@ -30,9 +30,10 @@ int main(int argc, char *argv[])
 	
 	// Input
 	string system = "lotka_volterra";
+	
 	vec t(11); 
 	t << 0, .1, .2, .3, .4, .5, .6, .7, .8, .9, 1;
-	
+
 	vec u(3);
 	u << 1,2,1;
 	
@@ -40,7 +41,7 @@ int main(int argc, char *argv[])
 	yNot << 1,1;
 	
 	vec uNot(3);
-	uNot << 7, 7, 7;
+	uNot << 3, 4, 2;
 	//end input
 	
 	int lt = t.size();  
@@ -66,11 +67,16 @@ int main(int argc, char *argv[])
 	vec du(m);
 	system = system + "_linearization";
 	
+	vec knots(3);
+	knots << -1, 0, 3;
+	vec ctrls(3);
+	ctrls << .5, 0, 3;
+	
 	//Run the rest of the iterations
-	for(int i = 0; i<5; i++)
+	for(int i = 0; i<7; i++)
 	{
 		bob = rungekutta4(qLinFuncMap[system], t, uNot, lyNot, xNminus);
-
+		//cout << bob << endl;
 		U = reshape(bob.bottomRows(zeros.size()), m, n*lt);
 		xNminus = bob.topRows(n);
 		
@@ -80,9 +86,9 @@ int main(int argc, char *argv[])
 		du =  A.inverse()*P;
 		uNot += du;
 		
-		if(du.norm() < 0.00001){
+		if(du.norm() < 0.0001){
 			break; 
-		}
+		}/**/
 	}
 	cout.precision(10);
 	cout << uNot << endl;
