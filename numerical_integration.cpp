@@ -36,7 +36,7 @@ mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&), const vec
 	return w;
 }
 
-mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&, const mat&, const int&), const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
+mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&, const mat&, const vec&), const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
 {
 	int N = time.size();
 	mpreal a = time(0);
@@ -57,10 +57,10 @@ mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&, const mat&
 
 	for (int i = 1; i<N; i++)
 	{
-		k1 = h*fhandle(time(i), w.col(i-1), u, xNminus, i);
-		k2 = h*fhandle(time(i) + h/2, w.col(i-1) + k1/2, u, xNminus, i);
-		k3 = h*fhandle(time(i) + h/2, w.col(i-1) + k2/2, u, xNminus, i);
-		k4 = h*fhandle(time(i) + h, w.col(i-1) + k3, u, xNminus, i);
+		k1 = h*fhandle(time(i), w.col(i-1), u, xNminus, time);
+		k2 = h*fhandle(time(i) + h/2, w.col(i-1) + k1/2, u, xNminus, time);
+		k3 = h*fhandle(time(i) + h/2, w.col(i-1) + k2/2, u, xNminus, time);
+		k4 = h*fhandle(time(i) + h, w.col(i-1) + k3, u, xNminus, time);
 	   
 		w.col(i) = w.col(i-1) + (k1 + 2*k2 + 2*k3 + k4)/6;
 	}

@@ -14,7 +14,7 @@ main.o: main.cpp
 	$(CC) $(CFLAGS)  main.cpp
 
 nonlinear_odes.o: nonlinear_odes.cpp
-	$(CC) $(CFLAGS) nonlinear_odes.cpp
+	$(CC) $(CFLAGS) -I /mnt/hgfs/thesis/src/ nonlinear_odes.cpp
 
 misc.o: misc.cpp
 	$(CC) $(CFLAGS) misc.cpp

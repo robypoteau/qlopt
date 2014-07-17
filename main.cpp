@@ -9,6 +9,7 @@
 #include "numerical_integration.h"
 #include "thesis_functions.h"
 
+
 using namespace std;
 using namespace mpfr;
 using namespace Eigen;
@@ -41,7 +42,7 @@ int main(int argc, char *argv[])
 	yNot << 1,1;
 	
 	vec uNot(3);
-	uNot << 3, 4, 2;
+	uNot << 1,2,1;
 	//end input
 	
 	int lt = t.size();  
@@ -66,33 +67,31 @@ int main(int argc, char *argv[])
 	vec P(m);
 	vec du(m);
 	system = system + "_linearization";
-	
-	vec knots(3);
-	knots << -1, 0, 3;
-	vec ctrls(3);
-	ctrls << .5, 0, 3;
-	
+
 	//Run the rest of the iterations
-	for(int i = 0; i<7; i++)
+	cout.precision(5);
+	for(int i = 0; i<1; i++)
 	{
 		bob = rungekutta4(qLinFuncMap[system], t, uNot, lyNot, xNminus);
-		//cout << bob << endl;
+
 		U = reshape(bob.bottomRows(zeros.size()), m, n*lt);
-		xNminus = bob.topRows(n);
+		cout << U << endl << endl;
+		
+		/*xNminus = bob.topRows(n);
 		
 		A = findA(t, U, m);
+		cout << A << endl << endl;
 		P = findP(t, U, reshape(msmt - xNminus, 1, n*lt).row(0), m);
-		
+		cout << P << endl << endl;
 		du =  A.inverse()*P;
+		cout << du << endl << endl;
 		uNot += du;
-		
+		cout << uNot << endl << endl;
 		if(du.norm() < 0.0001){
 			break; 
-		}/**/
+		}*/
 	}
-	cout.precision(10);
-	cout << uNot << endl;
-	//getchar();	
+	
 	return 0;
 }
 
@@ -110,3 +109,10 @@ mat reshape(const mat& U, int n, int m)
 	}
 	return newU;
 }
+
+
+/*#include "spline.h"
+vec line(4);
+	line << 0,1,2,3;
+	thesis::spline f(line, line.array().exp());
+	cout << f.interpolate(1) <<endl;*/
