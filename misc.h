@@ -3,6 +3,7 @@
 
 #include <mpreal.h>
 #include <Eigen/Dense>
+#include <unsupported/Eigen/MPRealSupport>
 #include <string>
 	
 using namespace mpfr;
@@ -11,22 +12,4 @@ using namespace std;
 	
 typedef Matrix<mpreal, Dynamic, 1> vec;
 typedef Matrix<mpreal, Dynamic, Dynamic> mat;
-	
-
-
-	/*struct solverInput{
-		string funcName;
-		vec time;
-		vec msmt;
-		vec uNot;
-		vec yNot;
-	} ;
-	
-	solverInput getAll();
-	string getFuncName();
-	vec getTimeInterval(mpreal a, mpreal b, int n);
-	vec getMsmt();
-	vec getInitParam();
-	vec getInitVal();*/
-
 #endif
