@@ -4,7 +4,7 @@ namespace thesis{
 	
 	nonlinearOdes::nonlinearOdes(){
 		odeFuncMap["lotka_volterra"] = nonlinearOdes::lotka_volterra;
-		//qLinFuncMap["lotka_volterra_linearization"] = nonlinearOdes::lotka_volterra_linearization;
+		qLinFuncMap["lotka_volterra_linearization"] = nonlinearOdes::lotka_volterra_linearization;
 		odeFuncMap["pielou"] = nonlinearOdes::pielou;
 		//qLinFuncMap["pielou_linearization"] = nonlinearOdes::pielou_linearization;
 		odeFuncMap["angiogenesis"] = nonlinearOdes::angiogenesis;
@@ -17,7 +17,7 @@ namespace thesis{
 		//qLinFuncMap["coral_linearization"] = nonlinearOdes::coral_linearization;
 		odeFuncMap["bistable_switch"] = nonlinearOdes::bistable_switch;
 		odeFuncMap["bistable_switch_two"] = nonlinearOdes::bistable_switch_two;
-		//qLinFuncMap["bistable_switch_linearization"] = nonlinearOdes::bistable_switch_linearization;
+		qLinFuncMap["bistable_switch_linearization"] = nonlinearOdes::bistable_switch_linearization;
 		odeFuncMap["eight_part"] = nonlinearOdes::eight_part;
 		odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
 		//qLinFuncMap["eight_part_linearization"] = nonlinearOdes::eight_part_linearization;
@@ -338,7 +338,7 @@ namespace thesis{
 	mat nonlinearOdes::bistable_switch_two(const mpreal& t, const vec& x, const vec& p)
 	{
 		mpreal alpha = p(0);
-		mpreal u     = 3.2;
+		mpreal u     = 1; //3.2;
 		mpreal n     = p(1);
 
 		mat result(2,1); 

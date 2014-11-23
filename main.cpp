@@ -22,6 +22,11 @@ using namespace thesis;
 mat reshape(const mat& U, int n, int m);
 void latexOutput(const mat& xn, const vec& u, int p, string buf);
 mpreal cond(const mat& A);
+bool isNegative(const vec& x);
+
+mpreal norm(const mat& M){
+	return M.norm();
+}
 
 int main(int argc, char *argv[])
 {
@@ -131,38 +136,35 @@ int main(int argc, char *argv[])
 		U = reshape(bob.bottomRows(zeros.size()/* n*m */), m, n*lt);
 		xNminus = bob.topRows(n);
 		
-		A = findA(t, U, m);
-		cout << "cond(A) = " << cond(A) << "\ndet(A) = " << A.determinant() << "\nrank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
-		cout << A << endl;
+		//cout << msmt << endl << endl; cout << xNminus << endl;
+		cout << "rel. err:\n" << norm(msmt - xNminus) << endl; //break;
 		
-		P = findP(t, U, reshape(msmt - xNminus, 1, n*lt).row(0), m);
-		//cout << P << endl;
-		cout << "deltau\n" << A.inverse()*P << endl;
+		A = findA(t, U, m); cout << "cond(A) = " << cond(A) << "\ndet(A) = " << A.determinant() << "\nrank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+		//cout << A << endl;
 		
-		if((reg && cond(A) > 1E+20) /*|| isnan(cond(A))*/){
-				gamma = 1E-24;
-				r.update(A, P);
-				//next 
-				last = xNminus;
-				do{
-					//last = next;
-					gamma *=.9;
-					du = r.regularization(gamma);
-					bob = qLinearRungeKutta4(no.odeFuncMap[system], t, uNot, lyNot, xNminus);
-					//cout << uNot+du << endl;
-					//bob = rungekutta4(no.qLinFuncMap[system + "_linearization"], t, du, lyNot, xNminus);
-					U = reshape(bob.bottomRows(zeros.size()), m, n*lt);
-					next = bob.topRows(n);
-					p0 = r.distanceMeasure(msmt, last);
-					p = r.distanceMeasure(msmt, next);
-					cout << p << ",";
-				}while((p0 < p));
-				cout << "gamma:\n" << gamma <<endl;
-				cout << "regu:\n" << du <<endl;
+		P = findP(t, U, reshape(msmt - xNminus, 1, n*lt).row(0), m); //cout << P << endl; //cout << "deltau\n" << A.inverse()*P << endl;
+		
+		if((reg)/* && cond(A) > 1E+20) || isnan(cond(A))*/){
+			du = A.fullPivHouseholderQr().solve(P);
+			
+			while(isNegative(uNot + du)){
+				du *= .5;
+			}
+			cout << "du*.5:\n" << du << endl;
+			
+			bob = qLinearRungeKutta4(no.odeFuncMap[system], t, uNot + du, lyNot, xNminus);
+			U = reshape(bob.bottomRows(zeros.size()/* n*m */), m, n*lt);
+			next = bob.topRows(n);
+			
+			while(norm(msmt - xNminus) > norm(msmt - next)){
+				bob = qLinearRungeKutta4(no.odeFuncMap[system], t, uNot + du, lyNot, xNminus);
+				U = reshape(bob.bottomRows(zeros.size()/* n*m */), m, n*lt);
+				next = bob.topRows(n);
+			}
 		}else{
-			//du = A.fullPivHouseholderQr().solve(P);  //A.lu().solve(P);
-			du = A.inverse()*P;
+			du = A.inverse()*P;			//du = A.fullPivHouseholderQr().solve(P);  //A.lu().solve(P);
 		}
+		cout <<"du:\n" << du << endl;
 		uNot += du;
 
 		latexOutput(xNminus, uNot, i+1, " & "); //cout << "n = " << i <<":\n" << xNminus << "\nParameter Estimates\n"<< uNot.transpose() << endl << endl;
@@ -222,6 +224,17 @@ void latexOutput(const mat& xn, const vec& u, int p, string buf){
 
 mpreal cond(const mat& A){
 	return A.norm()*A.inverse().norm();
+}
+
+bool isNegative(const vec& x){
+	bool value = false;
+	for(int i=0; i < x.size(); i++){
+		if(x(i) < 0){
+			value = true;
+			break;
+		}
+	}
+	return value;
 }
 
 /**/
