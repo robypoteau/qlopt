@@ -66,14 +66,13 @@ mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&, const mat&
 mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
 {
 	int N = time.size();
-	mpreal a = time(0);
-	mpreal b = time(N-1);
+	int n = xNminus.col(1).size();
 	
 	//number of equations
 	int m = yNot.size();
 	
 	//timesteps
-	mpreal h = (b-a)/(N-1);
+	mpreal h = (time(N-1) - time(0))/(N-1);
 	
 	//Init stuff
 	mat w(m, N);
@@ -82,14 +81,19 @@ mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const 
 	
 	vec k1(m), k2(m), k3(m), k4(m);
 
+	thesis::spline Xn[n];
+	for(int i = 0; i < n; i++){
+		Xn[i].update(time, xNminus.row(i));
+	}
+	
 	for (int i = 1; i<N; i++)
 	{
-		k1 = h*qlinear(sys, time(i), w.col(i-1), u, xNminus, time);
-		k2 = h*qlinear(sys, time(i) + h/2, w.col(i-1) + k1/2, u, xNminus, time);
-		k3 = h*qlinear(sys, time(i) + h/2, w.col(i-1) + k2/2, u, xNminus, time);
-		k4 = h*qlinear(sys, time(i) + h, w.col(i-1) + k3, u, xNminus, time);
+		k1 = h*qlinear(sys, time(i), w.col(i-1), u, Xn, n);
+		k2 = h*qlinear(sys, time(i) + h/2, w.col(i-1) + k1/2, u, Xn, n);
+		k3 = h*qlinear(sys, time(i) + h/2, w.col(i-1) + k2/2, u, Xn, n);
+		k4 = h*qlinear(sys, time(i) + h, w.col(i-1) + k3, u, Xn, n);
 	   
-		w.col(i) = w.col(i-1) + (k1 + 2*k2 + 2*k3 + k4)/6;
+		w.col(i) = w.col(i-1) + (k1 + 2*(k2 + k3) + k4)/6;
 	}
 	
 	return w;
@@ -128,21 +132,18 @@ mat der(const mat& dx, const mpreal& dt){
 	return ans;
 }
 
-mat qlinear(mat (*sys)(const mpreal&, const vec&, const vec&), const mpreal& t, const vec& x, const vec& u, const mat& xn, const vec& time)
+mat qlinear(mat (*sys)(const mpreal&, const vec&, const vec&), const mpreal& t, const vec& x, const vec& u, thesis::spline* Xn, int n)
 {
 	int m = u.size();
-	int n = xn.col(1).size();
 	mpreal step = 2.2E-16;
 	
 	vec xn1(n); // this is x_N-1
 	vec dxn(n);
 	
-	thesis::spline Xn;
 	for(int i=0; i<n; i++)
 	{
-		Xn.update(time, xn.row(i));
-		xn1(i) = Xn.interpolate(t);
-		dxn(i) = x(i) - xn1(i);
+		xn1(i) = Xn[i].interpolate(t);
+		dxn(i) = x(i) - xn1(i); // x_N - x_{N-1}
 	}
 	
 	mat dx(n,n);// for x derivative

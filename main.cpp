@@ -12,7 +12,7 @@
 #include "numerical_integration.h"
 #include "thesis_functions.h"
 #include "input.h"
-#include "regs.h"
+//#include "regs.h"
 
 using namespace std;
 using namespace mpfr;
@@ -119,7 +119,7 @@ int main(int argc, char *argv[])
 		cout << "$u_{" << k+1 << "}$ & " << endl;
 	}
 	
-	regs r;
+	//regs r;
 	mat next(n, lt);
 	mat last(n, lt);
 	mpreal gamma;
