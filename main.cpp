@@ -136,7 +136,7 @@ int main(int argc, char *argv[])
 		U = reshape(bob.bottomRows(zeros.size()/* n*m */), m, n*lt);
 		xNminus = bob.topRows(n);
 		
-		//cout << msmt << endl << endl; cout << xNminus << endl;
+		cout << msmt << endl << endl; cout << xNminus << endl << endl;	
 		cout << "rel. err:\n" << norm(msmt - xNminus) << endl; //break;
 		
 		A = findA(t, U, m); cout << "cond(A) = " << cond(A) << "\ndet(A) = " << A.determinant() << "\nrank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
