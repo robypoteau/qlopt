@@ -92,16 +92,9 @@ namespace thesis{
 
 	inline mpreal spline::interpolate(mpreal ti){
 		int i = 0;
-
-		/*try{
-			i = spline::indexOf(temp, spline::min(temp));
-		}
-		catch(char* str){
-			cout << str << endl;
-		}*/
 		
-		for(int j=1; j<n-1 ; j++){
-			if(x(j) < ti){
+		for(int j=1; j<n-1 ; j++){ // turn into a function
+			if(x(j) <= ti){
 				i = j;
 				break;
 			}
@@ -110,27 +103,5 @@ namespace thesis{
 		mpreal diff = ti - x(i);
 		return y(i) + diff*(b(i) + c(i)*diff + d(i)*diff*diff);
 	}
-	
-	/*inline mpreal spline::min(vec t){
-		mpreal min = t(0);
-		for(int i = 1; i<t.size(); i++){
-			if(t(i) < t(i-1)){
-				min = t(i);
-			}
-		}
-		
-		return min;
-	}
-
-	// for strictly increasing or decreasing values
-	inline int spline::indexOf(vec t, mpreal ti){
-		for(int i = 0; i<t.size(); i++){
-			if(t(i) == ti){
-				return i;
-			}
-		}
-		//return -1
-		throw "number is not an element of the vector";
-	}*/
 }
 #endif
