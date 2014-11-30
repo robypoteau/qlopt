@@ -7,8 +7,8 @@ CFLAGS=-c -Wall -g -lmpfr -lgmp
 
 all: prog
 
-prog: main.o thesis_functions.o numerical_integration.o nonlinear_odes.o
-	$(CC) -g main.o thesis_functions.o numerical_integration.o nonlinear_odes.o -lmpfr -lgmp -o prog
+prog: main.o thesis_functions.o numerical_integration.o nonlinear_odes.o spline.o
+	$(CC) -g main.o thesis_functions.o numerical_integration.o nonlinear_odes.o spline.o -lmpfr -lgmp -o prog
 	
 main.o: main.cpp
 	$(CC) $(CFLAGS) main.cpp
@@ -22,5 +22,8 @@ numerical_integration.o: numerical_integration.cpp
 nonlinear_odes.o: nonlinear_odes.cpp
 	$(CC) $(CFLAGS) nonlinear_odes.cpp
 
+spline.o: spline.cpp
+	$(CC) $(CFLAGS) spline.cpp
+	
 clean:
 	rm -rf *o prog

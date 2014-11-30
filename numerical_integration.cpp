@@ -1,5 +1,6 @@
 #include "numerical_integration.h"
 #include "spline.h"
+#include <iostream>
 
 mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&), const vec& time, const vec& u, const vec& yNot){
 	int N = time.size() - 1;
@@ -80,7 +81,7 @@ mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const 
 	w.col(0) = yNot;
 	
 	vec k1(m), k2(m), k3(m), k4(m);
-
+	
 	thesis::spline Xn[n];
 	for(int i = 0; i < n; i++){
 		Xn[i].update(time, xNminus.row(i));

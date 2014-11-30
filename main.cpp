@@ -77,7 +77,8 @@ int main(int argc, char *argv[])
 		for(int j = 0; j<lt; j++){
 			msmt(i,j) = msmtRow[i].interpolate(t(j));
 		}
-	}	
+	}
+	
 	//refactor into a function		
 	vec zeros(n*m); 
 	zeros.fill(0);
@@ -87,7 +88,7 @@ int main(int argc, char *argv[])
 
 	mat xNminus(n, lt);
 	xNminus << msmt; 
-	
+
 	mat bob(lyNot.size(), lt);
 	mat U(zeros.size()/* n*m */, n*lt);
 	mat A(m,m);
