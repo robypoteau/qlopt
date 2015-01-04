@@ -1,4 +1,5 @@
 #include "nonlinear_odes.h"
+#include <complex>
 
 namespace thesis{
 	
@@ -11,6 +12,7 @@ namespace thesis{
 		odeFuncMap["cancer"] = nonlinearOdes::cancer;
 		//qLinFuncMap["angiogenesis_linearization"] = nonlinearOdes::angiogenesis_linearization;
 		odeFuncMap["coral"] = nonlinearOdes::coral;
+		odeFuncMap["coral5"] = nonlinearOdes::coral5;
 		odeFuncMap["coral_pw"] = nonlinearOdes::coral_pw;
 		odeFuncMap["coral_two"] = nonlinearOdes::coral_two;
 		odeFuncMap["coral_four"] = nonlinearOdes::coral_four;
@@ -21,6 +23,7 @@ namespace thesis{
 		odeFuncMap["eight_part"] = nonlinearOdes::eight_part;
 		odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
 		//qLinFuncMap["eight_part_linearization"] = nonlinearOdes::eight_part_linearization;
+		odeFuncMap["jak_stat"] = nonlinearOdes::jak_stat;
 	}
 	
 	mat nonlinearOdes::lotka_volterra(const mpreal& t, const vec& x, const vec& u)
@@ -97,7 +100,7 @@ namespace thesis{
 	mat nonlinearOdes::angiogenesis(const mpreal& t, const vec& x, const vec& u)
 	{
 		mpreal m = u(0); // m>0
-		mpreal n = u(1); // n = .25, = 1 
+		mpreal n = 1; //u(1); // n = .25, = 1 
 		mpreal a = u(2); // a>=0
 		mpreal c = u(3); // c(t) = c = 0 => no treatment, c = const implies fixed treatment
 		mpreal w = u(4); // w>=0
@@ -121,7 +124,7 @@ namespace thesis{
 	
 		mat result(2,1); 
 		result(0) = -a*c*x(1) + f;
-		result(1) = -a*c*x(1) + w*x(0) - g*pow(x(0),2/3)*x(1);
+		result(1) = -a*c*x(1) + w*x(0) - g*pow(x(0)*x(0),1/3)*x(1);
 		
 		return result;
 	}
@@ -184,6 +187,30 @@ namespace thesis{
 		mpreal p = u(3); 
 		mpreal k2 = u(4);
 		mpreal k3 = u(5);
+
+		//Pre-set parameter
+		mpreal a2 = 1.5;
+		mpreal b2 = .0013;
+		mpreal N = 1750;
+		mpreal I0 = 2000;
+		mpreal pi = const_pi();
+		
+		mat result(2,1); 
+		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
+		result(1) = k2*x(2-1)+ k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
+		
+		return result;
+	}
+	
+	mat nonlinearOdes::coral5(const mpreal& t, const vec& x, const vec& u)
+	{
+		//input
+		mpreal m = u(0);
+		mpreal r = u(1);
+		mpreal k1 = u(2);
+		mpreal p = u(0); 
+		mpreal k2 = u(3);
+		mpreal k3 = u(4);
 
 		//Pre-set parameter
 		mpreal a2 = 1.5;
@@ -338,7 +365,7 @@ namespace thesis{
 	mat nonlinearOdes::bistable_switch_two(const mpreal& t, const vec& x, const vec& p)
 	{
 		mpreal alpha = p(0);
-		mpreal u     = 1; //3.2;
+		mpreal u     = 1;//3.2;
 		mpreal n     = p(1);
 
 		mat result(2,1); 
@@ -360,9 +387,25 @@ namespace thesis{
 		mpreal A = Xn.interpolate(t);
 		mpreal B = Yn.interpolate(t);
 		
-		mpreal g = 1 + pow(u*B,n);
-		mpreal d = 1 + pow(A,n);
+		mpreal g;
+		mpreal d;
 		
+		if(u*B < 0){
+			complex<mpreal> G = u*B;
+			G = pow(G,n);
+			g = 1. + G.real();
+		}
+		else{
+			g = 1 + pow(u*B,n);
+		}
+		if(A < 0){
+			complex<mpreal> D = A;
+			D = pow(D,n);
+			d = 1. + D.real();
+		}
+		else{
+			d = 1 + pow(A,n);
+		}	
 		mat result(8,1);
 		result << -x(1-1) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*x(2-1) + alpha*n*pow(u*B,n)/pow(g,2) + alpha/g,
 			-alpha*n*pow(A,n-1)*x(1-1)/pow(d,2) - x(2-1) + alpha*n*pow(A,n)/pow(d,2) + alpha/d,
@@ -380,8 +423,8 @@ namespace thesis{
 	}
 	mat nonlinearOdes::eight_part(const mpreal& t, const vec& x, const vec& pp)
 	{
-		mpreal P = 1;
-		mpreal S = .1;
+		mpreal P = .05;
+		mpreal S = 10;
 		
 		vec p(36);
 		if(pp.size() < 36){
@@ -784,4 +827,14 @@ namespace thesis{
 		
 		return result;
 	}*/
+	
+	mat nonlinearOdes::jak_stat(const mpreal& t, const vec& x, const vec& pp)
+	{
+		mpreal k1 = 0;
+		
+		mat result(4,1); 
+		result << 1,1,1,1;
+				
+		return result;
+	}
 }

@@ -53,6 +53,13 @@ namespace thesis{
 			void printD(){
 				cout << d.transpose() << endl;
 			}
+			
+			void printAll(){
+				printA();
+				printB();
+				printC();
+				printD();
+			}
 	};
 }
 #endif

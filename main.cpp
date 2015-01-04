@@ -4,8 +4,7 @@
 #include <math.h>
 
 #include <Eigen/LU>
-#include <Eigen/QR>
-#include <unsupported/Eigen/MPRealSupport>
+//#include <Eigen/QR>
 
 #include "misc.h"
 #include "nonlinear_odes.h"
@@ -28,6 +27,19 @@ mpreal norm(const mat& M){
 	return M.norm();
 }
 
+mat inverse(const mat& M){
+	return M.inverse();
+}
+
+
+mat normalize(const mat& M){
+	 mat oM = M;
+	for(int i = 0; i<M.rows(); i++){
+		oM.row(i) = M.row(i)/M.row(i).norm();
+	}
+	return oM;
+}
+
 int main(int argc, char *argv[])
 {
 	time_t begin;
@@ -41,12 +53,13 @@ int main(int argc, char *argv[])
 	
 	//Gather input from the console
 	bool reg = in.isRegularized();
-	
+	bool normal = in.isNormalized();
 	string system = in.getSystem();
 
 	vec times; 
 	times = in.getTimeData();
-
+	//vec times(15);
+	//times << 0, 2, 4, 6, 8, 10, 12, 14, 16, 18, 20, 22, 24, 26, 28;
 	vec u;
 	u = in.getU();
 	
@@ -58,6 +71,7 @@ int main(int argc, char *argv[])
 	
 	vec t;
 	t = in.getInterval();
+
 	//End input
 	
 	int lt = t.size();  
@@ -66,6 +80,11 @@ int main(int argc, char *argv[])
 	
 	mat measure;
 	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
+	//mat measure(2,15);
+	//measure << 20, 55, 65, 95, 55, 5, 15, 50, 75, 20, 25, 50, 70, 30, 15, 10, 15, 55, 60, 20, 15, 10, 60, 60, 10, 5, 25, 40, 25, 5;
+	
+	if(normal == true)
+		measure = normalize(measure);
 	
 	spline msmtRow[n];
 	for(int i=0; i<n; i++){
@@ -78,20 +97,26 @@ int main(int argc, char *argv[])
 			msmt(i,j) = msmtRow[i].interpolate(t(j));
 		}
 	}
-	
+
 	//refactor into a function		
 	vec zeros(n*m); 
 	zeros.fill(0);
 	vec lyNot((m+1)*n);
-	//lyNot << msmt(0,0), msmt(0,1), zeros;// update where yNot gets its values
-	lyNot << yNot, zeros;// update where yNot gets its values
-
+	lyNot << msmt.col(0), zeros;// update where yNot gets its values
+	//lyNot << yNot, zeros;// update where yNot gets its values
+	//cout << "Ly_0 = " << lyNot << endl;
+	
 	mat xNminus(n, lt);
 	xNminus << msmt; 
 
 	mat bob(lyNot.size(), lt);
 	mat U(zeros.size()/* n*m */, n*lt);
 	mat A(m,m);
+	mat I = mat::Identity(m, m);
+	mat B = I;
+	for(int i=0; i<m-1; i++){
+		B(i+1,i) = -1;
+	}
 	vec P(m);
 	vec du(m);
 	
@@ -123,11 +148,12 @@ int main(int argc, char *argv[])
 	//regs r;
 	mat next(n, lt);
 	mat last(n, lt);
-	mpreal gamma;
-	mpreal p, p0;
+	mpreal gamma = 1.0;
+	vec old_du;
 	
 	//Run the rest of the iterations
-
+	latexOutput(xNminus, uNot, 0, " & "); 
+	
 	for(int i = 0; i<170; i++)
 	{
 		bob = qLinearRungeKutta4(no.odeFuncMap[system], t, uNot, lyNot, xNminus);
@@ -137,43 +163,45 @@ int main(int argc, char *argv[])
 		U = reshape(bob.bottomRows(zeros.size()/* n*m */), m, n*lt);
 		xNminus = bob.topRows(n);
 		
-		cout << measure << endl << endl; cout << msmt << endl << endl; cout << xNminus << endl << endl;	
-		cout << "rel. err:\n" << norm(msmt - xNminus) << endl; //break;
+		//cout << measure << endl << endl; cout << msmt << endl << endl; cout << xNminus << endl << endl;	
+		//cout << "rel. err:\n" << norm(msmt - xNminus) << endl; //break;
 		
 		A = findA(t, U, m); cout << "cond(A) = " << cond(A) << "\ndet(A) = " << A.determinant() << "\nrank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 		//cout << A << endl;
 		
 		P = findP(t, U, reshape(msmt - xNminus, 1, n*lt).row(0), m); //cout << P << endl; //cout << "deltau\n" << A.inverse()*P << endl;
 		
-		if((reg)/* && cond(A) > 1E+20) || isnan(cond(A))*/){
-			du = A.fullPivHouseholderQr().solve(P);
-			
-			while(isNegative(uNot + du)){
-				du *= .5;
-			}
-			cout << "du*.5:\n" << du << endl;
-			
-			bob = qLinearRungeKutta4(no.odeFuncMap[system], t, uNot + du, lyNot, xNminus);
-			U = reshape(bob.bottomRows(zeros.size()/* n*m */), m, n*lt);
-			next = bob.topRows(n);
-			
-			while(norm(msmt - xNminus) > norm(msmt - next)){
-				bob = qLinearRungeKutta4(no.odeFuncMap[system], t, uNot + du, lyNot, xNminus);
-				U = reshape(bob.bottomRows(zeros.size()/* n*m */), m, n*lt);
-				next = bob.topRows(n);
-			}
+		if((reg) /*&& cond(A) > 1E+6) || isnan(cond(A))*/){
+			// The simple solution
+			old_du = du;
+			do{
+				gamma *= .5;
+				du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
+				//du = inverse(A.transpose()*A + gamma*gamma*I)*(A.transpose()*P + gamma*gamma*I*old_du);
+			}while(norm(A*du-P) > 0.1);
 		}else{
 			du = A.inverse()*P;			//du = A.fullPivHouseholderQr().solve(P);  //A.lu().solve(P);
 		}
 		cout <<"du:\n" << du << endl;
-		uNot += du;
-
-		latexOutput(xNminus, uNot, i+1, " & "); //cout << "n = " << i <<":\n" << xNminus << "\nParameter Estimates\n"<< uNot.transpose() << endl << endl;
-		du(0) = du.norm();
 		
-		if(du(0) < 0.00001 || isnan(du(0)) ){
+		//while(isNegative(uNot + du))
+		//	du = du*.1;
+		
+		uNot += du;
+		
+		latexOutput(xNminus, uNot, i+1, " & "); //cout << "n = " << i <<":\n" << xNminus << "\nParameter Estimates\n"<< uNot.transpose() << endl << endl;
+		
+		
+		du(0) = norm(msmt - xNminus);
+		if( du(0) < 0.0001 || isnan(du(0)) ){
 			break;
 		}
+		
+		/*
+		du(0) = du.norm();
+		if(du(0) < 0.00000001 || isnan(du(0)) ){
+			break;
+		}*/
 	}
 	latexOutput(msmt, u, -1, " \\\\ ");
 	
@@ -237,5 +265,3 @@ bool isNegative(const vec& x){
 	}
 	return value;
 }
-
-/**/

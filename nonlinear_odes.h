@@ -25,6 +25,7 @@ namespace thesis{
 		static mat angiogenesis_linearization(const mpreal& t, const vec& x, const vec& u, const mat& xn, const vec& time);
 		static mat cancer(const mpreal& t, const vec& x, const vec& u);
 		static mat coral(const mpreal& t, const vec& x, const vec& u);
+		static mat coral5(const mpreal& t, const vec& x, const vec& u);
 		static mat coral_pw(const mpreal& t, const vec& x, const vec& u);
 		static mat coral_two(const mpreal& t, const vec& x, const vec& u);
 		static mat coral_four(const mpreal& t, const vec& x, const vec& u);
@@ -35,6 +36,7 @@ namespace thesis{
 		static mat eight_part(const mpreal& t, const vec& x, const vec& u);
 		static mat eight_part_spc(const mpreal& t, const vec& x, const vec& u);
 		static mat eight_part_linearization(const mpreal& t, const vec& x, const vec& u, const mat& xn, const vec& time);
+		static mat jak_stat(const mpreal& t, const vec& x, const vec& u);
 	};
 }
 #endif

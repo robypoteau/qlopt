@@ -93,7 +93,7 @@ mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const 
 		k2 = h*qlinear(sys, time(i) + h/2, w.col(i-1) + k1/2, u, Xn, n);
 		k3 = h*qlinear(sys, time(i) + h/2, w.col(i-1) + k2/2, u, Xn, n);
 		k4 = h*qlinear(sys, time(i) + h, w.col(i-1) + k3, u, Xn, n);
-	   
+		//cout <<"(" << i <<")\nk1"<< k1 << "\nk2:" << k2 << "\nk3:" << k3 << "\nk4:" << k4 <<endl;
 		w.col(i) = w.col(i-1) + (k1 + 2*(k2 + k3) + k4)/6;
 	}
 	
