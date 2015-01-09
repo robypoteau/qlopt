@@ -22,6 +22,7 @@ mat reshape(const mat& U, int n, int m);
 void latexOutput(const mat& xn, const vec& u, int p, string buf);
 mpreal cond(const mat& A);
 bool isNegative(const vec& x);
+bool isLessThanOne(const vec& x);
 
 mpreal norm(const mat& M){
 	return M.norm();
@@ -170,38 +171,43 @@ int main(int argc, char *argv[])
 		//cout << A << endl;
 		
 		P = findP(t, U, reshape(msmt - xNminus, 1, n*lt).row(0), m); //cout << P << endl; //cout << "deltau\n" << A.inverse()*P << endl;
-		
+		old_du = du;
 		if((reg) /*&& cond(A) > 1E+6) || isnan(cond(A))*/){
 			// The simple solution
-			old_du = du;
 			do{
 				gamma *= .5;
 				du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
-				//du = inverse(A.transpose()*A + gamma*gamma*I)*(A.transpose()*P + gamma*gamma*I*old_du);
 			}while(norm(A*du-P) > 0.1);
 		}else{
 			du = A.inverse()*P;			//du = A.fullPivHouseholderQr().solve(P);  //A.lu().solve(P);
 		}
 		cout <<"du:\n" << du << endl;
 		
-		//while(isNegative(uNot + du))
-		//	du = du*.1;
+		while(isNegative(uNot + du))
+			du *= .5;
+		
+		//while(isLessThanOne(uNot + du))
+		//	du *= .5;
+		
+		cout <<"nn_du:\n" << du << endl;
 		
 		uNot += du;
 		
 		latexOutput(xNminus, uNot, i+1, " & "); //cout << "n = " << i <<":\n" << xNminus << "\nParameter Estimates\n"<< uNot.transpose() << endl << endl;
 		
 		
-		du(0) = norm(msmt - xNminus);
-		if( du(0) < 0.0001 || isnan(du(0)) ){
-			break;
+		if(false){
+			du(0) = norm(msmt - xNminus);
+			if( du(0) < 0.0001 || isnan(du(0)) ){
+				break;
+			}
 		}
-		
-		/*
-		du(0) = du.norm();
-		if(du(0) < 0.00000001 || isnan(du(0)) ){
-			break;
-		}*/
+		else{		
+			du(0) = du.norm();
+			if(du(0) < 0.00001 || isnan(du(0)) ){
+				break;
+			}
+		}
 	}
 	latexOutput(msmt, u, -1, " \\\\ ");
 	
@@ -263,5 +269,19 @@ bool isNegative(const vec& x){
 			break;
 		}
 	}
+	return value;
+}
+
+bool isLessThanOne(const vec& x){
+	bool value = false;
+	for(int i=0; i < x.size()-1; i++){
+		if(x(i) < 0){
+			value = true;
+			break;
+		}
+	}
+	if(x(x.size()-1) < 1)
+			value = true;
+			
 	return value;
 }

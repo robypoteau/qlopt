@@ -258,17 +258,17 @@ namespace thesis{
 	{
 		//input
 		mpreal m = u(0);
-		mpreal r = 0.00125; //u(1);
-		mpreal k1 = 0.000001;// u(2);
-		mpreal p = u(1);//u(3); 
-		mpreal k2 = 0.015;//u(4);
-		mpreal k3 = .0025;//u(5);
+		mpreal r = u(1); // 0.00125; //u(1);
+		mpreal k1 = u(2); // 0.000001;// u(2);
+		mpreal p = u(3); //u(3); 
+		mpreal k2 = u(4); // 0.015;//u(4);
+		mpreal k3 = u(5); // .0025;//u(5);
 
 		//Pre-set parameter
-		mpreal a2 = 1.5;
-		mpreal b2 = .0013;
-		mpreal N = 1750;
-		mpreal I0 = 2000;
+		mpreal a2 = u(6); // 1.5;
+		mpreal b2 = u(7); //.0013;
+		mpreal N = u(8); // 1750;
+		mpreal I0 = u(9); //2000;
 		mpreal pi = const_pi();
 		
 		mat result(2,1); 
@@ -276,7 +276,7 @@ namespace thesis{
 		result(1) = k2*x(2-1);
 		
 		mpreal modulus = mod(t,24);//= t/24 - floor(t/24);
-		if(modulus >= 0 && modulus < 12){
+		if(modulus >= 0 && modulus < 13){
 			result(1) += k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
 		}
 		return result;
@@ -455,13 +455,21 @@ namespace thesis{
 		
 		vec p(36);
 		p << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
-		for(int i=0; i<pp.size(); i++){
-			if(i<8){
-				p(i) = pp(i);
-			}else{
-				p(i+1) = pp(i);
-			}
+		
+		p(0) = pp(0);
+		p(5) = pp(1);
+		p(7) = pp(2);
+		p(10) = pp(3);
+		p(11) = pp(4);
+		p(12) = pp(5);
+		for(int i=16; i<27; i++){
+			p(i) = pp(i-10);
 		}
+		p(27) = pp(17);
+		for(int i=30; i<34; i++){
+			p(i) = pp(i-12);
+		}
+		p(34) = pp(22);
 		
 		mat result(8,1); 
 		result << p(1-1)/(1 + pow(P/p(2-1), p(3-1))   + pow(p(4-1)/S      , p(5-1)))  - p(6-1)*x(1-1),
