@@ -1,7 +1,6 @@
 #ifndef SPLINE_H
 #define SPLINE_H
 
-#include <unsupported/Eigen/MPRealSupport>
 #include "misc.h"
 #include <iostream>
 
@@ -34,7 +33,7 @@ namespace thesis{
 				this->y = y;
 			}
 			
-			void printX(){
+			/*void printX(){
 				cout << x.transpose() << endl;
 			}
 			
@@ -59,7 +58,7 @@ namespace thesis{
 				printB();
 				printC();
 				printD();
-			}
+			}*/
 	};
 }
 #endif

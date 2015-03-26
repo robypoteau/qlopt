@@ -4,17 +4,14 @@
 #include <math.h>
 
 #include <Eigen/LU>
-//#include <Eigen/QR>
 
 #include "misc.h"
 #include "nonlinear_odes.h"
 #include "numerical_integration.h"
 #include "thesis_functions.h"
 #include "input.h"
-//#include "regs.h"
 
 using namespace std;
-using namespace mpfr;
 using namespace Eigen;
 using namespace thesis;
 
@@ -121,7 +118,7 @@ int main(int argc, char *argv[])
 	vec P(m);
 	vec du(m);
 	
-	cout.precision(5);
+	cout.precision(7);
 	
 	int interval = (int)(lt/10+.5);
 	if(interval == 0){
@@ -158,24 +155,24 @@ int main(int argc, char *argv[])
 	for(int i = 0; i<170; i++)
 	{
 		bob = qLinearRungeKutta4(no.odeFuncMap[system], t, uNot, lyNot, xNminus);
-		//bob = rungekutta4(no.qLinFuncMap[system + "_linearization"], t, uNot, lyNot, xNminus); 
-		//cout << bob << endl << endl;
+			//bob = rungekutta4(no.qLinFuncMap[system + "_linearization"], t, uNot, lyNot, xNminus); 
+			//cout << bob << endl << endl;
 		
 		U = reshape(bob.bottomRows(zeros.size()/* n*m */), m, n*lt);
 		xNminus = bob.topRows(n);
 		
-		//cout << measure << endl << endl; cout << msmt << endl << endl; cout << xNminus << endl << endl;	
-		//cout << "rel. err:\n" << norm(msmt - xNminus) << endl; //break;
+			//cout << measure << endl << endl; cout << msmt << endl << endl; cout << xNminus << endl << endl;	
+			//cout << "rel. err:\n" << norm(msmt - xNminus) << endl; //break;
 		
 		A = findA(t, U, m); cout << "cond(A) = " << cond(A) << "\ndet(A) = " << A.determinant() << "\nrank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
-		//cout << A << endl;
+			//cout << A << endl;
 		
 		P = findP(t, U, reshape(msmt - xNminus, 1, n*lt).row(0), m); //cout << P << endl; //cout << "deltau\n" << A.inverse()*P << endl;
 		old_du = du;
 		if((reg) /*&& cond(A) > 1E+6) || isnan(cond(A))*/){
 			// The simple solution
 			do{
-				gamma *= .5;
+				gamma *= .75;
 				du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
 			}while(norm(A*du-P) > 0.1);
 		}else{
@@ -183,13 +180,13 @@ int main(int argc, char *argv[])
 		}
 		cout <<"du:\n" << du << endl;
 		
-		while(isNegative(uNot + du))
-			du *= .5;
+		//while(isNegative(uNot + du))
+		//	du *= .5;
 		
 		//while(isLessThanOne(uNot + du))
 		//	du *= .5;
 		
-		cout <<"nn_du:\n" << du << endl;
+		//cout <<"nn_du:\n" << du << endl;
 		
 		uNot += du;
 		
@@ -275,7 +272,7 @@ bool isNegative(const vec& x){
 bool isLessThanOne(const vec& x){
 	bool value = false;
 	for(int i=0; i < x.size()-1; i++){
-		if(x(i) < 0){
+		if(x(i) < .9){
 			value = true;
 			break;
 		}

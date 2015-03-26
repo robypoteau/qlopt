@@ -37,6 +37,7 @@ namespace thesis{
 		static mat eight_part_spc(const mpreal& t, const vec& x, const vec& u);
 		static mat eight_part_linearization(const mpreal& t, const vec& x, const vec& u, const mat& xn, const vec& time);
 		static mat jak_stat(const mpreal& t, const vec& x, const vec& u);
+		static mat gen_switch(const mpreal& t, const vec& x, const vec& u);
 	};
 }
 #endif

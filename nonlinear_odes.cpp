@@ -24,6 +24,7 @@ namespace thesis{
 		odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
 		//qLinFuncMap["eight_part_linearization"] = nonlinearOdes::eight_part_linearization;
 		odeFuncMap["jak_stat"] = nonlinearOdes::jak_stat;
+		odeFuncMap["gen_switch"] = nonlinearOdes::gen_switch;
 	}
 	
 	mat nonlinearOdes::lotka_volterra(const mpreal& t, const vec& x, const vec& u)
@@ -193,7 +194,7 @@ namespace thesis{
 		mpreal b2 = .0013;
 		mpreal N = 1750;
 		mpreal I0 = 2000;
-		mpreal pi = const_pi();
+		mpreal pi = atan(1)*4;
 		
 		mat result(2,1); 
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
@@ -208,7 +209,7 @@ namespace thesis{
 		mpreal m = u(0);
 		mpreal r = u(1);
 		mpreal k1 = u(2);
-		mpreal p = u(0); 
+		//mpreal p = u(0); 
 		mpreal k2 = u(3);
 		mpreal k3 = u(4);
 
@@ -217,10 +218,10 @@ namespace thesis{
 		mpreal b2 = .0013;
 		mpreal N = 1750;
 		mpreal I0 = 2000;
-		mpreal pi = const_pi();
+		mpreal pi = atan(1)*4;
 		
 		mat result(2,1); 
-		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
+		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1);// - p*x(1-1);
 		result(1) = k2*x(2-1)+ k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
 		
 		return result;
@@ -241,7 +242,7 @@ namespace thesis{
 		mpreal b2 = .0013;
 		mpreal N = 1750;
 		mpreal I0 = 2000;
-		mpreal pi = const_pi();
+		mpreal pi = atan(1)*4;
 		
 		mat result(2,1); 
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
@@ -269,7 +270,7 @@ namespace thesis{
 		mpreal b2 = u(7); //.0013;
 		mpreal N = u(8); // 1750;
 		mpreal I0 = u(9); //2000;
-		mpreal pi = const_pi();
+		mpreal pi = atan(1)*4;
 		
 		mat result(2,1); 
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
@@ -297,7 +298,7 @@ namespace thesis{
 		mpreal b2 = .0013;
 		mpreal N = 1750;
 		mpreal I0 = 2000;
-		mpreal pi = const_pi();
+		mpreal pi = atan(1)*4;
 		
 		mat result(2,1); 
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
@@ -328,7 +329,7 @@ namespace thesis{
 		mpreal x1 = Xn.interpolate(t);
 		mpreal x2 = Yn.interpolate(t);
 		
-		mpreal pi = const_pi();
+		mpreal pi = atan(1)*4;
 		
 		mat result(14,1);
 		result <<
@@ -836,12 +837,37 @@ namespace thesis{
 		return result;
 	}*/
 	
-	mat nonlinearOdes::jak_stat(const mpreal& t, const vec& x, const vec& pp)
+	mat nonlinearOdes::jak_stat(const mpreal& t, const vec& x, const vec& u)
 	{
 		mpreal k1 = 0;
 		
 		mat result(4,1); 
 		result << 1,1,1,1;
+				
+		return result;
+	}
+	
+	mat nonlinearOdes::gen_switch(const mpreal& t, const vec& x, const vec& u)
+	{
+		mpreal kL1 = u(0);
+		mpreal kL2 = u(1);
+		mpreal KT = u(2);
+		mpreal nT = u(3);
+		mpreal dL1 = u(4);
+		mpreal dL2 = u(5);
+		
+		mpreal kT1 = u(6);
+		mpreal kT2 = u(7);
+		mpreal KL = u(8);
+		mpreal nL = u(9);
+		mpreal dT1 = u(10);
+		mpreal dT2 = u(11);
+		
+		mat result(4,1); 
+		result << 	kL1*pow(KT,nT)/(pow(KT,nT) + pow(x(3),nT)) - dL1*x(0),
+					kL2*x(0) - dL2*x(1),
+					kT1*pow(KL,nL)/(pow(KL,nL) + pow(x(1),nL)) - dT1*x(2),
+					kT2*x(2) - dT2*x(3);
 				
 		return result;
 	}

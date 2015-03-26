@@ -1,11 +1,10 @@
 #ifndef NUMERICAL_INTEGRATION_H
 #define NUMERICAL_INTEGRATION_H
 
-#include <unsupported/Eigen/MPRealSupport>
 #include "misc.h"
 #include "spline.h"
 	
-using namespace mpfr;
+//using namespace mpfr;
 using namespace Eigen;
 using namespace std;
 

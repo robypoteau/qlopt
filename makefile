@@ -3,7 +3,7 @@
 CC=g++
 # Hey!, I am comment number 2. I want to say that CFLAGS will be the
 # options I'll pass to the compiler.
-CFLAGS=-c -Wall -g -lmpfr -lgmp
+CFLAGS=-c -Wall -g -lmpfr -lgmp -lgsl
 
 all: prog
 
