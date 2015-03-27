@@ -4,47 +4,12 @@
 
 mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&), const vec& time, const vec& u, const vec& yNot){
 	int N = time.size();
-	mpreal a = time(0);
-	mpreal b = time(N-1);
 	
 	//number of equations
 	int m = yNot.size();
 	
 	//timesteps
-	mpreal h = (b-a)/(N-1);
-	
-	//Init stuff
-	mat w(m, N);
-	w.fill(0);
-	w.col(0) = yNot;
-	
-	vec k1(m), k2(m), k3(m), k4(m), k5(m), k6(m);
-	
-	for (int i = 0; i<N-1; i++)
-	{
-       k1 = h*fhandle(time(i), 		 w.col(i), u);
-       k2 = h*fhandle(time(i) + h/2, w.col(i) + k1/2, u);
-       k3 = h*fhandle(time(i) + h/2, w.col(i) + k2/2, u);
-       k4 = h*fhandle(time(i) + h/2, w.col(i) + k3/2, u);
-       k5 = h*fhandle(time(i) + h/2, w.col(i) + k4/2, u);
-       k6 = h*fhandle(time(i) + h, 	 w.col(i) + k5, u);
-	   
-	   w.col(i+1) = w.col(i) + (k1 + 2*(k2 + k3 + k4 + k5) + k6)/10;
-	}
-	
-	return w;
-}
-
-mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&, const mat&, const vec&), const vec& time, const vec& u, const vec& yNot, const mat& xNminus){
-	int N = time.size();
-	mpreal a = time(0);
-	mpreal b = time(N-1);
-	
-	//number of equations
-	int m = yNot.size();
-	
-	//timesteps
-	mpreal h = (b-a)/(N-1);
+	mpreal h = time(1)-time(0);
 	
 	//Init stuff
 	mat w(m, N);
@@ -52,15 +17,15 @@ mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&, const mat&
 	w.col(0) = yNot;
 	
 	vec k1(m), k2(m), k3(m), k4(m);
-
-	for (int i = 1; i<N; i++)
+	
+	for (int i = 0; i<N-1; i++)
 	{
-		k1 = h*fhandle(time(i-1), w.col(i-1), u, xNminus, time);
-		k2 = h*fhandle(time(i-1) + h/2, w.col(i-1) + k1/2, u, xNminus, time);
-		k3 = h*fhandle(time(i-1) + h/2, w.col(i-1) + k2/2, u, xNminus, time);
-		k4 = h*fhandle(time(i-1) + h, w.col(i-1) + k3, u, xNminus, time);
+       k1 = h*fhandle(time(i), 		 w.col(i), 		  u);
+       k2 = h*fhandle(time(i) + h/2, w.col(i) + k1/2, u);
+       k3 = h*fhandle(time(i) + h/2, w.col(i) + k2/2, u);
+       k4 = h*fhandle(time(i) + h, 	 w.col(i) + k3,   u);
 	   
-		w.col(i) = w.col(i-1) + (k1 + 2*(k2 + k3) + k4)/6;
+	   w.col(i+1) = w.col(i) + (k1 + 2*(k2 + k3) + k4)/6;
 	}
 	
 	return w;
@@ -74,8 +39,8 @@ mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const 
 	//number of equations
 	int m = yNot.size();
 	
-	//timesteps
-	mpreal h = (time(N-1) - time(0))/(N-1);
+	//timestep
+	mpreal h = time(1)-time(0);
 	
 	//init stuff
 	mat w(m, N);
@@ -92,10 +57,10 @@ mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const 
 	for (int i = 0; i<N-1; i++)
 	{
 		
-		k1 = h*qlinear(sys, time(i), w.col(i), u, Xn, n);
+		k1 = h*qlinear(sys, time(i),       w.col(i),        u, Xn, n);
 		k2 = h*qlinear(sys, time(i) + h/2, w.col(i) + k1/2, u, Xn, n);
 		k3 = h*qlinear(sys, time(i) + h/2, w.col(i) + k2/2, u, Xn, n);
-		k4 = h*qlinear(sys, time(i+1), w.col(i) + k3, u, Xn, n);
+		k4 = h*qlinear(sys, time(i) + h,   w.col(i) + k3,   u, Xn, n);
 		
 		//cout <<"(" << i <<")\nk1"<< k1 << "\nk2:" << k2 << "\nk3:" << k3 << "\nk4:" << k4 <<endl;
 		w.col(i+1) = w.col(i) + (k1 + 2*(k2 + k3) + k4)/6;
@@ -187,3 +152,36 @@ mat qlinear(mat (*sys)(const mpreal&, const vec&, const vec&), const mpreal& t, 
 	
 	return ans;
 }
+
+/*
+mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&, const mat&, const vec&), const vec& time, const vec& u, const vec& yNot, const mat& xNminus){
+	int N = time.size();
+	mpreal a = time(0);
+	mpreal b = time(N-1);
+	
+	//number of equations
+	int m = yNot.size();
+	
+	//timesteps
+	mpreal h = time(1)-time(0);
+	
+	//Init stuff
+	mat w(m, N);
+	w.fill(0);
+	w.col(0) = yNot;
+	
+	vec k1(m), k2(m), k3(m), k4(m);
+
+	for (int i = 1; i<N; i++)
+	{
+		k1 = h*fhandle(time(i-1),		w.col(i-1), u, xNminus, time);
+		k2 = h*fhandle(time(i-1) + h/2, w.col(i-1) + k1/2, u, xNminus, time);
+		k3 = h*fhandle(time(i-1) + h/2, w.col(i-1) + k2/2, u, xNminus, time);
+		k4 = h*fhandle(time(i-1) + h, 	w.col(i-1) + k3, u, xNminus, time);
+	   
+		w.col(i) = w.col(i-1) + (k1 + 2*(k2 + k3) + k4)/6;
+	}
+	
+	return w;
+}
+*/

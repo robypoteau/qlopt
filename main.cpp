@@ -30,11 +30,11 @@ mat inverse(const mat& M){
 }
 
 
-mat normalize(const mat& M){
-	 mat oM = M;
-	for(int i = 0; i<M.rows(); i++){
-		oM.row(i) = M.row(i)/M.row(i).norm();
-	}
+mat noise(const mat& M){
+	mat oM = M;
+	mpreal a = .25;
+	oM = M.array() + a*M.array().sin();
+	
 	return oM;
 }
 
@@ -51,7 +51,7 @@ int main(int argc, char *argv[])
 	
 	//Gather input from the console
 	bool reg = in.isRegularized();
-	bool normal = in.isNormalized();
+	bool noisy = in.isNoisy();
 	string system = in.getSystem();
 
 	vec times; 
@@ -80,9 +80,10 @@ int main(int argc, char *argv[])
 	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
 	//mat measure(2,15);
 	//measure << 20, 55, 65, 95, 55, 5, 15, 50, 75, 20, 25, 50, 70, 30, 15, 10, 15, 55, 60, 20, 15, 10, 60, 60, 10, 5, 25, 40, 25, 5;
-	
-	if(normal == true)
-		measure = normalize(measure);
+	cout.precision(7);
+	latexOutput(measure, uNot, 100 , " & ");
+	if(noisy == true)
+		measure = noise(measure);
 	
 	spline msmtRow[n];
 	for(int i=0; i<n; i++){
@@ -117,8 +118,6 @@ int main(int argc, char *argv[])
 	}
 	vec P(m);
 	vec du(m);
-	
-	cout.precision(7);
 	
 	int interval = (int)(lt/10+.5);
 	if(interval == 0){

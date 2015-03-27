@@ -839,7 +839,9 @@ namespace thesis{
 	
 	mat nonlinearOdes::jak_stat(const mpreal& t, const vec& x, const vec& u)
 	{
-		mpreal k1 = 0;
+		mpreal k1 = u(0);
+		mpreal k2 = u(1);
+		mpreal k3 = u(2);
 		
 		mat result(4,1); 
 		result << 1,1,1,1;
