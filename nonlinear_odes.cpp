@@ -23,11 +23,10 @@ namespace thesis{
 		odeFuncMap["eight_part"] = nonlinearOdes::eight_part;
 		odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
 		//qLinFuncMap["eight_part_linearization"] = nonlinearOdes::eight_part_linearization;
-		odeFuncMap["jak_stat"] = nonlinearOdes::jak_stat;
 		odeFuncMap["gen_switch"] = nonlinearOdes::gen_switch;
 	}
 	
-	mat nonlinearOdes::lotka_volterra(const mpreal& t, const vec& x, const vec& u)
+	mat nonlinearOdes::lotka_volterra(const double& t, const vec& x, const vec& u)
 	{
 		mat result(2,1); 
 		result(0) = u(0)*x(0) - u(1)*x(0)*x(1);
@@ -36,13 +35,13 @@ namespace thesis{
 		return result;
 	}
 
-	mat nonlinearOdes::lotka_volterra_linearization(const mpreal& t, const vec& x, const vec& u, const mat& xn, const vec& time)
+	mat nonlinearOdes::lotka_volterra_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
 		
-		mpreal xnt = Xn.interpolate(t);
-		mpreal ynt = Yn.interpolate(t);
+		double xnt = Xn.interpolate(t);
+		double ynt = Yn.interpolate(t);
 		
 		mat result(8,1);
 		result << (u(0)-u(1)*ynt)*x(0) - u(1)*xnt*x(1) + u(1)*xnt*ynt,
@@ -57,9 +56,9 @@ namespace thesis{
 		return result;
 	}
 
-	mat nonlinearOdes::pielou(const mpreal& t, const vec& x, const vec& u)
+	mat nonlinearOdes::pielou(const double& t, const vec& x, const vec& u)
 	{
-		mpreal k = 250;
+		double k = 250;
 		
 		mat result(2,1); 
 		result(0) = u(0)*(1-x(0)/k)*x(0) - u(1)*x(0)*x(1);
@@ -68,20 +67,20 @@ namespace thesis{
 		return result;
 	}
 
-	/*mat nonlinearOdes::pielou_linearization(const mpreal& t, const vec& x, const vec& u, const mat& xn, const vec& time)
+	/*mat nonlinearOdes::pielou_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
-		mpreal r = u(0);
-		mpreal b = u(1);
-		mpreal c = u(2);
-		mpreal d = u(3);
+		double r = u(0);
+		double b = u(1);
+		double c = u(2);
+		double d = u(3);
 		
-		mpreal k = 250;
+		double k = 250;
 
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
 		
-		mpreal x1 = Xn.interpolate(t);
-		mpreal x2 = Yn.interpolate(t);
+		double x1 = Xn.interpolate(t);
+		double x2 = Yn.interpolate(t);
 		
 		mat result(10,1);
 		result << (r*(x1*x1+k*x(1-1)-2*x1*x(1-1))-b*k*(x(1-1)*x2+x1*(-x2+x(2-1))))/k,
@@ -98,25 +97,25 @@ namespace thesis{
 		return result;
 	}*/
 
-	mat nonlinearOdes::angiogenesis(const mpreal& t, const vec& x, const vec& u)
+	mat nonlinearOdes::angiogenesis(const double& t, const vec& x, const vec& u)
 	{
-		mpreal m = u(0); // m>0
-		mpreal n = 1; //u(1); // n = .25, = 1 
-		mpreal a = u(2); // a>=0
-		mpreal c = u(3); // c(t) = c = 0 => no treatment, c = const implies fixed treatment
-		mpreal w = u(4); // w>=0
-		mpreal g = u(5); // g>=0
+		double m = u(0); // m>0
+		double n = 1; //u(1); // n = .25, = 1 
+		double a = u(2); // a>=0
+		double c = u(3); // c(t) = c = 0 => no treatment, c = const implies fixed treatment
+		double w = u(4); // w>=0
+		double g = u(5); // g>=0
 		
 		/*
-		mpreal m = u(0); // m>0
-		mpreal n = .25; // n = .25, = 1 
-		mpreal a = u(1); // a>=0
-		mpreal c = u(2); // c(t) = c = 0 => no treatment, c = const implies fixed treatment
-		mpreal w = u(3); // w>=0
-		mpreal g = u(4); // g>=0
+		double m = u(0); // m>0
+		double n = .25; // n = .25, = 1 
+		double a = u(1); // a>=0
+		double c = u(2); // c(t) = c = 0 => no treatment, c = const implies fixed treatment
+		double w = u(3); // w>=0
+		double g = u(4); // g>=0
 		*/
 		
-		mpreal f;
+		double f;
 		if(n == 0){
 			f = -m*log(x(0)/x(1));
 		}else{
@@ -130,20 +129,20 @@ namespace thesis{
 		return result;
 	}
 
-	/*mat nonlinearOdes::angiogenesis_linearization(const mpreal& t, const vec& x, const vec& u, const mat& xn, const vec& time)
+	/*mat nonlinearOdes::angiogenesis_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
-		mpreal m = u(0);
-		mpreal n = u(1);
-		mpreal a = u(2);
-		mpreal c = u(3);
-		mpreal w = u(4);
-		mpreal g = u(5);
+		double m = u(0);
+		double n = u(1);
+		double a = u(2);
+		double c = u(3);
+		double w = u(4);
+		double g = u(5);
 
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
 		
-		mpreal x1 = Xn.interpolate(t);
-		mpreal x2 = Yn.interpolate(t);
+		double x1 = Xn.interpolate(t);
+		double x2 = Yn.interpolate(t);
 		
 		mat result(14,1);
 		result << m*x1*pow(x2,-1 - n)*(-((2 + n)*pow(x1,n)*x(1-1)*x2) - x1*pow(x2,1 + n) + 2*x(1-1)*pow(x2,1 + n) + pow(x1,1 + n)*(x2 + n*x(2-1))),
@@ -164,14 +163,14 @@ namespace thesis{
 		return result;
 	}*/
 	
-	mat nonlinearOdes::cancer(const mpreal& t, const vec& x, const vec& u)
+	mat nonlinearOdes::cancer(const double& t, const vec& x, const vec& u)
 	{
-		mpreal d   = u(0); // >=0
-		mpreal tau = u(1); // >=0 
-		mpreal g   = u(2); // >=0
-		mpreal a   = u(3); // >=0, a <= g/2
-		mpreal k   = u(4); // >=0		
-		mpreal R   = 1.0;	
+		double d   = u(0); // >=0
+		double tau = u(1); // >=0 
+		double g   = u(2); // >=0
+		double a   = u(3); // >=0, a <= g/2
+		double k   = u(4); // >=0		
+		double R   = 1.0;	
 		mat result(2,1); 
 		result(0) = d*R - x(0)/tau - g*x(0)*x(0);
 		result(1) = -(a*R + k*x(0))*x(1);
@@ -179,22 +178,22 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::coral(const mpreal& t, const vec& x, const vec& u)
+	mat nonlinearOdes::coral(const double& t, const vec& x, const vec& u)
 	{
 		//input
-		mpreal m = u(0);
-		mpreal r = u(1);
-		mpreal k1 = u(2);
-		mpreal p = u(3); 
-		mpreal k2 = u(4);
-		mpreal k3 = u(5);
+		double m = u(0);
+		double r = u(1);
+		double k1 = u(2);
+		double p = u(3); 
+		double k2 = u(4);
+		double k3 = u(5);
 
 		//Pre-set parameter
-		mpreal a2 = 1.5;
-		mpreal b2 = .0013;
-		mpreal N = 1750;
-		mpreal I0 = 2000;
-		mpreal pi = atan(1)*4;
+		double a2 = 1.5;
+		double b2 = .0013;
+		double N = 1750;
+		double I0 = 2000;
+		double pi = atan(1)*4;
 		
 		mat result(2,1); 
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
@@ -203,22 +202,22 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::coral5(const mpreal& t, const vec& x, const vec& u)
+	mat nonlinearOdes::coral5(const double& t, const vec& x, const vec& u)
 	{
 		//input
-		mpreal m = u(0);
-		mpreal r = u(1);
-		mpreal k1 = u(2);
-		//mpreal p = u(0); 
-		mpreal k2 = u(3);
-		mpreal k3 = u(4);
+		double m = u(0);
+		double r = u(1);
+		double k1 = u(2);
+		//double p = u(0); 
+		double k2 = u(3);
+		double k3 = u(4);
 
 		//Pre-set parameter
-		mpreal a2 = 1.5;
-		mpreal b2 = .0013;
-		mpreal N = 1750;
-		mpreal I0 = 2000;
-		mpreal pi = atan(1)*4;
+		double a2 = 1.5;
+		double b2 = .0013;
+		double N = 1750;
+		double I0 = 2000;
+		double pi = atan(1)*4;
 		
 		mat result(2,1); 
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1);// - p*x(1-1);
@@ -227,78 +226,78 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::coral_pw(const mpreal& t, const vec& x, const vec& u)
+	mat nonlinearOdes::coral_pw(const double& t, const vec& x, const vec& u)
 	{
 		//input
-		mpreal m = u(0);
-		mpreal r = u(1);
-		mpreal k1 = u(2);
-		mpreal p = u(3); 
-		mpreal k2 = u(4);
-		mpreal k3 = u(5);
+		double m = u(0);
+		double r = u(1);
+		double k1 = u(2);
+		double p = u(3); 
+		double k2 = u(4);
+		double k3 = u(5);
 
 		//Pre-set parameter
-		mpreal a2 = 1.5;
-		mpreal b2 = .0013;
-		mpreal N = 1750;
-		mpreal I0 = 2000;
-		mpreal pi = atan(1)*4;
+		double a2 = 1.5;
+		double b2 = .0013;
+		double N = 1750;
+		double I0 = 2000;
+		double pi = atan(1)*4;
 		
 		mat result(2,1); 
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
 		result(1) = k2*x(2-1);
 		
-		mpreal modulus = mod(t,24);//= t/24 - floor(t/24);
+		/*double modulus = mod(t,24);//= t/24 - floor(t/24);
 		if(modulus >= 0 && modulus < 12){
 			result(1) += k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
-		}
+		}*/
 		return result;
 	}
 	
-	mat nonlinearOdes::coral_two(const mpreal& t, const vec& x, const vec& u)
+	mat nonlinearOdes::coral_two(const double& t, const vec& x, const vec& u)
 	{
 		//input
-		mpreal m = u(0);
-		mpreal r = u(1); // 0.00125; //u(1);
-		mpreal k1 = u(2); // 0.000001;// u(2);
-		mpreal p = u(3); //u(3); 
-		mpreal k2 = u(4); // 0.015;//u(4);
-		mpreal k3 = u(5); // .0025;//u(5);
+		double m = u(0);
+		double r = u(1); // 0.00125; //u(1);
+		double k1 = u(2); // 0.000001;// u(2);
+		double p = u(3); //u(3); 
+		double k2 = u(4); // 0.015;//u(4);
+		double k3 = u(5); // .0025;//u(5);
 
 		//Pre-set parameter
-		mpreal a2 = u(6); // 1.5;
-		mpreal b2 = u(7); //.0013;
-		mpreal N = u(8); // 1750;
-		mpreal I0 = u(9); //2000;
-		mpreal pi = atan(1)*4;
+		double a2 = u(6); // 1.5;
+		double b2 = u(7); //.0013;
+		double N = u(8); // 1750;
+		double I0 = u(9); //2000;
+		double pi = atan(1)*4;
 		
 		mat result(2,1); 
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
 		result(1) = k2*x(2-1);
 		
-		mpreal modulus = mod(t,24);//= t/24 - floor(t/24);
+		/*double modulus = mod(t,24);//= t/24 - floor(t/24);
 		if(modulus >= 0 && modulus < 13){
 			result(1) += k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
-		}
+		}*/
 		return result;
 	}
 	
-		mat nonlinearOdes::coral_four(const mpreal& t, const vec& x, const vec& u)
+		mat nonlinearOdes::coral_four(const double& t, const vec& x, const vec& u)
 	{
 		//input
-		mpreal m = .02;
-		mpreal r = u(0);
-		mpreal k1 = u(1);
-		mpreal p = .02; 
-		mpreal k2 = u(2);
-		mpreal k3 = u(3);
+		double m = .02;
+		double r = u(0);
+		double k1 = u(1);
+		double p = .02; 
+		double k2 = u(2);
+		double k3 = u(3);
 
 		//Pre-set parameter
-		mpreal a2 = 1.5;
-		mpreal b2 = .0013;
-		mpreal N = 1750;
-		mpreal I0 = 2000;
-		mpreal pi = atan(1)*4;
+		double a2 = 1.5;
+		double b2 = .0013;
+		double N = 1750;
+		double I0 = 2000;
+		double pi = atan(1)*4;
 		
 		mat result(2,1); 
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
@@ -307,29 +306,29 @@ namespace thesis{
 		return result;
 	}
 	
-	/*mat nonlinearOdes::coral_linearization(const mpreal& t, const vec& x, const vec& u, const mat& xn, const vec& time)
+	/*mat nonlinearOdes::coral_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
 		//input
-		mpreal m = u(0);
-		mpreal r = u(1);
-		mpreal k1 = u(2);
-		mpreal p = u(3); 
-		mpreal k2 = u(4);
-		mpreal k3 = u(5);
+		double m = u(0);
+		double r = u(1);
+		double k1 = u(2);
+		double p = u(3); 
+		double k2 = u(4);
+		double k3 = u(5);
 
 		//Pre-set parameter
-		mpreal a2 = 1.5;
-		mpreal b2 = .0013;
-		mpreal I0 = 2000;
-		mpreal N = 1750;
+		double a2 = 1.5;
+		double b2 = .0013;
+		double I0 = 2000;
+		double N = 1750;
 		
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
 		
-		mpreal x1 = Xn.interpolate(t);
-		mpreal x2 = Yn.interpolate(t);
+		double x1 = Xn.interpolate(t);
+		double x2 = Yn.interpolate(t);
 		
-		mpreal pi = atan(1)*4;
+		double pi = atan(1)*4;
 		
 		mat result(14,1);
 		result <<
@@ -350,11 +349,11 @@ namespace thesis{
 		return result;
 	}*/
 	
-	mat nonlinearOdes::bistable_switch(const mpreal& t, const vec& x, const vec& p)
+	mat nonlinearOdes::bistable_switch(const double& t, const vec& x, const vec& p)
 	{
-		mpreal alpha = p(0);
-		mpreal u     = p(1);
-		mpreal n     = p(2);
+		double alpha = p(0);
+		double u     = p(1);
+		double n     = p(2);
 
 		mat result(2,1); 
 		result(0) = alpha/(1 + pow(u*x(2-1),n)) - x(1-1);
@@ -363,11 +362,11 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::bistable_switch_two(const mpreal& t, const vec& x, const vec& p)
+	mat nonlinearOdes::bistable_switch_two(const double& t, const vec& x, const vec& p)
 	{
-		mpreal alpha = p(0);
-		mpreal u     = 1;//3.2;
-		mpreal n     = p(1);
+		double alpha = p(0);
+		double u     = 1;//3.2;
+		double n     = p(1);
 
 		mat result(2,1); 
 		result(0) = alpha/(1 + pow(u*x(1),n)) - x(0);
@@ -376,23 +375,23 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::bistable_switch_linearization(const mpreal& t, const vec& x, const vec& p, const mat& xn, const vec& time)
+	mat nonlinearOdes::bistable_switch_linearization(const double& t, const vec& x, const vec& p, const mat& xn, const vec& time)
 	{
-		mpreal alpha = p(0);
-		mpreal u 	 = p(1);
-		mpreal n 	 = p(2);
+		double alpha = p(0);
+		double u 	 = p(1);
+		double n 	 = p(2);
 		
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
 		
-		mpreal A = Xn.interpolate(t);
-		mpreal B = Yn.interpolate(t);
+		double A = Xn.interpolate(t);
+		double B = Yn.interpolate(t);
 		
-		mpreal g;
-		mpreal d;
+		double g;
+		double d;
 		
 		if(u*B < 0){
-			complex<mpreal> G = u*B;
+			complex<double> G = u*B;
 			G = pow(G,n);
 			g = 1. + G.real();
 		}
@@ -400,7 +399,7 @@ namespace thesis{
 			g = 1 + pow(u*B,n);
 		}
 		if(A < 0){
-			complex<mpreal> D = A;
+			complex<double> D = A;
 			D = pow(D,n);
 			d = 1. + D.real();
 		}
@@ -422,10 +421,10 @@ namespace thesis{
 			
 		return result;
 	}
-	mat nonlinearOdes::eight_part(const mpreal& t, const vec& x, const vec& pp)
+	mat nonlinearOdes::eight_part(const double& t, const vec& x, const vec& pp)
 	{
-		mpreal P = .05;
-		mpreal S = 10;
+		double P = .05;
+		double S = 10;
 		
 		vec p(36);
 		if(pp.size() < 36){
@@ -449,29 +448,23 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::eight_part_spc(const mpreal& t, const vec& x, const vec& pp)
+	mat nonlinearOdes::eight_part_spc(const double& t, const vec& x, const vec& pp)
 	{
-		mpreal P = 1;
-		mpreal S = .1;
+		double P = 1;
+		double S = .1;
 		
 		vec p(36);
 		p << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
 		
-		p(0) = pp(0);
-		p(5) = pp(1);
-		p(7) = pp(2);
-		p(10) = pp(3);
-		p(11) = pp(4);
-		p(12) = pp(5);
+		p(5) = pp(0);
+		p(10) = pp(1);
+		p(11) = pp(2);
 		for(int i=16; i<27; i++){
-			p(i) = pp(i-10);
+			p(i) = pp(i-13);
 		}
-		p(27) = pp(17);
 		for(int i=30; i<34; i++){
-			p(i) = pp(i-12);
+			p(i) = pp(i-16);
 		}
-		p(34) = pp(22);
-		
 		mat result(8,1); 
 		result << p(1-1)/(1 + pow(P/p(2-1), p(3-1))   + pow(p(4-1)/S      , p(5-1)))  - p(6-1)*x(1-1),
 				  p(7-1)/(1 + pow(P/p(8-1), p(9-1))   + pow(p(10-1)/x(7-1), p(11-1))) - p(12-1)*x(2-1),
@@ -485,10 +478,10 @@ namespace thesis{
 		return result;
 	}
 	
-	/*mat nonlinearOdes::eight_part(const mpreal& t, const vec& x, const vec& pp)
+	/*mat nonlinearOdes::eight_part(const double& t, const vec& x, const vec& pp)
 	{
-		mpreal P = 1;
-		mpreal S = .1;
+		double P = 1;
+		double S = .1;
 		
 		vec p(36);
 		if(pp.size() < 36){
@@ -513,10 +506,10 @@ namespace thesis{
 		return result;
 	}*/
 	
-	/*mat nonlinearOdes::eight_part_linearization(const mpreal& t, const vec& x, const vec& p, const mat& xn, const vec& time)
+	/*mat nonlinearOdes::eight_part_linearization(const double& t, const vec& x, const vec& p, const mat& xn, const vec& time)
 	{
-		mpreal P = 1;
-		mpreal S = 1;
+		double P = 1;
+		double S = 1;
 		
 		thesis::spline Xn1(time, xn.row(0));
 		thesis::spline Xn2(time, xn.row(1));
@@ -527,14 +520,14 @@ namespace thesis{
 		thesis::spline Xn7(time, xn.row(6));
 		thesis::spline Xn8(time, xn.row(7));
 		
-		mpreal x1 = Xn1.interpolate(t);
-		mpreal x2 = Xn2.interpolate(t);
-		mpreal x3 = Xn3.interpolate(t);
-		mpreal x4 = Xn4.interpolate(t);
-		mpreal x5 = Xn5.interpolate(t);
-		mpreal x6 = Xn6.interpolate(t);
-		mpreal x7 = Xn7.interpolate(t);
-		mpreal x8 = Xn8.interpolate(t);
+		double x1 = Xn1.interpolate(t);
+		double x2 = Xn2.interpolate(t);
+		double x3 = Xn3.interpolate(t);
+		double x4 = Xn4.interpolate(t);
+		double x5 = Xn5.interpolate(t);
+		double x6 = Xn6.interpolate(t);
+		double x7 = Xn7.interpolate(t);
+		double x8 = Xn8.interpolate(t);
 		
 		mat result(296,1);
 		result << p(1-1)/(1+pow(P/p(2-1), p(3-1))+pow(p(4-1)/S, p(5-1)))-p(6-1)*x(1-1),
@@ -837,34 +830,37 @@ namespace thesis{
 		return result;
 	}*/
 	
-	mat nonlinearOdes::jak_stat(const mpreal& t, const vec& x, const vec& u)
+	mat nonlinearOdes::gen_switch(const double& t, const vec& x, const vec& u)
 	{
-		mpreal k1 = u(0);
-		mpreal k2 = u(1);
-		mpreal k3 = u(2);
+		double kL1 = u(0);
+		double kL2 = u(1);
+		double KT = 10.0;
+		double nT = u(2);
+		double dL1 = u(3);
+		double dL2 = u(4);
 		
-		mat result(4,1); 
-		result << 1,1,1,1;
-				
-		return result;
-	}
-	
-	mat nonlinearOdes::gen_switch(const mpreal& t, const vec& x, const vec& u)
-	{
-		mpreal kL1 = u(0);
-		mpreal kL2 = u(1);
-		mpreal KT = u(2);
-		mpreal nT = u(3);
-		mpreal dL1 = u(4);
-		mpreal dL2 = u(5);
+		double kT1 = u(5);
+		double kT2 = u(6);
+		double KL = 10.0;
+		double nL = u(7);
+		double dT1 = u(8);
+		double dT2 = u(9);
 		
-		mpreal kT1 = u(6);
-		mpreal kT2 = u(7);
-		mpreal KL = u(8);
-		mpreal nL = u(9);
-		mpreal dT1 = u(10);
-		mpreal dT2 = u(11);
+		/*
+		double kL1 = u(0);
+		double kL2 = u(1);
+		double KT = u(2);
+		double nT = u(3);
+		double dL1 = u(4);
+		double dL2 = u(5);
 		
+		double kT1 = u(6);
+		double kT2 = u(7);
+		double KL = u(8);
+		double nL = u(9);
+		double dT1 = u(10);
+		double dT2 = u(11);
+		*/
 		mat result(4,1); 
 		result << 	kL1*pow(KT,nT)/(pow(KT,nT) + pow(x(3),nT)) - dL1*x(0),
 					kL2*x(0) - dL2*x(1),

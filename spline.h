@@ -22,7 +22,7 @@ namespace thesis{
 			spline(){}
 			spline(vec x, vec y);
 			void update(vec x, vec y);
-			mpreal interpolate(mpreal ti);
+			double interpolate(double ti);
 			
 			void setX(vec x){ 
 				if(x.size() != this->n){ throw sizeDoNotMatchError();}

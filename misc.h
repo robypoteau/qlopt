@@ -1,27 +1,21 @@
 #ifndef MISC_H
 #define MISC_H
 
-
-#include <mpreal.h>
 #include <Eigen/Dense>
-#include <unsupported/Eigen/MPRealSupport>
-
-using namespace mpfr;
-using namespace Eigen;
-using namespace std;
-
-//typedef mpfr::mpreal mpreal; 	
-typedef Matrix<mpreal, Dynamic, 1> vec;
-typedef Matrix<mpreal, Dynamic, Dynamic> mat;
-
-/*
-#include <Eigen/Dense>
-#include <math.h>
 
 using namespace Eigen;
 using namespace std;
-
-typedef double mpreal; 	
-typedef Matrix<mpreal, Dynamic, 1> vec;
-typedef Matrix<mpreal, Dynamic, Dynamic> mat;*/
+	
+typedef Matrix<double, Dynamic, 1> vec;
+typedef Matrix<double, Dynamic, Dynamic> mat;
+typedef mat (*sys)(const double& t, const vec& x, const vec& u);
+typedef struct{
+	sys ode;
+	vec time;
+	vec initial_cond;
+	vec initial_params;
+	vec actual_params;
+	mat nth_soln;
+	mat measurements;
+} soln_env;
 #endif

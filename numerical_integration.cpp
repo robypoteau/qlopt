@@ -1,15 +1,14 @@
 #include "numerical_integration.h"
-#include "spline.h"
-#include <iostream>
+//#include <iostream>
 
-mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&), const vec& time, const vec& u, const vec& yNot){
+mat rungekutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot){
 	int N = time.size();
-	
+		
 	//number of equations
 	int m = yNot.size();
 	
 	//timesteps
-	mpreal h = time(1)-time(0);
+	double h = time(1)-time(0);
 	
 	//Init stuff
 	mat w(m, N);
@@ -31,7 +30,7 @@ mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&), const vec
 	return w;
 }
 
-mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
+mat qLinearRungeKutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
 {
 	int N = time.size();
 	int n = xNminus.col(1).size();
@@ -40,7 +39,7 @@ mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const 
 	int m = yNot.size();
 	
 	//timestep
-	mpreal h = time(1)-time(0);
+	double h = time(1)-time(0);
 	
 	//init stuff
 	mat w(m, N);
@@ -57,10 +56,10 @@ mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const 
 	for (int i = 0; i<N-1; i++)
 	{
 		
-		k1 = h*qlinear(sys, time(i),       w.col(i),        u, Xn, n);
-		k2 = h*qlinear(sys, time(i) + h/2, w.col(i) + k1/2, u, Xn, n);
-		k3 = h*qlinear(sys, time(i) + h/2, w.col(i) + k2/2, u, Xn, n);
-		k4 = h*qlinear(sys, time(i) + h,   w.col(i) + k3,   u, Xn, n);
+		k1 = h*qlinear(fhandle, time(i),       w.col(i),        u, Xn, n);
+		k2 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k1/2, u, Xn, n);
+		k3 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k2/2, u, Xn, n);
+		k4 = h*qlinear(fhandle, time(i) + h,   w.col(i) + k3,   u, Xn, n);
 		
 		//cout <<"(" << i <<")\nk1"<< k1 << "\nk2:" << k2 << "\nk3:" << k3 << "\nk4:" << k4 <<endl;
 		w.col(i+1) = w.col(i) + (k1 + 2*(k2 + k3) + k4)/6;
@@ -69,16 +68,16 @@ mat qLinearRungeKutta4(mat (*sys)(const mpreal&, const vec&, const vec&), const 
 	return w;
 }
 
-mpreal simpson(const vec& t, const vec& x)
+double simpson(const vec& t, const vec& x)
 {
 	thesis::spline sim(t,x);
-	mpreal temp;
+	double temp;
 	
 	int N = 1001;
 	int end = t.size()-1;
-	mpreal h = (t(end)- t(0))/(N-1);
+	double h = (t(end)- t(0))/(N-1);
 	
-    mpreal area = x(0) + x(end);
+    double area = x(0) + x(end);
     for(int i = 1; i<N-1; i++)
 	{
 		temp = sim.interpolate(t(0)+h*i);
@@ -96,16 +95,16 @@ mpreal simpson(const vec& t, const vec& x)
 	return area;
 }
 
-mat der(const mat& dx, const mpreal& dt){
+mat der(const mat& dx, const double& dt){
 	mat ans(dx.size(),1);
 	ans << dx/dt;
 	return ans;
 }
 
-mat qlinear(mat (*sys)(const mpreal&, const vec&, const vec&), const mpreal& t, const vec& x, const vec& u, thesis::spline* Xn, int n)
+mat qlinear(sys fhandle, const double& t, const vec& x, const vec& u, thesis::spline* Xn, int n)
 {
 	int m = u.size();
-	mpreal step = 2.2E-16;
+	double step = 1E-8;
 	
 	vec xn1(n); // this is x_N-1
 	vec dxn(n);
@@ -121,13 +120,13 @@ mat qlinear(mat (*sys)(const mpreal&, const vec&, const vec&), const mpreal& t, 
 	
 	//First few lines of linearization
 	mat fx(n,1);
-	fx = sys(t, xn1, u);
+	fx = fhandle(t, xn1, u);
 	mat ans(n+n*m, 1);
 	ans << mat::Zero(n+n*m, 1);
 	ans.block(0, 0, n, 1) = fx;
 	for(int j=0; j<n; j++)
 	{
-		ans.block(0, 0, n, 1) += der(sys(t, xn1+dx.col(j), u) - fx, step)*dxn(j);
+		ans.block(0, 0, n, 1) += der(fhandle(t, xn1+dx.col(j), u) - fx, step)*dxn(j);
 	}
 	
 	mat dfdx(n,1);
@@ -141,12 +140,12 @@ mat qlinear(mat (*sys)(const mpreal&, const vec&, const vec&), const mpreal& t, 
 	for(int j=0; j<m; j++)
 	{
 		ind = (j+1)*n;
-		dfdu = sys(t, xn1, u+dun.col(j));
+		dfdu = fhandle(t, xn1, u+dun.col(j));
 		ans.block(ind, 0, n, 1) = der(dfdu - fx, step); // df/du
 		for(int k=0; k<n; k++){
-			dfdx = sys(t, xn1+dx.col(k), u);
+			dfdx = fhandle(t, xn1+dx.col(k), u);
 			ans.block(ind, 0, n, 1) += der(dfdx  - fx, step)*x(ind+k); //J*Un
-			ans.block(ind, 0, n, 1) += der(sys(t, xn1+dx.col(k), u+dun.col(j)) - dfdu - dfdx + fx, step*step)*dxn(k); //phi_ij
+			ans.block(ind, 0, n, 1) += der(fhandle(t, xn1+dx.col(k), u+dun.col(j)) - dfdu - dfdx + fx, step*step)*dxn(k); //phi_ij
 		}
 	}
 	
@@ -154,16 +153,16 @@ mat qlinear(mat (*sys)(const mpreal&, const vec&, const vec&), const mpreal& t, 
 }
 
 /*
-mat rungekutta4(mat (*fhandle)(const mpreal&, const vec&, const vec&, const mat&, const vec&), const vec& time, const vec& u, const vec& yNot, const mat& xNminus){
+mat rungekutta4(mat (*fhandle)(const double&, const vec&, const vec&, const mat&, const vec&), const vec& time, const vec& u, const vec& yNot, const mat& xNminus){
 	int N = time.size();
-	mpreal a = time(0);
-	mpreal b = time(N-1);
+	double a = time(0);
+	double b = time(N-1);
 	
 	//number of equations
 	int m = yNot.size();
 	
 	//timesteps
-	mpreal h = time(1)-time(0);
+	double h = time(1)-time(0);
 	
 	//Init stuff
 	mat w(m, N);
