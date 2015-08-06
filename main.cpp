@@ -7,6 +7,7 @@
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
+#include "dbg.h"
 #include "misc.h"
 #include "nonlinear_odes.h"
 #include "numerical_integration.h"
@@ -22,7 +23,6 @@ double cond(const mat& A);
 bool isNegative(const vec& x);
 bool isLessThanOne(const vec& x);
 mat noise(const mat& M, double noise);
-
 
 int main(int argc, char *argv[])
 {
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 	
 	vec yNot;
 	yNot = in.getYNot();
-	
+		
 	vec uNot;
 	uNot = in.getUNot();
 	
@@ -69,18 +69,21 @@ int main(int argc, char *argv[])
 	mat msmt(n,lt);
 	
 	vec du(m);
+
+	vec lyNot;
+	lyNot.fill(0); 
 	
-	vec zeros(n*m); 
-	zeros.fill(0);
-	
-	soln_env *env;
-	env = (soln_env*)malloc(sizeof(double)*(sizeof(sys) + lt + (m+1)*n + m + m + n*lt + n*lt));
+	soln_env* env;
+	env = (soln_env*) malloc(sizeof(sys) + 4*sizeof(vec*) + 2*sizeof(mat*));
 	env->ode = no.odeFuncMap[system];
-	env->time << t;
-	env->initial_cond << env->measurements.col(0), zeros;
-	env->initial_params <<  in.getUNot();;
-	env->actual_params << u;
-	env->nth_soln << msmt;
+	env->time = &t;
+	env->initial_cond = &lyNot;
+	env->initial_params = &uNot;
+	env->actual_params = &u;
+	env->nth_soln = &msmt;
+	env->measurements = &measure;
+	
+	return 0;
 	
 	for(int q=0; q<1; q++)
 	{
@@ -102,8 +105,7 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
-		
-		env->nth_soln = env->measurements;
+		lyNot.head(n) = msmt.col(0);
 		
 		du = findActualParam(env, reg);		
 	}
@@ -122,7 +124,7 @@ int main(int argc, char *argv[])
 	return 0;
 }
 
-mat reshape(const mat& U, int n, int m)
+/* mat reshape(const mat& U, int n, int m)
 {
 	mat newU(n,m);
 	newU.fill(0);
@@ -136,7 +138,7 @@ mat reshape(const mat& U, int n, int m)
 	}
 	
 	return newU;
-}
+} */
 
 void latexOutput(const mat& xn, const vec& u, int p, string buf){
 	int n = xn.rows();

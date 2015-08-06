@@ -1,3 +1,4 @@
+#include "dbg.h"
 #include "thesis_functions.h"
 #include "numerical_integration.h"
 
@@ -47,31 +48,34 @@ double innerProd(const vec& u1, const vec& u2, const vec& time)
 }
 vec findActualParam(soln_env *env, bool regs)
 {
-	int n = env->measurements.rows();
-	int m = env->initial_params.size();
-	int lt = env->time.size();
+	int n = (*env->measurements).rows();
+	int m = (*env->initial_params).size();
+	int lt = (*env->time).size();
 	
-	vec uNot << env->initial_params;
-	mat bob(env->initial_cond.size(), lt);
+	vec uNot;
+	uNot << *env->initial_params; 
+	//check_mem(uNot);
+	//check(uNot(0) == 2,"Not initializing");
+	mat bob((*env->initial_cond).size(), lt);
 	mat U(n*m, n*lt);
 	mat A(m,m);
 	mat B = mat::Identity(m, m);
 	vec P(m);
 	vec du(m);
 	
-	bob = qLinearRungeKutta4(env->ode, env->time, env->initial_params, env->initial_cond, env->nth_soln);
-	
+	bob = qLinearRungeKutta4(*env->ode, *env->time, *env->initial_params, *env->initial_cond, *env->nth_soln);
+
 	U = reshape(bob.bottomRows(n*m), m, n*lt);
-	env->nth_soln = bob.topRows(n);
+	*env->nth_soln = bob.topRows(n);
 	
-	env->nth_soln = env->measurements;
+	*env->nth_soln = *env->measurements;
 	
 	double gamma = 1.0;
 	
 	for(int i = 0; i<150; i++)
 	{
-		A = findA(env->time, U, m);
-		P = findP(env->time, U, reshape(env->measurements - env->nth_soln, 1, n*lt).row(0), m);
+		A = findA(*env->time, U, m);
+		P = findP(*env->time, U, reshape(*env->measurements - *env->nth_soln, 1, n*lt).row(0), m);
 		
 		if((regs) /*&& cond(A) > 1E+6) || isnan(cond(A))*/){ //create a reg function that accepts different types of reg function
 			do{
@@ -86,13 +90,16 @@ vec findActualParam(soln_env *env, bool regs)
 		uNot += du;
 		du(0) = du.norm();
 		if(du(0) < 0.00001 || isnan(du(0) || i==149)){
-			//latexOutput(env->nth_soln = msmt,env->initial_params, -1, ",");
+			//latexOutput(*env->nth_soln = msmt,*env->initial_params, -1, ",");
 			//cout << endl;
 			break;
 		}
 	}
 	
 	return du;
+
+error:
+	exit(1);
 }
 
 mat reshape(const mat& U, int n, int m)

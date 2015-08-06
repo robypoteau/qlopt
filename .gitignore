@@ -1,0 +1,10 @@
+*.[oa]
+*.~
+core
+prog
+/trash
+/errors
+/bldir
+*.out
+*.txt
+*.sh
