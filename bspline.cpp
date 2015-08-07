@@ -1,25 +1,28 @@
 #include "bspline.h"
+#include "dbg.h"
 
 namespace thesis{
 
-	bspline::bspline(const size_t order, const size_t nbreak, const size_t vlen){
-		init(order, nbreak, vlen);
+	bspline::bspline(const size_t order, const size_t ncoeffs, const size_t vlen){
+		init(order, ncoeffs, vlen);
 	}
 	
-	void bspline::init(const size_t order, const size_t nbreak, const size_t vlen){
-		bws = gsl_bspline_alloc(order, nbreak);
-		ncoeffs = nbreak + order - 2;
+	void bspline::init(const size_t order, const size_t num_coeffs, const size_t vlen){
+		ncoeffs = num_coeffs;
+		size_t nbreak = ncoeffs  - order + 2;
 		
-		n = vlen;
+		bws  = gsl_bspline_alloc(order, nbreak);
+		B    = gsl_vector_alloc(ncoeffs);
+		//ncoeffs = lt - order - 1;
+		
+		n    = vlen;
 		gslx = gsl_vector_alloc(n);
 		gsly = gsl_vector_alloc(n);
-		B = gsl_vector_alloc(ncoeffs);
-		X = gsl_matrix_alloc(n, ncoeffs);
-		c = gsl_vector_alloc(ncoeffs);
-		w = gsl_vector_alloc(n);
-		cov = gsl_matrix_alloc(ncoeffs, ncoeffs);
-		
-		mw = gsl_multifit_linear_alloc(n, ncoeffs);
+		X    = gsl_matrix_alloc(n, ncoeffs);
+		c    = gsl_vector_alloc(ncoeffs);
+		w    = gsl_vector_alloc(n);
+		cov  = gsl_matrix_alloc(ncoeffs, ncoeffs);
+		mw   = gsl_multifit_linear_alloc(n, ncoeffs);
 	}
 			
 	bspline::~bspline(){
@@ -36,15 +39,19 @@ namespace thesis{
 	}
 	
 	void bspline::vecToGslVec(const vec v, gsl_vector* gslv){
-		for (int i=0; i<n; i++){
+		check(v.size() == n, "Mismatched Vector Sizes");	
+		for (size_t i=0; i<n; i++){
 			gsl_vector_set(gslv, i, v(i));
 		}
 	}
 	
 	void bspline::update(const vec& x, const vec& y){
+			check(x.size() == y.size(), "Mismatched Vector Sizes");
+			
 			vecToGslVec(x, gslx);
 			vecToGslVec(y, gsly);
-			for (int i=0; i<n; i++){
+			
+			for (size_t i=0; i<n; i++){
 				gsl_vector_set(w, i, 1.0);///(.01*y(i)*y(i)));
 			}
 			gsl_bspline_knots_uniform(x[0], x[n-1], bws);
@@ -53,7 +60,7 @@ namespace thesis{
 	}
 	
 	void bspline::findB(){
-		for(int i = 0; i < n; ++i)
+		for(size_t i = 0; i < n; ++i)
 		{
 			double xi = gsl_vector_get(gslx, i);
 		
@@ -61,8 +68,9 @@ namespace thesis{
 			gsl_bspline_eval(xi, B, bws);
 		
 			/* fill in row i of X */
-			for(int j = 0; j < ncoeffs; ++j)
+			for(size_t j = 0; j < ncoeffs; ++j)
 			{
+				check(j<ncoeffs, "Index out of bounds");
 				double Bj = gsl_vector_get(B, j);
 				gsl_matrix_set(X, i, j, Bj);
 			}

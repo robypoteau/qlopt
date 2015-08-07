@@ -11,17 +11,17 @@ namespace thesis{
 		odeFuncMap["angiogenesis"] = nonlinearOdes::angiogenesis;
 		odeFuncMap["cancer"] = nonlinearOdes::cancer;
 		//qLinFuncMap["angiogenesis_linearization"] = nonlinearOdes::angiogenesis_linearization;
-		odeFuncMap["coral"] = nonlinearOdes::coral;
+		//odeFuncMap["coral"] = nonlinearOdes::coral;
 		odeFuncMap["coral5"] = nonlinearOdes::coral5;
-		odeFuncMap["coral_pw"] = nonlinearOdes::coral_pw;
-		odeFuncMap["coral_two"] = nonlinearOdes::coral_two;
-		odeFuncMap["coral_four"] = nonlinearOdes::coral_four;
+		//odeFuncMap["coral_pw"] = nonlinearOdes::coral_pw;
+		//odeFuncMap["coral_two"] = nonlinearOdes::coral_two;
+		//odeFuncMap["coral_four"] = nonlinearOdes::coral_four;
 		//qLinFuncMap["coral_linearization"] = nonlinearOdes::coral_linearization;
 		odeFuncMap["bistable_switch"] = nonlinearOdes::bistable_switch;
 		odeFuncMap["bistable_switch_two"] = nonlinearOdes::bistable_switch_two;
 		qLinFuncMap["bistable_switch_linearization"] = nonlinearOdes::bistable_switch_linearization;
 		odeFuncMap["eight_part"] = nonlinearOdes::eight_part;
-		odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
+		//odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
 		//qLinFuncMap["eight_part_linearization"] = nonlinearOdes::eight_part_linearization;
 		odeFuncMap["gen_switch"] = nonlinearOdes::gen_switch;
 	}
@@ -178,7 +178,7 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::coral(const double& t, const vec& x, const vec& u)
+	/* mat nonlinearOdes::coral(const double& t, const vec& x, const vec& u)
 	{
 		//input
 		double m = u(0);
@@ -200,7 +200,7 @@ namespace thesis{
 		result(1) = k2*x(2-1)+ k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
 		
 		return result;
-	}
+	} */
 	
 	mat nonlinearOdes::coral5(const double& t, const vec& x, const vec& u)
 	{
@@ -226,7 +226,7 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::coral_pw(const double& t, const vec& x, const vec& u)
+	/* mat nonlinearOdes::coral_pw(const double& t, const vec& x, const vec& u)
 	{
 		//input
 		double m = u(0);
@@ -251,10 +251,10 @@ namespace thesis{
 		if(modulus >= 0 && modulus < 12){
 			result(1) += k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
 		}*/
-		return result;
-	}
+		//return result;
+	//}*/
 	
-	mat nonlinearOdes::coral_two(const double& t, const vec& x, const vec& u)
+	/* mat nonlinearOdes::coral_two(const double& t, const vec& x, const vec& u)
 	{
 		//input
 		double m = u(0);
@@ -279,7 +279,7 @@ namespace thesis{
 		if(modulus >= 0 && modulus < 13){
 			result(1) += k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
 		}*/
-		return result;
+		/*return result;
 	}
 	
 		mat nonlinearOdes::coral_four(const double& t, const vec& x, const vec& u)
@@ -304,7 +304,7 @@ namespace thesis{
 		result(1) = k2*x(2-1)+ k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
 		
 		return result;
-	}
+	} */
 	
 	/*mat nonlinearOdes::coral_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
@@ -448,7 +448,7 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::eight_part_spc(const double& t, const vec& x, const vec& pp)
+	/* mat nonlinearOdes::eight_part_spc(const double& t, const vec& x, const vec& pp)
 	{
 		double P = 1;
 		double S = .1;
@@ -476,7 +476,7 @@ namespace thesis{
 				  p(31-1)*x(5-1)*(x(7-1) - x(8-1))/(p(32-1)*(1 + x(7-1)/p(32-1) + x(8-1)/p(33-1))) -  p(34-1)*x(6-1)*(x(8-1) - P)/(p(35-1)*(1 + x(8-1)/p(35-1) + P/p(36-1)));
 				
 		return result;
-	}
+	} */
 	
 	/*mat nonlinearOdes::eight_part(const double& t, const vec& x, const vec& pp)
 	{

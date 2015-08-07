@@ -55,9 +55,9 @@ int main(int argc, char *argv[])
 	
 	// Init key parameters
 	int lt = t.size();
-	int m = uNot.size();
-	int n = yNot.size();
-	
+	int m  = uNot.size();
+	int n  = yNot.size();
+
 	// Create measurement and add noise if necessary
 	mat measure;
 	mat measure2;
@@ -65,12 +65,14 @@ int main(int argc, char *argv[])
 	cout.precision(7);
 	
 	spline msmtRow[n];	
-	bspline msmtRows(4, 500, lt);
+	size_t order = 4;
+	check(0 < lt-order-1, "number of coeffs is negative")
+	bspline msmtRows(order, lt-order-1, lt);
 	mat msmt(n,lt);
 	
 	vec du(m);
 
-	vec lyNot;
+	vec lyNot(n*(m+1));
 	lyNot.fill(0); 
 	
 	soln_env* env;
@@ -82,13 +84,12 @@ int main(int argc, char *argv[])
 	env->actual_params = &u;
 	env->nth_soln = &msmt;
 	env->measurements = &measure;
-	
-	return 0;
-	
-	for(int q=0; q<1; q++)
+
+	for(int q=0; q<2; q++)
 	{
 		if(noisy == true){
 			measure2 = noise(measure, in.getNoise());
+			note(measure2);
 			for(int i=0; i<n; i++){
 				msmtRows.update(times, measure2.row(i));
 				for(int j = 0; j<lt; j++){
@@ -96,19 +97,23 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
+		
 		else{
 			for(int i=0; i<n; i++){
 				msmtRow[i].update(times, measure.row(i));
-		
 				for(int j = 0; j<lt; j++){
 					msmt(i,j) = msmtRow[i].interpolate(t(j));
 				}
 			}
 		}
 		lyNot.head(n) = msmt.col(0);
+		note(*env->nth_soln);
 		
-		du = findActualParam(env, reg);		
+		du = findActualParam(env, reg);
+		latexOutput(msmt, du, 0, ",");		
 	}
+
+
 	
 	for(int i=0; i<n; i++){
 		msmtRow[i].update(times, measure.row(i));
@@ -117,28 +122,12 @@ int main(int argc, char *argv[])
 			msmt(i,j) = msmtRow[i].interpolate(t(j));
 		}
 	}
-	latexOutput(msmt, u, 0, ",");
+	
 	time_t end;
 	end = time(NULL);
 	cout << end - begin << endl;
 	return 0;
 }
-
-/* mat reshape(const mat& U, int n, int m)
-{
-	mat newU(n,m);
-	newU.fill(0);
-	int olt = U.row(0).size(); 	//old time(row) length
-	int on = m/olt;				//on col length
-	
-	for(int i = 0; i<n; i++){
-		for(int j = 0; j<on; j++){
-			newU.block(i, j*olt, 1, olt) = U.row(i*on + j);
-		}
-	}
-	
-	return newU;
-} */
 
 void latexOutput(const mat& xn, const vec& u, int p, string buf){
 	int n = xn.rows();
@@ -214,3 +203,19 @@ mat noise(const mat& M, double noise){
 	
 	return oM;
 }
+
+/* mat reshape(const mat& U, int n, int m)
+{
+	mat newU(n,m);
+	newU.fill(0);
+	int olt = U.row(0).size(); 	//old time(row) length
+	int on = m/olt;				//on col length
+	
+	for(int i = 0; i<n; i++){
+		for(int j = 0; j<on; j++){
+			newU.block(i, j*olt, 1, olt) = U.row(i*on + j);
+		}
+	}
+	
+	return newU;
+} */

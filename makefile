@@ -1,13 +1,15 @@
-# I am a comment, and I want to say that the variable CC will be
-# the compiler to use.
+#Thesis project makefile
 CC=g++
-# Hey!, I am comment number 2. I want to say that CFLAGS will be the
-# options I'll pass to the compiler.
-CFLAGS=-c -Wall -g -Wextra -DNDEBUG
+CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+LIBS = -lmpfr -lgmp -lgsl -lgslcblas $(OPTLIBS)
+
+SRC = $(wildcard *.c)
 OBJ = main.o thesis_functions.o numerical_integration.o nonlinear_odes.o spline.o bspline.o
-LIBS = -lmpfr -lgmp -lgsl -lgslcblas
 
 all: prog
+
+test:
+	@echo $(SRC)
 
 prog: $(OBJ)
 	$(CC) -g $(OBJ) $(LIBS) -o prog
@@ -35,3 +37,4 @@ dev: all
 
 clean:
 	rm -rf *o prog
+

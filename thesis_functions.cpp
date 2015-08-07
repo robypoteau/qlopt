@@ -48,9 +48,9 @@ double innerProd(const vec& u1, const vec& u2, const vec& time)
 }
 vec findActualParam(soln_env *env, bool regs)
 {
-	int n = (*env->measurements).rows();
-	int m = (*env->initial_params).size();
-	int lt = (*env->time).size();
+	int n = (*env->measurements).rows(); 
+	int m = (*env->initial_params).size(); 
+	int lt = (*env->time).size(); 		
 	
 	vec uNot;
 	uNot << *env->initial_params; 
@@ -63,7 +63,7 @@ vec findActualParam(soln_env *env, bool regs)
 	vec P(m);
 	vec du(m);
 	
-	bob = qLinearRungeKutta4(*env->ode, *env->time, *env->initial_params, *env->initial_cond, *env->nth_soln);
+	bob = qLinearRungeKutta4(env->ode, *env->time, *env->initial_params, *env->initial_cond, *env->nth_soln);
 
 	U = reshape(bob.bottomRows(n*m), m, n*lt);
 	*env->nth_soln = bob.topRows(n);
@@ -98,8 +98,6 @@ vec findActualParam(soln_env *env, bool regs)
 	
 	return du;
 
-error:
-	exit(1);
 }
 
 mat reshape(const mat& U, int n, int m)

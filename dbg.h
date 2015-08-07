@@ -15,6 +15,8 @@
 #define log_warn(M) std::cerr << "[WARN] in "<<  __FILE__ << ":" << __LINE__ << ": "<< M << '\n'
 #define log_info(M) std::cerr << "[INFO] in "<<  __FILE__ << ":" << __LINE__ << ": "<< M << '\n'
 
+#define note(M) std::cout << "[NOTE] in "<<  __FILE__ << ":" << __LINE__ << ": "<< M << '\n'
+
 #define try_catch(A, M) try { A;} catch(std::exception& e) { log_err(e.what());}
 
 #define check(A, M) if(!(A)) { log_err(M); exit(1); }

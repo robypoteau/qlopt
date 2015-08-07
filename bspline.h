@@ -24,8 +24,8 @@ namespace thesis{
 			
 		public:
 			bspline(){}
-			bspline(const size_t order, const size_t nbreak, const size_t vlen);
-			void init(const size_t order, const size_t nbreak, const size_t vlen);
+			bspline(const size_t order, const size_t ncoeffs, const size_t vlen);
+			void init(const size_t order, const size_t ncoeffs, const size_t vlen);
 			~bspline();
 			void update(const vec& x, const vec& y);
 			void findB();
