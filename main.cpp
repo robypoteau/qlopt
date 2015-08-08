@@ -89,7 +89,6 @@ int main(int argc, char *argv[])
 	{
 		if(noisy == true){
 			measure2 = noise(measure, in.getNoise());
-			note(measure2);
 			for(int i=0; i<n; i++){
 				msmtRows.update(times, measure2.row(i));
 				for(int j = 0; j<lt; j++){
@@ -107,7 +106,6 @@ int main(int argc, char *argv[])
 			}
 		}
 		lyNot.head(n) = msmt.col(0);
-		note(*env->nth_soln);
 		
 		du = findActualParam(env, reg);
 		latexOutput(msmt, du, 0, ",");		
