@@ -46,39 +46,36 @@ double innerProd(const vec& u1, const vec& u2, const vec& time)
 	
 	return simpson(time, aij);
 }
-vec findActualParam(soln_env *env, bool regs)
+vec findActualParam(soln_env *env, bool regs=false)
 {
 	int n = (*env->measurements).rows(); 
 	int m = (*env->initial_params).size(); 
 	int lt = (*env->time).size(); 		
 	
-	vec uNot;
-	uNot << *env->initial_params; 
-	//check_mem(uNot);
-	//check(uNot(0) == 2,"Not initializing");
-	mat bob((*env->initial_cond).size(), lt);
+	vec uNot(m);
+	uNot = *env->initial_params; 
+	mat bob(n*(m+1), lt);
 	mat U(n*m, n*lt);
 	mat A(m,m);
 	mat B = mat::Identity(m, m);
 	vec P(m);
 	vec du(m);
-	
-	bob = qLinearRungeKutta4(env->ode, *env->time, *env->initial_params, *env->initial_cond, *env->nth_soln);
-
-	U = reshape(bob.bottomRows(n*m), m, n*lt);
-	*env->nth_soln = bob.topRows(n);
-	
-	*env->nth_soln = *env->measurements;
-	
-	double gamma = 1.0;
+	double gamma;
 	
 	for(int i = 0; i<150; i++)
 	{
+		bob = qLinearRungeKutta4(env->ode, *env->time, uNot, *env->initial_cond, *env->nth_soln);
+
+		U = reshape(bob.bottomRows(n*m), m, n*lt);
+		*env->nth_soln = bob.topRows(n);
+	
 		A = findA(*env->time, U, m);
 		P = findP(*env->time, U, reshape(*env->measurements - *env->nth_soln, 1, n*lt).row(0), m);
 		
+		
 		if((regs) /*&& cond(A) > 1E+6) || isnan(cond(A))*/){ //create a reg function that accepts different types of reg function
-			do{
+		gamma = 1.0;
+		do{
 				gamma *= .5;
 				du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
 			}while(norm(A*du-P) > 0.1);
@@ -87,16 +84,15 @@ vec findActualParam(soln_env *env, bool regs)
 			du = A.inverse()*P;
 		}
 		
-		uNot += du;
-		du(0) = du.norm();
-		if(du(0) < 0.00001 || isnan(du(0) || i==149)){
-			//latexOutput(*env->nth_soln = msmt,*env->initial_params, -1, ",");
-			//cout << endl;
+		uNot += du; 
+		note(uNot); cout << endl;
+		note(du);   cout << endl;
+		if(du.norm() < 0.00001 || isnan(du.norm() || i==149)){
 			break;
 		}
 	}
-	
-	return du;
+	latexOutput2(*env->nth_soln,*env->initial_params, -1, ",");
+	return uNot;
 
 }
 
@@ -122,4 +118,28 @@ double norm(const mat& M){
 
 mat inverse(const mat& M){
 	return M.inverse();
+}
+
+void latexOutput2(const mat& xn, const vec& u, int p, string buf){
+	int n = xn.rows();
+	int m = u.size();
+	int N = xn.cols();
+	
+	int interval = (int)(N/10+.5);
+	if(interval == 0){
+		interval = 1;
+	}
+	int j;
+	for(int i=0; i<n; i++){
+		j = 0;
+		cout << "$\\vec{x}_{"<< p <<"}(t,u)$ " << buf << endl;
+		while(j<N){
+			cout << xn(i, j) << buf << endl;
+			j+=interval;
+		}
+	}
+	cout << "\t "<< buf << endl;
+	for(int k=0; k<m; k++){
+		cout << u(k) << buf << endl;
+	}
 }

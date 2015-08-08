@@ -10,5 +10,6 @@ vec findActualParam(soln_env *env, bool regs);
 mat reshape(const mat& U, int n, int m);
 double norm(const mat& M);
 mat inverse(const mat& M);
+void latexOutput2(const mat& xn, const vec& u, int p, string buf);
 //vec regularization(soln_env *env, const vec& du);
 #endif
