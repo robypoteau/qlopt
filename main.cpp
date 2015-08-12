@@ -16,7 +16,7 @@
 #include "bspline.h"
 #include "latex_output.h"
 
-#define OUT_ARR_SIZE 5
+#define OUT_ARR_SIZE 25
 
 using namespace thesis;
 
@@ -112,6 +112,7 @@ int main(int argc, char *argv[])
 		lyNot.head(n) = msmt.col(0);
 		du = findActualParam(env, reg);
 		output.col(q+1) = du;
+		latexOutput(msmt, uNot, i, "");
 	}
 	
 	longlatexOutput(output);	
