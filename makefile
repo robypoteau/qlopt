@@ -4,7 +4,7 @@ CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
 LIBS = -lmpfr -lgmp -lgsl -lgslcblas $(OPTLIBS)
 
 SRC = $(wildcard *.c)
-OBJ = main.o thesis_functions.o numerical_integration.o nonlinear_odes.o spline.o bspline.o
+OBJ = main.o thesis_functions.o numerical_integration.o nonlinear_odes.o spline.o bspline.o latex_output.o
 
 all: prog
 
@@ -32,6 +32,9 @@ spline.o: spline.cpp
 bspline.o: bspline.cpp
 	$(CC) $(CFLAGS) $(LIBS) bspline.cpp	
 
+latex_output.o: latex_output.c
+	$(CC) $(CFLAGS) $(LIBS) latex_output.c	
+	
 dev: CFLAGS=-c -g -Wall -Wextra
 dev: all
 

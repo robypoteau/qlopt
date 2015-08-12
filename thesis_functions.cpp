@@ -85,15 +85,11 @@ vec findActualParam(soln_env *env, bool regs=false)
 		}
 		
 		uNot += du; 
-		note(uNot); cout << endl;
-		note(du);   cout << endl;
 		if(du.norm() < 0.00001 || isnan(du.norm() || i==149)){
 			break;
 		}
 	}
-	latexOutput2(*env->nth_soln,*env->initial_params, -1, ",");
 	return uNot;
-
 }
 
 mat reshape(const mat& U, int n, int m)
@@ -118,28 +114,4 @@ double norm(const mat& M){
 
 mat inverse(const mat& M){
 	return M.inverse();
-}
-
-void latexOutput2(const mat& xn, const vec& u, int p, string buf){
-	int n = xn.rows();
-	int m = u.size();
-	int N = xn.cols();
-	
-	int interval = (int)(N/10+.5);
-	if(interval == 0){
-		interval = 1;
-	}
-	int j;
-	for(int i=0; i<n; i++){
-		j = 0;
-		cout << "$\\vec{x}_{"<< p <<"}(t,u)$ " << buf << endl;
-		while(j<N){
-			cout << xn(i, j) << buf << endl;
-			j+=interval;
-		}
-	}
-	cout << "\t "<< buf << endl;
-	for(int k=0; k<m; k++){
-		cout << u(k) << buf << endl;
-	}
 }
