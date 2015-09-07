@@ -1,6 +1,6 @@
 #Thesis project makefile
 CC=g++
-CFLAGS=-g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
+CFLAGS=-c -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
 LIBS = -lmpfr -lgmp -lgsl -lgslcblas $(OPTLIBS)
 
 SRC = $(wildcard *.c)

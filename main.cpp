@@ -17,6 +17,7 @@
 #include "latex_output.h"
 
 #define OUT_ARR_SIZE 25
+#define NCOEFFS 10
 
 using namespace thesis;
 
@@ -34,8 +35,6 @@ int main(int argc, char *argv[])
 	input in(argc, argv);
 	
 	//Gather input from the console
-	bool reg = in.isRegularized();
-	bool noisy = in.isNoisy();
 	string system = in.getSystem();
 
 	vec times; 
@@ -67,8 +66,8 @@ int main(int argc, char *argv[])
 	
 	spline msmtRow[n];	
 	size_t order = 4;
-	check(0 < lt-order-1, "number of coeffs is negative")
-	bspline msmtRows(order, lt-order-1, lt);
+	check(0 < lt-order-1, "number of coeffs is negative");
+	bspline msmtRows(order, NCOEFFS-order-1, lt);
 	mat msmt(n,lt);
 	
 	vec du(m);
@@ -89,14 +88,25 @@ int main(int argc, char *argv[])
 	mat output(m,OUT_ARR_SIZE+3);
 	output.col(0) = u;
 	
+	latexOutput(measure, u, -1, "");
+	
 	for(int q=0; q<OUT_ARR_SIZE; q++)
 	{
-		if(noisy == true){
+		if(in.isNoisy() == true){
 			measure2 = noise(measure, in.getNoise());
-			for(int i=0; i<n; i++){
-				msmtRows.update(times, measure2.row(i));
-				for(int j = 0; j<lt; j++){
-					msmt(i,j) = msmtRows.interpolate(t(j));
+			if(in.useBSpline() == true){
+				for(int i=0; i<n; i++){
+					msmtRows.update(times, measure2.row(i));
+					for(int j = 0; j<lt; j++){
+						msmt(i,j) = msmtRows.interpolate(t(j));
+					}
+				}
+			}else{
+				for(int i=0; i<n; i++){
+					msmtRow[i].update(times, measure2.row(i));
+					for(int j = 0; j<lt; j++){
+						msmt(i,j) = msmtRow[i].interpolate(t(j));
+					}
 				}
 			}
 		}
@@ -110,13 +120,14 @@ int main(int argc, char *argv[])
 			}
 		}
 		lyNot.head(n) = msmt.col(0);
-		du = findActualParam(env, reg);
+		du = findActualParam(env, in.isRegularized());
 		output.col(q+1) = du;
-		latexOutput(msmt, uNot, i, "");
+		latexOutput(msmt, du, q, "");
 	}
 	
 	longlatexOutput(output);	
 	shortlatexOutput(output);
+	shortNormalizedLatexOutput(output);
 	
 	for(int i=0; i<n; i++){
 		msmtRow[i].update(times, measure.row(i));

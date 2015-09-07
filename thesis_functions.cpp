@@ -62,7 +62,8 @@ vec findActualParam(soln_env *env, bool regs=false)
 	vec du(m);
 	double gamma;
 	
-	for(int i = 0; i<150; i++)
+	int LIMIT = 220;
+	for(int i = 0; i<LIMIT; i++)
 	{
 		bob = qLinearRungeKutta4(env->ode, *env->time, uNot, *env->initial_cond, *env->nth_soln);
 
@@ -85,8 +86,10 @@ vec findActualParam(soln_env *env, bool regs=false)
 		}
 		
 		uNot += du; 
-		if(du.norm() < 0.00001 || isnan(du.norm() || i==149)){
+		if(du.norm() < 0.00001 || isnan(du.norm())){
 			break;
+		} else if (i >= LIMIT){
+			log_err("Function did not converge.");
 		}
 	}
 	return uNot;

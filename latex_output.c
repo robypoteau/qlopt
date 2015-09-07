@@ -70,6 +70,25 @@ void shortlatexOutput(const mat& otpt){
 	longlatexOutput(M);	
 }
 
+void shortNormalizedLatexOutput(const mat& M){
+	int r = M.rows();
+	int c = M.cols();
+	int x = 3;
+	
+	mat otpt(r,c); otpt = M;
+	mat N(r,x);
+
+	for(int i=1; i<c; i++){
+		otpt.col(i) -= otpt.col(0);
+	}
+
+	N << otpt.col(0), \
+		colWiseMean(otpt.block(0,1,r,c-x)), \
+		colWiseStdDev(otpt.block(0,1,r,c-x));
+	
+	longlatexOutput(N);	
+}
+
 vec colWiseStdDev(const mat& M){
 	vec vect(M.rows());
 	vect.fill(0);
@@ -100,5 +119,5 @@ void tablefooter(){
 	cout << "\t\\end{tabular}" << endl;
 	cout << "\\caption{ Table Caption }\n" \
 		 <<	"\\label{}\n" \
-		 << "\\end{table}" ;
+		 << "\\end{table}" << endl;
 }

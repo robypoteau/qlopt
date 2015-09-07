@@ -7,6 +7,7 @@
 void latexOutput(const mat& xn, const vec& u, int p, string buf);
 void longlatexOutput(const mat& otpt);
 void shortlatexOutput(const mat& otpt);
+void shortNormalizedLatexOutput(const mat& M);
 vec colWiseStdDev(const mat& M);
 vec colWiseMean(const mat& M);
 void tableheader(int n);
