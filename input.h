@@ -28,7 +28,7 @@ namespace thesis{
 		bool isRegularized();
 		bool isNoisy();
 		double getNoise();
-		
+		bool useBSpline();		
 	};
 	
 	int input::extract(char* arg)
@@ -104,8 +104,8 @@ namespace thesis{
 		}
 	}
 	
-	bool input::isNoisy(){
-		if(extract((char*)"-n") != -1){
+	bool input::useBSpline(){
+		if(extract((char*)"-b") != -1){
 			return true;
 		}
 		else{
@@ -116,6 +116,15 @@ namespace thesis{
 	double input::getNoise()
 	{
 		return strtod(argv[extract((char*)"-n")],NULL);
+	}
+	
+	bool input::isNoisy(){
+		if(extract((char*)"-n") != -1){
+			return true;
+		}
+		else{
+			return false;
+		}
 	}
 	
 	string input::getSystem()

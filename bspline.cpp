@@ -13,7 +13,6 @@ namespace thesis{
 		
 		bws  = gsl_bspline_alloc(order, nbreak);
 		B    = gsl_vector_alloc(ncoeffs);
-		//ncoeffs = lt - order - 1;
 		
 		n    = vlen;
 		gslx = gsl_vector_alloc(n);
@@ -54,7 +53,7 @@ namespace thesis{
 			for (size_t i=0; i<n; i++){
 				gsl_vector_set(w, i, 1.0);///(.01*y(i)*y(i)));
 			}
-			gsl_bspline_knots_uniform(x[0], x[n-1], bws);
+			gsl_bspline_knots_uniform(x(0),x(n-1), bws);
 			findB();
 			findCoeff();
 	}
