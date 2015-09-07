@@ -14,11 +14,13 @@
 #include "thesis_functions.h"
 #include "input.h"
 #include "bspline.h"
+#include "latex_output.h"
+
+#define OUT_ARR_SIZE 25
+#define NCOEFFS 10
 
 using namespace thesis;
 
-//mat reshape(const mat& U, int n, int m);
-void latexOutput(const mat& xn, const vec& u, int p, string buf);
 double cond(const mat& A);
 bool isNegative(const vec& x);
 bool isLessThanOne(const vec& x);
@@ -33,8 +35,6 @@ int main(int argc, char *argv[])
 	input in(argc, argv);
 	
 	//Gather input from the console
-	bool reg = in.isRegularized();
-	bool noisy = in.isNoisy();
 	string system = in.getSystem();
 
 	vec times; 
@@ -66,8 +66,8 @@ int main(int argc, char *argv[])
 	
 	spline msmtRow[n];	
 	size_t order = 4;
-	check(0 < lt-order-1, "number of coeffs is negative")
-	bspline msmtRows(order, lt-order-1, lt);
+	check(0 < lt-order-1, "number of coeffs is negative");
+	bspline msmtRows(order, NCOEFFS-order-1, lt);
 	mat msmt(n,lt);
 	
 	vec du(m);
@@ -85,15 +85,28 @@ int main(int argc, char *argv[])
 	env->nth_soln = &msmt;
 	env->measurements = &measure;
 
-	for(int q=0; q<2; q++)
+	mat output(m,OUT_ARR_SIZE+3);
+	output.col(0) = u;
+	
+	latexOutput(measure, u, -1, "");
+	
+	for(int q=0; q<OUT_ARR_SIZE; q++)
 	{
-		if(noisy == true){
+		if(in.isNoisy() == true){
 			measure2 = noise(measure, in.getNoise());
-			note(measure2);
-			for(int i=0; i<n; i++){
-				msmtRows.update(times, measure2.row(i));
-				for(int j = 0; j<lt; j++){
-					msmt(i,j) = msmtRows.interpolate(t(j));
+			if(in.useBSpline() == true){
+				for(int i=0; i<n; i++){
+					msmtRows.update(times, measure2.row(i));
+					for(int j = 0; j<lt; j++){
+						msmt(i,j) = msmtRows.interpolate(t(j));
+					}
+				}
+			}else{
+				for(int i=0; i<n; i++){
+					msmtRow[i].update(times, measure2.row(i));
+					for(int j = 0; j<lt; j++){
+						msmt(i,j) = msmtRow[i].interpolate(t(j));
+					}
 				}
 			}
 		}
@@ -107,13 +120,14 @@ int main(int argc, char *argv[])
 			}
 		}
 		lyNot.head(n) = msmt.col(0);
-		note(*env->nth_soln);
-		
-		du = findActualParam(env, reg);
-		latexOutput(msmt, du, 0, ",");		
+		du = findActualParam(env, in.isRegularized());
+		output.col(q+1) = du;
+		latexOutput(msmt, du, q, "");
 	}
-
-
+	
+	longlatexOutput(output);	
+	shortlatexOutput(output);
+	shortNormalizedLatexOutput(output);
 	
 	for(int i=0; i<n; i++){
 		msmtRow[i].update(times, measure.row(i));
@@ -122,35 +136,10 @@ int main(int argc, char *argv[])
 			msmt(i,j) = msmtRow[i].interpolate(t(j));
 		}
 	}
-	
 	time_t end;
 	end = time(NULL);
 	cout << end - begin << endl;
 	return 0;
-}
-
-void latexOutput(const mat& xn, const vec& u, int p, string buf){
-	int n = xn.rows();
-	int m = u.size();
-	int N = xn.cols();
-	
-	int interval = (int)(N/10+.5);
-	if(interval == 0){
-		interval = 1;
-	}
-	int j;
-	for(int i=0; i<n; i++){
-		j = 0;
-		cout << "$\\vec{x}_{"<< p <<"}(t,u)$ " << buf << endl;
-		while(j<N){
-			cout << xn(i, j) << buf << endl;
-			j+=interval;
-		}
-	}
-	cout << "\t "<< buf << endl;
-	for(int k=0; k<m; k++){
-		cout << u(k) << buf << endl;
-	}
 }
 
 double cond(const mat& A){
@@ -203,19 +192,3 @@ mat noise(const mat& M, double noise){
 	
 	return oM;
 }
-
-/* mat reshape(const mat& U, int n, int m)
-{
-	mat newU(n,m);
-	newU.fill(0);
-	int olt = U.row(0).size(); 	//old time(row) length
-	int on = m/olt;				//on col length
-	
-	for(int i = 0; i<n; i++){
-		for(int j = 0; j<on; j++){
-			newU.block(i, j*olt, 1, olt) = U.row(i*on + j);
-		}
-	}
-	
-	return newU;
-} */
