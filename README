@@ -1,0 +1,3 @@
+Roby Poteau Dissertation research turned into a software package for the identification of parameters of nonlinear ODES with constant and variable coefficients. Details concerning the mathematical formulation of the method and convergence can be found in UGA1, UGA2, RRP-Dis.
+
+Depedencies: gsl

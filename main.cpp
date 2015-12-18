@@ -7,16 +7,16 @@
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
-#include "dbg.h"
-#include "misc.h"
-#include "nonlinear_odes.h"
-#include "numerical_integration.h"
-#include "thesis_functions.h"
-#include "input.h"
-#include "bspline.h"
-#include "latex_output.h"
+#include <dbg.h>
+#include <misc.h>
+#include <nonlinear_odes.h>
+#include <numerical_integration.h>
+#include <thesis_functions.h>
+#include <input.h>
+#include <bspline.h>
+#include <least_squares.h>
+#include <latex_output.h>
 
-#define OUT_ARR_SIZE 25
 #define NCOEFFS 10
 
 using namespace thesis;
@@ -51,7 +51,10 @@ int main(int argc, char *argv[])
 	
 	vec t;
 	t = in.getInterval();
+	
+	int OUT_ARR_SIZE = in.getNumberOfIterations();
 	//End Console Input
+	
 	
 	// Init key parameters
 	int lt = t.size();
@@ -64,10 +67,13 @@ int main(int argc, char *argv[])
 	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
 	cout.precision(7);
 	
-	spline msmtRow[n];	
+	spline spl_msmtRow[n];	
+	//size_t order = 4;
+	//check(0 < lt-order-1, "number of coeffs is negative");
+	//bspline msmtRows(order, NCOEFFS-order-1, lt);
+	
 	size_t order = 4;
-	check(0 < lt-order-1, "number of coeffs is negative");
-	bspline msmtRows(order, NCOEFFS-order-1, lt);
+	lsquares lsq_msmt(lt, order);
 	mat msmt(n,lt);
 	
 	vec du(m);
@@ -88,7 +94,8 @@ int main(int argc, char *argv[])
 	mat output(m,OUT_ARR_SIZE+3);
 	output.col(0) = u;
 	
-	latexOutput(measure, u, -1, "");
+	timelatexOutput(t, " &", measure.rows(), u.size());
+	latexOutput(measure, u, 0, " &");
 	
 	for(int q=0; q<OUT_ARR_SIZE; q++)
 	{
@@ -96,16 +103,16 @@ int main(int argc, char *argv[])
 			measure2 = noise(measure, in.getNoise());
 			if(in.useBSpline() == true){
 				for(int i=0; i<n; i++){
-					msmtRows.update(times, measure2.row(i));
+					lsq_msmt.update(times, measure2.row(i));
 					for(int j = 0; j<lt; j++){
-						msmt(i,j) = msmtRows.interpolate(t(j));
+						msmt(i,j) = lsq_msmt.interpolate(t(j));
 					}
 				}
 			}else{
 				for(int i=0; i<n; i++){
-					msmtRow[i].update(times, measure2.row(i));
+					spl_msmtRow[i].update(times, measure2.row(i));
 					for(int j = 0; j<lt; j++){
-						msmt(i,j) = msmtRow[i].interpolate(t(j));
+						msmt(i,j) = spl_msmtRow[i].interpolate(t(j));
 					}
 				}
 			}
@@ -113,16 +120,20 @@ int main(int argc, char *argv[])
 		
 		else{
 			for(int i=0; i<n; i++){
-				msmtRow[i].update(times, measure.row(i));
+				spl_msmtRow[i].update(times, measure.row(i));
 				for(int j = 0; j<lt; j++){
-					msmt(i,j) = msmtRow[i].interpolate(t(j));
+					msmt(i,j) = spl_msmtRow[i].interpolate(t(j));
 				}
 			}
 		}
 		lyNot.head(n) = msmt.col(0);
 		du = findActualParam(env, in.isRegularized());
 		output.col(q+1) = du;
-		latexOutput(msmt, du, q, "");
+		if(q != OUT_ARR_SIZE-1){
+			latexOutput(msmt, du, q+1, " &");
+		}else{
+			latexOutput(msmt, du, q+1, " \\\\");	
+		}
 	}
 	
 	longlatexOutput(output);	
@@ -130,12 +141,13 @@ int main(int argc, char *argv[])
 	shortNormalizedLatexOutput(output);
 	
 	for(int i=0; i<n; i++){
-		msmtRow[i].update(times, measure.row(i));
+		spl_msmtRow[i].update(times, measure.row(i));
 	
 		for(int j = 0; j<lt; j++){
-			msmt(i,j) = msmtRow[i].interpolate(t(j));
+			msmt(i,j) = spl_msmtRow[i].interpolate(t(j));
 		}
 	}
+	
 	time_t end;
 	end = time(NULL);
 	cout << end - begin << endl;
@@ -181,7 +193,7 @@ mat noise(const mat& M, double noise){
 	T = gsl_rng_default;
 	r = gsl_rng_alloc(T);
 	
-	gsl_rng_set (r, time(NULL));
+	gsl_rng_set(r, time(NULL));
 	
 	for(int i=0; i<oM.rows(); i++){
 		for(int j=0; j<oM.cols(); j++){
