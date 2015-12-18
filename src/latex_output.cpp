@@ -3,9 +3,9 @@
 void latexOutput(const mat& xn, const vec& u, int p, string buf){
 	int n = xn.rows();
 	int m = u.size();
-	int N = xn.cols();
+	int lt = xn.cols();
 	
-	int interval = (int)(N/10+.5);
+	int interval = (int)(lt/10+.5);
 	if(interval == 0){
 		interval = 1;
 	}
@@ -13,7 +13,7 @@ void latexOutput(const mat& xn, const vec& u, int p, string buf){
 	for(int i=0; i<n; i++){
 		j = 0;
 		cout << "$\\vec{x}_{"<< p <<"}(t,u)$ " << buf << endl;
-		while(j<N){
+		while(j<lt){
 			cout << xn(i, j) << buf << endl;
 			j+=interval;
 		}
@@ -21,6 +21,28 @@ void latexOutput(const mat& xn, const vec& u, int p, string buf){
 	cout << "\t "<< buf << endl;
 	for(int k=0; k<m; k++){
 		cout << u(k) << buf << endl;
+	}
+}
+
+void timelatexOutput(const vec& t, string buf, int n, int p){
+	int lt = t.size();
+	
+	int interval = (int)(lt/10+.5);
+	if(interval == 0){
+		interval = 1;
+	}
+	
+	int j;
+	for(int i=0; i<n; i++){
+		j = 0;
+		cout << "time " << buf << endl;
+		while(j<lt){
+			cout << t(j) << buf << endl;
+			j+=interval;
+		}
+	}
+	for(int k=0; k<p; k++){
+		cout << "\t " << buf << endl;
 	}
 }
 
@@ -105,8 +127,8 @@ vec colWiseMean(const mat& M){
 }
 
 void tableheader(int n){
-	cout << "\\begin{table}\n" \ 
-		<< "\\centering\n" \
+	cout << "\\begin{table}\n"  
+		<< "\\centering\n" 
 	    << "\t\\begin{tabular}{|l|";
 	for(int i=0; i<n; i++){
 		cout <<  "c |";

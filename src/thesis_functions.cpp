@@ -1,6 +1,5 @@
 #include <dbg.h>
 #include <thesis_functions.h>
-#include <numerical_integration.h>
 
 mat findA(const vec& t, const mat& U, int m)
 {
@@ -62,6 +61,12 @@ vec findActualParam(soln_env *env, bool regs=false)
 	vec du(m);
 	double gamma;
 	
+	gsl_matrix *qr; qr = gsl_matrix_alloc(m,m);
+	gsl_vector *tau; tau = gsl_vector_alloc(m);
+	gsl_vector *b; b = gsl_vector_alloc(m);
+	gsl_vector *x; x = gsl_vector_alloc(m);
+	gsl_vector *residual; residual = gsl_vector_alloc(m);
+	
 	int LIMIT = 220;
 	for(int i = 0; i<LIMIT; i++)
 	{
@@ -76,13 +81,18 @@ vec findActualParam(soln_env *env, bool regs=false)
 		
 		if((regs) /*&& cond(A) > 1E+6) || isnan(cond(A))*/){ //create a reg function that accepts different types of reg function
 		gamma = 1.0;
-		do{
+			do{
 				gamma *= .5;
 				du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
 			}while(norm(A*du-P) > 0.1);
 				
 		}else{
-			du = A.inverse()*P;
+			matToGslMat(A, qr);
+			gsl_linalg_QR_decomp(qr, tau);
+			vecToGslVec(P, b);
+			gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
+			du = gslVecToVec(x);
+			//du = A.inverse()*P;
 		}
 		
 		uNot += du; 
@@ -117,4 +127,28 @@ double norm(const mat& M){
 
 mat inverse(const mat& M){
 	return M.inverse();
+}
+
+void vecToGslVec(const vec& v, gsl_vector* gslv)
+{	
+	for (size_t i=0; i<gslv->size; i++){
+		gsl_vector_set(gslv, i, v(i));
+	}
+}
+void matToGslMat(const mat& m, gsl_matrix *gslm)
+{
+	//gslm = gsl_matrix_alloc(m.rows(),m.cols());
+	for(int i=0; i<m.rows(); i++){
+		for(int j=0; j<m.cols(); j++){
+			gsl_matrix_set(gslm, i, j, m(i,j));
+		}
+	}
+}
+vec gslVecToVec(gsl_vector* gslv)
+{	
+	vec v(gslv->size);
+	for (size_t i=0; i<gslv->size; i++){
+		v(i) = gsl_vector_get(gslv, i);
+	}
+	return v;
 }
