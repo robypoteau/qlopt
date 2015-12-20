@@ -2,7 +2,7 @@
 #define INPUT_H
 
 #include <vector>
-#include "misc.h"
+#include <misc.h>
 
 namespace thesis{
 	class input{
@@ -28,6 +28,7 @@ namespace thesis{
 		bool isRegularized();
 		bool isNoisy();
 		double getNoise();
+		int getNumberOfIterations();
 		bool useBSpline();		
 	};
 	
@@ -125,6 +126,11 @@ namespace thesis{
 		else{
 			return false;
 		}
+	}
+	
+	int input::getNumberOfIterations()
+	{
+		return strtol(argv[extract((char*)"-k")],NULL,0);
 	}
 	
 	string input::getSystem()

@@ -1,0 +1,25 @@
+\begin{table}
+\centering
+	\begin{tabular}{|l|c |c |c |c |c |c |c |}
+		\hline
+Actual &	&	&	&	&	&Mean & Deviation \\
+1 & 2.267081 & 2.230621 & 2.26115 & 2.291925 & 2.27827 & 2.265809 & 0.02680986\\
+2 & 2.988068 & 2.938725 & 2.791872 & 2.9009 & 2.890422 & 2.901997 & 0.07363691\\
+1 & 1.54086 & 1.653957 & 1.751228 & 1.583228 & 1.619979 & 1.62985 & 0.08060891\\
+		\hline
+	\end{tabular}
+\caption{ Table Caption }
+\label{}
+\end{table}\begin{table}
+\centering
+	\begin{tabular}{|l|c |c |}
+		\hline
+Actual &Mean & Deviation \\
+1 & 2.265809 & 0.02680986\\
+2 & 2.901997 & 0.07363691\\
+1 & 1.62985 & 0.08060891\\
+		\hline
+	\end{tabular}
+\caption{ Table Caption }
+\label{}
+\end{table}1383

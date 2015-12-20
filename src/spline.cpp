@@ -1,4 +1,4 @@
-#include "spline.h"
+#include <spline.h>
 
 namespace thesis{
 	spline::spline(vec x, vec y){

@@ -1,5 +1,4 @@
-#include "numerical_integration.h"
-//#include <iostream>
+#include <numerical_integration.h>
 
 mat rungekutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot){
 	int N = time.size();
@@ -101,10 +100,23 @@ mat der(const mat& dx, const double& dt){
 	return ans;
 }
 
+mat jac(sys f, double t, const mat& x, const mat& u, const double& h){
+	int n = x.size();
+	mat dx(n,n);
+	dx << mat::Identity(n,n)*h;
+	mat fprime(n,n);
+	for(int j=0; j<n; j++)
+	{
+		fprime.col(j) = -f(t, x+2*dx.col(j), u) + 8*f(t, x+dx.col(j), u) - 8*f(t, x-dx.col(j), u) + f(t, x-2*dx.col(j), u);
+	}
+	
+	return fprime/(12*h);
+}
+
 mat qlinear(sys fhandle, const double& t, const vec& x, const vec& u, thesis::spline* Xn, int n)
 {
 	int m = u.size();
-	double step = 1E-8;
+	double step = 5E-6;
 	
 	vec xn1(n); // this is x_N-1
 	vec dxn(n);
@@ -123,11 +135,15 @@ mat qlinear(sys fhandle, const double& t, const vec& x, const vec& u, thesis::sp
 	fx = fhandle(t, xn1, u);
 	mat ans(n+n*m, 1);
 	ans << mat::Zero(n+n*m, 1);
+	ans.block(0, 0, n, 1) = fx + jac(fhandle, t, xn1, u, step)*dxn;
+
+	/* 	
 	ans.block(0, 0, n, 1) = fx;
 	for(int j=0; j<n; j++)
 	{
 		ans.block(0, 0, n, 1) += der(fhandle(t, xn1+dx.col(j), u) - fx, step)*dxn(j);
-	}
+	} 
+	*/
 	
 	mat dfdx(n,1);
 	mat dfdu(n,1);
@@ -145,7 +161,12 @@ mat qlinear(sys fhandle, const double& t, const vec& x, const vec& u, thesis::sp
 		for(int k=0; k<n; k++){
 			dfdx = fhandle(t, xn1+dx.col(k), u);
 			ans.block(ind, 0, n, 1) += der(dfdx  - fx, step)*x(ind+k); //J*Un
-			ans.block(ind, 0, n, 1) += der(fhandle(t, xn1+dx.col(k), u+dun.col(j)) - dfdu - dfdx + fx, step*step)*dxn(k); //phi_ij
+			//ans.block(ind, 0, n, 1) += der(fhandle(t, xn1+dx.col(k), u+dun.col(j)) - dfdu - dfdx + fx, step*step)*dxn(k); //phi_ij
+			ans.block(ind, 0, n, 1) += der(
+				  fhandle(t, xn1+dx.col(k), u+dun.col(j)) 
+				- fhandle(t, xn1+dx.col(k), u-dun.col(j)) 
+				- fhandle(t, xn1-dx.col(k), u+dun.col(j))
+				+ fhandle(t, xn1-dx.col(k), u-dun.col(j)), 4*step*step)*dxn(k); //phi_ij
 		}
 	}
 	

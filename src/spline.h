@@ -1,7 +1,7 @@
 #ifndef SPLINE_H
 #define SPLINE_H
 
-#include "misc.h"
+#include <misc.h>
 #include <iostream>
 
 namespace thesis{
@@ -32,33 +32,6 @@ namespace thesis{
 				if(y.size() != this->n){ throw sizeDoNotMatchError();}
 				this->y = y;
 			}
-			
-			/*void printX(){
-				cout << x.transpose() << endl;
-			}
-			
-			void printA(){
-				cout << y.transpose() << endl;
-			}
-			
-			void printB(){
-				cout << b.transpose() << endl;
-			}
-			
-			void printC(){
-				cout << c.transpose() << endl;
-			}
-			
-			void printD(){
-				cout << d.transpose() << endl;
-			}
-			
-			void printAll(){
-				printA();
-				printB();
-				printC();
-				printD();
-			}*/
 	};
 }
 #endif

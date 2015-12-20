@@ -3,8 +3,8 @@
 
 #include <map>
 
-#include "misc.h"
-#include "spline.h"
+#include <misc.h>
+#include <spline.h>
 
 namespace thesis{
 	class nonlinearOdes{

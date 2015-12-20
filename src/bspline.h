@@ -1,7 +1,7 @@
 #ifndef BSPLINE_H
 #define BSPLINE_H
 
-#include "misc.h"
+#include <misc.h>
 #include <gsl/gsl_bspline.h>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_multifit.h>
@@ -20,7 +20,7 @@ namespace thesis{
 			
 			gsl_multifit_linear_workspace *mw;
 			
-			void vecToGslVec(const vec x, gsl_vector* gslx);
+			void vecToGslVec(const vec& v, gsl_vector* gslv);
 			
 		public:
 			bspline(){}

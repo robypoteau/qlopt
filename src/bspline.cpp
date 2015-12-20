@@ -1,5 +1,5 @@
-#include "bspline.h"
-#include "dbg.h"
+#include <bspline.h>
+#include <dbg.h>
 
 namespace thesis{
 
@@ -35,13 +35,6 @@ namespace thesis{
 		gsl_vector_free(w);
 		gsl_matrix_free(cov);
 		gsl_multifit_linear_free(mw);
-	}
-	
-	void bspline::vecToGslVec(const vec v, gsl_vector* gslv){
-		check(v.size() == n, "Mismatched Vector Sizes");	
-		for (size_t i=0; i<n; i++){
-			gsl_vector_set(gslv, i, v(i));
-		}
 	}
 	
 	void bspline::update(const vec& x, const vec& y){
@@ -89,5 +82,13 @@ namespace thesis{
 		gsl_bspline_eval(xi, B, bws);
 		gsl_multifit_linear_est(B, c, cov, &yi, &yerr);
 		return yi;
+	}
+	
+	void bspline::vecToGslVec(const vec& v, gsl_vector* gslv)
+	{
+		check(v.size() == gslv->size, "Mismatched Vector Sizes");	
+		for (size_t i=0; i<gslv->size; i++){
+			gsl_vector_set(gslv, i, v(i));
+		}
 	}
 }
