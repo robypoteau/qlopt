@@ -1,5 +1,6 @@
 #include <dbg.h>
 #include <thesis_functions.h>
+#include <glpk.h>
 
 mat findA(const vec& t, const mat& U, int m)
 {
@@ -59,6 +60,8 @@ vec findActualParam(soln_env *env, bool regs=false)
 	mat B = mat::Identity(m, m);
 	vec P(m);
 	vec du(m);
+	vec du1(m);
+	du = uNot;
 	double gamma;
 	
 	gsl_matrix *qr; qr = gsl_matrix_alloc(m,m);
@@ -67,7 +70,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 	gsl_vector *x; x = gsl_vector_alloc(m);
 	gsl_vector *residual; residual = gsl_vector_alloc(m);
 	
-	int LIMIT = 220;
+	int LIMIT = 280;
 	for(int i = 0; i<LIMIT; i++)
 	{
 		bob = qLinearRungeKutta4(env->ode, *env->time, uNot, *env->initial_cond, *env->nth_soln);
@@ -78,28 +81,52 @@ vec findActualParam(soln_env *env, bool regs=false)
 		A = findA(*env->time, U, m);
 		P = findP(*env->time, U, reshape(*env->measurements - *env->nth_soln, 1, n*lt).row(0), m);
 		
-		
-		if((regs) /*&& cond(A) > 1E+6) || isnan(cond(A))*/){ //create a reg function that accepts different types of reg function
-		gamma = 1.0;
+		if(regs)/* && cond(A) > 1E+10) || isnan(cond(A))*/{ //create a reg function that accepts different types of reg function
+			//required arbitrary precision to be a successful
+			gamma = 1.0;
 			do{
+				matToGslMat(A.transpose()*A + gamma*B, qr);
+				gsl_linalg_QR_decomp(qr, tau);
+				vecToGslVec(A.transpose()*P, b);
+				gsl_linalg_QR_solve(qr, tau, b, x);
+				du = gslVecToVec(x);
 				gamma *= .5;
-				du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
-			}while(norm(A*du-P) > 0.1);
-				
-		}else{
-			matToGslMat(A, qr);
-			gsl_linalg_QR_decomp(qr, tau);
-			vecToGslVec(P, b);
-			gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
-			du = gslVecToVec(x);
-			//du = A.inverse()*P;
-		}
+			}while(norm(A*(uNot+du) - P)>0.1);
 		
+		/*	    matToGslMat(A, qr);
+				gsl_linalg_QR_decomp(qr, tau);
+				vecToGslVec(P, b);
+				gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
+				du = gslVecToVec(x); 
+			
+				alpha = .5;
+			//Newton's Method 	
+			do{
+				du = du1 - inverse(A.transpose()*A)*(A.transpose()*A*du - b)
+				du1 = du;
+			}while(norm(du-du1) > 0.0001)
+		*/
+			
+		}else{
+			du1 = dulp(A, P, uNot);
+			if(isnan(du.norm())){
+				du = du1;
+			}else{
+				matToGslMat(A, qr);
+				gsl_linalg_QR_decomp(qr, tau);
+				vecToGslVec(P, b);
+				gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
+				du = gslVecToVec(x);
+			}
+		}
 		uNot += du; 
 		if(du.norm() < 0.00001 || isnan(du.norm())){
 			break;
-		} else if (i >= LIMIT){
+		} else if (i >= LIMIT-1){
 			log_err("Function did not converge.");
+			note("u = ");
+			note(uNot);
+			exit(1);
 		}
 	}
 	return uNot;
@@ -152,3 +179,86 @@ vec gslVecToVec(gsl_vector* gslv)
 	}
 	return v;
 }
+
+mat gslMatToMat(gsl_matrix *gslm){
+	mat m(gslm->size1, gslm->size2);
+	for (size_t i=0; i<gslm->size1; i++){
+		for (size_t j=0; j<gslm->size2; j++){
+			m(i,j) = gsl_matrix_get(gslm, i,j);
+		}
+	}
+	return m;
+}
+
+bool allpositive(const vec& x){
+	bool allpos = true;
+	for(int i=0; i < x.size(); i++){
+		if(x(i)>0){
+		}
+		else{
+			allpos = false;
+			break;
+		}
+	}
+	return allpos;
+}
+
+double cond(const mat& A){
+	return A.norm()*A.inverse().norm();
+}
+
+/*
+mat ichol(const mat& A){
+	gsl_matrix *L;
+	L = gsl_matrix_alloc(A.rows(), A.cols());
+	matToGslMat(A,L);
+	gsl_linalg_cholesky_decomp(L);
+	for (int i=0; i<A.rows(); i++){
+		for (int j=0; j<A.cols(); j++){
+			if(A(i,j)<1E-13){
+				gsl_matrix_set(L, i, j, 0);
+			}
+		}
+	}
+	return gslMatToMat(L);
+}*/
+
+vec dulp(const mat& A, const vec& b, const vec& u){
+	int m = b.size();
+	int ia[m*m+1], ja[m*m+1];
+    double ar[m*m+1];
+	//double x[1+m]; //x[0] is the soln to obj func, x[1] -> x[m] are variables
+	vec v(m);
+	int result;
+	
+	glp_prob *lp; 
+	lp = glp_create_prob();
+	glp_add_rows(lp, m);
+	glp_add_cols(lp, m);
+	for (int j=1; j<m+1; j++){
+		glp_set_row_bnds(lp, j, GLP_FX, b(j-1), b(j-1)); // RHS of the equal-sign
+		glp_set_col_bnds(lp, j, GLP_FR, -u(j-1), 2.0); //variables
+		glp_set_obj_coef(lp, j, 1.0);
+	}
+	
+	for (int i=0; i<m; i++){
+		for (int j=0; j<m; j++){
+			ia[m*i+j+1] = i+1, ja[m*i+j+1] = j+1, ar[m*i+j+1] = A(i,j);
+		}	
+	}
+	glp_load_matrix(lp, m*m, ia, ja, ar);
+	result = glp_simplex(lp, NULL);
+	if(result == 0){
+		for (int i=0; i<m; i++){
+			v(i) = glp_get_col_prim(lp, i+1);
+		}
+	}else{
+		for (int i=0; i<m; i++){
+			v(i) = NAN;
+		}
+	}
+	
+	glp_delete_prob(lp);
+    glp_free_env();
+	return v;
+} 

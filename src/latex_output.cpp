@@ -67,7 +67,7 @@ void longlatexOutput(const mat& M){
 	for(int j=1; j<c-(x-1); j++){
 		cout << "\t&";
 	}
-	cout << "Mean & Deviation \\\\" << endl;
+	cout << "Mean & Deviation \\\\ \\hline" << endl;
 	
 	for(int i=0; i<r; i++){
 		for(int j=0; j<c-1; j++){

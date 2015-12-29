@@ -17,5 +17,10 @@ mat inverse(const mat& M);
 void vecToGslVec(const vec& v, gsl_vector *gslv);
 void matToGslMat(const mat& m, gsl_matrix *gslm);
 vec gslVecToVec(gsl_vector *gslv);
+mat gslMatToMat(gsl_matrix *gslm);
+bool allpositive(const vec& x);
+double cond(const mat& A);
+mat ichol(const mat& A);
+ vec dulp(const mat& A, const vec& b, const vec& u);
 //vec regularization(soln_env *env, const vec& du);
 #endif

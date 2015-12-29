@@ -5,7 +5,7 @@ namespace thesis{
 	
 	nonlinearOdes::nonlinearOdes(){
 		odeFuncMap["lotka_volterra"] = nonlinearOdes::lotka_volterra;
-		qLinFuncMap["lotka_volterra_linearization"] = nonlinearOdes::lotka_volterra_linearization;
+		//qLinFuncMap["lotka_volterra_linearization"] = nonlinearOdes::lotka_volterra_linearization;
 		odeFuncMap["pielou"] = nonlinearOdes::pielou;
 		//qLinFuncMap["pielou_linearization"] = nonlinearOdes::pielou_linearization;
 		odeFuncMap["angiogenesis"] = nonlinearOdes::angiogenesis;
@@ -19,9 +19,9 @@ namespace thesis{
 		//qLinFuncMap["coral_linearization"] = nonlinearOdes::coral_linearization;
 		odeFuncMap["bistable_switch"] = nonlinearOdes::bistable_switch;
 		odeFuncMap["bistable_switch_two"] = nonlinearOdes::bistable_switch_two;
-		qLinFuncMap["bistable_switch_linearization"] = nonlinearOdes::bistable_switch_linearization;
+		//qLinFuncMap["bistable_switch_linearization"] = nonlinearOdes::bistable_switch_linearization;
 		odeFuncMap["eight_part"] = nonlinearOdes::eight_part;
-		//odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
+		odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
 		//qLinFuncMap["eight_part_linearization"] = nonlinearOdes::eight_part_linearization;
 		odeFuncMap["gen_switch"] = nonlinearOdes::gen_switch;
 	}
@@ -35,6 +35,7 @@ namespace thesis{
 		return result;
 	}
 
+	/*
 	mat nonlinearOdes::lotka_volterra_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
 		thesis::spline Xn(time, xn.row(0));
@@ -55,7 +56,8 @@ namespace thesis{
 		
 		return result;
 	}
-
+	*/
+	
 	mat nonlinearOdes::pielou(const double& t, const vec& x, const vec& u)
 	{
 		double k = 250;
@@ -375,7 +377,7 @@ namespace thesis{
 		return result;
 	}
 	
-	mat nonlinearOdes::bistable_switch_linearization(const double& t, const vec& x, const vec& p, const mat& xn, const vec& time)
+	/* mat nonlinearOdes::bistable_switch_linearization(const double& t, const vec& x, const vec& p, const mat& xn, const vec& time)
 	{
 		double alpha = p(0);
 		double u 	 = p(1);
@@ -420,7 +422,7 @@ namespace thesis{
 			-(alpha*pow(A,n-1)/pow(d,2))*((1 + n*log(A) - 2*n*pow(A,n)*log(A)/d)*x(1-1) + n*x(7-1)) - x(8-1) + (alpha*pow(A,n)/pow(d,2))*(1 + (n-1)*log(A) - 2*n*pow(A,n)*log(A)/d);
 			
 		return result;
-	}
+	} */
 	mat nonlinearOdes::eight_part(const double& t, const vec& x, const vec& pp)
 	{
 		double P = .05;
@@ -448,7 +450,7 @@ namespace thesis{
 		return result;
 	}
 	
-	/* mat nonlinearOdes::eight_part_spc(const double& t, const vec& x, const vec& pp)
+	 mat nonlinearOdes::eight_part_spc(const double& t, const vec& x, const vec& pp)
 	{
 		double P = 1;
 		double S = .1;
@@ -476,7 +478,7 @@ namespace thesis{
 				  p(31-1)*x(5-1)*(x(7-1) - x(8-1))/(p(32-1)*(1 + x(7-1)/p(32-1) + x(8-1)/p(33-1))) -  p(34-1)*x(6-1)*(x(8-1) - P)/(p(35-1)*(1 + x(8-1)/p(35-1) + P/p(36-1)));
 				
 		return result;
-	} */
+	} /**/
 	
 	/*mat nonlinearOdes::eight_part(const double& t, const vec& x, const vec& pp)
 	{
