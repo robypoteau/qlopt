@@ -21,10 +21,9 @@
 
 using namespace thesis;
 
-double cond(const mat& A);
 bool isNegative(const vec& x);
 bool isLessThanOne(const vec& x);
-mat noise(const mat& M, double noise);
+mat noise(const mat& M, double noise, int seed);
 
 int main(int argc, char *argv[])
 {
@@ -72,7 +71,7 @@ int main(int argc, char *argv[])
 	//check(0 < lt-order-1, "number of coeffs is negative");
 	//bspline msmtRows(order, NCOEFFS-order-1, lt);
 	
-	size_t order = 4;
+	size_t order = 7;
 	lsquares lsq_msmt(lt, order);
 	mat msmt(n,lt);
 	
@@ -100,7 +99,7 @@ int main(int argc, char *argv[])
 	for(int q=0; q<OUT_ARR_SIZE; q++)
 	{
 		if(in.isNoisy() == true){
-			measure2 = noise(measure, in.getNoise());
+			measure2 = noise(measure, in.getNoise(), q);
 			if(in.useBSpline() == true){
 				for(int i=0; i<n; i++){
 					lsq_msmt.update(times, measure2.row(i));
@@ -128,11 +127,16 @@ int main(int argc, char *argv[])
 		}
 		lyNot.head(n) = msmt.col(0);
 		du = findActualParam(env, in.isRegularized());
-		output.col(q+1) = du;
-		if(q != OUT_ARR_SIZE-1){
-			latexOutput(msmt, du, q+1, " &");
+		if(isnan(du.norm())){
+			q -= 1;
+			latexOutput(msmt, du, q+1, " ....bad run");
 		}else{
-			latexOutput(msmt, du, q+1, " \\\\");	
+			output.col(q+1) = du;
+			if(q != OUT_ARR_SIZE-1){
+				latexOutput(msmt, du, q+1, " &");
+			}else{
+				latexOutput(msmt, du, q+1, " \\\\");	
+			}
 		}
 	}
 	
@@ -152,10 +156,6 @@ int main(int argc, char *argv[])
 	end = time(NULL);
 	cout << end - begin << endl;
 	return 0;
-}
-
-double cond(const mat& A){
-	return A.norm()*A.inverse().norm();
 }
 
 bool isNegative(const vec& x){
@@ -183,7 +183,7 @@ bool isLessThanOne(const vec& x){
 	return value;
 }
 
-mat noise(const mat& M, double noise){
+mat noise(const mat& M, double noise, int seed){
 	mat oM = M;
 
 	const gsl_rng_type* T;
@@ -193,7 +193,7 @@ mat noise(const mat& M, double noise){
 	T = gsl_rng_default;
 	r = gsl_rng_alloc(T);
 	
-	gsl_rng_set(r, time(NULL));
+	gsl_rng_set(r, time(NULL)+seed);
 	
 	for(int i=0; i<oM.rows(); i++){
 		for(int j=0; j<oM.cols(); j++){

@@ -1,7 +1,7 @@
 #Thesis project makefile
 CC=g++
 CFLAGS=-c -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG $(OPTFLAGS)
-LIBS = -lgsl -lgslcblas $(OPTLIBS)
+LIBS = -lgsl -lgslcblas -lglpk -lm $(OPTLIBS)
 
 SRC = $(wildcard src/*.cpp)
 OBJ = $(patsubst %.cpp,%.o,$(SRC))
