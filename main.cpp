@@ -7,13 +7,12 @@
 #include <gsl/gsl_rng.h>
 #include <gsl/gsl_randist.h>
 
-#include <dbg.h>
 #include <misc.h>
 #include <nonlinear_odes.h>
 #include <numerical_integration.h>
 #include <thesis_functions.h>
 #include <input.h>
-#include <bspline.h>
+//#include <bspline.h>
 #include <least_squares.h>
 #include <latex_output.h>
 
@@ -66,6 +65,10 @@ int main(int argc, char *argv[])
 	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
 	cout.precision(7);
 	
+	//mp_mat mp_measure;
+	//mp_mat mp_measure2;
+	//mp_measure = mp_rungekutta4(system, times, u, yNot);
+	
 	spline spl_msmtRow[n];	
 	//size_t order = 4;
 	//check(0 < lt-order-1, "number of coeffs is negative");
@@ -81,8 +84,8 @@ int main(int argc, char *argv[])
 	lyNot.fill(0); 
 	
 	soln_env* env;
-	env = (soln_env*) malloc(sizeof(sys) + 4*sizeof(vec*) + 2*sizeof(mat*));
-	env->ode = no.odeFuncMap[system];
+	env = (soln_env*) malloc(sizeof(string*) + 4*sizeof(vec*) + 2*sizeof(mat*));
+	env->ode = &system;
 	env->time = &t;
 	env->initial_cond = &lyNot;
 	env->initial_params = &uNot;
@@ -127,7 +130,7 @@ int main(int argc, char *argv[])
 		}
 		lyNot.head(n) = msmt.col(0);
 		du = findActualParam(env, in.isRegularized());
-		if(isnan(du.norm())){
+		if(std::isnan(du.norm())){
 			q -= 1;
 			latexOutput(msmt, du, q+1, " ....bad run");
 		}else{

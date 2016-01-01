@@ -21,6 +21,5 @@ mat gslMatToMat(gsl_matrix *gslm);
 bool allpositive(const vec& x);
 double cond(const mat& A);
 mat ichol(const mat& A);
- vec dulp(const mat& A, const vec& b, const vec& u);
-//vec regularization(soln_env *env, const vec& du);
+//vec dulp(const mat& A, const vec& b, const vec& u);
 #endif

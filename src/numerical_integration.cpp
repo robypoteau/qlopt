@@ -1,4 +1,5 @@
 #include <numerical_integration.h>
+#include <nonlinear_odes.h>
 
 mat rungekutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot){
 	int N = time.size();
@@ -29,8 +30,11 @@ mat rungekutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot){
 	return w;
 }
 
-mat qLinearRungeKutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
+mat qLinearRungeKutta4(string fname, const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
 {
+	thesis::nonlinearOdes no;
+	sys fhandle = no.odeFuncMap[fname];
+
 	int N = time.size();
 	int n = xNminus.col(1).size();
 	

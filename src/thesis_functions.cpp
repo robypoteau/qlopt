@@ -1,6 +1,8 @@
 #include <dbg.h>
 #include <thesis_functions.h>
 #include <glpk.h>
+#include <nonlinear_odes.h>
+#include <regs.h>
 
 mat findA(const vec& t, const mat& U, int m)
 {
@@ -60,9 +62,6 @@ vec findActualParam(soln_env *env, bool regs=false)
 	mat B = mat::Identity(m, m);
 	vec P(m);
 	vec du(m);
-	vec du1(m);
-	du = uNot;
-	double gamma;
 	
 	gsl_matrix *qr; qr = gsl_matrix_alloc(m,m);
 	gsl_vector *tau; tau = gsl_vector_alloc(m);
@@ -71,62 +70,41 @@ vec findActualParam(soln_env *env, bool regs=false)
 	gsl_vector *residual; residual = gsl_vector_alloc(m);
 	
 	int LIMIT = 280;
-	for(int i = 0; i<LIMIT; i++)
-	{
-		bob = qLinearRungeKutta4(env->ode, *env->time, uNot, *env->initial_cond, *env->nth_soln);
-
-		U = reshape(bob.bottomRows(n*m), m, n*lt);
-		*env->nth_soln = bob.topRows(n);
 	
-		A = findA(*env->time, U, m);
-		P = findP(*env->time, U, reshape(*env->measurements - *env->nth_soln, 1, n*lt).row(0), m);
+	if(regs){
+		uNot = regularization(env);
+	}else{
+		for(int i = 0; i<LIMIT; i++)
+		{
+			bob = qLinearRungeKutta4(*env->ode, *env->time, uNot, *env->initial_cond, *env->nth_soln);
+	
+			U = reshape(bob.bottomRows(n*m), m, n*lt);
+			*env->nth_soln = bob.topRows(n);
 		
-		if(regs)/* && cond(A) > 1E+10) || isnan(cond(A))*/{ //create a reg function that accepts different types of reg function
-			//required arbitrary precision to be a successful
-			gamma = 1.0;
-			do{
-				matToGslMat(A.transpose()*A + gamma*B, qr);
-				gsl_linalg_QR_decomp(qr, tau);
-				vecToGslVec(A.transpose()*P, b);
-				gsl_linalg_QR_solve(qr, tau, b, x);
-				du = gslVecToVec(x);
-				gamma *= .5;
-			}while(norm(A*(uNot+du) - P)>0.1);
-		
-		/*	    matToGslMat(A, qr);
-				gsl_linalg_QR_decomp(qr, tau);
-				vecToGslVec(P, b);
-				gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
-				du = gslVecToVec(x); 
+			A = findA(*env->time, U, m);
+			P = findP(*env->time, U, reshape(*env->measurements - *env->nth_soln, 1, n*lt).row(0), m);
 			
-				alpha = .5;
-			//Newton's Method 	
-			do{
-				du = du1 - inverse(A.transpose()*A)*(A.transpose()*A*du - b)
-				du1 = du;
-			}while(norm(du-du1) > 0.0001)
-		*/
 			
-		}else{
-			du1 = dulp(A, P, uNot);
-			if(isnan(du.norm())){
-				du = du1;
-			}else{
-				matToGslMat(A, qr);
-				gsl_linalg_QR_decomp(qr, tau);
-				vecToGslVec(P, b);
-				gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
-				du = gslVecToVec(x);
+				/* du1 = dulp(A, P, uNot);
+				if(std::isnan(du.norm())){
+					du = du1;
+				}else{ */
+					matToGslMat(A, qr);
+					gsl_linalg_QR_decomp(qr, tau);
+					vecToGslVec(P, b);
+					gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
+					du = gslVecToVec(x);
+				//}
+			
+			uNot += du; 
+			if(du.norm() < 0.00001 || std::isnan(du.norm())){
+				break;
+			} else if (i >= LIMIT-1){
+				log_err("Function did not converge.");
+				note("u = ");
+				note(uNot);
+				exit(1);
 			}
-		}
-		uNot += du; 
-		if(du.norm() < 0.00001 || isnan(du.norm())){
-			break;
-		} else if (i >= LIMIT-1){
-			log_err("Function did not converge.");
-			note("u = ");
-			note(uNot);
-			exit(1);
 		}
 	}
 	return uNot;
@@ -223,7 +201,7 @@ mat ichol(const mat& A){
 	return gslMatToMat(L);
 }*/
 
-vec dulp(const mat& A, const vec& b, const vec& u){
+/* vec dulp(const mat& A, const vec& b, const vec& u){
 	int m = b.size();
 	int ia[m*m+1], ja[m*m+1];
     double ar[m*m+1];
@@ -261,4 +239,4 @@ vec dulp(const mat& A, const vec& b, const vec& u){
 	glp_delete_prob(lp);
     glp_free_env();
 	return v;
-} 
+}  */

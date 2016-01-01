@@ -1,99 +1,99 @@
 time  &
 0 &
+0.1 &
+0.2 &
+0.3 &
+0.4 &
 0.5 &
+0.6 &
+0.7 &
+0.8 &
+0.9 &
 1 &
-1.5 &
-2 &
-2.5 &
-3 &
-3.5 &
-4 &
-4.5 &
-5 &
 time  &
 0 &
+0.1 &
+0.2 &
+0.3 &
+0.4 &
 0.5 &
+0.6 &
+0.7 &
+0.8 &
+0.9 &
 1 &
-1.5 &
-2 &
-2.5 &
-3 &
-3.5 &
-4 &
-4.5 &
-5 &
 time  &
 0 &
+0.1 &
+0.2 &
+0.3 &
+0.4 &
 0.5 &
+0.6 &
+0.7 &
+0.8 &
+0.9 &
 1 &
-1.5 &
-2 &
-2.5 &
-3 &
-3.5 &
-4 &
-4.5 &
-5 &
 time  &
 0 &
+0.1 &
+0.2 &
+0.3 &
+0.4 &
 0.5 &
+0.6 &
+0.7 &
+0.8 &
+0.9 &
 1 &
-1.5 &
-2 &
-2.5 &
-3 &
-3.5 &
-4 &
-4.5 &
-5 &
 time  &
 0 &
+0.1 &
+0.2 &
+0.3 &
+0.4 &
 0.5 &
+0.6 &
+0.7 &
+0.8 &
+0.9 &
 1 &
-1.5 &
-2 &
-2.5 &
-3 &
-3.5 &
-4 &
-4.5 &
-5 &
 time  &
 0 &
+0.1 &
+0.2 &
+0.3 &
+0.4 &
 0.5 &
+0.6 &
+0.7 &
+0.8 &
+0.9 &
 1 &
-1.5 &
-2 &
-2.5 &
-3 &
-3.5 &
-4 &
-4.5 &
-5 &
 time  &
 0 &
+0.1 &
+0.2 &
+0.3 &
+0.4 &
 0.5 &
+0.6 &
+0.7 &
+0.8 &
+0.9 &
 1 &
-1.5 &
-2 &
-2.5 &
-3 &
-3.5 &
-4 &
-4.5 &
-5 &
 time  &
 0 &
+0.1 &
+0.2 &
+0.3 &
+0.4 &
 0.5 &
+0.6 &
+0.7 &
+0.8 &
+0.9 &
 1 &
-1.5 &
-2 &
-2.5 &
-3 &
-3.5 &
-4 &
-4.5 &
-5 &
 	  &
 	  &
 	  &
@@ -132,100 +132,100 @@ time  &
 	  &
 $\vec{x}_{0}(t,u)$  &
 0.5 &
-0.692598 &
-0.8094146 &
-0.8802675 &
-0.9232419 &
-0.9493072 &
-0.9651166 &
-0.9747055 &
-0.9805214 &
-0.984049 &
-0.9861886 &
+0.5465808 &
+0.5887288 &
+0.6268659 &
+0.6613738 &
+0.6925979 &
+0.7208506 &
+0.7464146 &
+0.769546 &
+0.7904761 &
+0.8094144 &
 $\vec{x}_{0}(t,u)$  &
 0.5 &
-0.408347 &
-0.394581 &
-0.4188963 &
-0.4592917 &
-0.5042958 &
-0.5482914 &
-0.5888037 &
-0.6249881 &
-0.6568049 &
-0.6845787 &
+0.4727062 &
+0.4504407 &
+0.4326329 &
+0.4187602 &
+0.4083472 &
+0.4009642 &
+0.3962243 &
+0.3937812 &
+0.3933253 &
+0.3945812 &
 $\vec{x}_{0}(t,u)$  &
 0.5 &
+0.4710116 &
+0.4440063 &
+0.4188926 &
+0.395578 &
 0.3739704 &
+0.3539781 &
+0.3355112 &
+0.318482 &
+0.3028052 &
 0.2883988 &
-0.2327852 &
-0.1986182 &
-0.1795348 &
-0.170986 &
-0.1697953 &
-0.1737678 &
-0.1813885 &
-0.1916041 &
 $\vec{x}_{0}(t,u)$  &
 0.5 &
+0.4984444 &
+0.497089 &
+0.4959054 &
+0.4948702 &
 0.4939638 &
+0.4931697 &
+0.4924739 &
+0.4918645 &
+0.4913311 &
 0.4908649 &
-0.4893026 &
-0.4885899 &
-0.4883589 &
-0.4884026 &
-0.4886012 &
-0.4888843 &
-0.4892105 &
-0.4895551 &
 $\vec{x}_{0}(t,u)$  &
 0.5 &
+0.4982784 &
+0.4964607 &
+0.4945667 &
+0.4926151 &
 0.4906231 &
+0.4886066 &
+0.4865795 &
+0.4845545 &
+0.4825424 &
 0.4805524 &
-0.471168 &
-0.4630538 &
-0.4563275 &
-0.4508954 &
-0.4465911 &
-0.4432389 &
-0.4406785 &
-0.438772 &
 $\vec{x}_{0}(t,u)$  &
 0.5 &
+0.4982758 &
+0.4964402 &
+0.4944985 &
+0.4924567 &
 0.4903204 &
+0.4880959 &
+0.4857893 &
+0.4834067 &
+0.4809542 &
 0.4784381 &
-0.4651082 &
-0.4510213 &
-0.4367402 &
-0.4226859 &
-0.4091532 &
-0.396336 &
-0.3843531 &
-0.3732688 &
 $\vec{x}_{0}(t,u)$  &
 0.5 &
+0.5404024 &
+0.5791089 &
+0.616269 &
+0.6520164 &
 0.6864712 &
+0.719741 &
+0.7519224 &
+0.7831024 &
+0.8133592 &
 0.8427629 &
-0.979 &
-1.101209 &
-1.213079 &
-1.316953 &
-1.414378 &
-1.506418 &
-1.593836 &
-1.677202 &
 $\vec{x}_{0}(t,u)$  &
 0.5 &
+0.4863442 &
+0.4743027 &
+0.4637273 &
+0.454483 &
 0.4464477 &
+0.4395104 &
+0.4335706 &
+0.4285375 &
+0.4243286 &
 0.4208696 &
-0.4126822 &
-0.4154797 &
-0.4253755 &
-0.4399769 &
-0.4577777 &
-0.4778024 &
-0.4993989 &
-0.5221154 &
 	  &
 1 &
 2 &
@@ -263,111 +263,149 @@ $\vec{x}_{0}(t,u)$  &
 1 &
 1 &
 1 &
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -405,111 +443,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -547,111 +623,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -689,111 +803,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -831,111 +983,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -973,111 +1163,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -1115,111 +1343,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -1257,111 +1523,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -1399,111 +1703,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -1541,111 +1883,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -1683,111 +2063,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -1825,111 +2243,149 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-      0: obj =   0.000000000e+00  infeas =  1.256e+01 (36)
-     24: obj =   1.920777080e+01  infeas =  5.376e-07 (12)
-LP HAS NO PRIMAL FEASIBLE SOLUTION
-GLPK Simplex Optimizer, v4.52
-36 rows, 36 columns, 1296 non-zeros
-*     0: obj =   0.000000000e+00  infeas =  0.000e+00 (36)
-OPTIMAL LP SOLUTION FOUND
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
 $\vec{x}_{0}(t,u)$  ....bad run
 0.5 ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
--nan ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
 	  ....bad run
 -nan ....bad run
 -nan ....bad run
@@ -1967,3 +2423,750 @@ $\vec{x}_{0}(t,u)$  ....bad run
 -nan ....bad run
 -nan ....bad run
 -nan ....bad run
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
+	  ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
+	  ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
+	  ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp:92: 0.0002828264
+[NOTE] in src/regs.cpp:92: 0.0002505625
+[NOTE] in src/regs.cpp:92: 0.0002116819
+[NOTE] in src/regs.cpp:92: 0.0001714639
+[NOTE] in src/regs.cpp:92: 0.0001400111
+[NOTE] in src/regs.cpp:92: 0.0001213181
+[NOTE] in src/regs.cpp:92: 0.000110516
+[NOTE] in src/regs.cpp:92: 0.0001011285
+[NOTE] in src/regs.cpp:92: 8.958007e-05
+[NOTE] in src/regs.cpp:92: 7.582146e-05
+[NOTE] in src/regs.cpp:92: 6.265765e-05
+[NOTE] in src/regs.cpp:92: 5.259974e-05
+[NOTE] in src/regs.cpp:92: 4.496411e-05
+[NOTE] in src/regs.cpp:92: 3.740405e-05
+[NOTE] in src/regs.cpp:92: 2.878824e-05
+[NOTE] in src/regs.cpp:92: 1.998322e-05
+[NOTE] in src/regs.cpp:92: 1.265617e-05
+[NOTE] in src/regs.cpp:92: 7.691444e-06
+[NOTE] in src/regs.cpp:100: 79.84103
+[NOTE] in src/regs.cpp:92: nan
+[NOTE] in src/regs.cpp:100: nan
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.5465808 ....bad run
+0.5887288 ....bad run
+0.6268659 ....bad run
+0.6613738 ....bad run
+0.6925979 ....bad run
+0.7208506 ....bad run
+0.7464146 ....bad run
+0.769546 ....bad run
+0.7904761 ....bad run
+0.8094144 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4727062 ....bad run
+0.4504407 ....bad run
+0.4326329 ....bad run
+0.4187602 ....bad run
+0.4083472 ....bad run
+0.4009642 ....bad run
+0.3962243 ....bad run
+0.3937812 ....bad run
+0.3933253 ....bad run
+0.3945812 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4710116 ....bad run
+0.4440063 ....bad run
+0.4188926 ....bad run
+0.395578 ....bad run
+0.3739704 ....bad run
+0.3539781 ....bad run
+0.3355112 ....bad run
+0.318482 ....bad run
+0.3028052 ....bad run
+0.2883988 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4984444 ....bad run
+0.497089 ....bad run
+0.4959054 ....bad run
+0.4948702 ....bad run
+0.4939638 ....bad run
+0.4931697 ....bad run
+0.4924739 ....bad run
+0.4918645 ....bad run
+0.4913311 ....bad run
+0.4908649 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4982784 ....bad run
+0.4964607 ....bad run
+0.4945667 ....bad run
+0.4926151 ....bad run
+0.4906231 ....bad run
+0.4886066 ....bad run
+0.4865795 ....bad run
+0.4845545 ....bad run
+0.4825424 ....bad run
+0.4805524 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4982758 ....bad run
+0.4964402 ....bad run
+0.4944985 ....bad run
+0.4924567 ....bad run
+0.4903204 ....bad run
+0.4880959 ....bad run
+0.4857893 ....bad run
+0.4834067 ....bad run
+0.4809542 ....bad run
+0.4784381 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.5404024 ....bad run
+0.5791089 ....bad run
+0.616269 ....bad run
+0.6520164 ....bad run
+0.6864712 ....bad run
+0.719741 ....bad run
+0.7519224 ....bad run
+0.7831024 ....bad run
+0.8133592 ....bad run
+0.8427629 ....bad run
+$\vec{x}_{0}(t,u)$  ....bad run
+0.5 ....bad run
+0.4863442 ....bad run
+0.4743027 ....bad run
+0.4637273 ....bad run
+0.454483 ....bad run
+0.4464477 ....bad run
+0.4395104 ....bad run
+0.4335706 ....bad run
+0.4285375 ....bad run
+0.4243286 ....bad run
+0.4208696 ....bad run
+	  ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+-nan ....bad run
+[NOTE] in src/regs.cpp:92: 0.05609513
+[NOTE] in src/regs.cpp:92: 0.05554639
+[NOTE] in src/regs.cpp:92: 0.05455963
+[NOTE] in src/regs.cpp:92: 0.05294517
+[NOTE] in src/regs.cpp:92: 0.0506957
+[NOTE] in src/regs.cpp:92: 0.04823106
+[NOTE] in src/regs.cpp:92: 0.0462059
+[NOTE] in src/regs.cpp:92: 0.04483918
+[NOTE] in src/regs.cpp:92: 0.04375765
+[NOTE] in src/regs.cpp:92: 0.04240024
+[NOTE] in src/regs.cpp:92: 0.04019268
+[NOTE] in src/regs.cpp:92: 0.03652503
+[NOTE] in src/regs.cpp:92: 0.03097105
+[NOTE] in src/regs.cpp:92: 0.02385001
+[NOTE] in src/regs.cpp:92: 0.01646652
+[NOTE] in src/regs.cpp:92: 0.01029218
+[NOTE] in src/regs.cpp:92: 0.005969344
+[NOTE] in src/regs.cpp:92: 0.003314862
+[NOTE] in src/regs.cpp:92: 0.001844962
+[NOTE] in src/regs.cpp:92: 0.001108438
+[NOTE] in src/regs.cpp:92: 0.0007686582
+[NOTE] in src/regs.cpp:92: 0.0006010939
+[NOTE] in src/regs.cpp:92: 0.0004928473
+[NOTE] in src/regs.cpp:92: 0.0004104633
+[NOTE] in src/regs.cpp:92: 0.0003515432
+[NOTE] in src/regs.cpp:92: 0.0003127473
+[NOTE] in src/regs.cpp
