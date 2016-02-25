@@ -28,6 +28,7 @@ namespace thesis{
 		bool isRegularized();
 		bool isNoisy();
 		double getNoise();
+		int getNcoeffs();
 		int getNumberOfIterations();
 		bool useBSpline();		
 	};
@@ -117,6 +118,11 @@ namespace thesis{
 	double input::getNoise()
 	{
 		return strtod(argv[extract((char*)"-n")],NULL);
+	}
+
+	int input::getNcoeffs()
+	{
+		return strtol(argv[extract((char*)"-p")],NULL,0);
 	}
 	
 	bool input::isNoisy(){

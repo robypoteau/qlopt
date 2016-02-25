@@ -3,6 +3,7 @@
 #include <glpk.h>
 #include <nonlinear_odes.h>
 #include <regs.h>
+#include <float.h>
 
 mat findA(const vec& t, const mat& U, int m)
 {
@@ -60,19 +61,95 @@ vec findActualParam(soln_env *env, bool regs=false)
 	mat U(n*m, n*lt);
 	mat A(m,m);
 	mat B = mat::Identity(m, m);
+	for(int i=0; i<m-1; i++){
+		B(i+1,i) = -1;
+	}
 	vec P(m);
 	vec du(m);
+	double gamma = 1.0;
 	
 	gsl_matrix *qr; qr = gsl_matrix_alloc(m,m);
 	gsl_vector *tau; tau = gsl_vector_alloc(m);
 	gsl_vector *b; b = gsl_vector_alloc(m);
 	gsl_vector *x; x = gsl_vector_alloc(m);
+	
+	gsl_matrix *Xs = gsl_matrix_alloc(m,m);
+	gsl_vector *ys = gsl_vector_alloc(m);
+	gsl_vector *cs = gsl_vector_alloc(m);
+	
 	gsl_vector *residual; residual = gsl_vector_alloc(m);
 	
-	int LIMIT = 280;
+	int LIMIT = 300;
 	
+	gsl_multifit_linear_workspace *workspace = gsl_multifit_linear_alloc(m, m);
+	gsl_matrix *M = gsl_matrix_alloc(m,m);
+	gsl_matrix *L = gsl_matrix_alloc(m,m);
+	
+	double lambda, rnorm, snorm;
+	/* */
 	if(regs){
-		uNot = regularization(env);
+		//uNot = regularization(env);
+		for(int i = 0; i<LIMIT; i++)
+		{
+			bob = qLinearRungeKutta4(*env->ode, *env->time, uNot, *env->initial_cond, *env->nth_soln);
+	
+			U = reshape(bob.bottomRows(n*m), m, n*lt);
+			*env->nth_soln = bob.topRows(n);
+		
+			A = findA(*env->time, U, m); cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
+			P = findP(*env->time, U, reshape(*env->measurements - *env->nth_soln, 1, n*lt).row(0), m);
+			
+			/*matToGslMat(A, qr);
+			vecToGslVec(P, b);
+			
+			gsl_multifit_linear_L_decomp (L, tau);
+			gsl_multifit_linear_stdform2 (L, tau, qr, b, Xs, ys, M, workspace);
+			gsl_multifit_linear_svd(Xs, workspace);
+			
+			//store optimal regularization parameter
+			lambda = 0.5;
+			gsl_multifit_linear_solve (lambda, Xs, ys, cs, &rnorm, &snorm, workspace);
+			gsl_multifit_linear_genform2 (L, tau, qr, b, cs, M, x, workspace);
+			du = gslVecToVec(x);
+			
+			
+			gamma = 1.0;
+			do{
+				rnorm = cond(A.transpose()*A + gamma*gamma*B.transpose()*B);
+				gamma *= .5;
+				cout << "cond(A*A + g*g*B.transpose()*B) = " << cond(A.transpose()*A + gamma*gamma*B.transpose()*B) << endl;
+				if(rnorm <  cond(A.transpose()*A + gamma*gamma*B.transpose()*B)){
+					du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
+					break;
+				}
+			}while(true);
+			*/
+			
+			gamma *= .5;
+			du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
+			
+			/*
+			do{
+				gamma *= .75;
+				cout << "cond(A*A + gamma*B.transpose()*B) = " << cond(A*A + gamma*B.transpose()*B)<< endl;
+				matToGslMat(A*A + gamma*B.transpose()*B, qr);
+				vecToGslVec(A*P, b);
+				gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
+				du = gslVecToVec(x);
+			}while(norm(A*du-P) > 0.1);
+			*/
+			
+			uNot += du;
+			latexOutput(*env->nth_soln, uNot, i+1, " &");
+			if(du.norm() < 0.00001 || std::isnan(du.norm())){
+				break;
+			} else if (i >= LIMIT-1){
+				log_err("Function did not converge.");
+				note("u = ");
+				note(uNot);
+				exit(1);
+			}
+		}
 	}else{
 		for(int i = 0; i<LIMIT; i++)
 		{
@@ -96,7 +173,8 @@ vec findActualParam(soln_env *env, bool regs=false)
 					du = gslVecToVec(x);
 				//}
 			
-			uNot += du; 
+			uNot += du;
+			latexOutput(*env->nth_soln, uNot, i+1, " &");
 			if(du.norm() < 0.00001 || std::isnan(du.norm())){
 				break;
 			} else if (i >= LIMIT-1){

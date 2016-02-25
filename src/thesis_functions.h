@@ -5,7 +5,10 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_linalg.h>
+#include <gsl/gsl_multifit.h>
 #include <numerical_integration.h>
+#include <latex_output.h>
+
 
 mat findA(const vec& t, const mat& U, int m);
 vec findP(const vec& t, const mat& U, const vec& dx, int m);

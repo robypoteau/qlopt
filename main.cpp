@@ -14,9 +14,8 @@
 #include <input.h>
 //#include <bspline.h>
 #include <least_squares.h>
+#include <tsqr.h>
 #include <latex_output.h>
-
-#define NCOEFFS 10
 
 using namespace thesis;
 
@@ -74,8 +73,9 @@ int main(int argc, char *argv[])
 	//check(0 < lt-order-1, "number of coeffs is negative");
 	//bspline msmtRows(order, NCOEFFS-order-1, lt);
 	
-	size_t order = 7;
-	lsquares lsq_msmt(lt, order);
+	size_t order = in.getNcoeffs();
+	//lsquares lsq_msmt(lt, order);
+	tsqr lsq_msmt(lt, order);
 	mat msmt(n,lt);
 	
 	vec du(m);
@@ -94,7 +94,9 @@ int main(int argc, char *argv[])
 	env->measurements = &measure;
 
 	mat output(m,OUT_ARR_SIZE+3);
+	mat output2(n*(OUT_ARR_SIZE+1),lt);
 	output.col(0) = u;
+	output2.topRows(n) = measure;
 	
 	timelatexOutput(t, " &", measure.rows(), u.size());
 	latexOutput(measure, u, 0, " &");
@@ -128,6 +130,7 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
+		latexOutput(msmt, u, -11111, " &");
 		lyNot.head(n) = msmt.col(0);
 		du = findActualParam(env, in.isRegularized());
 		if(std::isnan(du.norm())){
@@ -135,6 +138,7 @@ int main(int argc, char *argv[])
 			latexOutput(msmt, du, q+1, " ....bad run");
 		}else{
 			output.col(q+1) = du;
+			output2.middleRows((q+1)*n,n) = msmt;
 			if(q != OUT_ARR_SIZE-1){
 				latexOutput(msmt, du, q+1, " &");
 			}else{
@@ -142,11 +146,11 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-	
 	longlatexOutput(output);	
 	shortlatexOutput(output);
 	shortNormalizedLatexOutput(output);
-	
+	R(t(1)-t(0), output2, n);
+	M(output2, n);
 	for(int i=0; i<n; i++){
 		spl_msmtRow[i].update(times, measure.row(i));
 	

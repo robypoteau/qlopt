@@ -92,6 +92,44 @@ void shortlatexOutput(const mat& otpt){
 	longlatexOutput(M);	
 }
 
+void R(double dt, const mat& otpt, int n){
+	mat M = otpt;
+	int r = otpt.rows();
+	int N = r/n;
+	double temp = 0, ans = 0;
+	vec v;
+	
+	for(int i=1;i<N;i++){
+		M.middleRows(i*n,n) -= M.topRows(n);
+	}
+	
+	M = M.array().square();
+	M *= dt;
+	v = M.rowwise().sum();
+	
+	for(int i=1;i<N;i++){
+		for(int j=0;j<n;j++){
+			temp += v(i*n+j);
+		}
+		ans += sqrt(temp);
+		temp = 0;
+	}
+	
+	cout << "L2-Rnorm = " << ans/N << " output STD also" << endl;
+}
+void M(const mat& otpt, int n){
+	mat M = otpt;
+	int r = otpt.rows();
+	for(int i=1;i<(r/n);i++){
+		M.middleRows(i*n,n) -= M.topRows(n);
+	}
+	M.topRows(n) -= M.topRows(n);
+	M = M.array().abs();
+	note(M);
+	//find max element of array replace "d"
+	cout << "Max-Norm = " << " d " << " output STD also" << endl;
+}
+
 void shortNormalizedLatexOutput(const mat& M){
 	int r = M.rows();
 	int c = M.cols();
@@ -129,16 +167,16 @@ vec colWiseMean(const mat& M){
 void tableheader(int n){
 	cout << "\\begin{table}\n"  
 		<< "\\centering\n" 
-	    << "\t\\begin{tabular}{|l|";
+	    << "\t\\begin{tabularx}{|X|";
 	for(int i=0; i<n; i++){
-		cout <<  "c |";
+		cout <<  "C|";
 	}
 	  cout << "}\n" \
 		   << "\t\t\\hline" << endl;
 }
 void tablefooter(){
 	cout << "\t\t\\hline" << endl;
-	cout << "\t\\end{tabular}" << endl;
+	cout << "\t\\end{tabularx}" << endl;
 	cout << "\\caption{ Table Caption }\n" \
 		 <<	"\\label{}\n" \
 		 << "\\end{table}" << endl;
