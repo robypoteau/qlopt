@@ -1,2 +1,2 @@
 #~/bin/bash
-./bin/prog -s bistable_switch -t 0:.005:3 -i 0:.005:3 -u 150,1,2 -o 125,.5,1.5 -y 24,23 -k 5 -n 1 -b > results/std.txt
+./bin/prog -s bistable_switch -t 0:.005:3 -i 0:.005:3 -u 150,3.2,2 -o 125,2,1 -y 25,25 -k 1 -p 5 -n 5 -b -r > results/std.txt

@@ -1,5 +1,6 @@
 #include <numerical_integration.h>
 #include <nonlinear_odes.h>
+#include <mp_nonlinear_odes.h>
 
 mat rungekutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot){
 	int N = time.size();
@@ -16,6 +17,38 @@ mat rungekutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot){
 	w.col(0) = yNot;
 	
 	vec k1(m), k2(m), k3(m), k4(m);
+	
+	for (int i = 0; i<N-1; i++)
+	{
+       k1 = h*fhandle(time(i), 		 w.col(i), 		  u);
+       k2 = h*fhandle(time(i) + h/2, w.col(i) + k1/2, u);
+       k3 = h*fhandle(time(i) + h/2, w.col(i) + k2/2, u);
+       k4 = h*fhandle(time(i) + h, 	 w.col(i) + k3,   u);
+	   
+	   w.col(i+1) = w.col(i) + (k1 + 2*(k2 + k3) + k4)/6;
+	}
+	
+	return w;
+}
+
+mp_mat mp_rungekutta4(string fname, const mp_vec& time, const mp_vec& u, const mp_vec& yNot){
+	thesis::mpnonlinearOdes no;
+	mp_sys fhandle = no.mpOdeFuncMap[fname];
+	
+	int N = time.size();
+		
+	//number of equations
+	int m = yNot.size();
+	
+	//timesteps
+	mpreal h = time(1)-time(0);
+	
+	//Init stuff
+	mp_mat w(m, N);
+	w.fill(0);
+	w.col(0) = yNot;
+	
+	mp_vec k1(m), k2(m), k3(m), k4(m);
 	
 	for (int i = 0; i<N-1; i++)
 	{
@@ -71,12 +104,35 @@ mat qLinearRungeKutta4(string fname, const vec& time, const vec& u, const vec& y
 	return w;
 }
 
+/*double simpson(const vec& t, const vec& x)
+{
+	double temp;
+	
+	int N = t.size();
+	int end = N-1;
+	
+    double area = x(0) + x(end);
+    for(int i = 1; i<N-1; i++)
+	{
+		temp = t(i);
+        if((i+1)%2 == 0)
+		{
+            area += 2*temp;
+        }
+		else
+		{
+            area += 4*temp;
+		}
+    }
+	return (t(end)- t(0))/(N-1)/3 * area;
+}*/
+
 double simpson(const vec& t, const vec& x)
 {
 	thesis::spline sim(t,x);
 	double temp;
 	
-	int N = 1001;
+	int N = 3001;
 	int end = t.size()-1;
 	double h = (t(end)- t(0))/(N-1);
 	

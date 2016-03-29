@@ -8,6 +8,8 @@
 using namespace Eigen;
 using namespace std;
 using mpfr::mpreal;
+
+#define BITS 128
 	
 typedef Matrix<double, Dynamic, 1> vec;
 typedef Matrix<double, Dynamic, Dynamic> mat;
@@ -25,7 +27,8 @@ typedef struct{
 	vec *initial_params;
 	vec *actual_params;
 	mat *nth_soln;
-	//mat *np_measurements;
+	mp_mat *mp_nth_soln;
 	mat *measurements;
+	mp_mat *mp_measurements;
 } soln_env;
 #endif

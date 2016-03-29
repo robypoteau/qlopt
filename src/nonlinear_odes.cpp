@@ -5,6 +5,7 @@ namespace thesis{
 	
 	nonlinearOdes::nonlinearOdes(){
 		odeFuncMap["lotka_volterra"] = nonlinearOdes::lotka_volterra;
+		odeFuncMap["lotka4"] = nonlinearOdes::lotka4;
 		//qLinFuncMap["lotka_volterra_linearization"] = nonlinearOdes::lotka_volterra_linearization;
 		odeFuncMap["pielou"] = nonlinearOdes::pielou;
 		//qLinFuncMap["pielou_linearization"] = nonlinearOdes::pielou_linearization;
@@ -34,7 +35,16 @@ namespace thesis{
 			
 		return result;
 	}
-
+	
+	mat nonlinearOdes::lotka4(const double& t, const vec& x, const vec& u)
+	{
+		mat result(2,1); 
+		result(0) = u(0)*x(0) - u(1)*x(0)*x(1);
+		result(1) = u(2)*x(0)*x(1) - u(3)*x(1);
+			
+		return result;
+	}
+	
 	/*
 	mat nonlinearOdes::lotka_volterra_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
@@ -367,7 +377,7 @@ namespace thesis{
 	mat nonlinearOdes::bistable_switch_two(const double& t, const vec& x, const vec& p)
 	{
 		double alpha = p(0);
-		double u     = 1;//3.2;
+		double u     = 3.2;
 		double n     = p(1);
 
 		mat result(2,1); 
@@ -836,15 +846,15 @@ namespace thesis{
 	{
 		double kL1 = u(0);
 		double kL2 = u(1);
-		double KT = 10.0;
-		double nT = u(2);
+		double KT = u(2);
+		double nT = 2.0;
 		double dL1 = u(3);
 		double dL2 = u(4);
 		
 		double kT1 = u(5);
 		double kT2 = u(6);
-		double KL = 10.0;
-		double nL = u(7);
+		double KL = u(7);
+		double nL = 2.0;
 		double dT1 = u(8);
 		double dT2 = u(9);
 		

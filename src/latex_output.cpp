@@ -96,7 +96,7 @@ void R(double dt, const mat& otpt, int n){
 	mat M = otpt;
 	int r = otpt.rows();
 	int N = r/n;
-	double temp = 0, ans = 0;
+	double temp, ans = 0, mean;
 	vec v;
 	
 	for(int i=1;i<N;i++){
@@ -108,26 +108,42 @@ void R(double dt, const mat& otpt, int n){
 	v = M.rowwise().sum();
 	
 	for(int i=1;i<N;i++){
+		temp = 0;
 		for(int j=0;j<n;j++){
 			temp += v(i*n+j);
 		}
 		ans += sqrt(temp);
-		temp = 0;
 	}
-	
-	cout << "L2-Rnorm = " << ans/N << " output STD also" << endl;
+	mean = ans/N;
+	ans = 0;
+	for(int i=1;i<N;i++){
+		temp = 0;
+		for(int j=0;j<n;j++){
+			temp += v(i*n+j);
+		}
+		ans += pow(sqrt(temp)-mean,2);
+	}
+	cout << "L2-Rnorm = " << mean << " std = " << sqrt(ans/(N-1)) << endl;
 }
 void M(const mat& otpt, int n){
 	mat M = otpt;
 	int r = otpt.rows();
+	int c = otpt.cols();
+	double temp;
 	for(int i=1;i<(r/n);i++){
 		M.middleRows(i*n,n) -= M.topRows(n);
 	}
 	M.topRows(n) -= M.topRows(n);
 	M = M.array().abs();
-	note(M);
-	//find max element of array replace "d"
-	cout << "Max-Norm = " << " d " << " output STD also" << endl;
+	temp = M(0,0);
+	for(int i=0;i<r;i++){
+		for(int j=0;j<c;j++){
+			if(temp < M(i,j)){
+				temp = M(i,j);
+			}
+		}
+	} 
+	cout << "Max-Norm = " << temp << endl;
 }
 
 void shortNormalizedLatexOutput(const mat& M){

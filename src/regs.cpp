@@ -1,7 +1,7 @@
 #include <regs.h>
 #include <Eigen/LU>
 #include <mp_nonlinear_odes.h>
-
+#include <latex_output.h>
 
 mp_mat mpFindA(const mp_vec& t, const mp_mat& U, int m)
 {
@@ -56,7 +56,7 @@ mpreal mpInnerProd(const mp_vec& u1, const mp_vec& u2, const mp_vec& time)
 }
 
 vec regularization(soln_env *env){
-	mpreal::set_default_prec(BITS);
+	mpreal::set_default_prec(128);
 	
 	int n = (*env->measurements).rows(); 
 	int m = (*env->initial_params).size(); 
@@ -69,10 +69,10 @@ vec regularization(soln_env *env){
 	mp_mat A(m,m);
 	mp_mat AT(m,m);
 	mp_mat B = mp_mat::Identity(m, m);
-	/* for(int i=0; i<m-1; i++){
+	for(int i=0; i<m-1; i++){
 		B(i+1,i) = -1;
 	} 
-	B = B.transpose()*B;*/
+	B = B.transpose()*B;
 	mp_vec P(m);
 	mp_vec du(m);
 	mp_vec du1(m);
@@ -90,24 +90,25 @@ vec regularization(soln_env *env){
 		U = mpReshape(bob.bottomRows(n*m), m, n*lt);
 		soln = bob.topRows(n);
 		
-		A = mpFindA(t, U, m); note(mp_cond(A));
+		A = mpFindA(t, U, m);
 		AT = A.transpose();
 		P = mpFindP(t, U, mpReshape(msmt-soln, 1, n*lt).row(0), m);
+note(mp_cond(A));
+cout << "cond(A) = "<< mp_cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
+cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 		
 		//du = (mpCofactor(A)/mpPsuedoDet(A))*P;
 		
-		gamma = "2";
+		gamma = "1";
 		for(int j=0; j<1500; j++)
 		{
-			//du = gamma*du;
-			//du = (AT*A + gamma*gamma*B).householderQr().solve(AT*P);
 			du = mp_inverse(AT*A + gamma*gamma*B)*(AT*P); 
-			//du = mp_inverse(A)*P; 
 			
-			gamma *= ".85";
-			note(mp_norm(du));
+			gamma *= ".5";
+			//note(gamma);
+			//note(mp_norm(du));
 			note(mp_norm(A*du-P));
-			if(mp_norm(A*du-P) < 0.1 ){
+			if(mp_norm(A*du-P) < 0.05 /*&& du.norm() < 1*m */){
 				break;
 			}
 			if(mpfr::isnan(du.norm())){
@@ -117,7 +118,8 @@ vec regularization(soln_env *env){
 
 		uNot += du;
 		note(uNot);
-		if(mp_norm(du) < 1E-4  || mpfr::isnan(du.norm())){
+		latexOutput((*env->mp_nth_soln).cast<double>(), uNot.cast<double>(), i+1, " &");
+		if(du.norm() < "0.0001"  || mpfr::isnan(du.norm())){
 			 break;
 		} else if (i >= LIMIT-1){
 			log_err("Function did not converge.");

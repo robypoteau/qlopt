@@ -4,6 +4,7 @@
 #include <nonlinear_odes.h>
 #include <regs.h>
 #include <float.h>
+#include <Eigen/LU>
 
 mat findA(const vec& t, const mat& U, int m)
 {
@@ -49,11 +50,14 @@ double innerProd(const vec& u1, const vec& u2, const vec& time)
 	
 	return simpson(time, aij);
 }
+
 vec findActualParam(soln_env *env, bool regs=false)
 {
 	int n = (*env->measurements).rows(); 
 	int m = (*env->initial_params).size(); 
 	int lt = (*env->time).size(); 		
+	
+	const mat measurements = *env->nth_soln;
 	
 	vec uNot(m);
 	uNot = *env->initial_params; 
@@ -64,31 +68,23 @@ vec findActualParam(soln_env *env, bool regs=false)
 	for(int i=0; i<m-1; i++){
 		B(i+1,i) = -1;
 	}
+	
 	vec P(m);
 	vec du(m);
-	double gamma = 1.0;
+	//double gamma = 5.0;
 	
-	gsl_matrix *qr; qr = gsl_matrix_alloc(m,m);
-	gsl_vector *tau; tau = gsl_vector_alloc(m);
-	gsl_vector *b; b = gsl_vector_alloc(m);
-	gsl_vector *x; x = gsl_vector_alloc(m);
+	gsl_matrix *gslA = gsl_matrix_alloc(m,m);
+	gsl_matrix *qr = gsl_matrix_alloc(m,m);
+	gsl_vector *tau = gsl_vector_alloc(m);
+	gsl_vector *b = gsl_vector_alloc(m);
+	gsl_vector *x = gsl_vector_alloc(m);	
+	gsl_vector *residual = gsl_vector_alloc(m);
+	gsl_permutation *perm = gsl_permutation_alloc(m);
+	int signum;
 	
-	gsl_matrix *Xs = gsl_matrix_alloc(m,m);
-	gsl_vector *ys = gsl_vector_alloc(m);
-	gsl_vector *cs = gsl_vector_alloc(m);
-	
-	gsl_vector *residual; residual = gsl_vector_alloc(m);
-	
-	int LIMIT = 300;
-	
-	gsl_multifit_linear_workspace *workspace = gsl_multifit_linear_alloc(m, m);
-	gsl_matrix *M = gsl_matrix_alloc(m,m);
-	gsl_matrix *L = gsl_matrix_alloc(m,m);
-	
-	double lambda, rnorm, snorm;
-	/* */
+	int LIMIT = 500;
 	if(regs){
-		//uNot = regularization(env);
+		/*uNot = regularization(env);*/
 		for(int i = 0; i<LIMIT; i++)
 		{
 			bob = qLinearRungeKutta4(*env->ode, *env->time, uNot, *env->initial_cond, *env->nth_soln);
@@ -96,59 +92,56 @@ vec findActualParam(soln_env *env, bool regs=false)
 			U = reshape(bob.bottomRows(n*m), m, n*lt);
 			*env->nth_soln = bob.topRows(n);
 		
-			A = findA(*env->time, U, m); cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
-			P = findP(*env->time, U, reshape(*env->measurements - *env->nth_soln, 1, n*lt).row(0), m);
+			A = findA(*env->time, U, m);
+			P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
 			
-			/*matToGslMat(A, qr);
+			cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
+			cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+			
+			matToGslMat(A, gslA);
+			matToGslMat(A, qr);
 			vecToGslVec(P, b);
 			
-			gsl_multifit_linear_L_decomp (L, tau);
-			gsl_multifit_linear_stdform2 (L, tau, qr, b, Xs, ys, M, workspace);
-			gsl_multifit_linear_svd(Xs, workspace);
+			if(A.fullPivHouseholderQr().rank() < m){
+				log_err("A_N Matrix is Singular");
+				//gsl_linalg_QR_decomp(qr, tau);
+				//gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
+				uNot(1) = NAN;
+				break;
+			}else{
+				gsl_linalg_LU_decomp (qr, perm, &signum);
+				gsl_linalg_LU_solve (qr, perm, b, x);
+				gsl_linalg_LU_refine (gslA, qr, perm, b, x, residual);
+			}
 			
-			//store optimal regularization parameter
-			lambda = 0.5;
-			gsl_multifit_linear_solve (lambda, Xs, ys, cs, &rnorm, &snorm, workspace);
-			gsl_multifit_linear_genform2 (L, tau, qr, b, cs, M, x, workspace);
-			du = gslVecToVec(x);
-			
-			
-			gamma = 1.0;
-			do{
-				rnorm = cond(A.transpose()*A + gamma*gamma*B.transpose()*B);
-				gamma *= .5;
-				cout << "cond(A*A + g*g*B.transpose()*B) = " << cond(A.transpose()*A + gamma*gamma*B.transpose()*B) << endl;
-				if(rnorm <  cond(A.transpose()*A + gamma*gamma*B.transpose()*B)){
-					du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
-					break;
-				}
-			}while(true);
-			*/
-			
-			gamma *= .5;
-			du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
-			
-			/*
-			do{
-				gamma *= .75;
-				cout << "cond(A*A + gamma*B.transpose()*B) = " << cond(A*A + gamma*B.transpose()*B)<< endl;
-				matToGslMat(A*A + gamma*B.transpose()*B, qr);
-				vecToGslVec(A*P, b);
-				gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
-				du = gslVecToVec(x);
-			}while(norm(A*du-P) > 0.1);
-			*/
-			
+			du = gslVecToVec(x); 
 			uNot += du;
 			latexOutput(*env->nth_soln, uNot, i+1, " &");
-			if(du.norm() < 0.00001 || std::isnan(du.norm())){
+			if(du.norm() < 0.0001 || std::isnan(du.norm())){
 				break;
 			} else if (i >= LIMIT-1){
 				log_err("Function did not converge.");
 				note("u = ");
 				note(uNot);
-				exit(1);
+				uNot(1) = NAN;
+				break;
+				//exit(1);
+			} else if (uNot.norm() > 1000){
+				log_err("uNot is increasing without bound.");
+				uNot(1) = NAN;
+				break;
 			}
+			/*
+			gamma = 1.0;
+			if(regs){
+				do{
+					gamma *= .5;
+					du = inverse(A.transpose()*A + gamma*gamma*B.transpose()*B)*A.transpose()*P;
+				}while(norm(A*du-P) > 0.1);
+			}else{
+				du = A.inverse()*P;
+			}
+			*/
 		}
 	}else{
 		for(int i = 0; i<LIMIT; i++)
@@ -159,8 +152,10 @@ vec findActualParam(soln_env *env, bool regs=false)
 			*env->nth_soln = bob.topRows(n);
 		
 			A = findA(*env->time, U, m);
-			P = findP(*env->time, U, reshape(*env->measurements - *env->nth_soln, 1, n*lt).row(0), m);
+			P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
 			
+			cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
+			cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 			
 				/* du1 = dulp(A, P, uNot);
 				if(std::isnan(du.norm())){
@@ -169,6 +164,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 					matToGslMat(A, qr);
 					gsl_linalg_QR_decomp(qr, tau);
 					vecToGslVec(P, b);
+					//gsl_linalg_QR_solve(qr, tau, b, x);
 					gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
 					du = gslVecToVec(x);
 				//}

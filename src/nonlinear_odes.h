@@ -18,6 +18,7 @@ namespace thesis{
 		nonlinearOdes();
 		
 		static mat lotka_volterra(const double& t, const vec& x, const vec& u);
+		static mat lotka4(const double& t, const vec& x, const vec& u);
 		//static mat lotka_volterra_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time);
 		static mat pielou(const double& t, const vec& x, const vec& u);
 		//static mat pielou_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time);

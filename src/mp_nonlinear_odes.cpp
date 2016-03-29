@@ -7,6 +7,7 @@ namespace thesis{
 	
 	mpnonlinearOdes::mpnonlinearOdes(){
 		mpOdeFuncMap["lotka_volterra"] = mpnonlinearOdes::lotka_volterra;
+		mpOdeFuncMap["lotka4"] = mpnonlinearOdes::lotka4;
 		//qLinFuncMap["lotka_volterra_linearization"] = mpnonlinearOdes::lotka_volterra_linearization;
 		mpOdeFuncMap["pielou"] = mpnonlinearOdes::pielou;
 		//qLinFuncMap["pielou_linearization"] = mpnonlinearOdes::pielou_linearization;
@@ -37,6 +38,15 @@ namespace thesis{
 		return result;
 	}
 	
+	mp_mat mpnonlinearOdes::lotka4(const mpreal& t, const mp_vec& x, const mp_vec& u)
+	{
+		mp_mat result(2,1); 
+		result(0) = u(0)*x(0) - u(1)*x(0)*x(1);
+		result(1) = u(2)*x(0)*x(1) - u(3)*x(1);
+			
+		return result;
+	}
+
 	mp_mat mpnonlinearOdes::pielou(const mpreal& t, const mp_vec& x, const mp_vec& u)
 	{
 		mpreal k = 250;

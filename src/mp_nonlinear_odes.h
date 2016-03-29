@@ -15,6 +15,7 @@ namespace thesis{
 		mpnonlinearOdes();
 		
 		static mp_mat lotka_volterra(const mpreal& t, const mp_vec& x, const mp_vec& u);
+		static mp_mat lotka4(const mpreal& t, const mp_vec& x, const mp_vec& u);
 		static mp_mat pielou(const mpreal& t, const mp_vec& x, const mp_vec& u);
 		static mp_mat angiogenesis(const mpreal& t, const mp_vec& x, const mp_vec& u);
 		static mp_mat cancer(const mpreal& t, const mp_vec& x, const mp_vec& u);
