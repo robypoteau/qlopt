@@ -5,7 +5,10 @@
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_matrix.h>
 #include <gsl/gsl_linalg.h>
+#include <gsl/gsl_multifit.h>
 #include <numerical_integration.h>
+#include <latex_output.h>
+
 
 mat findA(const vec& t, const mat& U, int m);
 vec findP(const vec& t, const mat& U, const vec& dx, int m);
@@ -17,5 +20,9 @@ mat inverse(const mat& M);
 void vecToGslVec(const vec& v, gsl_vector *gslv);
 void matToGslMat(const mat& m, gsl_matrix *gslm);
 vec gslVecToVec(gsl_vector *gslv);
-//vec regularization(soln_env *env, const vec& du);
+mat gslMatToMat(gsl_matrix *gslm);
+bool allpositive(const vec& x);
+double cond(const mat& A);
+mat ichol(const mat& A);
+//vec dulp(const mat& A, const vec& b, const vec& u);
 #endif

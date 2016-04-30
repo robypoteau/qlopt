@@ -67,7 +67,7 @@ void longlatexOutput(const mat& M){
 	for(int j=1; j<c-(x-1); j++){
 		cout << "\t&";
 	}
-	cout << "Mean & Deviation \\\\" << endl;
+	cout << "Mean & Deviation \\\\ \\hline" << endl;
 	
 	for(int i=0; i<r; i++){
 		for(int j=0; j<c-1; j++){
@@ -90,6 +90,60 @@ void shortlatexOutput(const mat& otpt){
 		colWiseStdDev(otpt.block(0,1,r,c-x));
 	
 	longlatexOutput(M);	
+}
+
+void R(double dt, const mat& otpt, int n){
+	mat M = otpt;
+	int r = otpt.rows();
+	int N = r/n;
+	double temp, ans = 0, mean;
+	vec v;
+	
+	for(int i=1;i<N;i++){
+		M.middleRows(i*n,n) -= M.topRows(n);
+	}
+	
+	M = M.array().square();
+	M *= dt;
+	v = M.rowwise().sum();
+	
+	for(int i=1;i<N;i++){
+		temp = 0;
+		for(int j=0;j<n;j++){
+			temp += v(i*n+j);
+		}
+		ans += sqrt(temp);
+	}
+	mean = ans/N;
+	ans = 0;
+	for(int i=1;i<N;i++){
+		temp = 0;
+		for(int j=0;j<n;j++){
+			temp += v(i*n+j);
+		}
+		ans += pow(sqrt(temp)-mean,2);
+	}
+	cout << "L2-Rnorm = " << mean << " std = " << sqrt(ans/(N-1)) << endl;
+}
+void M(const mat& otpt, int n){
+	mat M = otpt;
+	int r = otpt.rows();
+	int c = otpt.cols();
+	double temp;
+	for(int i=1;i<(r/n);i++){
+		M.middleRows(i*n,n) -= M.topRows(n);
+	}
+	M.topRows(n) -= M.topRows(n);
+	M = M.array().abs();
+	temp = M(0,0);
+	for(int i=0;i<r;i++){
+		for(int j=0;j<c;j++){
+			if(temp < M(i,j)){
+				temp = M(i,j);
+			}
+		}
+	} 
+	cout << "Max-Norm = " << temp << endl;
 }
 
 void shortNormalizedLatexOutput(const mat& M){
@@ -129,16 +183,16 @@ vec colWiseMean(const mat& M){
 void tableheader(int n){
 	cout << "\\begin{table}\n"  
 		<< "\\centering\n" 
-	    << "\t\\begin{tabular}{|l|";
+	    << "\t\\begin{tabularx}{|X|";
 	for(int i=0; i<n; i++){
-		cout <<  "c |";
+		cout <<  "C|";
 	}
 	  cout << "}\n" \
 		   << "\t\t\\hline" << endl;
 }
 void tablefooter(){
 	cout << "\t\t\\hline" << endl;
-	cout << "\t\\end{tabular}" << endl;
+	cout << "\t\\end{tabularx}" << endl;
 	cout << "\\caption{ Table Caption }\n" \
 		 <<	"\\label{}\n" \
 		 << "\\end{table}" << endl;

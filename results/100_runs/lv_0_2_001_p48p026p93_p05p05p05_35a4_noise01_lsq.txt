@@ -1,0 +1,4091 @@
+time  &
+0 &
+0.2 &
+0.4 &
+0.6 &
+0.8 &
+1 &
+1.2 &
+1.4 &
+1.6 &
+1.8 &
+2 &
+time  &
+0 &
+0.2 &
+0.4 &
+0.6 &
+0.8 &
+1 &
+1.2 &
+1.4 &
+1.6 &
+1.8 &
+2 &
+	  &
+	  &
+	  &
+$\vec{x}_{0}(t,u)$  &
+35 &
+37.73324 &
+40.67114 &
+43.81389 &
+47.15587 &
+50.68296 &
+54.36886 &
+58.16988 &
+62.01805 &
+65.81214 &
+69.40673 &
+$\vec{x}_{0}(t,u)$  &
+4 &
+4.012092 &
+4.083992 &
+4.223432 &
+4.441914 &
+4.755922 &
+5.188602 &
+5.772052 &
+6.550325 &
+7.583116 &
+8.949686 &
+	  &
+0.48 &
+0.026 &
+0.93 &
+[NOTE] in src/thesis_functions.cpp:84: 449346.2
+[NOTE] in src/thesis_functions.cpp:84: 14882.13
+[NOTE] in src/thesis_functions.cpp:84: 7918.183
+[NOTE] in src/thesis_functions.cpp:84: 109972.1
+[NOTE] in src/thesis_functions.cpp:84: 139343.4
+[NOTE] in src/thesis_functions.cpp:84: 350635.9
+[NOTE] in src/thesis_functions.cpp:84: 734719
+[NOTE] in src/thesis_functions.cpp:84: 1084664
+[NOTE] in src/thesis_functions.cpp:84: 1142106
+[NOTE] in src/thesis_functions.cpp:84: 1133117
+[NOTE] in src/thesis_functions.cpp:84: 1134935
+[NOTE] in src/thesis_functions.cpp:84: 1135007
+$\vec{x}_{1}(t,u)$  &
+34.75301 &
+37.49115 &
+40.44347 &
+43.61049 &
+46.98676 &
+50.55791 &
+54.29662 &
+58.15704 &
+62.06711 &
+65.91874 &
+69.55563 &
+$\vec{x}_{1}(t,u)$  &
+4.138977 &
+4.114348 &
+4.154007 &
+4.264833 &
+4.457696 &
+4.748697 &
+5.160928 &
+5.726883 &
+6.491658 &
+7.516878 &
+8.884855 &
+	  &
+0.4919127 &
+0.02734877 &
+1.017252 &
+[NOTE] in src/thesis_functions.cpp:84: 448537.9
+[NOTE] in src/thesis_functions.cpp:84: 14927.38
+[NOTE] in src/thesis_functions.cpp:84: 8048.188
+[NOTE] in src/thesis_functions.cpp:84: 109999
+[NOTE] in src/thesis_functions.cpp:84: 139686.5
+[NOTE] in src/thesis_functions.cpp:84: 352241.9
+[NOTE] in src/thesis_functions.cpp:84: 732114.4
+[NOTE] in src/thesis_functions.cpp:84: 1072294
+[NOTE] in src/thesis_functions.cpp:84: 1128101
+[NOTE] in src/thesis_functions.cpp:84: 1119419
+[NOTE] in src/thesis_functions.cpp:84: 1121276
+[NOTE] in src/thesis_functions.cpp:84: 1121357
+$\vec{x}_{2}(t,u)$  &
+34.78769 &
+37.53238 &
+40.49094 &
+43.66332 &
+47.04314 &
+50.61471 &
+54.34881 &
+58.19683 &
+62.08293 &
+65.89377 &
+69.46635 &
+$\vec{x}_{2}(t,u)$  &
+4.144263 &
+4.12406 &
+4.169078 &
+4.286532 &
+4.487763 &
+4.789523 &
+5.215801 &
+5.800326 &
+6.589839 &
+7.648081 &
+9.059843 &
+	  &
+0.4936868 &
+0.02760632 &
+1.022191 &
+[NOTE] in src/thesis_functions.cpp:84: 439763.1
+[NOTE] in src/thesis_functions.cpp:84: 15628.49
+[NOTE] in src/thesis_functions.cpp:84: 6530.39
+[NOTE] in src/thesis_functions.cpp:84: 115716.6
+[NOTE] in src/thesis_functions.cpp:84: 135213.6
+[NOTE] in src/thesis_functions.cpp:84: 328079.6
+[NOTE] in src/thesis_functions.cpp:84: 752563.7
+[NOTE] in src/thesis_functions.cpp:84: 1079799
+[NOTE] in src/thesis_functions.cpp:84: 1117397
+[NOTE] in src/thesis_functions.cpp:84: 1106712
+[NOTE] in src/thesis_functions.cpp:84: 1108208
+[NOTE] in src/thesis_functions.cpp:84: 1108234
+$\vec{x}_{3}(t,u)$  &
+34.58655 &
+37.34423 &
+40.32031 &
+43.51497 &
+46.9219 &
+50.52519 &
+54.29483 &
+58.18061 &
+62.10366 &
+65.94563 &
+69.53551 &
+$\vec{x}_{3}(t,u)$  &
+4.095698 &
+4.069616 &
+4.109578 &
+4.22275 &
+4.420555 &
+4.720024 &
+5.145705 &
+5.732309 &
+6.528193 &
+7.5996 &
+9.03498 &
+	  &
+0.4984943 &
+0.0281866 &
+1.045175 &
+[NOTE] in src/thesis_functions.cpp:84: 429220.3
+[NOTE] in src/thesis_functions.cpp:84: 15767.41
+[NOTE] in src/thesis_functions.cpp:84: 6426.363
+[NOTE] in src/thesis_functions.cpp:84: 117887.4
+[NOTE] in src/thesis_functions.cpp:84: 133989.5
+[NOTE] in src/thesis_functions.cpp:84: 311018.1
+[NOTE] in src/thesis_functions.cpp:84: 728520.2
+[NOTE] in src/thesis_functions.cpp:84: 1046696
+[NOTE] in src/thesis_functions.cpp:84: 1086953
+[NOTE] in src/thesis_functions.cpp:84: 1076888
+[NOTE] in src/thesis_functions.cpp:84: 1078085
+[NOTE] in src/thesis_functions.cpp:84: 1078116
+$\vec{x}_{4}(t,u)$  &
+34.70302 &
+37.46107 &
+40.43251 &
+43.61725 &
+47.00875 &
+50.59102 &
+54.33429 &
+58.18907 &
+62.07814 &
+65.88616 &
+69.44722 &
+$\vec{x}_{4}(t,u)$  &
+4.043417 &
+4.038103 &
+4.096685 &
+4.226916 &
+4.440712 &
+4.755491 &
+5.196062 &
+5.797207 &
+6.607071 &
+7.691267 &
+9.137052 &
+	  &
+0.4930995 &
+0.02743594 &
+0.9960356 &
+[NOTE] in src/thesis_functions.cpp:84: 453675.7
+[NOTE] in src/thesis_functions.cpp:84: 14470.16
+[NOTE] in src/thesis_functions.cpp:84: 9112.917
+[NOTE] in src/thesis_functions.cpp:84: 106493.4
+[NOTE] in src/thesis_functions.cpp:84: 142984
+[NOTE] in src/thesis_functions.cpp:84: 376069.2
+[NOTE] in src/thesis_functions.cpp:84: 734708.6
+[NOTE] in src/thesis_functions.cpp:84: 1092377
+[NOTE] in src/thesis_functions.cpp:84: 1158888
+[NOTE] in src/thesis_functions.cpp:84: 1151060
+[NOTE] in src/thesis_functions.cpp:84: 1153460
+[NOTE] in src/thesis_functions.cpp:84: 1153580
+$\vec{x}_{5}(t,u)$  &
+34.88928 &
+37.6188 &
+40.56107 &
+43.71561 &
+47.07562 &
+50.62491 &
+54.33369 &
+58.1527 &
+62.00536 &
+65.77758 &
+69.30559 &
+$\vec{x}_{5}(t,u)$  &
+4.162278 &
+4.133138 &
+4.170071 &
+4.279975 &
+4.473877 &
+4.768211 &
+5.186614 &
+5.762396 &
+6.541764 &
+7.587714 &
+8.983942 &
+	  &
+0.492915 &
+0.02807407 &
+1.052433 &
+[NOTE] in src/thesis_functions.cpp:84: 462633.8
+[NOTE] in src/thesis_functions.cpp:84: 14736.44
+[NOTE] in src/thesis_functions.cpp:84: 8664.349
+[NOTE] in src/thesis_functions.cpp:84: 106138.5
+[NOTE] in src/thesis_functions.cpp:84: 143235.4
+[NOTE] in src/thesis_functions.cpp:84: 400121.2
+[NOTE] in src/thesis_functions.cpp:84: 764729.9
+[NOTE] in src/thesis_functions.cpp:84: 1108285
+[NOTE] in src/thesis_functions.cpp:84: 1155574
+[NOTE] in src/thesis_functions.cpp:84: 1146885
+[NOTE] in src/thesis_functions.cpp:84: 1149665
+[NOTE] in src/thesis_functions.cpp:84: 1149765
+$\vec{x}_{6}(t,u)$  &
+34.70655 &
+37.45699 &
+40.42807 &
+43.61881 &
+47.02127 &
+50.61709 &
+54.37274 &
+58.23283 &
+62.11119 &
+65.87928 &
+69.35275 &
+$\vec{x}_{6}(t,u)$  &
+4.218341 &
+4.172193 &
+4.196589 &
+4.298347 &
+4.488822 &
+4.785304 &
+5.213001 &
+5.807785 &
+6.619756 &
+7.717472 &
+9.191914 &
+	  &
+0.5045689 &
+0.02941722 &
+1.115888 &
+[NOTE] in src/thesis_functions.cpp:84: 423842.4
+[NOTE] in src/thesis_functions.cpp:84: 15972.38
+[NOTE] in src/thesis_functions.cpp:84: 6055.117
+[NOTE] in src/thesis_functions.cpp:84: 119653
+[NOTE] in src/thesis_functions.cpp:84: 132329.8
+[NOTE] in src/thesis_functions.cpp:84: 297828.5
+[NOTE] in src/thesis_functions.cpp:84: 705908.1
+[NOTE] in src/thesis_functions.cpp:84: 1013322
+[NOTE] in src/thesis_functions.cpp:84: 1052570
+[NOTE] in src/thesis_functions.cpp:84: 1044218
+[NOTE] in src/thesis_functions.cpp:84: 1045023
+[NOTE] in src/thesis_functions.cpp:84: 1045045
+$\vec{x}_{7}(t,u)$  &
+34.72305 &
+37.48056 &
+40.44756 &
+43.62518 &
+47.00887 &
+50.58571 &
+54.3307 &
+58.20157 &
+62.1318 &
+66.02147 &
+69.72602 &
+$\vec{x}_{7}(t,u)$  &
+4.013682 &
+4.030647 &
+4.107041 &
+4.250799 &
+4.473639 &
+4.792288 &
+5.230199 &
+5.819899 &
+6.606088 &
+7.649497 &
+9.031108 &
+	  &
+0.484271 &
+0.02543329 &
+0.896658 &
+[NOTE] in src/thesis_functions.cpp:84: 455025.3
+[NOTE] in src/thesis_functions.cpp:84: 14774.26
+[NOTE] in src/thesis_functions.cpp:84: 8258.552
+[NOTE] in src/thesis_functions.cpp:84: 107979.1
+[NOTE] in src/thesis_functions.cpp:84: 141147.8
+[NOTE] in src/thesis_functions.cpp:84: 373847.9
+[NOTE] in src/thesis_functions.cpp:84: 750669.7
+[NOTE] in src/thesis_functions.cpp:84: 1101638
+[NOTE] in src/thesis_functions.cpp:84: 1155510
+[NOTE] in src/thesis_functions.cpp:84: 1146521
+[NOTE] in src/thesis_functions.cpp:84: 1148769
+[NOTE] in src/thesis_functions.cpp:84: 1148852
+$\vec{x}_{8}(t,u)$  &
+34.72355 &
+37.46131 &
+40.41568 &
+43.58658 &
+46.96762 &
+50.54296 &
+54.28299 &
+58.13835 &
+62.03186 &
+65.84795 &
+69.42008 &
+$\vec{x}_{8}(t,u)$  &
+4.184278 &
+4.147975 &
+4.178636 &
+4.283 &
+4.472 &
+4.762053 &
+5.176893 &
+5.750094 &
+6.528395 &
+7.575731 &
+8.977323 &
+	  &
+0.4969884 &
+0.02824864 &
+1.062625 &
+[NOTE] in src/thesis_functions.cpp:84: 471029.5
+[NOTE] in src/thesis_functions.cpp:84: 14645.29
+[NOTE] in src/thesis_functions.cpp:84: 8909.588
+[NOTE] in src/thesis_functions.cpp:84: 104557.5
+[NOTE] in src/thesis_functions.cpp:84: 144816.3
+[NOTE] in src/thesis_functions.cpp:84: 423481.5
+[NOTE] in src/thesis_functions.cpp:84: 779489.3
+[NOTE] in src/thesis_functions.cpp:84: 1130230
+[NOTE] in src/thesis_functions.cpp:84: 1170450
+[NOTE] in src/thesis_functions.cpp:84: 1161801
+[NOTE] in src/thesis_functions.cpp:84: 1164862
+[NOTE] in src/thesis_functions.cpp:84: 1164937
+$\vec{x}_{9}(t,u)$  &
+34.66335 &
+37.41377 &
+40.38733 &
+43.58336 &
+46.99429 &
+50.60225 &
+54.37424 &
+58.25543 &
+62.16015 &
+65.96022 &
+69.47115 &
+$\vec{x}_{9}(t,u)$  &
+4.244892 &
+4.189109 &
+4.204659 &
+4.298013 &
+4.48019 &
+4.768136 &
+5.186713 &
+5.771434 &
+6.57206 &
+7.656881 &
+9.116799 &
+	  &
+0.5063695 &
+0.02958518 &
+1.131802 &
+[NOTE] in src/thesis_functions.cpp:84: 473851.9
+[NOTE] in src/thesis_functions.cpp:84: 14252.81
+[NOTE] in src/thesis_functions.cpp:84: 9807.186
+[NOTE] in src/thesis_functions.cpp:84: 101440
+[NOTE] in src/thesis_functions.cpp:84: 147659.5
+[NOTE] in src/thesis_functions.cpp:84: 447378.3
+[NOTE] in src/thesis_functions.cpp:84: 764952.9
+[NOTE] in src/thesis_functions.cpp:84: 1127395
+[NOTE] in src/thesis_functions.cpp:84: 1180947
+[NOTE] in src/thesis_functions.cpp:84: 1175047
+[NOTE] in src/thesis_functions.cpp:84: 1178313
+[NOTE] in src/thesis_functions.cpp:84: 1178431
+$\vec{x}_{10}(t,u)$  &
+34.77284 &
+37.51206 &
+40.47075 &
+43.64888 &
+47.04 &
+50.62814 &
+54.38335 &
+58.25565 &
+62.16667 &
+65.99895 &
+69.58299 &
+$\vec{x}_{10}(t,u)$  &
+4.241068 &
+4.191154 &
+4.209982 &
+4.303899 &
+4.483516 &
+4.764999 &
+5.171906 &
+5.737737 &
+6.509289 &
+7.550731 &
+8.94772 &
+	  &
+0.4997449 &
+0.02864602 &
+1.094012 &
+[NOTE] in src/thesis_functions.cpp:84: 454875.4
+[NOTE] in src/thesis_functions.cpp:84: 14905.71
+[NOTE] in src/thesis_functions.cpp:84: 8062.469
+[NOTE] in src/thesis_functions.cpp:84: 108054.3
+[NOTE] in src/thesis_functions.cpp:84: 140893.4
+[NOTE] in src/thesis_functions.cpp:84: 377656.6
+[NOTE] in src/thesis_functions.cpp:84: 751734.7
+[NOTE] in src/thesis_functions.cpp:84: 1090241
+[NOTE] in src/thesis_functions.cpp:84: 1139987
+[NOTE] in src/thesis_functions.cpp:84: 1131717
+[NOTE] in src/thesis_functions.cpp:84: 1133886
+[NOTE] in src/thesis_functions.cpp:84: 1133969
+$\vec{x}_{11}(t,u)$  &
+34.67729 &
+37.42041 &
+40.38053 &
+43.55748 &
+46.94468 &
+50.52592 &
+54.27107 &
+58.12996 &
+62.02422 &
+65.83667 &
+69.39869 &
+$\vec{x}_{11}(t,u)$  &
+4.213719 &
+4.180433 &
+4.214559 &
+4.323045 &
+4.517083 &
+4.813422 &
+5.236228 &
+5.819643 &
+6.61114 &
+7.675576 &
+9.099252 &
+	  &
+0.4987043 &
+0.02816262 &
+1.054378 &
+[NOTE] in src/thesis_functions.cpp:84: 479817.5
+[NOTE] in src/thesis_functions.cpp:84: 14119.3
+[NOTE] in src/thesis_functions.cpp:84: 10336.77
+[NOTE] in src/thesis_functions.cpp:84: 98588.64
+[NOTE] in src/thesis_functions.cpp:84: 149959.7
+[NOTE] in src/thesis_functions.cpp:84: 493206.8
+[NOTE] in src/thesis_functions.cpp:84: 781499.5
+[NOTE] in src/thesis_functions.cpp:84: 1146577
+[NOTE] in src/thesis_functions.cpp:84: 1194479
+[NOTE] in src/thesis_functions.cpp:84: 1189845
+[NOTE] in src/thesis_functions.cpp:84: 1194003
+[NOTE] in src/thesis_functions.cpp:84: 1194151
+$\vec{x}_{12}(t,u)$  &
+34.74695 &
+37.48257 &
+40.44039 &
+43.61951 &
+47.01221 &
+50.6005 &
+54.35141 &
+58.21039 &
+62.09237 &
+65.87033 &
+69.36176 &
+$\vec{x}_{12}(t,u)$  &
+4.294997 &
+4.230888 &
+4.238978 &
+4.325399 &
+4.500812 &
+4.78175 &
+5.192555 &
+5.768051 &
+6.557043 &
+7.626471 &
+9.065345 &
+	  &
+0.5056584 &
+0.02977103 &
+1.14982 &
+[NOTE] in src/thesis_functions.cpp:84: 456744.8
+[NOTE] in src/thesis_functions.cpp:84: 14514.75
+[NOTE] in src/thesis_functions.cpp:84: 8848.27
+[NOTE] in src/thesis_functions.cpp:84: 105937.2
+[NOTE] in src/thesis_functions.cpp:84: 142988.7
+[NOTE] in src/thesis_functions.cpp:84: 386894.9
+[NOTE] in src/thesis_functions.cpp:84: 744292.8
+[NOTE] in src/thesis_functions.cpp:84: 1102012
+[NOTE] in src/thesis_functions.cpp:84: 1164431
+[NOTE] in src/thesis_functions.cpp:84: 1156832
+[NOTE] in src/thesis_functions.cpp:84: 1159291
+[NOTE] in src/thesis_functions.cpp:84: 1159403
+$\vec{x}_{13}(t,u)$  &
+34.7946 &
+37.52391 &
+40.46794 &
+43.62663 &
+46.99368 &
+50.55354 &
+54.27721 &
+58.11641 &
+61.99574 &
+65.80241 &
+69.37404 &
+$\vec{x}_{13}(t,u)$  &
+4.192958 &
+4.157346 &
+4.188171 &
+4.292098 &
+4.479904 &
+4.767742 &
+5.178925 &
+5.74638 &
+6.515878 &
+7.54996 &
+8.931943 &
+	  &
+0.4945753 &
+0.02805769 &
+1.056695 &
+[NOTE] in src/thesis_functions.cpp:84: 467632.8
+[NOTE] in src/thesis_functions.cpp:84: 14465.06
+[NOTE] in src/thesis_functions.cpp:84: 9253.517
+[NOTE] in src/thesis_functions.cpp:84: 104066.2
+[NOTE] in src/thesis_functions.cpp:84: 145233.8
+[NOTE] in src/thesis_functions.cpp:84: 417678.1
+[NOTE] in src/thesis_functions.cpp:84: 765290
+[NOTE] in src/thesis_functions.cpp:84: 1123323
+[NOTE] in src/thesis_functions.cpp:84: 1174776
+[NOTE] in src/thesis_functions.cpp:84: 1166747
+[NOTE] in src/thesis_functions.cpp:84: 1169795
+[NOTE] in src/thesis_functions.cpp:84: 1169900
+$\vec{x}_{14}(t,u)$  &
+34.75626 &
+37.49847 &
+40.4606 &
+43.64211 &
+47.03573 &
+50.62426 &
+54.37591 &
+58.23793 &
+62.12797 &
+65.92292 &
+69.44563 &
+$\vec{x}_{14}(t,u)$  &
+4.217983 &
+4.168387 &
+4.188457 &
+4.2847 &
+4.468021 &
+4.755064 &
+5.170123 &
+5.747784 &
+6.536382 &
+7.602159 &
+9.033306 &
+	  &
+0.5017994 &
+0.02915727 &
+1.111984 &
+[NOTE] in src/thesis_functions.cpp:84: 457170.7
+[NOTE] in src/thesis_functions.cpp:84: 14541.46
+[NOTE] in src/thesis_functions.cpp:84: 8996.586
+[NOTE] in src/thesis_functions.cpp:84: 106590.8
+[NOTE] in src/thesis_functions.cpp:84: 143068.7
+[NOTE] in src/thesis_functions.cpp:84: 378645.3
+[NOTE] in src/thesis_functions.cpp:84: 737750.4
+[NOTE] in src/thesis_functions.cpp:84: 1091776
+[NOTE] in src/thesis_functions.cpp:84: 1152564
+[NOTE] in src/thesis_functions.cpp:84: 1144751
+[NOTE] in src/thesis_functions.cpp:84: 1147026
+[NOTE] in src/thesis_functions.cpp:84: 1147123
+$\vec{x}_{15}(t,u)$  &
+34.85579 &
+37.59252 &
+40.54307 &
+43.7074 &
+47.07929 &
+50.64331 &
+54.37069 &
+58.21352 &
+62.09703 &
+65.90942 &
+69.48979 &
+$\vec{x}_{15}(t,u)$  &
+4.167691 &
+4.140085 &
+4.178008 &
+4.288362 &
+4.482131 &
+4.775644 &
+5.192361 &
+5.765321 &
+6.540365 &
+7.580056 &
+8.967697 &
+	  &
+0.4929312 &
+0.02772053 &
+1.036892 &
+[NOTE] in src/thesis_functions.cpp:84: 476630.7
+[NOTE] in src/thesis_functions.cpp:84: 14246.08
+[NOTE] in src/thesis_functions.cpp:84: 9928.383
+[NOTE] in src/thesis_functions.cpp:84: 99859.76
+[NOTE] in src/thesis_functions.cpp:84: 148680.9
+[NOTE] in src/thesis_functions.cpp:84: 471814.4
+[NOTE] in src/thesis_functions.cpp:84: 770723.4
+[NOTE] in src/thesis_functions.cpp:84: 1126484
+[NOTE] in src/thesis_functions.cpp:84: 1174627
+[NOTE] in src/thesis_functions.cpp:84: 1170221
+[NOTE] in src/thesis_functions.cpp:84: 1173469
+[NOTE] in src/thesis_functions.cpp:84: 1173579
+$\vec{x}_{16}(t,u)$  &
+34.73048 &
+37.46538 &
+40.41895 &
+43.59134 &
+46.97638 &
+50.55855 &
+54.30866 &
+58.17789 &
+62.08978 &
+65.92967 &
+69.53219 &
+$\vec{x}_{16}(t,u)$  &
+4.302917 &
+4.254436 &
+4.274609 &
+4.369821 &
+4.55066 &
+4.833186 &
+5.240732 &
+5.806395 &
+6.576311 &
+7.61364 &
+9.00262 &
+	  &
+0.4996573 &
+0.02823684 &
+1.075435 &
+[NOTE] in src/thesis_functions.cpp:84: 461871.7
+[NOTE] in src/thesis_functions.cpp:84: 14526.86
+[NOTE] in src/thesis_functions.cpp:84: 9153.243
+[NOTE] in src/thesis_functions.cpp:84: 104869
+[NOTE] in src/thesis_functions.cpp:84: 144367.5
+[NOTE] in src/thesis_functions.cpp:84: 402896.8
+[NOTE] in src/thesis_functions.cpp:84: 751715.3
+[NOTE] in src/thesis_functions.cpp:84: 1100942
+[NOTE] in src/thesis_functions.cpp:84: 1154461
+[NOTE] in src/thesis_functions.cpp:84: 1147337
+[NOTE] in src/thesis_functions.cpp:84: 1149840
+[NOTE] in src/thesis_functions.cpp:84: 1149933
+$\vec{x}_{17}(t,u)$  &
+34.80015 &
+37.53553 &
+40.48595 &
+43.65117 &
+47.02462 &
+50.59034 &
+54.31869 &
+58.1605 &
+62.03909 &
+65.84001 &
+69.39872 &
+$\vec{x}_{17}(t,u)$  &
+4.229499 &
+4.196329 &
+4.23017 &
+4.337877 &
+4.530469 &
+4.824413 &
+5.243433 &
+5.820992 &
+6.603549 &
+7.654487 &
+9.058072 &
+	  &
+0.4960424 &
+0.02797607 &
+1.050703 &
+[NOTE] in src/thesis_functions.cpp:84: 436552.5
+[NOTE] in src/thesis_functions.cpp:84: 15278.56
+[NOTE] in src/thesis_functions.cpp:84: 7234.929
+[NOTE] in src/thesis_functions.cpp:84: 114137.1
+[NOTE] in src/thesis_functions.cpp:84: 136092.2
+[NOTE] in src/thesis_functions.cpp:84: 320727
+[NOTE] in src/thesis_functions.cpp:84: 720366.6
+[NOTE] in src/thesis_functions.cpp:84: 1054900
+[NOTE] in src/thesis_functions.cpp:84: 1106859
+[NOTE] in src/thesis_functions.cpp:84: 1097399
+[NOTE] in src/thesis_functions.cpp:84: 1098736
+[NOTE] in src/thesis_functions.cpp:84: 1098786
+$\vec{x}_{18}(t,u)$  &
+34.78839 &
+37.53106 &
+40.48465 &
+43.64946 &
+47.01973 &
+50.5808 &
+54.30511 &
+58.14664 &
+62.03349 &
+65.85812 &
+69.46565 &
+$\vec{x}_{18}(t,u)$  &
+4.086092 &
+4.07957 &
+4.135802 &
+4.262234 &
+4.470274 &
+4.776549 &
+5.204669 &
+5.787648 &
+6.571075 &
+7.617008 &
+9.008054 &
+	  &
+0.4888707 &
+0.02683933 &
+0.9780216 &
+[NOTE] in src/thesis_functions.cpp:84: 478865.5
+[NOTE] in src/thesis_functions.cpp:84: 14283.11
+[NOTE] in src/thesis_functions.cpp:84: 9798.414
+[NOTE] in src/thesis_functions.cpp:84: 100465.4
+[NOTE] in src/thesis_functions.cpp:84: 148289.2
+[NOTE] in src/thesis_functions.cpp:84: 474102.7
+[NOTE] in src/thesis_functions.cpp:84: 788129.5
+[NOTE] in src/thesis_functions.cpp:84: 1154046
+[NOTE] in src/thesis_functions.cpp:84: 1197113
+[NOTE] in src/thesis_functions.cpp:84: 1190257
+[NOTE] in src/thesis_functions.cpp:84: 1194351
+[NOTE] in src/thesis_functions.cpp:84: 1194473
+$\vec{x}_{19}(t,u)$  &
+34.6874 &
+37.42846 &
+40.3944 &
+43.58421 &
+46.98981 &
+50.59257 &
+54.35836 &
+58.23066 &
+62.12123 &
+65.89814 &
+69.37173 &
+$\vec{x}_{19}(t,u)$  &
+4.277387 &
+4.207185 &
+4.210392 &
+4.293029 &
+4.465772 &
+4.74534 &
+5.1565 &
+5.734827 &
+6.530341 &
+7.611794 &
+9.070659 &
+	  &
+0.5087763 &
+0.03033364 &
+1.175945 &
+[NOTE] in src/thesis_functions.cpp:84: 469470.4
+[NOTE] in src/thesis_functions.cpp:84: 14371.14
+[NOTE] in src/thesis_functions.cpp:84: 9406.055
+[NOTE] in src/thesis_functions.cpp:84: 102540.4
+[NOTE] in src/thesis_functions.cpp:84: 146184.6
+[NOTE] in src/thesis_functions.cpp:84: 436240.2
+[NOTE] in src/thesis_functions.cpp:84: 769147
+[NOTE] in src/thesis_functions.cpp:84: 1129210
+[NOTE] in src/thesis_functions.cpp:84: 1182150
+[NOTE] in src/thesis_functions.cpp:84: 1175213
+[NOTE] in src/thesis_functions.cpp:84: 1178551
+[NOTE] in src/thesis_functions.cpp:84: 1178681
+$\vec{x}_{20}(t,u)$  &
+34.73064 &
+37.46747 &
+40.42473 &
+43.6018 &
+46.99135 &
+50.57606 &
+54.32397 &
+58.18206 &
+62.06762 &
+65.85697 &
+69.37223 &
+$\vec{x}_{20}(t,u)$  &
+4.247611 &
+4.19266 &
+4.208132 &
+4.300371 &
+4.480144 &
+4.763975 &
+5.176053 &
+5.750867 &
+6.536662 &
+7.599576 &
+9.027645 &
+	  &
+0.5028996 &
+0.02933882 &
+1.123675 &
+[NOTE] in src/thesis_functions.cpp:84: 453881.5
+[NOTE] in src/thesis_functions.cpp:84: 14853.58
+[NOTE] in src/thesis_functions.cpp:84: 8135.923
+[NOTE] in src/thesis_functions.cpp:84: 109058.1
+[NOTE] in src/thesis_functions.cpp:84: 140542.1
+[NOTE] in src/thesis_functions.cpp:84: 364624.9
+[NOTE] in src/thesis_functions.cpp:84: 746852.7
+[NOTE] in src/thesis_functions.cpp:84: 1095180
+[NOTE] in src/thesis_functions.cpp:84: 1149800
+[NOTE] in src/thesis_functions.cpp:84: 1140192
+[NOTE] in src/thesis_functions.cpp:84: 1142440
+[NOTE] in src/thesis_functions.cpp:84: 1142528
+$\vec{x}_{21}(t,u)$  &
+34.73624 &
+37.48443 &
+40.45063 &
+43.63456 &
+47.02933 &
+50.61831 &
+54.37057 &
+58.23471 &
+62.13038 &
+65.93737 &
+69.48257 &
+$\vec{x}_{21}(t,u)$  &
+4.147055 &
+4.11111 &
+4.14269 &
+4.248668 &
+4.44022 &
+4.734169 &
+5.154878 &
+5.736879 &
+6.528311 &
+7.595081 &
+9.024997 &
+	  &
+0.4987592 &
+0.02862751 &
+1.07676 &
+[NOTE] in src/thesis_functions.cpp:84: 459539.5
+[NOTE] in src/thesis_functions.cpp:84: 14635.12
+[NOTE] in src/thesis_functions.cpp:84: 8797.321
+[NOTE] in src/thesis_functions.cpp:84: 106061.4
+[NOTE] in src/thesis_functions.cpp:84: 143147.9
+[NOTE] in src/thesis_functions.cpp:84: 390851.1
+[NOTE] in src/thesis_functions.cpp:84: 748153.8
+[NOTE] in src/thesis_functions.cpp:84: 1094828
+[NOTE] in src/thesis_functions.cpp:84: 1149298
+[NOTE] in src/thesis_functions.cpp:84: 1141784
+[NOTE] in src/thesis_functions.cpp:84: 1144163
+[NOTE] in src/thesis_functions.cpp:84: 1144258
+$\vec{x}_{22}(t,u)$  &
+34.77312 &
+37.51333 &
+40.46935 &
+43.64103 &
+47.02187 &
+50.59593 &
+54.33353 &
+58.18533 &
+62.07429 &
+65.88527 &
+69.4526 &
+$\vec{x}_{22}(t,u)$  &
+4.209042 &
+4.176584 &
+4.21103 &
+4.319272 &
+4.512386 &
+4.806922 &
+5.226736 &
+5.805494 &
+6.589974 &
+7.644047 &
+9.052708 &
+	  &
+0.4965545 &
+0.02801151 &
+1.050633 &
+[NOTE] in src/thesis_functions.cpp:84: 490602.9
+[NOTE] in src/thesis_functions.cpp:84: 14058.38
+[NOTE] in src/thesis_functions.cpp:84: 10528.64
+[NOTE] in src/thesis_functions.cpp:84: 96600.65
+[NOTE] in src/thesis_functions.cpp:84: 151686.9
+[NOTE] in src/thesis_functions.cpp:84: 546508.6
+[NOTE] in src/thesis_functions.cpp:84: 808438
+[NOTE] in src/thesis_functions.cpp:84: 1187910
+[NOTE] in src/thesis_functions.cpp:84: 1221853
+[NOTE] in src/thesis_functions.cpp:84: 1216829
+[NOTE] in src/thesis_functions.cpp:84: 1222625
+[NOTE] in src/thesis_functions.cpp:84: 1222781
+$\vec{x}_{23}(t,u)$  &
+34.64493 &
+37.38454 &
+40.35509 &
+43.55474 &
+46.97407 &
+50.59229 &
+54.37175 &
+58.25032 &
+62.13118 &
+65.8696 &
+69.25797 &
+$\vec{x}_{23}(t,u)$  &
+4.319667 &
+4.225388 &
+4.209242 &
+4.276631 &
+4.437974 &
+4.710172 &
+5.118729 &
+5.700705 &
+6.508581 &
+7.614715 &
+9.115148 &
+	  &
+0.5167968 &
+0.03194163 &
+1.260093 &
+[NOTE] in src/thesis_functions.cpp:84: 480340.9
+[NOTE] in src/thesis_functions.cpp:84: 14011.82
+[NOTE] in src/thesis_functions.cpp:84: 10513.71
+[NOTE] in src/thesis_functions.cpp:84: 98091.52
+[NOTE] in src/thesis_functions.cpp:84: 150637.8
+[NOTE] in src/thesis_functions.cpp:84: 496277.9
+[NOTE] in src/thesis_functions.cpp:84: 774745.9
+[NOTE] in src/thesis_functions.cpp:84: 1145117
+[NOTE] in src/thesis_functions.cpp:84: 1198363
+[NOTE] in src/thesis_functions.cpp:84: 1194601
+[NOTE] in src/thesis_functions.cpp:84: 1198612
+[NOTE] in src/thesis_functions.cpp:84: 1198760
+$\vec{x}_{24}(t,u)$  &
+34.7777 &
+37.50995 &
+40.46277 &
+43.63591 &
+47.02267 &
+50.60669 &
+54.35746 &
+58.22411 &
+62.127 &
+65.9468 &
+69.51142 &
+$\vec{x}_{24}(t,u)$  &
+4.279077 &
+4.219257 &
+4.229596 &
+4.316148 &
+4.489293 &
+4.765022 &
+5.166784 &
+5.728039 &
+6.495629 &
+7.533841 &
+8.928473 &
+	  &
+0.5015085 &
+0.02907008 &
+1.120564 &
+[NOTE] in src/thesis_functions.cpp:84: 463706.2
+[NOTE] in src/thesis_functions.cpp:84: 14457.79
+[NOTE] in src/thesis_functions.cpp:84: 9249.412
+[NOTE] in src/thesis_functions.cpp:84: 104826.7
+[NOTE] in src/thesis_functions.cpp:84: 144672.2
+[NOTE] in src/thesis_functions.cpp:84: 402284.5
+[NOTE] in src/thesis_functions.cpp:84: 752141.2
+[NOTE] in src/thesis_functions.cpp:84: 1109825
+[NOTE] in src/thesis_functions.cpp:84: 1164419
+[NOTE] in src/thesis_functions.cpp:84: 1156845
+[NOTE] in src/thesis_functions.cpp:84: 1159366
+[NOTE] in src/thesis_functions.cpp:84: 1159449
+$\vec{x}_{25}(t,u)$  &
+34.81311 &
+37.5478 &
+40.4979 &
+43.66352 &
+47.03856 &
+50.60775 &
+54.34242 &
+58.19475 &
+62.08991 &
+65.91588 &
+69.51117 &
+$\vec{x}_{25}(t,u)$  &
+4.208605 &
+4.173173 &
+4.204153 &
+4.308214 &
+4.49613 &
+4.784034 &
+5.195199 &
+5.762488 &
+6.531586 &
+7.564926 &
+8.945742 &
+	  &
+0.4948152 &
+0.02788449 &
+1.050649 &
+[NOTE] in src/thesis_functions.cpp:84: 479509.6
+[NOTE] in src/thesis_functions.cpp:84: 14327.14
+[NOTE] in src/thesis_functions.cpp:84: 9793.52
+[NOTE] in src/thesis_functions.cpp:84: 100503.1
+[NOTE] in src/thesis_functions.cpp:84: 148304.2
+[NOTE] in src/thesis_functions.cpp:84: 474769.8
+[NOTE] in src/thesis_functions.cpp:84: 788935.9
+[NOTE] in src/thesis_functions.cpp:84: 1149880
+[NOTE] in src/thesis_functions.cpp:84: 1190570
+[NOTE] in src/thesis_functions.cpp:84: 1183838
+[NOTE] in src/thesis_functions.cpp:84: 1187872
+[NOTE] in src/thesis_functions.cpp:84: 1187990
+$\vec{x}_{26}(t,u)$  &
+34.68285 &
+37.42746 &
+40.39718 &
+43.59086 &
+47.00025 &
+50.60642 &
+54.37477 &
+58.24806 &
+62.13707 &
+65.90845 &
+69.37071 &
+$\vec{x}_{26}(t,u)$  &
+4.285511 &
+4.216749 &
+4.221652 &
+4.306356 &
+4.481684 &
+4.764561 &
+5.180026 &
+5.764032 &
+6.567096 &
+7.658607 &
+9.130777 &
+	  &
+0.5096032 &
+0.03034201 &
+1.174297 &
+[NOTE] in src/thesis_functions.cpp:84: 468185.5
+[NOTE] in src/thesis_functions.cpp:84: 14532.29
+[NOTE] in src/thesis_functions.cpp:84: 9070.477
+[NOTE] in src/thesis_functions.cpp:84: 104087.8
+[NOTE] in src/thesis_functions.cpp:84: 144979
+[NOTE] in src/thesis_functions.cpp:84: 422017.6
+[NOTE] in src/thesis_functions.cpp:84: 771756.2
+[NOTE] in src/thesis_functions.cpp:84: 1127033
+[NOTE] in src/thesis_functions.cpp:84: 1174932
+[NOTE] in src/thesis_functions.cpp:84: 1166748
+[NOTE] in src/thesis_functions.cpp:84: 1169877
+[NOTE] in src/thesis_functions.cpp:84: 1169981
+$\vec{x}_{27}(t,u)$  &
+34.70615 &
+37.44929 &
+40.41377 &
+43.59886 &
+46.99702 &
+50.59054 &
+54.34681 &
+58.21173 &
+62.10094 &
+65.8883 &
+69.39246 &
+$\vec{x}_{27}(t,u)$  &
+4.236639 &
+4.182697 &
+4.199492 &
+4.293479 &
+4.475598 &
+4.762637 &
+5.179176 &
+5.760277 &
+6.555012 &
+7.630657 &
+9.076723 &
+	  &
+0.5042594 &
+0.02947336 &
+1.126862 &
+[NOTE] in src/thesis_functions.cpp:84: 475657.9
+[NOTE] in src/thesis_functions.cpp:84: 14142.51
+[NOTE] in src/thesis_functions.cpp:84: 10129.2
+[NOTE] in src/thesis_functions.cpp:84: 100169.9
+[NOTE] in src/thesis_functions.cpp:84: 148808.1
+[NOTE] in src/thesis_functions.cpp:84: 465902.7
+[NOTE] in src/thesis_functions.cpp:84: 771870.8
+[NOTE] in src/thesis_functions.cpp:84: 1140489
+[NOTE] in src/thesis_functions.cpp:84: 1193377
+[NOTE] in src/thesis_functions.cpp:84: 1187760
+[NOTE] in src/thesis_functions.cpp:84: 1191429
+[NOTE] in src/thesis_functions.cpp:84: 1191556
+$\vec{x}_{28}(t,u)$  &
+34.78205 &
+37.51504 &
+40.46791 &
+43.64029 &
+47.02527 &
+50.60619 &
+54.35218 &
+58.21184 &
+62.10484 &
+65.91097 &
+69.45706 &
+$\vec{x}_{28}(t,u)$  &
+4.25832 &
+4.201877 &
+4.215355 &
+4.304941 &
+4.481157 &
+4.760164 &
+5.165618 &
+5.731242 &
+6.504204 &
+7.549195 &
+8.952459 &
+	  &
+0.5011394 &
+0.02910162 &
+1.118168 &
+[NOTE] in src/thesis_functions.cpp:84: 486686.9
+[NOTE] in src/thesis_functions.cpp:84: 13894.3
+[NOTE] in src/thesis_functions.cpp:84: 11015.81
+[NOTE] in src/thesis_functions.cpp:84: 95641.8
+[NOTE] in src/thesis_functions.cpp:84: 152683.2
+[NOTE] in src/thesis_functions.cpp:84: 544397.7
+[NOTE] in src/thesis_functions.cpp:84: 791571.1
+[NOTE] in src/thesis_functions.cpp:84: 1168682
+[NOTE] in src/thesis_functions.cpp:84: 1214734
+[NOTE] in src/thesis_functions.cpp:84: 1211924
+[NOTE] in src/thesis_functions.cpp:84: 1217067
+[NOTE] in src/thesis_functions.cpp:84: 1217244
+$\vec{x}_{29}(t,u)$  &
+34.75277 &
+37.48334 &
+40.43825 &
+43.61637 &
+47.00959 &
+50.59937 &
+54.35181 &
+58.21089 &
+62.08928 &
+65.85647 &
+69.32502 &
+$\vec{x}_{29}(t,u)$  &
+4.314776 &
+4.238301 &
+4.2358 &
+4.313022 &
+4.480344 &
+4.75413 &
+5.158689 &
+5.728985 &
+6.514194 &
+7.581896 &
+9.02198 &
+	  &
+0.508083 &
+0.03041693 &
+1.187449 &
+[NOTE] in src/thesis_functions.cpp:84: 481516.2
+[NOTE] in src/thesis_functions.cpp:84: 13610.86
+[NOTE] in src/thesis_functions.cpp:84: 11767.99
+[NOTE] in src/thesis_functions.cpp:84: 94694.12
+[NOTE] in src/thesis_functions.cpp:84: 154213.8
+[NOTE] in src/thesis_functions.cpp:84: 543516.1
+[NOTE] in src/thesis_functions.cpp:84: 775154.5
+[NOTE] in src/thesis_functions.cpp:84: 1161236
+[NOTE] in src/thesis_functions.cpp:84: 1225701
+[NOTE] in src/thesis_functions.cpp:84: 1225035
+[NOTE] in src/thesis_functions.cpp:84: 1230114
+[NOTE] in src/thesis_functions.cpp:84: 1230335
+$\vec{x}_{30}(t,u)$  &
+34.90449 &
+37.61886 &
+40.55177 &
+43.70242 &
+47.06348 &
+50.6179 &
+54.3344 &
+58.16127 &
+62.018 &
+65.7844 &
+69.28776 &
+$\vec{x}_{30}(t,u)$  &
+4.278381 &
+4.212203 &
+4.216838 &
+4.298069 &
+4.466014 &
+4.736392 &
+5.132345 &
+5.686952 &
+6.446532 &
+7.474595 &
+8.855708 &
+	  &
+0.4997429 &
+0.02955327 &
+1.149061 &
+[NOTE] in src/thesis_functions.cpp:84: 478899
+[NOTE] in src/thesis_functions.cpp:84: 14307.83
+[NOTE] in src/thesis_functions.cpp:84: 9733.097
+[NOTE] in src/thesis_functions.cpp:84: 100619.5
+[NOTE] in src/thesis_functions.cpp:84: 148094.6
+[NOTE] in src/thesis_functions.cpp:84: 475610.7
+[NOTE] in src/thesis_functions.cpp:84: 794183.1
+[NOTE] in src/thesis_functions.cpp:84: 1160988
+[NOTE] in src/thesis_functions.cpp:84: 1202443
+[NOTE] in src/thesis_functions.cpp:84: 1194870
+[NOTE] in src/thesis_functions.cpp:84: 1199327
+[NOTE] in src/thesis_functions.cpp:84: 1199464
+$\vec{x}_{31}(t,u)$  &
+34.66781 &
+37.41026 &
+40.37986 &
+43.57498 &
+46.98665 &
+50.59479 &
+54.36298 &
+58.2312 &
+62.10597 &
+65.84775 &
+69.25638 &
+$\vec{x}_{31}(t,u)$  &
+4.276105 &
+4.198179 &
+4.195705 &
+4.274589 &
+4.445592 &
+4.72577 &
+5.14056 &
+5.726661 &
+6.535801 &
+7.639119 &
+9.13102 &
+	  &
+0.5125341 &
+0.03116685 &
+1.214593 &
+[NOTE] in src/thesis_functions.cpp:84: 456441.2
+[NOTE] in src/thesis_functions.cpp:84: 14844.54
+[NOTE] in src/thesis_functions.cpp:84: 8184.87
+[NOTE] in src/thesis_functions.cpp:84: 108283.9
+[NOTE] in src/thesis_functions.cpp:84: 141067.5
+[NOTE] in src/thesis_functions.cpp:84: 372278.8
+[NOTE] in src/thesis_functions.cpp:84: 748416
+[NOTE] in src/thesis_functions.cpp:84: 1093615
+[NOTE] in src/thesis_functions.cpp:84: 1144245
+[NOTE] in src/thesis_functions.cpp:84: 1135645
+[NOTE] in src/thesis_functions.cpp:84: 1137713
+[NOTE] in src/thesis_functions.cpp:84: 1137782
+$\vec{x}_{32}(t,u)$  &
+34.71644 &
+37.46027 &
+40.4206 &
+43.59771 &
+46.98568 &
+50.56934 &
+54.32007 &
+58.18992 &
+62.10369 &
+65.9486 &
+69.56188 &
+$\vec{x}_{32}(t,u)$  &
+4.184728 &
+4.153751 &
+4.188837 &
+4.296847 &
+4.488767 &
+4.780987 &
+5.197113 &
+5.770464 &
+6.547362 &
+7.59115 &
+8.986353 &
+	  &
+0.4959848 &
+0.02777359 &
+1.038955 &
+[NOTE] in src/thesis_functions.cpp:84: 478998.7
+[NOTE] in src/thesis_functions.cpp:84: 14039.4
+[NOTE] in src/thesis_functions.cpp:84: 10531.47
+[NOTE] in src/thesis_functions.cpp:84: 98034.77
+[NOTE] in src/thesis_functions.cpp:84: 150545.1
+[NOTE] in src/thesis_functions.cpp:84: 495645.4
+[NOTE] in src/thesis_functions.cpp:84: 773802.8
+[NOTE] in src/thesis_functions.cpp:84: 1138779
+[NOTE] in src/thesis_functions.cpp:84: 1191228
+[NOTE] in src/thesis_functions.cpp:84: 1187773
+[NOTE] in src/thesis_functions.cpp:84: 1191680
+[NOTE] in src/thesis_functions.cpp:84: 1191828
+$\vec{x}_{33}(t,u)$  &
+34.78418 &
+37.51484 &
+40.46495 &
+43.63411 &
+47.01542 &
+50.59227 &
+54.3339 &
+58.18918 &
+62.07827 &
+65.88177 &
+69.42784 &
+$\vec{x}_{33}(t,u)$  &
+4.296538 &
+4.240143 &
+4.253872 &
+4.343931 &
+4.520846 &
+4.800758 &
+5.207268 &
+5.773977 &
+6.547835 &
+7.593158 &
+8.995602 &
+	  &
+0.5012767 &
+0.02895074 &
+1.112092 &
+[NOTE] in src/thesis_functions.cpp:84: 455642.5
+[NOTE] in src/thesis_functions.cpp:84: 14702.32
+[NOTE] in src/thesis_functions.cpp:84: 8653.177
+[NOTE] in src/thesis_functions.cpp:84: 107509.4
+[NOTE] in src/thesis_functions.cpp:84: 142100.8
+[NOTE] in src/thesis_functions.cpp:84: 376112.2
+[NOTE] in src/thesis_functions.cpp:84: 746557
+[NOTE] in src/thesis_functions.cpp:84: 1094917
+[NOTE] in src/thesis_functions.cpp:84: 1150191
+[NOTE] in src/thesis_functions.cpp:84: 1141392
+[NOTE] in src/thesis_functions.cpp:84: 1143749
+[NOTE] in src/thesis_functions.cpp:84: 1143843
+$\vec{x}_{34}(t,u)$  &
+34.80024 &
+37.54206 &
+40.49979 &
+43.67287 &
+47.05413 &
+50.62666 &
+54.35938 &
+58.20083 &
+62.07094 &
+65.85033 &
+69.36756 &
+$\vec{x}_{34}(t,u)$  &
+4.17519 &
+4.1423 &
+4.176903 &
+4.285969 &
+4.480753 &
+4.778115 &
+5.202402 &
+5.788025 &
+6.582834 &
+7.65216 &
+9.082796 &
+	  &
+0.4974452 &
+0.02847314 &
+1.068941 &
+[NOTE] in src/thesis_functions.cpp:84: 472412.5
+[NOTE] in src/thesis_functions.cpp:84: 14183.15
+[NOTE] in src/thesis_functions.cpp:84: 9981.105
+[NOTE] in src/thesis_functions.cpp:84: 100761.8
+[NOTE] in src/thesis_functions.cpp:84: 148170
+[NOTE] in src/thesis_functions.cpp:84: 452979.4
+[NOTE] in src/thesis_functions.cpp:84: 761591.2
+[NOTE] in src/thesis_functions.cpp:84: 1124064
+[NOTE] in src/thesis_functions.cpp:84: 1179884
+[NOTE] in src/thesis_functions.cpp:84: 1174940
+[NOTE] in src/thesis_functions.cpp:84: 1178104
+[NOTE] in src/thesis_functions.cpp:84: 1178223
+$\vec{x}_{35}(t,u)$  &
+34.79715 &
+37.52733 &
+40.47439 &
+43.63846 &
+47.01347 &
+50.58414 &
+54.32177 &
+58.17839 &
+62.07888 &
+65.91068 &
+69.51143 &
+$\vec{x}_{35}(t,u)$  &
+4.261422 &
+4.216264 &
+4.238721 &
+4.335174 &
+4.516137 &
+4.797505 &
+5.202327 &
+5.763254 &
+6.52576 &
+7.552073 &
+8.925209 &
+	  &
+0.4967288 &
+0.02812383 &
+1.069783 &
+[NOTE] in src/thesis_functions.cpp:84: 452094.2
+[NOTE] in src/thesis_functions.cpp:84: 14528.54
+[NOTE] in src/thesis_functions.cpp:84: 8861.013
+[NOTE] in src/thesis_functions.cpp:84: 107010.7
+[NOTE] in src/thesis_functions.cpp:84: 142322.9
+[NOTE] in src/thesis_functions.cpp:84: 365878.4
+[NOTE] in src/thesis_functions.cpp:84: 714988
+[NOTE] in src/thesis_functions.cpp:84: 1063185
+[NOTE] in src/thesis_functions.cpp:84: 1131737
+[NOTE] in src/thesis_functions.cpp:84: 1126093
+[NOTE] in src/thesis_functions.cpp:84: 1127880
+[NOTE] in src/thesis_functions.cpp:84: 1127975
+$\vec{x}_{36}(t,u)$  &
+34.89185 &
+37.61954 &
+40.55611 &
+43.70253 &
+47.0542 &
+50.59838 &
+54.3105 &
+58.14916 &
+62.04933 &
+65.91349 &
+69.6007 &
+$\vec{x}_{36}(t,u)$  &
+4.165906 &
+4.156321 &
+4.208198 &
+4.328561 &
+4.528149 &
+4.822566 &
+5.233893 &
+5.792909 &
+6.542008 &
+7.538825 &
+8.860202 &
+	  &
+0.4842783 &
+0.02596751 &
+0.9525382 &
+[NOTE] in src/thesis_functions.cpp:84: 473661.3
+[NOTE] in src/thesis_functions.cpp:84: 14223.25
+[NOTE] in src/thesis_functions.cpp:84: 10018.59
+[NOTE] in src/thesis_functions.cpp:84: 101144.3
+[NOTE] in src/thesis_functions.cpp:84: 148075.3
+[NOTE] in src/thesis_functions.cpp:84: 452894
+[NOTE] in src/thesis_functions.cpp:84: 770951.1
+[NOTE] in src/thesis_functions.cpp:84: 1136005
+[NOTE] in src/thesis_functions.cpp:84: 1186439
+[NOTE] in src/thesis_functions.cpp:84: 1179985
+[NOTE] in src/thesis_functions.cpp:84: 1183427
+[NOTE] in src/thesis_functions.cpp:84: 1183536
+$\vec{x}_{37}(t,u)$  &
+34.79586 &
+37.52998 &
+40.48312 &
+43.6548 &
+47.03791 &
+50.61558 &
+54.35664 &
+58.20938 &
+62.09309 &
+65.88719 &
+69.4182 &
+$\vec{x}_{37}(t,u)$  &
+4.254804 &
+4.202442 &
+4.219784 &
+4.313181 &
+4.493323 &
+4.776547 &
+5.186706 &
+5.757742 &
+6.537061 &
+7.589594 &
+9.001775 &
+	  &
+0.500742 &
+0.02901618 &
+1.110698 &
+[NOTE] in src/thesis_functions.cpp:84: 465320.7
+[NOTE] in src/thesis_functions.cpp:84: 14406.9
+[NOTE] in src/thesis_functions.cpp:84: 9219.885
+[NOTE] in src/thesis_functions.cpp:84: 103756.8
+[NOTE] in src/thesis_functions.cpp:84: 145105.3
+[NOTE] in src/thesis_functions.cpp:84: 416865.7
+[NOTE] in src/thesis_functions.cpp:84: 758932.5
+[NOTE] in src/thesis_functions.cpp:84: 1118859
+[NOTE] in src/thesis_functions.cpp:84: 1176960
+[NOTE] in src/thesis_functions.cpp:84: 1169765
+[NOTE] in src/thesis_functions.cpp:84: 1172805
+[NOTE] in src/thesis_functions.cpp:84: 1172936
+$\vec{x}_{38}(t,u)$  &
+34.75785 &
+37.49434 &
+40.44968 &
+43.62346 &
+47.00874 &
+50.58881 &
+54.33273 &
+58.18905 &
+62.07742 &
+65.87763 &
+69.41662 &
+$\vec{x}_{38}(t,u)$  &
+4.217738 &
+4.169104 &
+4.189482 &
+4.285317 &
+4.46738 &
+4.752075 &
+5.163314 &
+5.735099 &
+6.51492 &
+7.567846 &
+8.980568 &
+	  &
+0.500137 &
+0.02894418 &
+1.103104 &
+[NOTE] in src/thesis_functions.cpp:84: 464018.1
+[NOTE] in src/thesis_functions.cpp:84: 14443.49
+[NOTE] in src/thesis_functions.cpp:84: 9176.238
+[NOTE] in src/thesis_functions.cpp:84: 104295.3
+[NOTE] in src/thesis_functions.cpp:84: 144735.1
+[NOTE] in src/thesis_functions.cpp:84: 410834.8
+[NOTE] in src/thesis_functions.cpp:84: 758712.8
+[NOTE] in src/thesis_functions.cpp:84: 1118010
+[NOTE] in src/thesis_functions.cpp:84: 1174368
+[NOTE] in src/thesis_functions.cpp:84: 1166716
+[NOTE] in src/thesis_functions.cpp:84: 1169620
+[NOTE] in src/thesis_functions.cpp:84: 1169734
+$\vec{x}_{39}(t,u)$  &
+34.76917 &
+37.50425 &
+40.45728 &
+43.62784 &
+47.00902 &
+50.58421 &
+54.32264 &
+58.17323 &
+62.05623 &
+65.85243 &
+69.39031 &
+$\vec{x}_{39}(t,u)$  &
+4.216643 &
+4.17074 &
+4.193466 &
+4.291339 &
+4.475166 &
+4.761358 &
+5.17378 &
+5.746325 &
+6.526273 &
+7.57835 &
+8.988745 &
+	  &
+0.4992302 &
+0.02879894 &
+1.094908 &
+[NOTE] in src/thesis_functions.cpp:84: 459913.6
+[NOTE] in src/thesis_functions.cpp:84: 14605.26
+[NOTE] in src/thesis_functions.cpp:84: 8759.56
+[NOTE] in src/thesis_functions.cpp:84: 105922.1
+[NOTE] in src/thesis_functions.cpp:84: 143132.2
+[NOTE] in src/thesis_functions.cpp:84: 394842.9
+[NOTE] in src/thesis_functions.cpp:84: 756990.4
+[NOTE] in src/thesis_functions.cpp:84: 1110753
+[NOTE] in src/thesis_functions.cpp:84: 1165581
+[NOTE] in src/thesis_functions.cpp:84: 1157127
+[NOTE] in src/thesis_functions.cpp:84: 1159818
+[NOTE] in src/thesis_functions.cpp:84: 1159925
+$\vec{x}_{40}(t,u)$  &
+34.74461 &
+37.48264 &
+40.43869 &
+43.6122 &
+46.99601 &
+50.57313 &
+54.3122 &
+58.16126 &
+62.03926 &
+65.82518 &
+69.34505 &
+$\vec{x}_{40}(t,u)$  &
+4.205678 &
+4.162099 &
+4.187271 &
+4.287851 &
+4.474828 &
+4.764858 &
+5.182146 &
+5.76105 &
+6.549489 &
+7.613027 &
+9.038883 &
+	  &
+0.4999565 &
+0.0288844 &
+1.09468 &
+[NOTE] in src/thesis_functions.cpp:84: 440202.3
+[NOTE] in src/thesis_functions.cpp:84: 15198.59
+[NOTE] in src/thesis_functions.cpp:84: 7348.839
+[NOTE] in src/thesis_functions.cpp:84: 112833.6
+[NOTE] in src/thesis_functions.cpp:84: 136874.6
+[NOTE] in src/thesis_functions.cpp:84: 329019.1
+[NOTE] in src/thesis_functions.cpp:84: 718541.4
+[NOTE] in src/thesis_functions.cpp:84: 1051664
+[NOTE] in src/thesis_functions.cpp:84: 1105928
+[NOTE] in src/thesis_functions.cpp:84: 1097396
+[NOTE] in src/thesis_functions.cpp:84: 1098775
+[NOTE] in src/thesis_functions.cpp:84: 1098834
+$\vec{x}_{41}(t,u)$  &
+34.76319 &
+37.50706 &
+40.46237 &
+43.62974 &
+47.0039 &
+50.57088 &
+54.30406 &
+58.15881 &
+62.06511 &
+65.91803 &
+69.56613 &
+$\vec{x}_{41}(t,u)$  &
+4.110744 &
+4.103967 &
+4.159625 &
+4.285093 &
+4.491654 &
+4.795729 &
+5.220618 &
+5.798878 &
+6.575455 &
+7.611552 &
+8.988738 &
+	  &
+0.4887033 &
+0.02653384 &
+0.96659 &
+[NOTE] in src/thesis_functions.cpp:84: 474628.7
+[NOTE] in src/thesis_functions.cpp:84: 14072.95
+[NOTE] in src/thesis_functions.cpp:84: 10404.2
+[NOTE] in src/thesis_functions.cpp:84: 99671.83
+[NOTE] in src/thesis_functions.cpp:84: 149463.9
+[NOTE] in src/thesis_functions.cpp:84: 467179.1
+[NOTE] in src/thesis_functions.cpp:84: 764009.3
+[NOTE] in src/thesis_functions.cpp:84: 1130404
+[NOTE] in src/thesis_functions.cpp:84: 1186292
+[NOTE] in src/thesis_functions.cpp:84: 1181745
+[NOTE] in src/thesis_functions.cpp:84: 1185164
+[NOTE] in src/thesis_functions.cpp:84: 1185288
+$\vec{x}_{42}(t,u)$  &
+34.8358 &
+37.56409 &
+40.50914 &
+43.67087 &
+47.04295 &
+50.60973 &
+54.34198 &
+58.19104 &
+62.0808 &
+65.89743 &
+69.47689 &
+$\vec{x}_{42}(t,u)$  &
+4.263946 &
+4.216834 &
+4.237768 &
+4.333092 &
+4.513312 &
+4.794351 &
+5.199333 &
+5.761034 &
+6.525123 &
+7.554077 &
+8.931175 &
+	  &
+0.4969235 &
+0.02831464 &
+1.080033 &
+[NOTE] in src/thesis_functions.cpp:84: 460712.7
+[NOTE] in src/thesis_functions.cpp:84: 14625.74
+[NOTE] in src/thesis_functions.cpp:84: 8882.63
+[NOTE] in src/thesis_functions.cpp:84: 106402.7
+[NOTE] in src/thesis_functions.cpp:84: 143261.6
+[NOTE] in src/thesis_functions.cpp:84: 388096
+[NOTE] in src/thesis_functions.cpp:84: 751070
+[NOTE] in src/thesis_functions.cpp:84: 1101793
+[NOTE] in src/thesis_functions.cpp:84: 1154442
+[NOTE] in src/thesis_functions.cpp:84: 1146073
+[NOTE] in src/thesis_functions.cpp:84: 1148488
+[NOTE] in src/thesis_functions.cpp:84: 1148571
+$\vec{x}_{43}(t,u)$  &
+34.79475 &
+37.53726 &
+40.49621 &
+43.67137 &
+47.05609 &
+50.63419 &
+54.37559 &
+58.23029 &
+62.12026 &
+65.9288 &
+69.48803 &
+$\vec{x}_{43}(t,u)$  &
+4.190786 &
+4.156446 &
+4.189257 &
+4.296073 &
+4.487966 &
+4.78153 &
+5.200729 &
+5.779436 &
+6.56477 &
+7.621121 &
+9.034203 &
+	  &
+0.4969844 &
+0.02822473 &
+1.06141 &
+[NOTE] in src/thesis_functions.cpp:84: 452807
+[NOTE] in src/thesis_functions.cpp:84: 14722.94
+[NOTE] in src/thesis_functions.cpp:84: 8442.789
+[NOTE] in src/thesis_functions.cpp:84: 108211.1
+[NOTE] in src/thesis_functions.cpp:84: 141197.8
+[NOTE] in src/thesis_functions.cpp:84: 365980.6
+[NOTE] in src/thesis_functions.cpp:84: 738819.8
+[NOTE] in src/thesis_functions.cpp:84: 1089345
+[NOTE] in src/thesis_functions.cpp:84: 1147570
+[NOTE] in src/thesis_functions.cpp:84: 1139018
+[NOTE] in src/thesis_functions.cpp:84: 1141113
+[NOTE] in src/thesis_functions.cpp:84: 1141199
+$\vec{x}_{44}(t,u)$  &
+34.7983 &
+37.53492 &
+40.48566 &
+43.65052 &
+47.02329 &
+50.58852 &
+54.31734 &
+58.16171 &
+62.04657 &
+65.85965 &
+69.43931 &
+$\vec{x}_{44}(t,u)$  &
+4.163929 &
+4.136407 &
+4.174468 &
+4.285035 &
+4.479126 &
+4.773127 &
+5.190583 &
+5.764661 &
+6.541397 &
+7.583631 &
+8.975053 &
+	  &
+0.4936057 &
+0.02776682 &
+1.036897 &
+[NOTE] in src/thesis_functions.cpp:84: 461911.1
+[NOTE] in src/thesis_functions.cpp:84: 14744.29
+[NOTE] in src/thesis_functions.cpp:84: 8446.783
+[NOTE] in src/thesis_functions.cpp:84: 106756.8
+[NOTE] in src/thesis_functions.cpp:84: 142525.7
+[NOTE] in src/thesis_functions.cpp:84: 394043.2
+[NOTE] in src/thesis_functions.cpp:84: 767235.7
+[NOTE] in src/thesis_functions.cpp:84: 1118551
+[NOTE] in src/thesis_functions.cpp:84: 1166733
+[NOTE] in src/thesis_functions.cpp:84: 1157211
+[NOTE] in src/thesis_functions.cpp:84: 1159976
+[NOTE] in src/thesis_functions.cpp:84: 1160066
+$\vec{x}_{45}(t,u)$  &
+34.67758 &
+37.42447 &
+40.39274 &
+43.58171 &
+46.98388 &
+50.58157 &
+54.34211 &
+58.21135 &
+62.10467 &
+65.89556 &
+69.40196 &
+$\vec{x}_{45}(t,u)$  &
+4.201568 &
+4.150953 &
+4.170578 &
+4.26701 &
+4.451301 &
+4.740363 &
+5.158936 &
+5.742292 &
+6.539801 &
+7.619178 &
+9.070563 &
+	  &
+0.5040293 &
+0.02946146 &
+1.122176 &
+[NOTE] in src/thesis_functions.cpp:84: 450376.8
+[NOTE] in src/thesis_functions.cpp:84: 15038.22
+[NOTE] in src/thesis_functions.cpp:84: 7712.346
+[NOTE] in src/thesis_functions.cpp:84: 110699.6
+[NOTE] in src/thesis_functions.cpp:84: 139125.9
+[NOTE] in src/thesis_functions.cpp:84: 356240.8
+[NOTE] in src/thesis_functions.cpp:84: 756423.6
+[NOTE] in src/thesis_functions.cpp:84: 1102663
+[NOTE] in src/thesis_functions.cpp:84: 1151072
+[NOTE] in src/thesis_functions.cpp:84: 1140199
+[NOTE] in src/thesis_functions.cpp:84: 1142379
+[NOTE] in src/thesis_functions.cpp:84: 1142445
+$\vec{x}_{46}(t,u)$  &
+34.68527 &
+37.43248 &
+40.39864 &
+43.5832 &
+46.97886 &
+50.56829 &
+54.3195 &
+58.17942 &
+62.06523 &
+65.85309 &
+69.36487 &
+$\vec{x}_{46}(t,u)$  &
+4.14433 &
+4.104655 &
+4.13343 &
+4.237497 &
+4.428096 &
+4.722228 &
+5.144601 &
+5.730309 &
+6.528346 &
+7.605821 &
+9.052064 &
+	  &
+0.5008387 &
+0.02906586 &
+1.095652 &
+[NOTE] in src/thesis_functions.cpp:84: 470515.8
+[NOTE] in src/thesis_functions.cpp:84: 14514.8
+[NOTE] in src/thesis_functions.cpp:84: 8936.435
+[NOTE] in src/thesis_functions.cpp:84: 103464.2
+[NOTE] in src/thesis_functions.cpp:84: 145128.9
+[NOTE] in src/thesis_functions.cpp:84: 431766.6
+[NOTE] in src/thesis_functions.cpp:84: 775299
+[NOTE] in src/thesis_functions.cpp:84: 1133196
+[NOTE] in src/thesis_functions.cpp:84: 1181348
+[NOTE] in src/thesis_functions.cpp:84: 1173641
+[NOTE] in src/thesis_functions.cpp:84: 1176892
+[NOTE] in src/thesis_functions.cpp:84: 1177005
+$\vec{x}_{47}(t,u)$  &
+34.6453 &
+37.38809 &
+40.35387 &
+43.54227 &
+46.9462 &
+50.54848 &
+54.31719 &
+58.19909 &
+62.11082 &
+65.92732 &
+69.46828 &
+$\vec{x}_{47}(t,u)$  &
+4.248779 &
+4.189038 &
+4.200295 &
+4.288771 &
+4.465158 &
+4.745965 &
+5.155458 &
+5.728341 &
+6.513285 &
+7.577178 &
+9.009261 &
+	  &
+0.5052746 &
+0.0295087 &
+1.133063 &
+[NOTE] in src/thesis_functions.cpp:84: 449616.6
+[NOTE] in src/thesis_functions.cpp:84: 14965.53
+[NOTE] in src/thesis_functions.cpp:84: 7904.125
+[NOTE] in src/thesis_functions.cpp:84: 110360
+[NOTE] in src/thesis_functions.cpp:84: 139359.1
+[NOTE] in src/thesis_functions.cpp:84: 350235.2
+[NOTE] in src/thesis_functions.cpp:84: 734330.9
+[NOTE] in src/thesis_functions.cpp:84: 1076460
+[NOTE] in src/thesis_functions.cpp:84: 1130579
+[NOTE] in src/thesis_functions.cpp:84: 1121631
+[NOTE] in src/thesis_functions.cpp:84: 1123428
+[NOTE] in src/thesis_functions.cpp:84: 1123497
+$\vec{x}_{48}(t,u)$  &
+34.76093 &
+37.50723 &
+40.46819 &
+43.64411 &
+47.02907 &
+50.60803 &
+54.35261 &
+58.21537 &
+62.12199 &
+65.96112 &
+69.5721 &
+$\vec{x}_{48}(t,u)$  &
+4.137085 &
+4.115498 &
+4.158706 &
+4.273813 &
+4.471996 &
+4.769787 &
+5.190872 &
+5.768575 &
+6.549124 &
+7.595644 &
+8.992308 &
+	  &
+0.4933981 &
+0.02746837 &
+1.018214 &
+[NOTE] in src/thesis_functions.cpp:84: 463216
+[NOTE] in src/thesis_functions.cpp:84: 14368.47
+[NOTE] in src/thesis_functions.cpp:84: 9356.606
+[NOTE] in src/thesis_functions.cpp:84: 104001.3
+[NOTE] in src/thesis_functions.cpp:84: 145141.5
+[NOTE] in src/thesis_functions.cpp:84: 408177.3
+[NOTE] in src/thesis_functions.cpp:84: 747691
+[NOTE] in src/thesis_functions.cpp:84: 1106725
+[NOTE] in src/thesis_functions.cpp:84: 1167253
+[NOTE] in src/thesis_functions.cpp:84: 1160760
+[NOTE] in src/thesis_functions.cpp:84: 1163378
+[NOTE] in src/thesis_functions.cpp:84: 1163487
+$\vec{x}_{49}(t,u)$  &
+34.8184 &
+37.54899 &
+40.49441 &
+43.65485 &
+47.02436 &
+50.58792 &
+54.31733 &
+58.16544 &
+62.05847 &
+65.88596 &
+69.48863 &
+$\vec{x}_{49}(t,u)$  &
+4.213671 &
+4.177914 &
+4.208306 &
+4.311455 &
+4.49803 &
+4.784003 &
+5.192406 &
+5.755748 &
+6.519205 &
+7.544506 &
+8.913968 &
+	  &
+0.4939393 &
+0.02778629 &
+1.047527 &
+[NOTE] in src/thesis_functions.cpp:84: 456890.2
+[NOTE] in src/thesis_functions.cpp:84: 14666.39
+[NOTE] in src/thesis_functions.cpp:84: 8646.491
+[NOTE] in src/thesis_functions.cpp:84: 107103.7
+[NOTE] in src/thesis_functions.cpp:84: 142283.9
+[NOTE] in src/thesis_functions.cpp:84: 378454.5
+[NOTE] in src/thesis_functions.cpp:84: 743874.7
+[NOTE] in src/thesis_functions.cpp:84: 1093677
+[NOTE] in src/thesis_functions.cpp:84: 1150085
+[NOTE] in src/thesis_functions.cpp:84: 1141951
+[NOTE] in src/thesis_functions.cpp:84: 1144201
+[NOTE] in src/thesis_functions.cpp:84: 1144291
+$\vec{x}_{50}(t,u)$  &
+34.7878 &
+37.52716 &
+40.48178 &
+43.65163 &
+47.03039 &
+50.60244 &
+54.33856 &
+58.19011 &
+62.08109 &
+65.8978 &
+69.47651 &
+$\vec{x}_{50}(t,u)$  &
+4.182196 &
+4.151516 &
+4.18707 &
+4.29574 &
+4.488543 &
+4.781921 &
+5.199546 &
+5.774811 &
+6.55411 &
+7.60081 &
+8.999308 &
+	  &
+0.4951399 &
+0.02791002 &
+1.045474 &
+[NOTE] in src/thesis_functions.cpp:84: 483448.2
+[NOTE] in src/thesis_functions.cpp:84: 14094.03
+[NOTE] in src/thesis_functions.cpp:84: 10397.41
+[NOTE] in src/thesis_functions.cpp:84: 98114.9
+[NOTE] in src/thesis_functions.cpp:84: 150537.8
+[NOTE] in src/thesis_functions.cpp:84: 505622.1
+[NOTE] in src/thesis_functions.cpp:84: 787274.5
+[NOTE] in src/thesis_functions.cpp:84: 1157561
+[NOTE] in src/thesis_functions.cpp:84: 1201657
+[NOTE] in src/thesis_functions.cpp:84: 1196848
+[NOTE] in src/thesis_functions.cpp:84: 1201189
+[NOTE] in src/thesis_functions.cpp:84: 1201321
+$\vec{x}_{51}(t,u)$  &
+34.72406 &
+37.46112 &
+40.42191 &
+43.60571 &
+47.00498 &
+50.60195 &
+54.36387 &
+58.23632 &
+62.13429 &
+65.93053 &
+69.44186 &
+$\vec{x}_{51}(t,u)$  &
+4.296351 &
+4.227354 &
+4.230937 &
+4.313054 &
+4.484198 &
+4.760752 &
+5.166922 &
+5.737428 &
+6.521027 &
+7.584723 &
+9.017789 &
+	  &
+0.5066165 &
+0.0299022 &
+1.159642 &
+[NOTE] in src/thesis_functions.cpp:84: 443738
+[NOTE] in src/thesis_functions.cpp:84: 14980.53
+[NOTE] in src/thesis_functions.cpp:84: 7727.394
+[NOTE] in src/thesis_functions.cpp:84: 111361.5
+[NOTE] in src/thesis_functions.cpp:84: 138135.1
+[NOTE] in src/thesis_functions.cpp:84: 337054.2
+[NOTE] in src/thesis_functions.cpp:84: 723295
+[NOTE] in src/thesis_functions.cpp:84: 1068265
+[NOTE] in src/thesis_functions.cpp:84: 1127980
+[NOTE] in src/thesis_functions.cpp:84: 1119054
+[NOTE] in src/thesis_functions.cpp:84: 1120689
+[NOTE] in src/thesis_functions.cpp:84: 1120764
+$\vec{x}_{52}(t,u)$  &
+34.78618 &
+37.52576 &
+40.47784 &
+43.64284 &
+47.01515 &
+50.58029 &
+54.31085 &
+58.16095 &
+62.05872 &
+65.89649 &
+69.51886 &
+$\vec{x}_{52}(t,u)$  &
+4.111586 &
+4.095099 &
+4.142124 &
+4.259784 &
+4.459172 &
+4.756597 &
+5.175344 &
+5.748076 &
+6.520026 &
+7.55289 &
+8.928949 &
+	  &
+0.4901914 &
+0.0271222 &
+1.000242 &
+[NOTE] in src/thesis_functions.cpp:84: 473729.7
+[NOTE] in src/thesis_functions.cpp:84: 14144.13
+[NOTE] in src/thesis_functions.cpp:84: 10071.76
+[NOTE] in src/thesis_functions.cpp:84: 100429.2
+[NOTE] in src/thesis_functions.cpp:84: 148448.7
+[NOTE] in src/thesis_functions.cpp:84: 462842
+[NOTE] in src/thesis_functions.cpp:84: 774282.9
+[NOTE] in src/thesis_functions.cpp:84: 1145814
+[NOTE] in src/thesis_functions.cpp:84: 1199292
+[NOTE] in src/thesis_functions.cpp:84: 1193109
+[NOTE] in src/thesis_functions.cpp:84: 1196896
+[NOTE] in src/thesis_functions.cpp:84: 1197029
+$\vec{x}_{53}(t,u)$  &
+34.78077 &
+37.50921 &
+40.45757 &
+43.62516 &
+47.00467 &
+50.57887 &
+54.31604 &
+58.16363 &
+62.03963 &
+65.82151 &
+69.33307 &
+$\vec{x}_{53}(t,u)$  &
+4.259556 &
+4.199926 &
+4.210929 &
+4.29869 &
+4.473724 &
+4.752253 &
+5.158085 &
+5.7252 &
+6.501163 &
+7.551195 &
+8.962132 &
+	  &
+0.5019868 &
+0.02944537 &
+1.134256 &
+[NOTE] in src/thesis_functions.cpp:84: 466518.7
+[NOTE] in src/thesis_functions.cpp:84: 14852.99
+[NOTE] in src/thesis_functions.cpp:84: 8397.82
+[NOTE] in src/thesis_functions.cpp:84: 106279.4
+[NOTE] in src/thesis_functions.cpp:84: 143128.6
+[NOTE] in src/thesis_functions.cpp:84: 408504
+[NOTE] in src/thesis_functions.cpp:84: 778806
+[NOTE] in src/thesis_functions.cpp:84: 1119670
+[NOTE] in src/thesis_functions.cpp:84: 1158501
+[NOTE] in src/thesis_functions.cpp:84: 1149373
+[NOTE] in src/thesis_functions.cpp:84: 1152231
+[NOTE] in src/thesis_functions.cpp:84: 1152308
+$\vec{x}_{54}(t,u)$  &
+34.61496 &
+37.37022 &
+40.34933 &
+43.55136 &
+46.96832 &
+50.58162 &
+54.35711 &
+58.23824 &
+62.13677 &
+65.9208 &
+69.40084 &
+$\vec{x}_{54}(t,u)$  &
+4.241945 &
+4.187535 &
+4.205067 &
+4.301185 &
+4.487168 &
+4.780362 &
+5.206207 &
+5.80105 &
+6.615819 &
+7.72036 &
+9.207483 &
+	  &
+0.5083695 &
+0.02980052 &
+1.136594 &
+[NOTE] in src/thesis_functions.cpp:84: 478558.9
+[NOTE] in src/thesis_functions.cpp:84: 14048.35
+[NOTE] in src/thesis_functions.cpp:84: 10316.89
+[NOTE] in src/thesis_functions.cpp:84: 99001.79
+[NOTE] in src/thesis_functions.cpp:84: 149852.3
+[NOTE] in src/thesis_functions.cpp:84: 483645.1
+[NOTE] in src/thesis_functions.cpp:84: 774531.3
+[NOTE] in src/thesis_functions.cpp:84: 1148173
+[NOTE] in src/thesis_functions.cpp:84: 1201773
+[NOTE] in src/thesis_functions.cpp:84: 1197000
+[NOTE] in src/thesis_functions.cpp:84: 1200905
+[NOTE] in src/thesis_functions.cpp:84: 1201042
+$\vec{x}_{55}(t,u)$  &
+34.77229 &
+37.50313 &
+40.45451 &
+43.62624 &
+47.01171 &
+50.59467 &
+54.34476 &
+58.21136 &
+62.11514 &
+65.93716 &
+69.50578 &
+$\vec{x}_{55}(t,u)$  &
+4.265657 &
+4.205215 &
+4.21476 &
+4.300296 &
+4.472136 &
+4.746189 &
+5.145801 &
+5.704302 &
+6.468371 &
+7.502111 &
+8.891134 &
+	  &
+0.5011323 &
+0.02910677 &
+1.122674 &
+[NOTE] in src/thesis_functions.cpp:84: 457148.4
+[NOTE] in src/thesis_functions.cpp:84: 14960.76
+[NOTE] in src/thesis_functions.cpp:84: 7915.699
+[NOTE] in src/thesis_functions.cpp:84: 108663.1
+[NOTE] in src/thesis_functions.cpp:84: 140625.2
+[NOTE] in src/thesis_functions.cpp:84: 375411.4
+[NOTE] in src/thesis_functions.cpp:84: 757127
+[NOTE] in src/thesis_functions.cpp:84: 1098180
+[NOTE] in src/thesis_functions.cpp:84: 1145136
+[NOTE] in src/thesis_functions.cpp:84: 1136051
+[NOTE] in src/thesis_functions.cpp:84: 1138260
+[NOTE] in src/thesis_functions.cpp:84: 1138332
+$\vec{x}_{56}(t,u)$  &
+34.64632 &
+37.39669 &
+40.36652 &
+43.55581 &
+46.95802 &
+50.55692 &
+54.32207 &
+58.20267 &
+62.11906 &
+65.95186 &
+69.52883 &
+$\vec{x}_{56}(t,u)$  &
+4.192164 &
+4.153648 &
+4.183071 &
+4.287251 &
+4.477308 &
+4.77 &
+5.189621 &
+5.770615 &
+6.561026 &
+7.626671 &
+9.055331 &
+	  &
+0.5006317 &
+0.02847787 &
+1.071449 &
+[NOTE] in src/thesis_functions.cpp:84: 453575
+[NOTE] in src/thesis_functions.cpp:84: 14762.81
+[NOTE] in src/thesis_functions.cpp:84: 8197.159
+[NOTE] in src/thesis_functions.cpp:84: 108397.8
+[NOTE] in src/thesis_functions.cpp:84: 140725.2
+[NOTE] in src/thesis_functions.cpp:84: 365256.9
+[NOTE] in src/thesis_functions.cpp:84: 738453.5
+[NOTE] in src/thesis_functions.cpp:84: 1089610
+[NOTE] in src/thesis_functions.cpp:84: 1149309
+[NOTE] in src/thesis_functions.cpp:84: 1140880
+[NOTE] in src/thesis_functions.cpp:84: 1142977
+[NOTE] in src/thesis_functions.cpp:84: 1143071
+$\vec{x}_{57}(t,u)$  &
+34.74583 &
+37.48658 &
+40.44319 &
+43.61597 &
+46.99912 &
+50.57767 &
+54.32332 &
+58.18862 &
+62.09918 &
+65.94334 &
+69.5598 &
+$\vec{x}_{57}(t,u)$  &
+4.155127 &
+4.124302 &
+4.159012 &
+4.266048 &
+4.456288 &
+4.745965 &
+5.158461 &
+5.726783 &
+6.496829 &
+7.531397 &
+8.914346 &
+	  &
+0.4944795 &
+0.02778171 &
+1.040105 &
+[NOTE] in src/thesis_functions.cpp:84: 466140.9
+[NOTE] in src/thesis_functions.cpp:84: 14626.6
+[NOTE] in src/thesis_functions.cpp:84: 8728.513
+[NOTE] in src/thesis_functions.cpp:84: 104828.6
+[NOTE] in src/thesis_functions.cpp:84: 143987.4
+[NOTE] in src/thesis_functions.cpp:84: 416658.7
+[NOTE] in src/thesis_functions.cpp:84: 774947
+[NOTE] in src/thesis_functions.cpp:84: 1128716
+[NOTE] in src/thesis_functions.cpp:84: 1175383
+[NOTE] in src/thesis_functions.cpp:84: 1166720
+[NOTE] in src/thesis_functions.cpp:84: 1169805
+[NOTE] in src/thesis_functions.cpp:84: 1169907
+$\vec{x}_{58}(t,u)$  &
+34.65513 &
+37.39715 &
+40.36131 &
+43.54686 &
+46.94617 &
+50.54132 &
+54.29934 &
+58.16558 &
+62.05473 &
+65.8392 &
+69.33558 &
+$\vec{x}_{58}(t,u)$  &
+4.242502 &
+4.185542 &
+4.199859 &
+4.291843 &
+4.472412 &
+4.758379 &
+5.174421 &
+5.755788 &
+6.551864 &
+7.630396 &
+9.081525 &
+	  &
+0.5056197 &
+0.02967437 &
+1.136092 &
+[NOTE] in src/thesis_functions.cpp:84: 466984.4
+[NOTE] in src/thesis_functions.cpp:84: 14493.62
+[NOTE] in src/thesis_functions.cpp:84: 9057.894
+[NOTE] in src/thesis_functions.cpp:84: 104221.3
+[NOTE] in src/thesis_functions.cpp:84: 144784.2
+[NOTE] in src/thesis_functions.cpp:84: 416602.2
+[NOTE] in src/thesis_functions.cpp:84: 765183.6
+[NOTE] in src/thesis_functions.cpp:84: 1122757
+[NOTE] in src/thesis_functions.cpp:84: 1176193
+[NOTE] in src/thesis_functions.cpp:84: 1168208
+[NOTE] in src/thesis_functions.cpp:84: 1171334
+[NOTE] in src/thesis_functions.cpp:84: 1171456
+$\vec{x}_{59}(t,u)$  &
+34.72148 &
+37.46544 &
+40.43062 &
+43.61641 &
+47.01548 &
+50.61039 &
+54.36893 &
+58.23761 &
+62.13286 &
+65.92964 &
+69.44795 &
+$\vec{x}_{59}(t,u)$  &
+4.214411 &
+4.161329 &
+4.178482 &
+4.272301 &
+4.453668 &
+4.739273 &
+5.153547 &
+5.731345 &
+6.521458 &
+7.590827 &
+9.028622 &
+	  &
+0.5032951 &
+0.02940878 &
+1.124303 &
+[NOTE] in src/thesis_functions.cpp:84: 472575.2
+[NOTE] in src/thesis_functions.cpp:84: 14256.83
+[NOTE] in src/thesis_functions.cpp:84: 9772.318
+[NOTE] in src/thesis_functions.cpp:84: 101010.1
+[NOTE] in src/thesis_functions.cpp:84: 147623.2
+[NOTE] in src/thesis_functions.cpp:84: 455220.8
+[NOTE] in src/thesis_functions.cpp:84: 771216.8
+[NOTE] in src/thesis_functions.cpp:84: 1133215
+[NOTE] in src/thesis_functions.cpp:84: 1185775
+[NOTE] in src/thesis_functions.cpp:84: 1179932
+[NOTE] in src/thesis_functions.cpp:84: 1183450
+[NOTE] in src/thesis_functions.cpp:84: 1183584
+$\vec{x}_{60}(t,u)$  &
+34.74686 &
+37.48038 &
+40.43383 &
+43.60668 &
+46.99173 &
+50.57191 &
+54.31569 &
+58.17079 &
+62.05555 &
+65.84797 &
+69.37254 &
+$\vec{x}_{60}(t,u)$  &
+4.26855 &
+4.212996 &
+4.227779 &
+4.319188 &
+4.497898 &
+4.780283 &
+5.190303 &
+5.762098 &
+6.543401 &
+7.599617 &
+9.017812 &
+	  &
+0.5022882 &
+0.02919592 &
+1.119338 &
+[NOTE] in src/thesis_functions.cpp:84: 450296.4
+[NOTE] in src/thesis_functions.cpp:84: 14932.82
+[NOTE] in src/thesis_functions.cpp:84: 7930.058
+[NOTE] in src/thesis_functions.cpp:84: 109701.6
+[NOTE] in src/thesis_functions.cpp:84: 139710.7
+[NOTE] in src/thesis_functions.cpp:84: 359328.8
+[NOTE] in src/thesis_functions.cpp:84: 746122
+[NOTE] in src/thesis_functions.cpp:84: 1091474
+[NOTE] in src/thesis_functions.cpp:84: 1144777
+[NOTE] in src/thesis_functions.cpp:84: 1135195
+[NOTE] in src/thesis_functions.cpp:84: 1137288
+[NOTE] in src/thesis_functions.cpp:84: 1137369
+$\vec{x}_{61}(t,u)$  &
+34.72246 &
+37.46523 &
+40.42455 &
+43.60011 &
+46.98513 &
+50.56316 &
+54.30371 &
+58.15611 &
+62.04123 &
+65.84084 &
+69.38478 &
+$\vec{x}_{61}(t,u)$  &
+4.158202 &
+4.125579 &
+4.160009 &
+4.268431 &
+4.462041 &
+4.757609 &
+5.179353 &
+5.761521 &
+6.55177 &
+7.615253 &
+9.038691 &
+	  &
+0.4975682 &
+0.0283901 &
+1.063581 &
+[NOTE] in src/thesis_functions.cpp:84: 473813.2
+[NOTE] in src/thesis_functions.cpp:84: 14156.41
+[NOTE] in src/thesis_functions.cpp:84: 9939.239
+[NOTE] in src/thesis_functions.cpp:84: 100735.8
+[NOTE] in src/thesis_functions.cpp:84: 148081.8
+[NOTE] in src/thesis_functions.cpp:84: 462122.1
+[NOTE] in src/thesis_functions.cpp:84: 780296.2
+[NOTE] in src/thesis_functions.cpp:84: 1157014
+[NOTE] in src/thesis_functions.cpp:84: 1209785
+[NOTE] in src/thesis_functions.cpp:84: 1202585
+[NOTE] in src/thesis_functions.cpp:84: 1206668
+[NOTE] in src/thesis_functions.cpp:84: 1206807
+$\vec{x}_{62}(t,u)$  &
+34.75407 &
+37.48244 &
+40.43285 &
+43.60432 &
+46.98902 &
+50.5689 &
+54.31088 &
+58.16024 &
+62.03165 &
+65.79763 &
+69.27488 &
+$\vec{x}_{62}(t,u)$  &
+4.25065 &
+4.182699 &
+4.186876 &
+4.269105 &
+4.439838 &
+4.715396 &
+5.1199 &
+5.687944 &
+6.468104 &
+7.527106 &
+8.953774 &
+	  &
+0.5047789 &
+0.0301367 &
+1.168505 &
+[NOTE] in src/thesis_functions.cpp:84: 458433.3
+[NOTE] in src/thesis_functions.cpp:84: 14488.92
+[NOTE] in src/thesis_functions.cpp:84: 9069.276
+[NOTE] in src/thesis_functions.cpp:84: 105623.9
+[NOTE] in src/thesis_functions.cpp:84: 143629.1
+[NOTE] in src/thesis_functions.cpp:84: 390451.5
+[NOTE] in src/thesis_functions.cpp:84: 745022.2
+[NOTE] in src/thesis_functions.cpp:84: 1101082
+[NOTE] in src/thesis_functions.cpp:84: 1162435
+[NOTE] in src/thesis_functions.cpp:84: 1154777
+[NOTE] in src/thesis_functions.cpp:84: 1157348
+[NOTE] in src/thesis_functions.cpp:84: 1157464
+$\vec{x}_{63}(t,u)$  &
+34.825 &
+37.55918 &
+40.5086 &
+43.67288 &
+47.04527 &
+50.60949 &
+54.33546 &
+58.17329 &
+62.04523 &
+65.8352 &
+69.37635 &
+$\vec{x}_{63}(t,u)$  &
+4.187974 &
+4.152344 &
+4.183804 &
+4.28912 &
+4.47925 &
+4.770645 &
+5.187064 &
+5.762091 &
+6.542425 &
+7.591853 &
+8.99523 &
+	  &
+0.4958363 &
+0.02831504 &
+1.066996 &
+[NOTE] in src/thesis_functions.cpp:84: 488967.8
+[NOTE] in src/thesis_functions.cpp:84: 13721.52
+[NOTE] in src/thesis_functions.cpp:84: 11525.84
+[NOTE] in src/thesis_functions.cpp:84: 94125.66
+[NOTE] in src/thesis_functions.cpp:84: 154472.2
+[NOTE] in src/thesis_functions.cpp:84: 567172.4
+[NOTE] in src/thesis_functions.cpp:84: 787138.8
+[NOTE] in src/thesis_functions.cpp:84: 1170368
+[NOTE] in src/thesis_functions.cpp:84: 1220980
+[NOTE] in src/thesis_functions.cpp:84: 1219917
+[NOTE] in src/thesis_functions.cpp:84: 1225111
+[NOTE] in src/thesis_functions.cpp:84: 1225290
+$\vec{x}_{64}(t,u)$  &
+34.80392 &
+37.52997 &
+40.47841 &
+43.6487 &
+47.03368 &
+50.6163 &
+54.36497 &
+58.22721 &
+62.12094 &
+65.92322 &
+69.45689 &
+$\vec{x}_{64}(t,u)$  &
+4.307315 &
+4.23469 &
+4.234149 &
+4.311367 &
+4.476451 &
+4.745236 &
+5.141153 &
+5.697816 &
+6.462438 &
+7.499929 &
+8.896902 &
+	  &
+0.5039049 &
+0.02974279 &
+1.16018 &
+[NOTE] in src/thesis_functions.cpp:84: 470690.1
+[NOTE] in src/thesis_functions.cpp:84: 14315.44
+[NOTE] in src/thesis_functions.cpp:84: 9739.308
+[NOTE] in src/thesis_functions.cpp:84: 102343.8
+[NOTE] in src/thesis_functions.cpp:84: 146927.6
+[NOTE] in src/thesis_functions.cpp:84: 435592.9
+[NOTE] in src/thesis_functions.cpp:84: 764725.4
+[NOTE] in src/thesis_functions.cpp:84: 1124776
+[NOTE] in src/thesis_functions.cpp:84: 1177311
+[NOTE] in src/thesis_functions.cpp:84: 1170533
+$\vec{x}_{65}(t,u)$  &
+34.79578 &
+37.53405 &
+40.49103 &
+43.66622 &
+47.05256 &
+50.63315 &
+54.37684 &
+58.23188 &
+62.11758 &
+65.91332 &
+69.44563 &
+$\vec{x}_{65}(t,u)$  &
+4.236573 &
+4.188571 &
+4.209811 &
+4.306796 &
+4.490363 &
+4.776997 &
+5.190713 &
+5.765634 &
+6.549389 &
+7.607183 &
+9.025811 &
+	  &
+0.5002982 &
+0.02888826 &
+1.101309 &
+[NOTE] in src/thesis_functions.cpp:84: 458310.8
+[NOTE] in src/thesis_functions.cpp:84: 14659.65
+[NOTE] in src/thesis_functions.cpp:84: 8583.471
+[NOTE] in src/thesis_functions.cpp:84: 107094.7
+[NOTE] in src/thesis_functions.cpp:84: 142269.3
+[NOTE] in src/thesis_functions.cpp:84: 381265.6
+[NOTE] in src/thesis_functions.cpp:84: 751309.7
+[NOTE] in src/thesis_functions.cpp:84: 1106374
+[NOTE] in src/thesis_functions.cpp:84: 1162560
+[NOTE] in src/thesis_functions.cpp:84: 1153566
+[NOTE] in src/thesis_functions.cpp:84: 1156056
+[NOTE] in src/thesis_functions.cpp:84: 1156153
+$\vec{x}_{66}(t,u)$  &
+34.75654 &
+37.4982 &
+40.45769 &
+43.63473 &
+47.02258 &
+50.60482 &
+54.35094 &
+58.21015 &
+62.10307 &
+65.91093 &
+69.46261 &
+$\vec{x}_{66}(t,u)$  &
+4.17225 &
+4.13207 &
+4.159633 &
+4.261622 &
+4.448993 &
+4.738292 &
+5.153523 &
+5.72873 &
+6.511391 &
+7.566518 &
+8.980761 &
+	  &
+0.4983743 &
+0.02863688 &
+1.082443 &
+[NOTE] in src/thesis_functions.cpp:84: 467348.7
+[NOTE] in src/thesis_functions.cpp:84: 14469.77
+[NOTE] in src/thesis_functions.cpp:84: 9106.251
+[NOTE] in src/thesis_functions.cpp:84: 103384.2
+[NOTE] in src/thesis_functions.cpp:84: 145212.9
+[NOTE] in src/thesis_functions.cpp:84: 426095.8
+[NOTE] in src/thesis_functions.cpp:84: 765453.3
+[NOTE] in src/thesis_functions.cpp:84: 1120346
+[NOTE] in src/thesis_functions.cpp:84: 1172978
+[NOTE] in src/thesis_functions.cpp:84: 1166068
+[NOTE] in src/thesis_functions.cpp:84: 1169111
+[NOTE] in src/thesis_functions.cpp:84: 1169232
+$\vec{x}_{67}(t,u)$  &
+34.70552 &
+37.4436 &
+40.40143 &
+43.57867 &
+46.96838 &
+50.55382 &
+54.30391 &
+58.16696 &
+62.06218 &
+65.86868 &
+69.41239 &
+$\vec{x}_{67}(t,u)$  &
+4.249294 &
+4.198887 &
+4.218048 &
+4.313222 &
+4.495209 &
+4.780477 &
+5.193049 &
+5.767101 &
+6.550378 &
+7.608294 &
+9.027992 &
+	  &
+0.5017912 &
+0.02894581 &
+1.103347 &
+[NOTE] in src/thesis_functions.cpp:84: 459374
+[NOTE] in src/thesis_functions.cpp:84: 14617.04
+[NOTE] in src/thesis_functions.cpp:84: 8684.191
+[NOTE] in src/thesis_functions.cpp:84: 106372.4
+[NOTE] in src/thesis_functions.cpp:84: 142780.9
+[NOTE] in src/thesis_functions.cpp:84: 387863.8
+[NOTE] in src/thesis_functions.cpp:84: 750201
+[NOTE] in src/thesis_functions.cpp:84: 1103693
+[NOTE] in src/thesis_functions.cpp:84: 1161254
+[NOTE] in src/thesis_functions.cpp:84: 1152990
+[NOTE] in src/thesis_functions.cpp:84: 1155546
+[NOTE] in src/thesis_functions.cpp:84: 1155655
+$\vec{x}_{68}(t,u)$  &
+34.75395 &
+37.49554 &
+40.45493 &
+43.63188 &
+47.01965 &
+50.60188 &
+54.34812 &
+58.20769 &
+62.10142 &
+65.91078 &
+69.46511 &
+$\vec{x}_{68}(t,u)$  &
+4.184294 &
+4.144197 &
+4.171898 &
+4.274089 &
+4.461729 &
+4.751362 &
+5.166978 &
+5.742592 &
+6.525623 &
+7.580989 &
+8.995194 &
+	  &
+0.4984927 &
+0.02857778 &
+1.079995 &
+[NOTE] in src/thesis_functions.cpp:84: 478253.2
+[NOTE] in src/thesis_functions.cpp:84: 14016.7
+[NOTE] in src/thesis_functions.cpp:84: 10519.59
+[NOTE] in src/thesis_functions.cpp:84: 98654.38
+[NOTE] in src/thesis_functions.cpp:84: 150166.9
+[NOTE] in src/thesis_functions.cpp:84: 489124.7
+[NOTE] in src/thesis_functions.cpp:84: 779145.3
+[NOTE] in src/thesis_functions.cpp:84: 1154023
+[NOTE] in src/thesis_functions.cpp:84: 1207048
+[NOTE] in src/thesis_functions.cpp:84: 1201956
+[NOTE] in src/thesis_functions.cpp:84: 1206281
+[NOTE] in src/thesis_functions.cpp:84: 1206438
+$\vec{x}_{69}(t,u)$  &
+34.79307 &
+37.52272 &
+40.47382 &
+43.64545 &
+47.02987 &
+50.60919 &
+54.35064 &
+58.20002 &
+62.07287 &
+65.84302 &
+69.32919 &
+$\vec{x}_{69}(t,u)$  &
+4.268708 &
+4.202905 &
+4.208993 &
+4.292964 &
+4.465306 &
+4.742332 &
+5.148101 &
+5.717058 &
+6.497508 &
+7.555746 &
+8.979983 &
+	  &
+0.504102 &
+0.02989639 &
+1.158118 &
+[NOTE] in src/thesis_functions.cpp:84: 454453.7
+[NOTE] in src/thesis_functions.cpp:84: 14816.32
+[NOTE] in src/thesis_functions.cpp:84: 8207.783
+[NOTE] in src/thesis_functions.cpp:84: 108000.6
+[NOTE] in src/thesis_functions.cpp:84: 141073.4
+[NOTE] in src/thesis_functions.cpp:84: 374521.5
+[NOTE] in src/thesis_functions.cpp:84: 747351.6
+[NOTE] in src/thesis_functions.cpp:84: 1092015
+[NOTE] in src/thesis_functions.cpp:84: 1147611
+[NOTE] in src/thesis_functions.cpp:84: 1138987
+[NOTE] in src/thesis_functions.cpp:84: 1141326
+[NOTE] in src/thesis_functions.cpp:84: 1141431
+$\vec{x}_{70}(t,u)$  &
+34.71528 &
+37.46048 &
+40.42345 &
+43.60379 &
+46.99451 &
+50.57883 &
+54.32568 &
+58.18347 &
+62.07167 &
+65.86993 &
+69.40515 &
+$\vec{x}_{70}(t,u)$  &
+4.179773 &
+4.143297 &
+4.174737 &
+4.280985 &
+4.473245 &
+4.768374 &
+5.190778 &
+5.775026 &
+6.569271 &
+7.639375 &
+9.072977 &
+	  &
+0.4994014 &
+0.02860104 &
+1.075462 &
+[NOTE] in src/thesis_functions.cpp:84: 475875.6
+[NOTE] in src/thesis_functions.cpp:84: 13960.76
+[NOTE] in src/thesis_functions.cpp:84: 10751.13
+[NOTE] in src/thesis_functions.cpp:84: 98545.3
+[NOTE] in src/thesis_functions.cpp:84: 150513.1
+[NOTE] in src/thesis_functions.cpp:84: 482013.3
+[NOTE] in src/thesis_functions.cpp:84: 766839.6
+[NOTE] in src/thesis_functions.cpp:84: 1137403
+[NOTE] in src/thesis_functions.cpp:84: 1196120
+[NOTE] in src/thesis_functions.cpp:84: 1192225
+[NOTE] in src/thesis_functions.cpp:84: 1196112
+[NOTE] in src/thesis_functions.cpp:84: 1196268
+$\vec{x}_{71}(t,u)$  &
+34.86013 &
+37.58649 &
+40.53049 &
+43.69159 &
+47.0628 &
+50.62749 &
+54.35499 &
+58.19448 &
+62.06672 &
+65.85342 &
+69.38448 &
+$\vec{x}_{71}(t,u)$  &
+4.263232 &
+4.210109 &
+4.226362 &
+4.318233 &
+4.496239 &
+4.776458 &
+5.182347 &
+5.747263 &
+6.51776 &
+7.557558 &
+8.951472 &
+	  &
+0.4988262 &
+0.02891022 &
+1.109398 &
+[NOTE] in src/thesis_functions.cpp:84: 424091.1
+[NOTE] in src/thesis_functions.cpp:84: 15804.99
+[NOTE] in src/thesis_functions.cpp:84: 6219.511
+[NOTE] in src/thesis_functions.cpp:84: 118594.5
+[NOTE] in src/thesis_functions.cpp:84: 132523.6
+[NOTE] in src/thesis_functions.cpp:84: 299063.2
+[NOTE] in src/thesis_functions.cpp:84: 706771.5
+[NOTE] in src/thesis_functions.cpp:84: 1023838
+[NOTE] in src/thesis_functions.cpp:84: 1068447
+[NOTE] in src/thesis_functions.cpp:84: 1059625
+[NOTE] in src/thesis_functions.cpp:84: 1060529
+[NOTE] in src/thesis_functions.cpp:84: 1060560
+$\vec{x}_{72}(t,u)$  &
+34.72982 &
+37.47938 &
+40.43826 &
+43.60738 &
+46.98193 &
+50.54865 &
+54.28206 &
+58.13922 &
+62.05266 &
+65.9212 &
+69.59856 &
+$\vec{x}_{72}(t,u)$  &
+4.023047 &
+4.033609 &
+4.104214 &
+4.242627 &
+4.460419 &
+4.774192 &
+5.207298 &
+5.792188 &
+6.573516 &
+7.611982 &
+8.988509 &
+	  &
+0.4848008 &
+0.02580788 &
+0.9182276 &
+[NOTE] in src/thesis_functions.cpp:84: 456057.7
+[NOTE] in src/thesis_functions.cpp:84: 14691.57
+[NOTE] in src/thesis_functions.cpp:84: 8607.624
+[NOTE] in src/thesis_functions.cpp:84: 106954.3
+[NOTE] in src/thesis_functions.cpp:84: 142228.9
+[NOTE] in src/thesis_functions.cpp:84: 377229.3
+[NOTE] in src/thesis_functions.cpp:84: 734363.5
+[NOTE] in src/thesis_functions.cpp:84: 1076344
+[NOTE] in src/thesis_functions.cpp:84: 1133022
+[NOTE] in src/thesis_functions.cpp:84: 1126291
+[NOTE] in src/thesis_functions.cpp:84: 1128239
+[NOTE] in src/thesis_functions.cpp:84: 1128321
+$\vec{x}_{73}(t,u)$  &
+34.79417 &
+37.5315 &
+40.48146 &
+43.64463 &
+47.01566 &
+50.58046 &
+54.31225 &
+58.16613 &
+62.07171 &
+65.92355 &
+69.56949 &
+$\vec{x}_{73}(t,u)$  &
+4.200821 &
+4.181759 &
+4.226713 &
+4.342722 &
+4.540756 &
+4.83694 &
+5.254271 &
+5.824975 &
+6.593614 &
+7.620903 &
+8.987747 &
+	  &
+0.4908411 &
+0.02679976 &
+0.9914234 &
+[NOTE] in src/thesis_functions.cpp:84: 440879.8
+[NOTE] in src/thesis_functions.cpp:84: 15276.77
+[NOTE] in src/thesis_functions.cpp:84: 7238.913
+[NOTE] in src/thesis_functions.cpp:84: 113382
+[NOTE] in src/thesis_functions.cpp:84: 136795.9
+[NOTE] in src/thesis_functions.cpp:84: 331791.2
+[NOTE] in src/thesis_functions.cpp:84: 734505.8
+[NOTE] in src/thesis_functions.cpp:84: 1069353
+[NOTE] in src/thesis_functions.cpp:84: 1118504
+[NOTE] in src/thesis_functions.cpp:84: 1108530
+[NOTE] in src/thesis_functions.cpp:84: 1110108
+[NOTE] in src/thesis_functions.cpp:84: 1110163
+$\vec{x}_{74}(t,u)$  &
+34.7228 &
+37.47126 &
+40.43422 &
+43.61165 &
+46.99718 &
+50.57504 &
+54.31578 &
+58.17036 &
+62.06217 &
+65.87665 &
+69.44882 &
+$\vec{x}_{74}(t,u)$  &
+4.10639 &
+4.087962 &
+4.13454 &
+4.253421 &
+4.456056 &
+4.759356 &
+5.187543 &
+5.774695 &
+6.56808 &
+7.632211 &
+9.052982 &
+	  &
+0.4942898 &
+0.02771315 &
+1.022359 &
+[NOTE] in src/thesis_functions.cpp:84: 472790.8
+[NOTE] in src/thesis_functions.cpp:84: 14279.87
+[NOTE] in src/thesis_functions.cpp:84: 9899.09
+[NOTE] in src/thesis_functions.cpp:84: 101162.1
+[NOTE] in src/thesis_functions.cpp:84: 147802.9
+[NOTE] in src/thesis_functions.cpp:84: 454021.3
+[NOTE] in src/thesis_functions.cpp:84: 772204.4
+[NOTE] in src/thesis_functions.cpp:84: 1131876
+[NOTE] in src/thesis_functions.cpp:84: 1180089
+[NOTE] in src/thesis_functions.cpp:84: 1173925
+[NOTE] in src/thesis_functions.cpp:84: 1177262
+[NOTE] in src/thesis_functions.cpp:84: 1177367
+$\vec{x}_{75}(t,u)$  &
+34.77313 &
+37.50588 &
+40.45716 &
+43.62639 &
+47.00644 &
+50.58037 &
+54.31693 &
+58.1644 &
+62.04212 &
+65.82971 &
+69.35418 &
+$\vec{x}_{75}(t,u)$  &
+4.278212 &
+4.227601 &
+4.246775 &
+4.34217 &
+4.524563 &
+4.810377 &
+5.223543 &
+5.798067 &
+6.581389 &
+7.638404 &
+9.055396 &
+	  &
+0.501006 &
+0.02889919 &
+1.103381 &
+[NOTE] in src/thesis_functions.cpp:84: 482306.2
+[NOTE] in src/thesis_functions.cpp:84: 13974.7
+[NOTE] in src/thesis_functions.cpp:84: 10797.22
+[NOTE] in src/thesis_functions.cpp:84: 97485
+[NOTE] in src/thesis_functions.cpp:84: 151390.5
+[NOTE] in src/thesis_functions.cpp:84: 508536.1
+[NOTE] in src/thesis_functions.cpp:84: 781100.6
+[NOTE] in src/thesis_functions.cpp:84: 1154043
+[NOTE] in src/thesis_functions.cpp:84: 1203192
+[NOTE] in src/thesis_functions.cpp:84: 1199130
+[NOTE] in src/thesis_functions.cpp:84: 1203466
+[NOTE] in src/thesis_functions.cpp:84: 1203608
+$\vec{x}_{76}(t,u)$  &
+34.79495 &
+37.52682 &
+40.47996 &
+43.65372 &
+47.04071 &
+50.62358 &
+54.37036 &
+58.22801 &
+62.11378 &
+65.90391 &
+69.42042 &
+$\vec{x}_{76}(t,u)$  &
+4.287436 &
+4.223639 &
+4.231277 &
+4.316379 &
+4.489417 &
+4.766613 &
+5.171841 &
+5.739228 &
+6.516596 &
+7.569559 &
+8.985494 &
+	  &
+0.5034958 &
+0.0295498 &
+1.142963 &
+[NOTE] in src/thesis_functions.cpp:84: 467466.2
+[NOTE] in src/thesis_functions.cpp:84: 14187.08
+[NOTE] in src/thesis_functions.cpp:84: 9949.053
+[NOTE] in src/thesis_functions.cpp:84: 102219.2
+[NOTE] in src/thesis_functions.cpp:84: 147217.7
+[NOTE] in src/thesis_functions.cpp:84: 425797.9
+[NOTE] in src/thesis_functions.cpp:84: 744876.1
+[NOTE] in src/thesis_functions.cpp:84: 1106207
+[NOTE] in src/thesis_functions.cpp:84: 1170038
+[NOTE] in src/thesis_functions.cpp:84: 1164983
+[NOTE] in src/thesis_functions.cpp:84: 1167787
+[NOTE] in src/thesis_functions.cpp:84: 1167910
+$\vec{x}_{77}(t,u)$  &
+34.87464 &
+37.60571 &
+40.55109 &
+43.7111 &
+47.08002 &
+50.64321 &
+54.37306 &
+58.22337 &
+62.12173 &
+65.95973 &
+69.58086 &
+$\vec{x}_{77}(t,u)$  &
+4.213823 &
+4.179447 &
+4.210705 &
+4.314186 &
+4.500485 &
+4.785429 &
+5.191807 &
+5.751756 &
+6.5099 &
+7.527206 &
+8.885011 &
+	  &
+0.4924916 &
+0.02755961 &
+1.039234 &
+[NOTE] in src/thesis_functions.cpp:84: 472238.3
+[NOTE] in src/thesis_functions.cpp:84: 14321.01
+[NOTE] in src/thesis_functions.cpp:84: 9744.742
+[NOTE] in src/thesis_functions.cpp:84: 101843.2
+[NOTE] in src/thesis_functions.cpp:84: 147191.5
+[NOTE] in src/thesis_functions.cpp:84: 446480.7
+[NOTE] in src/thesis_functions.cpp:84: 774014
+[NOTE] in src/thesis_functions.cpp:84: 1134406
+[NOTE] in src/thesis_functions.cpp:84: 1184205
+[NOTE] in src/thesis_functions.cpp:84: 1177137
+[NOTE] in src/thesis_functions.cpp:84: 1180740
+[NOTE] in src/thesis_functions.cpp:84: 1180868
+$\vec{x}_{78}(t,u)$  &
+34.76117 &
+37.50087 &
+40.46181 &
+43.64292 &
+47.03623 &
+50.62338 &
+54.3709 &
+58.22354 &
+62.09529 &
+65.85788 &
+69.32724 &
+$\vec{x}_{78}(t,u)$  &
+4.250867 &
+4.193398 &
+4.207496 &
+4.299541 &
+4.480454 &
+4.767064 &
+5.184071 &
+5.766742 &
+6.564447 &
+7.644832 &
+9.097732 &
+	  &
+0.5048185 &
+0.02976588 &
+1.142983 &
+[NOTE] in src/thesis_functions.cpp:84: 434539.6
+[NOTE] in src/thesis_functions.cpp:84: 15342.12
+[NOTE] in src/thesis_functions.cpp:84: 7038.801
+[NOTE] in src/thesis_functions.cpp:84: 114638.9
+[NOTE] in src/thesis_functions.cpp:84: 135315.1
+[NOTE] in src/thesis_functions.cpp:84: 314872.4
+[NOTE] in src/thesis_functions.cpp:84: 708710.2
+[NOTE] in src/thesis_functions.cpp:84: 1038576
+[NOTE] in src/thesis_functions.cpp:84: 1091904
+[NOTE] in src/thesis_functions.cpp:84: 1083428
+[NOTE] in src/thesis_functions.cpp:84: 1084563
+[NOTE] in src/thesis_functions.cpp:84: 1084611
+$\vec{x}_{79}(t,u)$  &
+34.78131 &
+37.52365 &
+40.47537 &
+43.6374 &
+47.00501 &
+50.5651 &
+54.29247 &
+58.14462 &
+62.05485 &
+65.92303 &
+69.6045 &
+$\vec{x}_{79}(t,u)$  &
+4.079568 &
+4.082384 &
+4.14586 &
+4.277494 &
+4.48856 &
+4.795312 &
+5.220669 &
+5.796515 &
+6.566748 &
+7.591044 &
+8.948964 &
+	  &
+0.4849791 &
+0.02588792 &
+0.9320156 &
+[NOTE] in src/thesis_functions.cpp:84: 445980.5
+[NOTE] in src/thesis_functions.cpp:84: 15129.86
+[NOTE] in src/thesis_functions.cpp:84: 7552.829
+[NOTE] in src/thesis_functions.cpp:84: 111844.4
+[NOTE] in src/thesis_functions.cpp:84: 138097
+[NOTE] in src/thesis_functions.cpp:84: 342219.7
+[NOTE] in src/thesis_functions.cpp:84: 739111.6
+[NOTE] in src/thesis_functions.cpp:84: 1078244
+[NOTE] in src/thesis_functions.cpp:84: 1127884
+[NOTE] in src/thesis_functions.cpp:84: 1118140
+[NOTE] in src/thesis_functions.cpp:84: 1119851
+[NOTE] in src/thesis_functions.cpp:84: 1119907
+$\vec{x}_{80}(t,u)$  &
+34.72907 &
+37.47563 &
+40.4372 &
+43.61384 &
+46.99935 &
+50.57816 &
+54.32115 &
+58.17972 &
+62.07784 &
+65.90175 &
+69.48746 &
+$\vec{x}_{80}(t,u)$  &
+4.129615 &
+4.107288 &
+4.150233 &
+4.2656 &
+4.464679 &
+4.764191 &
+5.188125 &
+5.770263 &
+6.557494 &
+7.613849 &
+9.024643 &
+	  &
+0.4945931 &
+0.02772135 &
+1.027419 &
+[NOTE] in src/thesis_functions.cpp:84: 443439.1
+[NOTE] in src/thesis_functions.cpp:84: 15065.25
+[NOTE] in src/thesis_functions.cpp:84: 7555.179
+[NOTE] in src/thesis_functions.cpp:84: 111954
+[NOTE] in src/thesis_functions.cpp:84: 137686.1
+[NOTE] in src/thesis_functions.cpp:84: 334907.2
+[NOTE] in src/thesis_functions.cpp:84: 724371.5
+[NOTE] in src/thesis_functions.cpp:84: 1066746
+[NOTE] in src/thesis_functions.cpp:84: 1124885
+[NOTE] in src/thesis_functions.cpp:84: 1115684
+[NOTE] in src/thesis_functions.cpp:84: 1117319
+[NOTE] in src/thesis_functions.cpp:84: 1117394
+$\vec{x}_{81}(t,u)$  &
+34.76146 &
+37.50707 &
+40.46648 &
+43.64007 &
+47.02205 &
+50.59763 &
+54.3388 &
+58.19872 &
+62.10394 &
+65.94438 &
+69.56115 &
+$\vec{x}_{81}(t,u)$  &
+4.100388 &
+4.082647 &
+4.128875 &
+4.246231 &
+4.445913 &
+4.744418 &
+5.165344 &
+5.74185 &
+6.519912 &
+7.562305 &
+8.952773 &
+	  &
+0.4918162 &
+0.02733846 &
+1.009052 &
+[NOTE] in src/thesis_functions.cpp:84: 470463.4
+[NOTE] in src/thesis_functions.cpp:84: 14479.83
+[NOTE] in src/thesis_functions.cpp:84: 9115.195
+[NOTE] in src/thesis_functions.cpp:84: 103033
+[NOTE] in src/thesis_functions.cpp:84: 145600.4
+[NOTE] in src/thesis_functions.cpp:84: 436802.9
+[NOTE] in src/thesis_functions.cpp:84: 777166.5
+[NOTE] in src/thesis_functions.cpp:84: 1135107
+[NOTE] in src/thesis_functions.cpp:84: 1181943
+[NOTE] in src/thesis_functions.cpp:84: 1174347
+[NOTE] in src/thesis_functions.cpp:84: 1177654
+[NOTE] in src/thesis_functions.cpp:84: 1177762
+$\vec{x}_{82}(t,u)$  &
+34.66784 &
+37.40673 &
+40.36766 &
+43.55004 &
+46.94649 &
+50.53954 &
+54.29686 &
+58.1648 &
+62.0595 &
+65.85548 &
+69.37214 &
+$\vec{x}_{82}(t,u)$  &
+4.263103 &
+4.204111 &
+4.216317 &
+4.305991 &
+4.483881 &
+4.766566 &
+5.178384 &
+5.75411 &
+6.542459 &
+7.610284 &
+9.046614 &
+	  &
+0.5050602 &
+0.02953517 &
+1.133496 &
+[NOTE] in src/thesis_functions.cpp:84: 463928.4
+[NOTE] in src/thesis_functions.cpp:84: 14594.2
+[NOTE] in src/thesis_functions.cpp:84: 8986.345
+[NOTE] in src/thesis_functions.cpp:84: 105548.7
+[NOTE] in src/thesis_functions.cpp:84: 143998.2
+[NOTE] in src/thesis_functions.cpp:84: 400098.1
+[NOTE] in src/thesis_functions.cpp:84: 758440.6
+[NOTE] in src/thesis_functions.cpp:84: 1109946
+[NOTE] in src/thesis_functions.cpp:84: 1160100
+[NOTE] in src/thesis_functions.cpp:84: 1151828
+[NOTE] in src/thesis_functions.cpp:84: 1154443
+[NOTE] in src/thesis_functions.cpp:84: 1154527
+$\vec{x}_{83}(t,u)$  &
+34.7686 &
+37.51227 &
+40.47391 &
+43.65316 &
+47.04316 &
+50.62733 &
+54.37489 &
+58.23474 &
+62.12708 &
+65.93261 &
+69.47969 &
+$\vec{x}_{83}(t,u)$  &
+4.20826 &
+4.168295 &
+4.196525 &
+4.299696 &
+4.488851 &
+4.780648 &
+5.199234 &
+5.77883 &
+6.56712 &
+7.629332 &
+9.052293 &
+	  &
+0.4992143 &
+0.02855684 &
+1.079251 &
+[NOTE] in src/thesis_functions.cpp:84: 477951.6
+[NOTE] in src/thesis_functions.cpp:84: 14074.13
+[NOTE] in src/thesis_functions.cpp:84: 10368.34
+[NOTE] in src/thesis_functions.cpp:84: 98896.2
+[NOTE] in src/thesis_functions.cpp:84: 149875.6
+[NOTE] in src/thesis_functions.cpp:84: 481305.4
+[NOTE] in src/thesis_functions.cpp:84: 769440.6
+[NOTE] in src/thesis_functions.cpp:84: 1134333
+[NOTE] in src/thesis_functions.cpp:84: 1189153
+[NOTE] in src/thesis_functions.cpp:84: 1185196
+[NOTE] in src/thesis_functions.cpp:84: 1188960
+[NOTE] in src/thesis_functions.cpp:84: 1189108
+$\vec{x}_{84}(t,u)$  &
+34.78881 &
+37.52362 &
+40.47816 &
+43.65219 &
+47.039 &
+50.62219 &
+54.37131 &
+58.23558 &
+62.13561 &
+65.95248 &
+69.51487 &
+$\vec{x}_{84}(t,u)$  &
+4.270842 &
+4.216054 &
+4.230921 &
+4.321671 &
+4.49884 &
+4.778559 &
+5.184406 &
+5.749953 &
+6.522124 &
+7.565253 &
+8.965126 &
+	  &
+0.500773 &
+0.02888282 &
+1.108325 &
+[NOTE] in src/thesis_functions.cpp:84: 455770.3
+[NOTE] in src/thesis_functions.cpp:84: 14694.66
+[NOTE] in src/thesis_functions.cpp:84: 8437.731
+[NOTE] in src/thesis_functions.cpp:84: 107421
+[NOTE] in src/thesis_functions.cpp:84: 141684.6
+[NOTE] in src/thesis_functions.cpp:84: 373838.9
+[NOTE] in src/thesis_functions.cpp:84: 739265.8
+[NOTE] in src/thesis_functions.cpp:84: 1089143
+[NOTE] in src/thesis_functions.cpp:84: 1147131
+[NOTE] in src/thesis_functions.cpp:84: 1139431
+[NOTE] in src/thesis_functions.cpp:84: 1141498
+[NOTE] in src/thesis_functions.cpp:84: 1141584
+$\vec{x}_{85}(t,u)$  &
+34.76353 &
+37.50052 &
+40.452 &
+43.61849 &
+46.99449 &
+50.56561 &
+54.30447 &
+58.16517 &
+62.07562 &
+65.92768 &
+69.56512 &
+$\vec{x}_{85}(t,u)$  &
+4.181152 &
+4.153658 &
+4.19102 &
+4.300054 &
+4.491577 &
+4.781643 &
+5.193291 &
+5.758955 &
+6.52364 &
+7.54883 &
+8.916598 &
+	  &
+0.4927331 &
+0.02734209 &
+1.020427 &
+[NOTE] in src/thesis_functions.cpp:84: 481128.7
+[NOTE] in src/thesis_functions.cpp:84: 14131.88
+[NOTE] in src/thesis_functions.cpp:84: 10218.57
+[NOTE] in src/thesis_functions.cpp:84: 98624.78
+[NOTE] in src/thesis_functions.cpp:84: 149958.4
+[NOTE] in src/thesis_functions.cpp:84: 495939.2
+[NOTE] in src/thesis_functions.cpp:84: 782714.7
+[NOTE] in src/thesis_functions.cpp:84: 1150586
+[NOTE] in src/thesis_functions.cpp:84: 1195722
+[NOTE] in src/thesis_functions.cpp:84: 1191013
+[NOTE] in src/thesis_functions.cpp:84: 1194906
+[NOTE] in src/thesis_functions.cpp:84: 1195022
+$\vec{x}_{86}(t,u)$  &
+34.71838 &
+37.45148 &
+40.40613 &
+43.58208 &
+46.97255 &
+50.56099 &
+54.31657 &
+58.18784 &
+62.09428 &
+65.91518 &
+69.47651 &
+$\vec{x}_{86}(t,u)$  &
+4.303924 &
+4.241716 &
+4.250346 &
+4.335856 &
+4.508657 &
+4.784828 &
+5.187982 &
+5.751844 &
+6.523649 &
+7.568241 &
+8.972131 &
+	  &
+0.5033677 &
+0.02917291 &
+1.124963 &
+[NOTE] in src/thesis_functions.cpp:84: 454476.4
+[NOTE] in src/thesis_functions.cpp:84: 14618.75
+[NOTE] in src/thesis_functions.cpp:84: 8784.214
+[NOTE] in src/thesis_functions.cpp:84: 106760.5
+[NOTE] in src/thesis_functions.cpp:84: 142472.4
+[NOTE] in src/thesis_functions.cpp:84: 376380.7
+[NOTE] in src/thesis_functions.cpp:84: 732819.7
+[NOTE] in src/thesis_functions.cpp:84: 1078563
+[NOTE] in src/thesis_functions.cpp:84: 1137359
+[NOTE] in src/thesis_functions.cpp:84: 1130582
+[NOTE] in src/thesis_functions.cpp:84: 1132544
+[NOTE] in src/thesis_functions.cpp:84: 1132628
+$\vec{x}_{87}(t,u)$  &
+34.83456 &
+37.56468 &
+40.50583 &
+43.65845 &
+47.01705 &
+50.56747 &
+54.28298 &
+58.11885 &
+62.00518 &
+65.8374 &
+69.46488 &
+$\vec{x}_{87}(t,u)$  &
+4.201472 &
+4.183556 &
+4.229419 &
+4.346091 &
+4.544503 &
+4.840697 &
+5.257521 &
+5.826955 &
+6.593167 &
+7.616261 &
+8.976231 &
+	  &
+0.4893349 &
+0.0267621 &
+0.9896776 &
+[NOTE] in src/thesis_functions.cpp:84: 472625.2
+[NOTE] in src/thesis_functions.cpp:84: 14089.63
+[NOTE] in src/thesis_functions.cpp:84: 10315.7
+[NOTE] in src/thesis_functions.cpp:84: 100621
+[NOTE] in src/thesis_functions.cpp:84: 148748.9
+[NOTE] in src/thesis_functions.cpp:84: 451911.3
+[NOTE] in src/thesis_functions.cpp:84: 760279
+[NOTE] in src/thesis_functions.cpp:84: 1128688
+[NOTE] in src/thesis_functions.cpp:84: 1188174
+[NOTE] in src/thesis_functions.cpp:84: 1182817
+[NOTE] in src/thesis_functions.cpp:84: 1186260
+[NOTE] in src/thesis_functions.cpp:84: 1186395
+$\vec{x}_{88}(t,u)$  &
+34.85833 &
+37.58984 &
+40.53868 &
+43.70456 &
+47.0808 &
+50.65123 &
+54.38578 &
+58.23452 &
+62.11945 &
+65.92391 &
+69.47996 &
+$\vec{x}_{88}(t,u)$  &
+4.230628 &
+4.182634 &
+4.203012 &
+4.298122 &
+4.478548 &
+4.760382 &
+5.167038 &
+5.731758 &
+6.500911 &
+7.537982 &
+8.92757 &
+	  &
+0.4975423 &
+0.0286436 &
+1.094119 &
+[NOTE] in src/thesis_functions.cpp:84: 480615.9
+[NOTE] in src/thesis_functions.cpp:84: 14086.06
+[NOTE] in src/thesis_functions.cpp:84: 10413.71
+[NOTE] in src/thesis_functions.cpp:84: 98333.78
+[NOTE] in src/thesis_functions.cpp:84: 150365.9
+[NOTE] in src/thesis_functions.cpp:84: 494442.4
+[NOTE] in src/thesis_functions.cpp:84: 775765
+[NOTE] in src/thesis_functions.cpp:84: 1140398
+[NOTE] in src/thesis_functions.cpp:84: 1189410
+[NOTE] in src/thesis_functions.cpp:84: 1185494
+[NOTE] in src/thesis_functions.cpp:84: 1189283
+[NOTE] in src/thesis_functions.cpp:84: 1189411
+$\vec{x}_{89}(t,u)$  &
+34.76125 &
+37.49562 &
+40.45015 &
+43.62469 &
+47.01263 &
+50.59773 &
+54.34971 &
+58.21806 &
+62.1237 &
+65.94818 &
+69.52071 &
+$\vec{x}_{89}(t,u)$  &
+4.29548 &
+4.239121 &
+4.252662 &
+4.342293 &
+4.518504 &
+4.797376 &
+5.202424 &
+5.767136 &
+6.538323 &
+7.58017 &
+8.978281 &
+	  &
+0.5014427 &
+0.02882418 &
+1.106884 &
+[NOTE] in src/thesis_functions.cpp:84: 460971.8
+[NOTE] in src/thesis_functions.cpp:84: 14552.87
+[NOTE] in src/thesis_functions.cpp:84: 8737.785
+[NOTE] in src/thesis_functions.cpp:84: 105566.8
+[NOTE] in src/thesis_functions.cpp:84: 143264
+[NOTE] in src/thesis_functions.cpp:84: 398677.6
+[NOTE] in src/thesis_functions.cpp:84: 759753.9
+[NOTE] in src/thesis_functions.cpp:84: 1119843
+[NOTE] in src/thesis_functions.cpp:84: 1176624
+[NOTE] in src/thesis_functions.cpp:84: 1168038
+[NOTE] in src/thesis_functions.cpp:84: 1170869
+[NOTE] in src/thesis_functions.cpp:84: 1170983
+$\vec{x}_{90}(t,u)$  &
+34.72172 &
+37.45711 &
+40.41154 &
+43.58461 &
+46.96935 &
+50.54901 &
+54.29253 &
+58.14828 &
+62.03556 &
+65.83363 &
+69.36858 &
+$\vec{x}_{90}(t,u)$  &
+4.202807 &
+4.153593 &
+4.173388 &
+4.26862 &
+4.450049 &
+4.734088 &
+5.144681 &
+5.715902 &
+6.495369 &
+7.548361 &
+8.961881 &
+	  &
+0.5004109 &
+0.02905969 &
+1.107115 &
+[NOTE] in src/thesis_functions.cpp:84: 455311.2
+[NOTE] in src/thesis_functions.cpp:84: 14958.58
+[NOTE] in src/thesis_functions.cpp:84: 7862.453
+[NOTE] in src/thesis_functions.cpp:84: 109217.7
+[NOTE] in src/thesis_functions.cpp:84: 140200.8
+[NOTE] in src/thesis_functions.cpp:84: 370382.5
+[NOTE] in src/thesis_functions.cpp:84: 760211.2
+[NOTE] in src/thesis_functions.cpp:84: 1106592
+[NOTE] in src/thesis_functions.cpp:84: 1154510
+[NOTE] in src/thesis_functions.cpp:84: 1144421
+$\vec{x}_{91}(t,u)$  &
+34.65212 &
+37.40025 &
+40.36849 &
+43.55652 &
+46.95733 &
+50.55397 &
+54.31492 &
+58.18774 &
+62.09034 &
+65.89981 &
+69.43899 &
+$\vec{x}_{91}(t,u)$  &
+4.173547 &
+4.130252 &
+4.155722 &
+4.256672 &
+4.444207 &
+4.735173 &
+5.15409 &
+5.735826 &
+6.529104 &
+7.600727 &
+9.03975 &
+	  &
+0.5018234 &
+0.0289965 &
+1.096325 &
+[NOTE] in src/thesis_functions.cpp:84: 473690.9
+[NOTE] in src/thesis_functions.cpp:84: 14170.16
+[NOTE] in src/thesis_functions.cpp:84: 10108.51
+[NOTE] in src/thesis_functions.cpp:84: 100778
+[NOTE] in src/thesis_functions.cpp:84: 148445.7
+[NOTE] in src/thesis_functions.cpp:84: 454164.8
+[NOTE] in src/thesis_functions.cpp:84: 764555.7
+[NOTE] in src/thesis_functions.cpp:84: 1129672
+[NOTE] in src/thesis_functions.cpp:84: 1183236
+[NOTE] in src/thesis_functions.cpp:84: 1177690
+[NOTE] in src/thesis_functions.cpp:84: 1180941
+[NOTE] in src/thesis_functions.cpp:84: 1181049
+$\vec{x}_{92}(t,u)$  &
+34.81295 &
+37.5448 &
+40.49405 &
+43.66069 &
+47.03841 &
+50.61157 &
+54.3509 &
+58.20755 &
+62.10512 &
+65.92916 &
+69.5147 &
+$\vec{x}_{92}(t,u)$  &
+4.253903 &
+4.207043 &
+4.228233 &
+4.323841 &
+4.504415 &
+4.785944 &
+5.191655 &
+5.754488 &
+6.520363 &
+7.552137 &
+8.933643 &
+	  &
+0.4974768 &
+0.02834346 &
+1.080309 &
+[NOTE] in src/thesis_functions.cpp:84: 452080.1
+[NOTE] in src/thesis_functions.cpp:84: 14808.21
+[NOTE] in src/thesis_functions.cpp:84: 8255.711
+[NOTE] in src/thesis_functions.cpp:84: 108737.4
+[NOTE] in src/thesis_functions.cpp:84: 140672.4
+[NOTE] in src/thesis_functions.cpp:84: 362118.8
+[NOTE] in src/thesis_functions.cpp:84: 734957.8
+[NOTE] in src/thesis_functions.cpp:84: 1079819
+[NOTE] in src/thesis_functions.cpp:84: 1137618
+[NOTE] in src/thesis_functions.cpp:84: 1129351
+[NOTE] in src/thesis_functions.cpp:84: 1131348
+[NOTE] in src/thesis_functions.cpp:84: 1131437
+$\vec{x}_{93}(t,u)$  &
+34.78031 &
+37.5228 &
+40.47981 &
+43.65146 &
+47.03163 &
+50.60499 &
+54.34281 &
+58.19713 &
+62.09301 &
+65.91825 &
+69.51123 &
+$\vec{x}_{93}(t,u)$  &
+4.157426 &
+4.132926 &
+4.173756 &
+4.286953 &
+4.483652 &
+4.780358 &
+5.200758 &
+5.778194 &
+6.558927 &
+7.606107 &
+9.003861 &
+	  &
+0.4938363 &
+0.02762109 &
+1.027609 &
+[NOTE] in src/thesis_functions.cpp:84: 459598.6
+[NOTE] in src/thesis_functions.cpp:84: 14697.18
+[NOTE] in src/thesis_functions.cpp:84: 8542.036
+[NOTE] in src/thesis_functions.cpp:84: 106918.3
+[NOTE] in src/thesis_functions.cpp:84: 142404.5
+[NOTE] in src/thesis_functions.cpp:84: 387116.8
+[NOTE] in src/thesis_functions.cpp:84: 758753.8
+[NOTE] in src/thesis_functions.cpp:84: 1111754
+[NOTE] in src/thesis_functions.cpp:84: 1163996
+[NOTE] in src/thesis_functions.cpp:84: 1154757
+[NOTE] in src/thesis_functions.cpp:84: 1157363
+[NOTE] in src/thesis_functions.cpp:84: 1157455
+$\vec{x}_{94}(t,u)$  &
+34.72578 &
+37.46876 &
+40.43081 &
+43.61144 &
+47.0035 &
+50.58993 &
+54.33918 &
+58.19889 &
+62.08729 &
+65.88214 &
+69.40752 &
+$\vec{x}_{94}(t,u)$  &
+4.189021 &
+4.144719 &
+4.169285 &
+4.269375 &
+4.456013 &
+4.745931 &
+5.163483 &
+5.743276 &
+6.533634 &
+7.600746 &
+9.032739 &
+	  &
+0.5007888 &
+0.02899645 &
+1.099326 &
+[NOTE] in src/thesis_functions.cpp:84: 445915.3
+[NOTE] in src/thesis_functions.cpp:84: 14952.91
+[NOTE] in src/thesis_functions.cpp:84: 7876.447
+[NOTE] in src/thesis_functions.cpp:84: 110729.5
+[NOTE] in src/thesis_functions.cpp:84: 138818.1
+[NOTE] in src/thesis_functions.cpp:84: 342125.9
+[NOTE] in src/thesis_functions.cpp:84: 722154.8
+[NOTE] in src/thesis_functions.cpp:84: 1063328
+[NOTE] in src/thesis_functions.cpp:84: 1121653
+[NOTE] in src/thesis_functions.cpp:84: 1113398
+[NOTE] in src/thesis_functions.cpp:84: 1115000
+[NOTE] in src/thesis_functions.cpp:84: 1115072
+$\vec{x}_{95}(t,u)$  &
+34.79799 &
+37.53872 &
+40.49135 &
+43.65643 &
+47.02861 &
+50.59379 &
+54.32516 &
+58.17781 &
+62.08129 &
+65.93006 &
+69.57179 &
+$\vec{x}_{95}(t,u)$  &
+4.128401 &
+4.115653 &
+4.165934 &
+4.28644 &
+4.488289 &
+4.787753 &
+5.207986 &
+5.781405 &
+6.552821 &
+7.583293 &
+8.954227 &
+	  &
+0.4892455 &
+0.02676201 &
+0.9829311 &
+[NOTE] in src/thesis_functions.cpp:84: 435782
+[NOTE] in src/thesis_functions.cpp:84: 15315.67
+[NOTE] in src/thesis_functions.cpp:84: 7121.696
+[NOTE] in src/thesis_functions.cpp:84: 113894.9
+[NOTE] in src/thesis_functions.cpp:84: 135869
+[NOTE] in src/thesis_functions.cpp:84: 321670.6
+[NOTE] in src/thesis_functions.cpp:84: 712516.7
+[NOTE] in src/thesis_functions.cpp:84: 1040094
+[NOTE] in src/thesis_functions.cpp:84: 1093237
+[NOTE] in src/thesis_functions.cpp:84: 1084949
+[NOTE] in src/thesis_functions.cpp:84: 1086177
+[NOTE] in src/thesis_functions.cpp:84: 1086231
+$\vec{x}_{96}(t,u)$  &
+34.76519 &
+37.50759 &
+40.45986 &
+43.62268 &
+46.99093 &
+50.55092 &
+54.27656 &
+58.12406 &
+62.02483 &
+65.87613 &
+69.52973 &
+$\vec{x}_{96}(t,u)$  &
+4.103688 &
+4.103927 &
+4.165746 &
+4.296674 &
+4.508087 &
+4.816431 &
+5.244939 &
+5.825968 &
+6.604087 &
+7.639874 &
+9.013998 &
+	  &
+0.486839 &
+0.02615467 &
+0.9443902 &
+[NOTE] in src/thesis_functions.cpp:84: 457297
+[NOTE] in src/thesis_functions.cpp:84: 14959.79
+[NOTE] in src/thesis_functions.cpp:84: 8057.784
+[NOTE] in src/thesis_functions.cpp:84: 108695.5
+[NOTE] in src/thesis_functions.cpp:84: 140937.2
+[NOTE] in src/thesis_functions.cpp:84: 375518.2
+[NOTE] in src/thesis_functions.cpp:84: 759114.8
+[NOTE] in src/thesis_functions.cpp:84: 1098795
+[NOTE] in src/thesis_functions.cpp:84: 1142619
+[NOTE] in src/thesis_functions.cpp:84: 1133420
+[NOTE] in src/thesis_functions.cpp:84: 1135575
+[NOTE] in src/thesis_functions.cpp:84: 1135633
+$\vec{x}_{97}(t,u)$  &
+34.67947 &
+37.42813 &
+40.3951 &
+43.58022 &
+46.9768 &
+50.56843 &
+54.32453 &
+58.19418 &
+62.09777 &
+65.91616 &
+69.47776 &
+$\vec{x}_{97}(t,u)$  &
+4.199629 &
+4.164124 &
+4.196416 &
+4.303427 &
+4.496375 &
+4.792101 &
+5.214962 &
+5.799436 &
+6.593536 &
+7.662936 &
+9.09509 &
+	  &
+0.4998659 &
+0.02837202 &
+1.064859 &
+[NOTE] in src/thesis_functions.cpp:84: 476223.6
+[NOTE] in src/thesis_functions.cpp:84: 14282.92
+[NOTE] in src/thesis_functions.cpp:84: 9897.84
+[NOTE] in src/thesis_functions.cpp:84: 100675.7
+[NOTE] in src/thesis_functions.cpp:84: 148224.2
+[NOTE] in src/thesis_functions.cpp:84: 462578.1
+[NOTE] in src/thesis_functions.cpp:84: 774051.5
+[NOTE] in src/thesis_functions.cpp:84: 1132035
+[NOTE] in src/thesis_functions.cpp:84: 1179112
+[NOTE] in src/thesis_functions.cpp:84: 1173383
+[NOTE] in src/thesis_functions.cpp:84: 1176846
+[NOTE] in src/thesis_functions.cpp:84: 1176959
+$\vec{x}_{98}(t,u)$  &
+34.7448 &
+37.48499 &
+40.44574 &
+43.62659 &
+47.02046 &
+50.61036 &
+54.36486 &
+58.23167 &
+62.12919 &
+65.9353 &
+69.47431 &
+$\vec{x}_{98}(t,u)$  &
+4.276773 &
+4.223074 &
+4.239676 &
+4.332964 &
+4.513713 &
+4.798416 &
+5.211172 &
+5.786302 &
+6.571773 &
+7.633313 &
+9.058434 &
+	  &
+0.5028382 &
+0.02904754 &
+1.111695 &
+[NOTE] in src/thesis_functions.cpp:84: 448252.2
+[NOTE] in src/thesis_functions.cpp:84: 15158.44
+[NOTE] in src/thesis_functions.cpp:84: 7547.375
+[NOTE] in src/thesis_functions.cpp:84: 111450.4
+[NOTE] in src/thesis_functions.cpp:84: 138456.1
+[NOTE] in src/thesis_functions.cpp:84: 347628.6
+[NOTE] in src/thesis_functions.cpp:84: 740251.9
+[NOTE] in src/thesis_functions.cpp:84: 1074202
+[NOTE] in src/thesis_functions.cpp:84: 1121683
+[NOTE] in src/thesis_functions.cpp:84: 1112485
+[NOTE] in src/thesis_functions.cpp:84: 1114185
+[NOTE] in src/thesis_functions.cpp:84: 1114240
+$\vec{x}_{99}(t,u)$  &
+34.70501 &
+37.45588 &
+40.42237 &
+43.60469 &
+46.99678 &
+50.58327 &
+54.33525 &
+58.20437 &
+62.11493 &
+65.95355 &
+69.5567 &
+$\vec{x}_{99}(t,u)$  &
+4.146518 &
+4.125228 &
+4.169232 &
+4.285735 &
+4.486076 &
+4.787029 &
+5.212639 &
+5.796748 &
+6.586315 &
+7.645469 &
+9.059675 &
+	  &
+0.4952548 &
+0.02756377 &
+1.019759 &
+[NOTE] in src/thesis_functions.cpp:84: 448155.2
+[NOTE] in src/thesis_functions.cpp:84: 15173.58
+[NOTE] in src/thesis_functions.cpp:84: 7311.734
+[NOTE] in src/thesis_functions.cpp:84: 111979.5
+[NOTE] in src/thesis_functions.cpp:84: 137778.3
+[NOTE] in src/thesis_functions.cpp:84: 345021.2
+[NOTE] in src/thesis_functions.cpp:84: 747100.4
+[NOTE] in src/thesis_functions.cpp:84: 1089808
+[NOTE] in src/thesis_functions.cpp:84: 1139280
+[NOTE] in src/thesis_functions.cpp:84: 1128856
+[NOTE] in src/thesis_functions.cpp:84: 1130740
+[NOTE] in src/thesis_functions.cpp:84: 1130802
+$\vec{x}_{100}(t,u)$  \\
+34.64963 \\
+37.40246 \\
+40.37413 \\
+43.56479 \\
+46.96815 \\
+50.56835 \\
+54.33548 \\
+58.21944 \\
+62.14161 \\
+65.98389 \\
+69.57564 \\
+$\vec{x}_{100}(t,u)$  \\
+4.11844 \\
+4.084953 \\
+4.118104 \\
+4.22478 \\
+4.416123 \\
+4.70886 \\
+5.127194 \\
+5.705423 \\
+6.491393 \\
+7.550715 \\
+8.971049 \\
+	  \\
+0.4985132 \\
+0.02838305 \\
+1.062836 \\
+\begin{table}
+\centering
+	\begin{tabular}{|l|c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |c |}
+		\hline
+Actual &	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&	&Mean & Deviation \\ \hline
+0.48 & 0.4919127 & 0.4936868 & 0.4984943 & 0.4930995 & 0.492915 & 0.5045689 & 0.484271 & 0.4969884 & 0.5063695 & 0.4997449 & 0.4987043 & 0.5056584 & 0.4945753 & 0.5017994 & 0.4929312 & 0.4996573 & 0.4960424 & 0.4888707 & 0.5087763 & 0.5028996 & 0.4987592 & 0.4965545 & 0.5167968 & 0.5015085 & 0.4948152 & 0.5096032 & 0.5042594 & 0.5011394 & 0.508083 & 0.4997429 & 0.5125341 & 0.4959848 & 0.5012767 & 0.4974452 & 0.4967288 & 0.4842783 & 0.500742 & 0.500137 & 0.4992302 & 0.4999565 & 0.4887033 & 0.4969235 & 0.4969844 & 0.4936057 & 0.5040293 & 0.5008387 & 0.5052746 & 0.4933981 & 0.4939393 & 0.4951399 & 0.5066165 & 0.4901914 & 0.5019868 & 0.5083695 & 0.5011323 & 0.5006317 & 0.4944795 & 0.5056197 & 0.5032951 & 0.5022882 & 0.4975682 & 0.5047789 & 0.4958363 & 0.5039049 & 0.5002982 & 0.4983743 & 0.5017912 & 0.4984927 & 0.504102 & 0.4994014 & 0.4988262 & 0.4848008 & 0.4908411 & 0.4942898 & 0.501006 & 0.5034958 & 0.4924916 & 0.5048185 & 0.4849791 & 0.4945931 & 0.4918162 & 0.5050602 & 0.4992143 & 0.500773 & 0.4927331 & 0.5033677 & 0.4893349 & 0.4975423 & 0.5014427 & 0.5004109 & 0.5018234 & 0.4974768 & 0.4938363 & 0.5007888 & 0.4892455 & 0.486839 & 0.4998659 & 0.5028382 & 0.4952548 & 0.4985132 & 0.4985786 & 0.00608702\\
+0.026 & 0.02734877 & 0.02760632 & 0.0281866 & 0.02743594 & 0.02807407 & 0.02941722 & 0.02543329 & 0.02824864 & 0.02958518 & 0.02864602 & 0.02816262 & 0.02977103 & 0.02805769 & 0.02915727 & 0.02772053 & 0.02823684 & 0.02797607 & 0.02683933 & 0.03033364 & 0.02933882 & 0.02862751 & 0.02801151 & 0.03194163 & 0.02907008 & 0.02788449 & 0.03034201 & 0.02947336 & 0.02910162 & 0.03041693 & 0.02955327 & 0.03116685 & 0.02777359 & 0.02895074 & 0.02847314 & 0.02812383 & 0.02596751 & 0.02901618 & 0.02894418 & 0.02879894 & 0.0288844 & 0.02653384 & 0.02831464 & 0.02822473 & 0.02776682 & 0.02946146 & 0.02906586 & 0.0295087 & 0.02746837 & 0.02778629 & 0.02791002 & 0.0299022 & 0.0271222 & 0.02944537 & 0.02980052 & 0.02910677 & 0.02847787 & 0.02778171 & 0.02967437 & 0.02940878 & 0.02919592 & 0.0283901 & 0.0301367 & 0.02831504 & 0.02974279 & 0.02888826 & 0.02863688 & 0.02894581 & 0.02857778 & 0.02989639 & 0.02860104 & 0.02891022 & 0.02580788 & 0.02679976 & 0.02771315 & 0.02889919 & 0.0295498 & 0.02755961 & 0.02976588 & 0.02588792 & 0.02772135 & 0.02733846 & 0.02953517 & 0.02855684 & 0.02888282 & 0.02734209 & 0.02917291 & 0.0267621 & 0.0286436 & 0.02882418 & 0.02905969 & 0.0289965 & 0.02834346 & 0.02762109 & 0.02899645 & 0.02676201 & 0.02615467 & 0.02837202 & 0.02904754 & 0.02756377 & 0.02838305 & 0.02851158 & 0.001148002\\
+0.93 & 1.017252 & 1.022191 & 1.045175 & 0.9960356 & 1.052433 & 1.115888 & 0.896658 & 1.062625 & 1.131802 & 1.094012 & 1.054378 & 1.14982 & 1.056695 & 1.111984 & 1.036892 & 1.075435 & 1.050703 & 0.9780216 & 1.175945 & 1.123675 & 1.07676 & 1.050633 & 1.260093 & 1.120564 & 1.050649 & 1.174297 & 1.126862 & 1.118168 & 1.187449 & 1.149061 & 1.214593 & 1.038955 & 1.112092 & 1.068941 & 1.069783 & 0.9525382 & 1.110698 & 1.103104 & 1.094908 & 1.09468 & 0.96659 & 1.080033 & 1.06141 & 1.036897 & 1.122176 & 1.095652 & 1.133063 & 1.018214 & 1.047527 & 1.045474 & 1.159642 & 1.000242 & 1.134256 & 1.136594 & 1.122674 & 1.071449 & 1.040105 & 1.136092 & 1.124303 & 1.119338 & 1.063581 & 1.168505 & 1.066996 & 1.16018 & 1.101309 & 1.082443 & 1.103347 & 1.079995 & 1.158118 & 1.075462 & 1.109398 & 0.9182276 & 0.9914234 & 1.022359 & 1.103381 & 1.142963 & 1.039234 & 1.142983 & 0.9320156 & 1.027419 & 1.009052 & 1.133496 & 1.079251 & 1.108325 & 1.020427 & 1.124963 & 0.9896776 & 1.094119 & 1.106884 & 1.107115 & 1.096325 & 1.080309 & 1.027609 & 1.099326 & 0.9829311 & 0.9443902 & 1.064859 & 1.111695 & 1.019759 & 1.062836 & 1.078269 & 0.06539518\\
+		\hline
+	\end{tabular}
+\caption{ Table Caption }
+\label{}
+\end{table}
+\begin{table}
+\centering
+	\begin{tabular}{|l|c |c |}
+		\hline
+Actual &Mean & Deviation \\ \hline
+0.48 & 0.4985786 & 0.00608702\\
+0.026 & 0.02851158 & 0.001148002\\
+0.93 & 1.078269 & 0.06539518\\
+		\hline
+	\end{tabular}
+\caption{ Table Caption }
+\label{}
+\end{table}
+\begin{table}
+\centering
+	\begin{tabular}{|l|c |c |}
+		\hline
+Actual &Mean & Deviation \\ \hline
+0.48 & 0.01857857 & 0.00608702\\
+0.026 & 0.002511581 & 0.001148002\\
+0.93 & 0.1482687 & 0.06539518\\
+		\hline
+	\end{tabular}
+\caption{ Table Caption }
+\label{}
+\end{table}
+120

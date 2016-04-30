@@ -5,6 +5,7 @@
 #include <math.h>
 #include <gsl/gsl_vector.h>
 #include <gsl/gsl_multifit.h>
+#include <gsl/gsl_linalg.h>
 
 namespace thesis{
 	class lsquares {
@@ -12,7 +13,7 @@ namespace thesis{
 			size_t num_obs;
 			size_t order;
 			gsl_matrix *X, *cov;
-			gsl_vector *c,  *gslx, *gsly;
+			gsl_vector *c,  *gslx, *gsly, *tau, *res;
 			gsl_multifit_linear_workspace *mws;
 			
 			void vecToGslVec(const vec& v, gsl_vector *gslv);
