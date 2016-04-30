@@ -29,48 +29,57 @@ int main(int argc, char *argv[])
 {
 	const int bits = 128;	//const int bytes = bits/8;
 	mpreal::set_default_prec(bits);
-	
+
 	time_t begin;
 	begin = time(NULL);
-	
+
 	nonlinearOdes no;
 	input in(argc, argv);
-	
+
 	//Gather input from the console
 	string system = in.getSystem();
 
-	//vec times; 
+	//vec times;
 	//times = in.getTimeData();
-	
+
+	//vec times(16);
+	//times << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15;
 	vec times(21);
 	times << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
-	
+
 	vec u;
 	u = in.getU();
-	
+
 	vec yNot;
 	yNot = in.getYNot();
-		
+
 	vec uNot;
 	uNot = in.getUNot();
-	
+
 	vec t;
 	t = in.getInterval();
 	mp_mat mp_t = t.cast<mpreal>();
 	int OUT_ARR_SIZE = in.getNumberOfIterations();
 	//End Console Input
-	
-	
+
+
 	// Init key parameters
 	int lt = t.size();
 	int m  = uNot.size();
 	int n  = yNot.size();
 
 	// Create measurement and add noise if necessary
-	
+
+	//mat measure(2,16);
+	//measure << 35,65,78,82,65,26,15,10,1,2,3,22,75,95,78,20,
+	//			0.287,0.38,0.762,1.467,1.904,3.029,3.178,1.806,0.664,0.349,0.288,0.575,0.931,1.265,1.692,1.861;
+
 	mat measure(2,21);
-	measure << 28,20,15,15,25,35,65,78,82,65,26,15,10,1,2,3,22,75,95,78,20,
-				4.242,4.664,1.889,0.722,0.317,0.287,0.38,0.762,1.467,1.904,3.029,3.178,1.806,0.664,0.349,0.288,0.575,0.931,1.265,1.692,1.861;
+	//measure << 28,20,15,15,25,35,65,78,82,65,26,15,10,1,2,3,22,75,95,78,20,
+	//			4.242,4.664,1.889,0.722,0.317,0.287,0.38,0.762,1.467,1.904,3.029,3.178,1.806,0.664,0.349,0.288,0.575,0.931,1.265,1.692,1.861;
+
+	measure << 30,47.2,70.2,77.4,36.3,20.6,18.1,21.4,22,25.4,27.1,40.3,57,76.6,52.3,19.5,11.2,7.6,14.6,16.2,24.7,
+				4,6.1,9.8,35.2,59.4,41.7,19,13,8.3,9.1,7.4,8,12.3,19.5,45.7,51.1,29.7,15.8,9.7,10.1,8.6;
 
 	//mat measure;
 	mat measure2;
@@ -79,33 +88,32 @@ int main(int argc, char *argv[])
 	mp_mat mp_measure;
 	mp_mat mp_measure2;
 	mp_measure = mp_rungekutta4(system, times.cast<mpreal>(), u.cast<mpreal>(), yNot.cast<mpreal>());
-	
+
 	spline spl_msmtRow[n];
-	mp_spline mp_spl_msmtRow[n];	
+	mp_spline mp_spl_msmtRow[n];
 	//size_t order = 4;
 	//check(0 < lt-order-1, "number of coeffs is negative");
 	//bspline msmtRows(order, NCOEFFS-order-1, lt);
-	
+
 	size_t order = in.getNcoeffs();
-	//lsquares lsq_msmt(lt, order);
-	tsqr lsq_msmt(lt, order);
-	//expo_tsqr lsq_msmt(lt);
-	
+	lsquares lsq_msmt(times.size(), order);
+	//tsqr lsq_msmt(times.size(), order);
+	//expo_tsqr lsq_msmt(times);
+
 	mat msmt(n,lt);
 	mp_mat mp_msmt(n,lt);
-	
+
 	vec du(m);
 
 	vec lyNot(n*(m+1));
-	lyNot.fill(0); 
-	
+	lyNot.fill(0);
+
 	soln_env* env;
 	env = (soln_env*) malloc(sizeof(string*) + 4*sizeof(vec*) + 2*sizeof(mat*) + 2*sizeof(mp_mat*));
 	env->ode = &system;
 	env->time = &t;
 	env->initial_cond = &lyNot;
 	env->initial_params = &uNot;
-	env->actual_params = &u;
 	env->nth_soln = &msmt;
 	env->measurements = &measure;
 	env->mp_nth_soln = &mp_msmt;
@@ -116,11 +124,11 @@ int main(int argc, char *argv[])
 	mat output2(n*(OUT_ARR_SIZE+1),lt);
 	output.col(0) = u;
 	output2.topRows(n) = measure;
-	
+
 	timelatexOutput(t, " &", measure.rows(), u.size());
 	latexOutput(measure, u, 0, " &");
 	int badrun = 0;
-	
+
 	for(int q=0; q<OUT_ARR_SIZE; q++)
 	{
 		if(in.isNoisy() == true){
@@ -141,13 +149,13 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
-		
+
 		else{
 			if(false){
 				for(int i=0; i<n; i++){
-					mp_spl_msmtRow[i].update(times.cast<mpreal>(), mp_measure.row(i));
+					//mp_spl_msmtRow[i].update(times.cast<mpreal>(), mp_measure.row(i));
 					for(int j = 0; j<lt; j++){
-						mp_msmt(i,j) = mp_spl_msmtRow[i].interpolate(mp_t(j));
+						//mp_msmt(i,j) = mp_spl_msmtRow[i].interpolate(mp_t(j));
 					}
 				}
 			}else{
@@ -161,13 +169,13 @@ int main(int argc, char *argv[])
 		}
 		latexOutput(msmt, u, -11111, " &");
 		lyNot.head(n) = msmt.col(0);
-		
+
 		du = findActualParam(env, in.isRegularized());
 		if(std::isnan(du.norm())){
 			q -= 1;
 			//latexOutput(msmt, du, q+1, " ....bad run");
 			badrun += 1;
-			cout <<"badrun "<< badrun << endl;
+			cout << "badrun "<< badrun << endl;
 		}else{
 			output.col(q+1) = du;
 			output2.middleRows((q+1)*n,n) = msmt;
@@ -175,7 +183,7 @@ int main(int argc, char *argv[])
 			cout <<"goodrun "<< q << endl;
 				//latexOutput(msmt, du, q+1, " &");
 			}else{
-				latexOutput(msmt, du, q+1, " \\\\");	
+				latexOutput(msmt, du, q+1, " \\\\");
 			}
 		}
 	}
@@ -185,7 +193,7 @@ int main(int argc, char *argv[])
 	//shortNormalizedLatexOutput(output);
 	R(t(1)-t(0), output2, n);
 	M(output2, n);
-	
+
 	time_t end;
 	end = time(NULL);
 	cout << end - begin << endl;
@@ -213,7 +221,7 @@ bool isLessThanOne(const vec& x){
 	}
 	if(x(x.size()-1) < 1)
 			value = true;
-			
+
 	return value;
 }
 
@@ -223,20 +231,20 @@ mat noise(const mat& M, double noise, int seed){
 	const gsl_rng_type* T;
 	gsl_rng* r;
 	gsl_rng_env_setup();
-	
+
 	T = gsl_rng_default;
 	r = gsl_rng_alloc(T);
-	
+
 	gsl_rng_set(r, time(NULL)+seed);
 	double temp;
-	
+
 	for(int j=0; j<oM.cols(); j++){
 		temp = noise*gsl_ran_ugaussian(r);
 		for(int i=0; i<oM.rows(); i++){
-			oM(i,j) += temp; 
+			oM(i,j) += temp;
 		}
 	}
 	gsl_rng_free (r);
-	
+
 	return oM;
 }

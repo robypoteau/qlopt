@@ -107,8 +107,8 @@ cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 			gamma *= ".5";
 			//note(gamma);
 			//note(mp_norm(du));
-			note(mp_norm(A*du-P));
-			if(mp_norm(A*du-P) < 0.05 /*&& du.norm() < 1*m */){
+			note(mp_norm(A*du-P) + mp_norm(gamma*(B*du)));
+			if(mp_norm(A*du-P) + mp_norm(gamma*(B*du)) < 0.05 /*&& du.norm() < 1*m */){
 				break;
 			}
 			if(mpfr::isnan(du.norm())){
