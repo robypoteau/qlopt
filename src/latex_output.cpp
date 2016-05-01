@@ -4,7 +4,7 @@ void latexOutput(const mat& xn, const vec& u, int p, string buf){
 	int n = xn.rows();
 	int m = u.size();
 	int lt = xn.cols();
-	
+
 	int interval = (int)(lt/10+.5);
 	if(interval == 0){
 		interval = 1;
@@ -26,12 +26,12 @@ void latexOutput(const mat& xn, const vec& u, int p, string buf){
 
 void timelatexOutput(const vec& t, string buf, int n, int p){
 	int lt = t.size();
-	
+
 	int interval = (int)(lt/10+.5);
 	if(interval == 0){
 		interval = 1;
 	}
-	
+
 	int j;
 	for(int i=0; i<n; i++){
 		j = 0;
@@ -49,33 +49,33 @@ void timelatexOutput(const vec& t, string buf, int n, int p){
 void longlatexOutput(const mat& M){
 	mat otpt;
 	otpt = M;
-	
+
 	int x = 3;
 	int r = otpt.rows();
 	int c = otpt.cols();
-	
+
 	check(c > x-1, "Not enough columns");
-	
+
 	if(c > 3){
 		otpt.col(c-2) = colWiseMean(otpt.block(0,1,r,c-x)).col(0);
 		otpt.col(c-1) = colWiseStdDev(otpt.block(0,1,r,c-x)).col(0);
 	}
-	
+
 	tableheader(c-1);
-	
+
 	cout << "Actual &";
 	for(int j=1; j<c-(x-1); j++){
 		cout << "\t&";
 	}
 	cout << "Mean & Deviation \\\\ \\hline" << endl;
-	
+
 	for(int i=0; i<r; i++){
 		for(int j=0; j<c-1; j++){
 			cout << otpt(i,j) << " & " ;
 		}
 		cout << otpt(i,c-1) << "\\\\" << endl;
 	}
-	
+
 	tablefooter();
 }
 
@@ -84,35 +84,41 @@ void shortlatexOutput(const mat& otpt){
 	int r = otpt.rows();
 	int x = 3;
 	mat M(r,x);
-	
+
 	M << otpt.col(0), \
 		colWiseMean(otpt.block(0,1,r,c-x)), \
 		colWiseStdDev(otpt.block(0,1,r,c-x));
-	
-	longlatexOutput(M);	
+
+	longlatexOutput(M);
 }
 
 void R(double dt, const mat& otpt, int n){
 	mat M = otpt;
 	int r = otpt.rows();
 	int N = r/n;
-	double temp, ans = 0, mean;
+note("N should equal -k param+1");
+note(N);
+	double temp, temp2, ans = 0, mean, vmin=numeric_limits<double>::max(), vmax=0;
 	vec v;
-	
+
 	for(int i=1;i<N;i++){
 		M.middleRows(i*n,n) -= M.topRows(n);
 	}
-	
+
 	M = M.array().square();
 	M *= dt;
 	v = M.rowwise().sum();
-	
+note("Row-wise sums :\n");
+note(v);
 	for(int i=1;i<N;i++){
 		temp = 0;
 		for(int j=0;j<n;j++){
 			temp += v(i*n+j);
 		}
-		ans += sqrt(temp);
+		temp2 = sqrt(temp);
+		ans += temp2;
+		vmax = max(vmax,temp2);
+		vmin = min(vmin,temp2);
 	}
 	mean = ans/N;
 	ans = 0;
@@ -123,34 +129,65 @@ void R(double dt, const mat& otpt, int n){
 		}
 		ans += pow(sqrt(temp)-mean,2);
 	}
-	cout << "L2-Rnorm = " << mean << " std = " << sqrt(ans/(N-1)) << endl;
+	cout << "L2N= " << mean << "\nstd = " << sqrt(ans/(N-1)) << endl;
+	cout << "Max = " << vmax << "\nMin = " << vmin << endl;
 }
 void M(const mat& otpt, int n){
 	mat M = otpt;
 	int r = otpt.rows();
 	int c = otpt.cols();
+	int dim = r/n;
 	double temp;
+	//note("Output\n");
+	//note(M);
 	for(int i=1;i<(r/n);i++){
 		M.middleRows(i*n,n) -= M.topRows(n);
 	}
 	M.topRows(n) -= M.topRows(n);
+	//note("Approximations Rows - Actual Data:\n");
+	//note(M);
 	M = M.array().abs();
-	temp = M(0,0);
-	for(int i=0;i<r;i++){
+	temp = M(dim,0);
+	note(temp);
+	for(int i=dim;i<r;i++){
 		for(int j=0;j<c;j++){
 			if(temp < M(i,j)){
 				temp = M(i,j);
 			}
 		}
-	} 
+	}
+	//note("\n");
+	//note(M);
 	cout << "Max-Norm = " << temp << endl;
+}
+
+void Mi(const mat& otpt, int n){
+	mat M = otpt;
+	int r = otpt.rows();
+	int c = otpt.cols();
+	int dim = r/n;
+	double temp;
+	for(int i=1;i<dim;i++){
+		M.middleRows(i*n,n) -= M.topRows(n);
+	}
+	M.topRows(n) -= M.topRows(n);
+	M = M.array().abs();
+	temp = M(dim,0);
+	for(int i=dim;i<r;i++){
+		for(int j=0;j<c;j++){
+			if(temp > M(i,j)){
+				temp = M(i,j);
+			}
+		}
+	}
+	cout << "Min-Norm = " << temp << endl;
 }
 
 void shortNormalizedLatexOutput(const mat& M){
 	int r = M.rows();
 	int c = M.cols();
 	int x = 3;
-	
+
 	mat otpt(r,c); otpt = M;
 	mat N(r,x);
 
@@ -161,18 +198,18 @@ void shortNormalizedLatexOutput(const mat& M){
 	N << otpt.col(0), \
 		colWiseMean(otpt.block(0,1,r,c-x)), \
 		colWiseStdDev(otpt.block(0,1,r,c-x));
-	
-	longlatexOutput(N);	
+
+	longlatexOutput(N);
 }
 
 vec colWiseStdDev(const mat& M){
 	vec vect(M.rows());
 	vect.fill(0);
-	
+
 	for(int i=0; i<M.cols()-1; i++){
 		vect = vect.array() + (M.col(i) - M.col(M.cols()-1)).array().square();
 	}
-	
+
 	return (vect/(M.cols()-1)).cwiseSqrt();
 }
 
@@ -181,8 +218,8 @@ vec colWiseMean(const mat& M){
 }
 
 void tableheader(int n){
-	cout << "\\begin{table}\n"  
-		<< "\\centering\n" 
+	cout << "\\begin{table}\n"
+		<< "\\centering\n"
 	    << "\t\\begin{tabularx}{|X|";
 	for(int i=0; i<n; i++){
 		cout <<  "C|";
