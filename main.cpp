@@ -39,13 +39,11 @@ int main(int argc, char *argv[])
 	//Gather input from the console
 	string system = in.getSystem();
 
-	//vec times;
-	//times = in.getTimeData();
+	vec times;
+	times = in.getTimeData();
 
-	//vec times(16);
-	//times << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15;
-	vec times(21);
-	times << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
+	//vec times(21);
+	//times << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
 
 	vec u;
 	u = in.getU();
@@ -78,12 +76,12 @@ int main(int argc, char *argv[])
 	//measure << 28,20,15,15,25,35,65,78,82,65,26,15,10,1,2,3,22,75,95,78,20,
 	//			4.242,4.664,1.889,0.722,0.317,0.287,0.38,0.762,1.467,1.904,3.029,3.178,1.806,0.664,0.349,0.288,0.575,0.931,1.265,1.692,1.861;
 
-	measure << 30,47.2,70.2,77.4,36.3,20.6,18.1,21.4,22,25.4,27.1,40.3,57,76.6,52.3,19.5,11.2,7.6,14.6,16.2,24.7,
-				4,6.1,9.8,35.2,59.4,41.7,19,13,8.3,9.1,7.4,8,12.3,19.5,45.7,51.1,29.7,15.8,9.7,10.1,8.6;
+	//measure << 30,47.2,70.2,77.4,36.3,20.6,18.1,21.4,22,25.4,27.1,40.3,57,76.6,52.3,19.5,11.2,7.6,14.6,16.2,24.7,
+	//			4,6.1,9.8,35.2,59.4,41.7,19,13,8.3,9.1,7.4,8,12.3,19.5,45.7,51.1,29.7,15.8,9.7,10.1,8.6;
 
 	//mat measure;
 	mat measure2;
-	//measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
+	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
 
 	mp_mat mp_measure;
 	mp_mat mp_measure2;
@@ -192,8 +190,7 @@ int main(int argc, char *argv[])
 	shortlatexOutput(output);
 	//shortNormalizedLatexOutput(output);
 	R(t(1)-t(0), output2, n);
-	M(output2, n);
-
+	//M(output2, n); Mi(output2, n);
 	time_t end;
 	end = time(NULL);
 	cout << end - begin << endl;

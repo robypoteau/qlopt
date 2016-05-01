@@ -57,7 +57,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 	int m = (*env->initial_params).size();
 	int lt = (*env->time).size();
 
-	const int numdivs = 20;
+	const int numdivs = 2;
 	int divs = (int) lt/numdivs;
 
 	const mat measurements = *env->nth_soln;
@@ -90,7 +90,88 @@ vec findActualParam(soln_env *env, bool regs=false)
 	int LIMIT = 500;
 	if(regs){
 		/*uNot = regularization(env);*/
-		for(int i = 0; i<LIMIT; i++)
+		for(int j = 0; j<numdivs; j++)
+		{
+			if(j == numdivs-1){
+				for(int i = 0; i<LIMIT; i++)
+				{
+					bob = qLinearRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, measurements);
+					U = reshape(bob.bottomRows(n*m), m, n*lt);
+					*env->nth_soln = bob.topRows(n);
+					A = findA(*env->time, U, m);
+					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m); cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+							
+					matToGslMat(A, gslA);
+					matToGslMat(A, qr);
+					vecToGslVec(P, b);
+
+					if(A.fullPivHouseholderQr().rank() < m){
+						log_err("A_N Matrix is Singular");
+						gsl_linalg_QR_decomp(qr, tau);
+						gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
+						//uNot(1) = NAN;
+						//break;
+					}else{
+						gsl_linalg_LU_decomp (qr, perm, &signum);
+						gsl_linalg_LU_solve (qr, perm, b, x);
+						gsl_linalg_LU_refine (gslA, qr, perm, b, x, residual);
+					}
+					du = gslVecToVec(x);
+					//du = A.inverse()*P;
+					uNot += du;
+					latexOutput(*env->nth_soln, uNot, i+1, " &");
+					if(du.norm() < 0.00001 || std::isnan(du.norm())){
+						break;
+					} else if (i >= LIMIT-1){
+						log_err("Function did not converge.");
+						note("u = ");
+						note(uNot);
+						exit(1);
+					}
+				}
+			}else{
+				for(int i = 0; i<LIMIT; i++)
+				{
+					bob = qLinearRungeKutta4(*env->ode, (*env->time).head((j+1)*divs), \
+						uNot, *env->initial_cond, measurements.leftCols((j+1)*divs));
+					U = reshape(bob.bottomRows(n*m), m, n*(j+1)*divs);
+					A = findA((*env->time).head((j+1)*divs), U, m);
+					P = findP((*env->time).head((j+1)*divs), U, reshape(measurements.leftCols((j+1)*divs) - bob.topRows(n), 1, n*(j+1)*divs).row(0), m);
+
+					cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
+					cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+					
+					matToGslMat(A, gslA);
+					matToGslMat(A, qr);
+					vecToGslVec(P, b);
+
+					if(A.fullPivHouseholderQr().rank() < m){
+						log_err("A_N Matrix is Singular");
+						gsl_linalg_QR_decomp(qr, tau);
+						gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
+						//uNot(1) = NAN;
+						//break;
+					}else{
+						gsl_linalg_LU_decomp (qr, perm, &signum);
+						gsl_linalg_LU_solve (qr, perm, b, x);
+						gsl_linalg_LU_refine (gslA, qr, perm, b, x, residual);
+					}
+					du = gslVecToVec(x);
+					//du = A.inverse()*P;
+					uNot += du;
+					latexOutput(*env->nth_soln, uNot, i+1, " &");
+					if(du.norm() < 0.00001 || std::isnan(du.norm())){
+						break;
+					} else if (i >= LIMIT-1){
+						log_err("Function did not converge.");
+						note("u = ");
+						note(uNot);
+						exit(1);
+					}
+				}
+			}
+		}
+		/*for(int i = 0; i<LIMIT; i++)
 		{
 			bob = qLinearRungeKutta4(*env->ode, *env->time, uNot, *env->initial_cond, measurements);
 
@@ -123,7 +204,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 			}
 			du = gslVecToVec(x);
 			*/
-			/**/
+			/*
 			gamma = 4.0;
 			du = inverse(AT*A + gamma*gamma*BT*B)*(AT*P);
 			last = norm(A*du-P) + norm(gamma*(B*du));	note(last);
@@ -161,7 +242,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 				uNot(1) = NAN;
 				break;
 			}
-		}
+		}*/
 	}else{
 		for(int j = 0; j<numdivs; j++)
 		{
