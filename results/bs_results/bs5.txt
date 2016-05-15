@@ -1,0 +1,8 @@
+badrun 1
+badrun 2
+badrun 3
+badrun 4
+[NOTE] in src/thesis_functions.cpp:290: u = 
+[NOTE] in src/thesis_functions.cpp:291: 500.3542
+1.400358
+ 2.37107

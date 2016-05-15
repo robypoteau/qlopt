@@ -57,7 +57,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 	int m = (*env->initial_params).size();
 	int lt = (*env->time).size();
 
-	const int numdivs = 2;
+	const int numdivs = 4;
 	int divs = (int) lt/numdivs;
 
 	const mat measurements = *env->nth_soln;
@@ -99,8 +99,8 @@ vec findActualParam(soln_env *env, bool regs=false)
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
 					*env->nth_soln = bob.topRows(n);
 					A = findA(*env->time, U, m);
-					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m); cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
-							
+					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m); // cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+
 					matToGslMat(A, gslA);
 					matToGslMat(A, qr);
 					vecToGslVec(P, b);
@@ -138,9 +138,9 @@ vec findActualParam(soln_env *env, bool regs=false)
 					A = findA((*env->time).head((j+1)*divs), U, m);
 					P = findP((*env->time).head((j+1)*divs), U, reshape(measurements.leftCols((j+1)*divs) - bob.topRows(n), 1, n*(j+1)*divs).row(0), m);
 
-					cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
-					cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
-					
+					//cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
+					//cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+
 					matToGslMat(A, gslA);
 					matToGslMat(A, qr);
 					vecToGslVec(P, b);
@@ -159,7 +159,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 					du = gslVecToVec(x);
 					//du = A.inverse()*P;
 					uNot += du;
-					latexOutput(*env->nth_soln, uNot, i+1, " &");
+					//latexOutput(*env->nth_soln, uNot, i+1, " &");
 					if(du.norm() < 0.00001 || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
@@ -253,11 +253,12 @@ vec findActualParam(soln_env *env, bool regs=false)
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
 					*env->nth_soln = bob.topRows(n);
 					A = findA(*env->time, U, m);
-					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m); cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
+					//cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 
 					du = A.inverse()*P;
 					uNot += du;
-					latexOutput(*env->nth_soln, uNot, i+1, " &");
+					//latexOutput(*env->nth_soln, uNot, i+1, " &");
 					if(du.norm() < 0.00001 || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
@@ -276,12 +277,12 @@ vec findActualParam(soln_env *env, bool regs=false)
 					A = findA((*env->time).head((j+1)*divs), U, m);
 					P = findP((*env->time).head((j+1)*divs), U, reshape(measurements.leftCols((j+1)*divs) - bob.topRows(n), 1, n*(j+1)*divs).row(0), m);
 
-					cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
-					cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+					//cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
+					//cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 
 					du = A.inverse()*P;
 					uNot += du;
-					latexOutput(*env->nth_soln, uNot, i+1, " &");
+					//latexOutput(*env->nth_soln, uNot, i+1, " &");
 					if(du.norm() < 0.00001 || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){

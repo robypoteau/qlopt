@@ -1,0 +1,23 @@
+goodrun 0, goodrun 1, 
+badrun 1
+goodrun 2, goodrun 3, (bad runs: 1)
+\begin{table}
+\centering
+	\begin{tabularx}{|X|C|C|}
+		\hline
+Actual &Mean & Deviation \\ \hline
+0.48 & 0.3469952 & 0.3284674\\
+0.026 & 0.002211087 & 0.06538394\\
+0.93 & 0.1279048 & 2.803578\\
+		\hline
+	\end{tabularx}
+\caption{ Table Caption }
+\label{}
+\end{table}
+Error Data Vector
+5.959234 1.525317 1.780307 3.993725 4.862335
+L2N= 3.020153
+std = 1.830378
+Max = 5.959234
+Min = 1.525317
+3

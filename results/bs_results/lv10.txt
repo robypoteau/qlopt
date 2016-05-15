@@ -1,0 +1,120 @@
+
+badrun 1
+
+badrun 2
+
+badrun 3
+
+badrun 4
+
+badrun 5
+
+badrun 6
+
+badrun 7
+
+badrun 8
+
+badrun 9
+
+badrun 10
+
+badrun 11
+
+badrun 12
+
+badrun 13
+
+badrun 14
+
+badrun 15
+
+badrun 16
+
+badrun 17
+
+badrun 18
+
+badrun 19
+goodrun 0, 
+badrun 20
+
+badrun 21
+
+badrun 22
+
+badrun 23
+
+badrun 24
+
+badrun 25
+
+badrun 26
+
+badrun 27
+
+badrun 28
+
+badrun 29
+
+badrun 30
+
+badrun 31
+
+badrun 32
+
+badrun 33
+
+badrun 34
+
+badrun 35
+
+badrun 36
+
+badrun 37
+
+badrun 38
+
+badrun 39
+
+badrun 40
+
+badrun 41
+
+badrun 42
+
+badrun 43
+
+badrun 44
+
+badrun 45
+
+badrun 46
+
+badrun 47
+
+badrun 48
+
+badrun 49
+
+badrun 50
+
+badrun 51
+
+badrun 52
+
+badrun 53
+
+badrun 54
+
+badrun 55
+
+badrun 56
+
+badrun 57
+
+badrun 58
+[NOTE] in src/thesis_functions.cpp:290: u = 
+[NOTE] in src/thesis_functions.cpp:291: 207.4905
+1.319251
+1.824311

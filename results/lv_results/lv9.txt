@@ -1,0 +1,4 @@
+goodrun 0, goodrun 1, goodrun 2, goodrun 3, goodrun 4, [NOTE] in src/thesis_functions.cpp:290: u = 
+[NOTE] in src/thesis_functions.cpp:291: -556.2947
+ 1.210848
+-47.71781

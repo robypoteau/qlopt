@@ -96,10 +96,11 @@ void R(double dt, const mat& otpt, int n){
 	mat M = otpt;
 	int r = otpt.rows();
 	int N = r/n;
-note("N should equal -k param+1");
-note(N);
+//note("N should equal -k param+1");
+//note(N);
 	double temp, temp2, ans = 0, mean, vmin=numeric_limits<double>::max(), vmax=0;
 	vec v;
+	vec v2(N-1);
 
 	for(int i=1;i<N;i++){
 		M.middleRows(i*n,n) -= M.topRows(n);
@@ -108,14 +109,14 @@ note(N);
 	M = M.array().square();
 	M *= dt;
 	v = M.rowwise().sum();
-note("Row-wise sums :\n");
-note(v);
+
 	for(int i=1;i<N;i++){
 		temp = 0;
 		for(int j=0;j<n;j++){
 			temp += v(i*n+j);
 		}
 		temp2 = sqrt(temp);
+		v2(i-1) = temp2;
 		ans += temp2;
 		vmax = max(vmax,temp2);
 		vmin = min(vmin,temp2);
@@ -129,6 +130,7 @@ note(v);
 		}
 		ans += pow(sqrt(temp)-mean,2);
 	}
+	cout << "Error Data Vector\n" << v2.transpose() << endl;
 	cout << "L2N= " << mean << "\nstd = " << sqrt(ans/(N-1)) << endl;
 	cout << "Max = " << vmax << "\nMin = " << vmin << endl;
 }

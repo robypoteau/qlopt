@@ -1,0 +1,7 @@
+goodrun 0, goodrun 1, goodrun 2, goodrun 3, badrun 1
+goodrun 4, goodrun 5, goodrun 6, goodrun 7, goodrun 8, goodrun 9, goodrun 10, badrun 2
+goodrun 11, goodrun 12, badrun 3
+goodrun 13, goodrun 14, goodrun 15, goodrun 16, goodrun 17, [NOTE] in src/thesis_functions.cpp:290: u = 
+[NOTE] in src/thesis_functions.cpp:291:  10.86388
+-19.11305
+-53.50214

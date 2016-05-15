@@ -1,2 +1,7 @@
 #~/bin/bash
-./bin/prog -s lotka_volterra -t 0:.001:2 -i 0:.001:2 -u .48,.026,.93 -o .1,.1,.1 -y 30,4 -k 10 -p 3 -n 1 -b > results/std.txt
+echo "Running Lotka Volterra Script:"
+for i in {9..10}; do
+	echo $i
+	./bin/prog -s lotka_volterra -t 0:.005:2 -i 0:.005:2 -u .48,.026,.93 -o .05,.05,.05 -y 35,4 -k 100 -n $i -p 3 -b > results/lv_results/lv$i.txt
+done
+echo "Finished Running LV Script"

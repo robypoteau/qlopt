@@ -123,8 +123,8 @@ int main(int argc, char *argv[])
 	output.col(0) = u;
 	output2.topRows(n) = measure;
 
-	timelatexOutput(t, " &", measure.rows(), u.size());
-	latexOutput(measure, u, 0, " &");
+	//timelatexOutput(t, " &", measure.rows(), u.size());
+	//latexOutput(measure, u, 0, " &");
 	int badrun = 0;
 
 	for(int q=0; q<OUT_ARR_SIZE; q++)
@@ -165,7 +165,7 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
-		latexOutput(msmt, u, -11111, " &");
+		//latexOutput(msmt, u, -11111, " &");
 		lyNot.head(n) = msmt.col(0);
 
 		du = findActualParam(env, in.isRegularized());
@@ -178,10 +178,11 @@ int main(int argc, char *argv[])
 			output.col(q+1) = du;
 			output2.middleRows((q+1)*n,n) = msmt;
 			if(q != OUT_ARR_SIZE-1){
-			cout <<"goodrun "<< q << endl;
+			cout <<"goodrun "<< q << ", ";// << endl;
 				//latexOutput(msmt, du, q+1, " &");
 			}else{
-				latexOutput(msmt, du, q+1, " \\\\");
+				cout <<"goodrun "<< q << endl;
+				//latexOutput(msmt, du, q+1, " \\\\");
 			}
 		}
 	}

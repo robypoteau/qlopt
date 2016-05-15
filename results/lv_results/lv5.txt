@@ -1,0 +1,22 @@
+goodrun 0, goodrun 1, goodrun 2, goodrun 3, goodrun 4, goodrun 5, goodrun 6, goodrun 7, goodrun 8, goodrun 9, goodrun 10, goodrun 11, goodrun 12, goodrun 13, goodrun 14, goodrun 15, goodrun 16, goodrun 17, goodrun 18, goodrun 19, goodrun 20, goodrun 21, goodrun 22, goodrun 23, goodrun 24, goodrun 25, goodrun 26, goodrun 27, goodrun 28, goodrun 29, goodrun 30, goodrun 31, goodrun 32, goodrun 33, goodrun 34, goodrun 35, goodrun 36, goodrun 37, goodrun 38, goodrun 39, goodrun 40, goodrun 41, goodrun 42, goodrun 43, goodrun 44, goodrun 45, goodrun 46, goodrun 47, goodrun 48, goodrun 49, goodrun 50, goodrun 51, goodrun 52, goodrun 53, goodrun 54, goodrun 55, goodrun 56, goodrun 57, goodrun 58, goodrun 59, goodrun 60, goodrun 61, goodrun 62, goodrun 63, goodrun 64, goodrun 65, goodrun 66, goodrun 67, goodrun 68, goodrun 69, goodrun 70, goodrun 71, goodrun 72, goodrun 73, goodrun 74, goodrun 75, goodrun 76, goodrun 77, goodrun 78, goodrun 79, goodrun 80, goodrun 81, goodrun 82, goodrun 83, goodrun 84, goodrun 85, goodrun 86, goodrun 87, goodrun 88, goodrun 89, goodrun 90, goodrun 91, goodrun 92, goodrun 93, goodrun 94, goodrun 95, goodrun 96, goodrun 97, goodrun 98, goodrun 99
+(bad runs: 0)
+\begin{table}
+\centering
+	\begin{tabularx}{|X|C|C|}
+		\hline
+Actual &Mean & Deviation \\ \hline
+0.48 & 0.505391 & 0.0186955\\
+0.026 & 0.03018817 & 0.005727995\\
+0.93 & 1.156955 & 0.4029419\\
+		\hline
+	\end{tabularx}
+\caption{ Table Caption }
+\label{}
+\end{table}
+Error Data Vector
+0.6438571 0.5458405 0.8411136 0.5861369  1.254065 0.6204302 0.6455836   1.51532 0.4151813  1.881673 0.3675511 0.9837913 0.7554937  1.011985 0.4160434 0.3481386  1.083201 0.4151581 0.5255667 0.4754501  1.098317 0.6706058 0.5127693  1.407303  0.287365 0.5063779  1.542343 0.2424234 0.9899599  1.155528 0.8285229  1.402259 0.9655383  2.066857  1.558252 0.3866146   1.06842 0.7358662 0.8845817  1.410049 0.7986338 0.3621085 0.3501248 0.6365287 0.9492652 0.6027272 0.3492671 0.5758975  1.417895  0.299762 0.5851361  1.579274 0.9396942 0.7068127 0.4592841  1.265954 0.3465463 0.4166905 0.6138402 0.3360026  0.764717 0.6122709 0.5823011 0.9102331 0.5069129 0.6658999 0.6087418  1.050066 0.8046144 0.6537405 0.5687993 0.8491621  1.139339 0.4930023 0.4745636 0.5090007 0.3255149 0.3239797 0.6836185  0.879533 0.7407884 0.6039965  1.997292  1.094015 0.5429532  1.402285 0.3717748  1.212742 0.8641747 0.4529464 0.2816749 0.7488232 0.7669383  1.641233 0.6982825  1.460759 0.6180365  2.646267 0.9619395 0.2779011
+L2N= 0.8062753
+std = 0.449885
+Max = 2.646267
+Min = 0.2424234
+26
