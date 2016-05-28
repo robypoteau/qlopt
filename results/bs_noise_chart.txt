@@ -10,7 +10,7 @@ Actual &Mean & Deviation \\ \hline
 3.2 & 2.62038 & 0.064161\\
 2 & 1.975997 & 0.0001403613\\
 		\hline
-	\end{tabularx} 
+	\end{tabularx}
 \caption{ Table Caption }
 \label{}
 \end{table}

@@ -13,8 +13,10 @@
 #include <thesis_functions.h>
 #include <input.h>
 //#include <bspline.h>
-#include <least_squares.h>
+//#include <least_squares.h>
 #include <tsqr.h>
+//#include <nnls.h>
+//#include <logittsqr.h>
 //#include <expo_tsqr.h>
 #include <latex_output.h>
 #include <mp_spline.h>
@@ -72,7 +74,7 @@ int main(int argc, char *argv[])
 	//measure << 35,65,78,82,65,26,15,10,1,2,3,22,75,95,78,20,
 	//			0.287,0.38,0.762,1.467,1.904,3.029,3.178,1.806,0.664,0.349,0.288,0.575,0.931,1.265,1.692,1.861;
 
-	mat measure(2,21);
+	mat measure;
 	//measure << 28,20,15,15,25,35,65,78,82,65,26,15,10,1,2,3,22,75,95,78,20,
 	//			4.242,4.664,1.889,0.722,0.317,0.287,0.38,0.762,1.467,1.904,3.029,3.178,1.806,0.664,0.349,0.288,0.575,0.931,1.265,1.692,1.861;
 
@@ -85,7 +87,8 @@ int main(int argc, char *argv[])
 
 	mp_mat mp_measure;
 	mp_mat mp_measure2;
-	mp_measure = mp_rungekutta4(system, times.cast<mpreal>(), u.cast<mpreal>(), yNot.cast<mpreal>());
+	mp_measure = mp_rungekutta4(system, times.cast<mpreal>(), u.cast<mpreal>(),\
+		yNot.cast<mpreal>());
 
 	spline spl_msmtRow[n];
 	mp_spline mp_spl_msmtRow[n];
@@ -94,12 +97,14 @@ int main(int argc, char *argv[])
 	//bspline msmtRows(order, NCOEFFS-order-1, lt);
 
 	size_t order = in.getNcoeffs();
-	lsquares lsq_msmt(times.size(), order);
-	//tsqr lsq_msmt(times.size(), order);
+    //lsquares lsq_msmt(times.size(), order);
+    tsqr lsq_msmt(times.size(), order);
+    //nnls lsq_msmt(times.size(), order);
+    //logittsqr lsq_msmt(times.size(), order);
 	//expo_tsqr lsq_msmt(times);
 
 	mat msmt(n,lt);
-	mp_mat mp_msmt(n,lt);
+	mp_mat mp_msmt(n,times.size());
 
 	vec du(m);
 
@@ -107,7 +112,8 @@ int main(int argc, char *argv[])
 	lyNot.fill(0);
 
 	soln_env* env;
-	env = (soln_env*) malloc(sizeof(string*) + 4*sizeof(vec*) + 2*sizeof(mat*) + 2*sizeof(mp_mat*));
+	env = (soln_env*) malloc(sizeof(string*) + 4*sizeof(vec*) + 2*sizeof(mat*) \
+		+ 2*sizeof(mp_mat*));
 	env->ode = &system;
 	env->time = &t;
 	env->initial_cond = &lyNot;
@@ -136,6 +142,7 @@ int main(int argc, char *argv[])
 					lsq_msmt.update(times, measure2.row(i));
 					for(int j = 0; j<lt; j++){
 						msmt(i,j) = lsq_msmt.interpolate(t(j));
+                        //cout << msmt(i,j) << "," ;
 					}
 				}
 			}else{
@@ -146,9 +153,7 @@ int main(int argc, char *argv[])
 					}
 				}
 			}
-		}
-
-		else{
+		}else{
 			if(false){
 				for(int i=0; i<n; i++){
 					//mp_spl_msmtRow[i].update(times.cast<mpreal>(), mp_measure.row(i));
@@ -166,9 +171,12 @@ int main(int argc, char *argv[])
 			}
 		}
 		//latexOutput(msmt, u, -11111, " &");
+		cout << endl << msmt << endl;
+        log_info(norm(measure.leftCols(msmt.cols())-msmt));
 		lyNot.head(n) = msmt.col(0);
 
-		du = findActualParam(env, in.isRegularized());
+		du = findActualParam(env, in.isRegularized(), in.getNumDivs());
+
 		if(std::isnan(du.norm())){
 			q -= 1;
 			//latexOutput(msmt, du, q+1, " ....bad run");

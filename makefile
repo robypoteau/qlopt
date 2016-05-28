@@ -1,7 +1,7 @@
 #Thesis project makefile
 CC=g++
-CFLAGS=-c -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG -std=c++11 $(OPTFLAGS)
-LIBS = -lgsl -lgslcblas -lmpfr -lgmp -lm $(OPTLIBS)
+CFLAGS=-c -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG -std=c++11 $(shell /usr/bin/python3.4-config --cflags) $(OPTFLAGS)
+LIBS = -lgsl -lgslcblas -lmpfr -lgmp -lm $(shell /usr/bin/python3.4-config --ldflags) $(OPTLIBS)
 
 SRC = $(wildcard src/*.cpp)
 OBJ = $(patsubst %.cpp,%.o,$(SRC))
@@ -22,14 +22,14 @@ all: main.o $(TARGET) $(SO_TARGET) tests
 build:
 	@mkdir -p build
 	@mkdir -p bin
-	
+
 dev: CFLAGS=-c -g -Wall -Wextra -std=c++11
 dev: all
 
 $(TARGET): CFLAGS += -fPIC
 $(TARGET): build $(OBJ)
 	ar rcs $@ $(OBJ)
-	
+
 $(SO_TARGET): $(TARGET)
 	$(CC) -shared -o $@ $(OBJ)
 
@@ -37,7 +37,7 @@ $(SO_TARGET): $(TARGET)
 tests: CFLAGS=-Isrc
 tests: LIBS=-Lbuild -lparamid -lgsl -lgslcblas -lboost_system -lboost_unit_test_framework
 tests: $(TESTS)
-	export LD_LIBRARY_PATH=$(PWD)/build 
+	export LD_LIBRARY_PATH=$(PWD)/build
 #	sh ./tests/runtests.sh
 
 $(TESTS): $(TEST_SRC)
@@ -48,6 +48,6 @@ clean:
 
 cleantests:
 	rm -rf $(TESTS)
-	
+
 cleanall: clean cleantests
 	rm -rf bin build

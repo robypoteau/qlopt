@@ -10,12 +10,12 @@ using namespace std;
 using mpfr::mpreal;
 
 #define BITS 128
-	
+
 typedef Matrix<double, Dynamic, 1> vec;
-typedef Matrix<double, Dynamic, Dynamic> mat;
+typedef Matrix<double, Dynamic, Dynamic, RowMajor> mat;
 
 typedef Matrix<mpreal, Dynamic, 1> mp_vec;
-typedef Matrix<mpreal, Dynamic, Dynamic> mp_mat;
+typedef Matrix<mpreal, Dynamic, Dynamic, RowMajor> mp_mat;
 
 typedef mat (*sys)(const double& t, const vec& x, const vec& u);
 typedef mp_mat (*mp_sys)(const mpreal& t, const mp_vec& x, const mp_vec& u);

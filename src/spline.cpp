@@ -7,7 +7,7 @@ namespace thesis{
 
 	void spline::update(vec x, vec y){
 		this->n = x.size();
-		
+
 		try{
 			spline::setX(x);
 			spline::setY(y);
@@ -15,7 +15,7 @@ namespace thesis{
 		catch(sizeDoNotMatchError& e){
 			cout << e.what() << endl;
 		}
-		
+
 		b = vec::Zero(n-1);
 		d = b;
 		c = vec::Zero(n);
@@ -33,7 +33,7 @@ namespace thesis{
 		mu(0) = 0;
 		z(0) = z(n-1) = 0;
 		c(n-1) = 0;
-		
+
 		//fill in l mu z
 		for(int i=1; i<(n-1); i++){
 			l(i) = 2*(x(i+1) - x(i-1)) - h(i-1)*mu(i-1);
@@ -50,14 +50,14 @@ namespace thesis{
 
 	double spline::interpolate(double ti){
 		int i = 0;
-		
+
 		for(int j=(n-2); j>0; j--){ // turn into a function
 			if(ti >= x(j)){
 				i = j;
 				break;
 			}
 		}
-		
+
 		double diff = ti - x(i);
 		return y(i) + diff*(b(i) + c(i)*diff + d(i)*diff*diff);
 	}

@@ -25,7 +25,7 @@
 
 #define sentinel(M) { log_err(M); exit(1); }
 
-//#define clean(A) if(A) free(A)
+#define clean(A) if(A) free(A)
 
 //#define clean_file(A) if(A) fclose(A)
 

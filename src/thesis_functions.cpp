@@ -51,14 +51,14 @@ double innerProd(const vec& u1, const vec& u2, const vec& time)
 	return simpson(time, aij);
 }
 
-vec findActualParam(soln_env *env, bool regs=false)
+vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 {
 	int n = (*env->nth_soln).rows();
 	int m = (*env->initial_params).size();
 	int lt = (*env->time).size();
 
-	const int numdivs = 4;
-	int divs = (int) lt/numdivs;
+	int divs = (int) (lt/numdivs);
+	double TOL = .0001;
 
 	const mat measurements = *env->nth_soln;
 
@@ -72,7 +72,6 @@ vec findActualParam(soln_env *env, bool regs=false)
 		//B(i+1,i) = -1;
 	}
 	mat BT = B.transpose();
-
 	vec P(m);
 	vec du(m);
 	double gamma = 4.0;
@@ -89,6 +88,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 
 	int LIMIT = 500;
 	if(regs){
+		//TOL = .01;
 		/*uNot = regularization(env);*/
 		for(int j = 0; j<numdivs; j++)
 		{
@@ -106,7 +106,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 					vecToGslVec(P, b);
 
 					if(A.fullPivHouseholderQr().rank() < m){
-						log_err("A_N Matrix is Singular");
+						//log_err("A_N Matrix is Singular");
 						gsl_linalg_QR_decomp(qr, tau);
 						gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
 						//uNot(1) = NAN;
@@ -119,14 +119,19 @@ vec findActualParam(soln_env *env, bool regs=false)
 					du = gslVecToVec(x);
 					//du = A.inverse()*P;
 					uNot += du;
-					latexOutput(*env->nth_soln, uNot, i+1, " &");
-					if(du.norm() < 0.00001 || std::isnan(du.norm())){
+					//latexOutput(*env->nth_soln, uNot, i+1, " &");
+					if(du.norm() < TOL || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
-						log_err("Function did not converge.");
 						note("u = ");
 						note(uNot);
-						exit(1);
+						if(du.norm() < 0.1){
+							break;
+						}
+						else{
+							log_err("Function did not converge.");
+							uNot(1) = NAN;
+						}
 					}
 				}
 			}else{
@@ -146,7 +151,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 					vecToGslVec(P, b);
 
 					if(A.fullPivHouseholderQr().rank() < m){
-						log_err("A_N Matrix is Singular");
+						//log_err("A_N Matrix is Singular");
 						gsl_linalg_QR_decomp(qr, tau);
 						gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
 						//uNot(1) = NAN;
@@ -155,18 +160,19 @@ vec findActualParam(soln_env *env, bool regs=false)
 						gsl_linalg_LU_decomp (qr, perm, &signum);
 						gsl_linalg_LU_solve (qr, perm, b, x);
 						gsl_linalg_LU_refine (gslA, qr, perm, b, x, residual);
+						//du = dulp(A, P, uNot);
 					}
 					du = gslVecToVec(x);
 					//du = A.inverse()*P;
 					uNot += du;
 					//latexOutput(*env->nth_soln, uNot, i+1, " &");
-					if(du.norm() < 0.00001 || std::isnan(du.norm())){
+					if(du.norm() < TOL || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
 						log_err("Function did not converge.");
 						note("u = ");
 						note(uNot);
-						exit(1);
+						uNot(1) = NAN;
 					}
 				}
 			}
@@ -265,7 +271,7 @@ vec findActualParam(soln_env *env, bool regs=false)
 						log_err("Function did not converge.");
 						note("u = ");
 						note(uNot);
-						exit(1);
+						uNot(1) = NAN;
 					}
 				}
 			}else{
@@ -289,7 +295,8 @@ vec findActualParam(soln_env *env, bool regs=false)
 						log_err("Function did not converge.");
 						note("u = ");
 						note(uNot);
-						exit(1);
+						uNot(1);
+						break;
 					}
 				}
 			}
@@ -315,7 +322,7 @@ mat reshape(const mat& U, int n, int m)
 }
 
 double norm(const mat& M){
-	return M.norm();
+	return M.norm();//std::sqrt(M.cwiseAbs2().sum())  ;
 }
 
 mat inverse(const mat& M){
@@ -389,7 +396,7 @@ mat ichol(const mat& A){
 	return gslMatToMat(L);
 }*/
 
-/* vec dulp(const mat& A, const vec& b, const vec& u){
+ /* vec dulp(const mat& A, const vec& b, const vec& u){
 	int m = b.size();
 	int ia[m*m+1], ja[m*m+1];
     double ar[m*m+1];
@@ -427,7 +434,7 @@ mat ichol(const mat& A){
 	glp_delete_prob(lp);
     glp_free_env();
 	return v;
-}  */
+} */
 
 
 /* du1 = dulp(A, P, uNot);
