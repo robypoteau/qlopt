@@ -57,7 +57,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	int m = (*env->initial_params).size();
 	int lt = (*env->time).size();
 
-	int divs = (int) (lt/numdivs);
+	int divs = (int) (lt/numdivs+1);
 	double TOL = .0001;
 
 	const mat measurements = *env->nth_soln;

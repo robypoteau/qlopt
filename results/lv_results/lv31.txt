@@ -1,4 +1,0 @@
-[NOTE] in src/thesis_functions.cpp:266: u = 
-[NOTE] in src/thesis_functions.cpp:267:  0.4924365
-0.03706471
- 0.8576934

@@ -15,7 +15,7 @@ namespace thesis{
 		gslx = gsl_vector_alloc(num_obs);
 		gsly = gsl_vector_alloc(num_obs);
 		c    = gsl_vector_alloc(order);
-		lambda = 1.0;
+		lambda = 1.25;
 	}
 
 	tsqr::~tsqr()
@@ -57,6 +57,7 @@ namespace thesis{
 	{
         gsl_vector_set(gslv, 0, 1.0);
 		for (size_t i=1; i<order; i++){
+			//gsl_vector_set(gslv, i, pow(xi,i));
 			gsl_vector_set(gslv, i, pow(xi,i));
 		}
 	}
