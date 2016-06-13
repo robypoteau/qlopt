@@ -2,7 +2,7 @@
 #include <complex>
 
 namespace thesis{
-	
+
 	nonlinearOdes::nonlinearOdes(){
 		odeFuncMap["lotka_volterra"] = nonlinearOdes::lotka_volterra;
 		odeFuncMap["lotka4"] = nonlinearOdes::lotka4;
@@ -24,36 +24,38 @@ namespace thesis{
 		odeFuncMap["eight_part"] = nonlinearOdes::eight_part;
 		odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
 		//qLinFuncMap["eight_part_linearization"] = nonlinearOdes::eight_part_linearization;
-		odeFuncMap["gen_switch"] = nonlinearOdes::gen_switch;
+		odeFuncMap["toggle_switch"] = nonlinearOdes::toggle_switch;
+		odeFuncMap["toggle_switch_noise"] = nonlinearOdes::toggle_switch_noise;
+		odeFuncMap["repressilator"] = nonlinearOdes::repressilator;
 	}
-	
+
 	mat nonlinearOdes::lotka_volterra(const double& t, const vec& x, const vec& u)
 	{
-		mat result(2,1); 
+		mat result(2,1);
 		result(0) = u(0)*x(0) - u(1)*x(0)*x(1);
 		result(1) = u(1)*x(0)*x(1) - u(2)*x(1);
-			
+
 		return result;
 	}
-	
+
 	mat nonlinearOdes::lotka4(const double& t, const vec& x, const vec& u)
 	{
-		mat result(2,1); 
+		mat result(2,1);
 		result(0) = u(0)*x(0) - u(1)*x(0)*x(1);
 		result(1) = u(2)*x(0)*x(1) - u(3)*x(1);
-			
+
 		return result;
 	}
-	
+
 	/*
 	mat nonlinearOdes::lotka_volterra_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
-		
+
 		double xnt = Xn.interpolate(t);
 		double ynt = Yn.interpolate(t);
-		
+
 		mat result(8,1);
 		result << (u(0)-u(1)*ynt)*x(0) - u(1)*xnt*x(1) + u(1)*xnt*ynt,
 				 u(1)*ynt*x(0) + (u(1)*xnt - u(2))*x(1) - u(1)*xnt*ynt,
@@ -63,19 +65,19 @@ namespace thesis{
 				 u(1)*ynt*x(4) + ynt*x(0) + (u(1)*xnt - u(2))*x(5) + xnt*(x(1) - ynt),
 				(u(0) - u(1)*ynt)*x(6) - u(1)*xnt*x(7),
 				 u(1)*ynt*x(6) + (u(1)*xnt - u(2))*x(7) - x(1);
-		
+
 		return result;
 	}
 	*/
-	
+
 	mat nonlinearOdes::pielou(const double& t, const vec& x, const vec& u)
 	{
 		double k = 250;
-		
-		mat result(2,1); 
+
+		mat result(2,1);
 		result(0) = u(0)*(1-x(0)/k)*x(0) - u(1)*x(0)*x(1);
 		result(1) = -u(2)*x(1) + u(3)*x(0)*x(1);
-		
+
 		return result;
 	}
 
@@ -85,15 +87,15 @@ namespace thesis{
 		double b = u(1);
 		double c = u(2);
 		double d = u(3);
-		
+
 		double k = 250;
 
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
-		
+
 		double x1 = Xn.interpolate(t);
 		double x2 = Yn.interpolate(t);
-		
+
 		mat result(10,1);
 		result << (r*(x1*x1+k*x(1-1)-2*x1*x(1-1))-b*k*(x(1-1)*x2+x1*(-x2+x(2-1))))/k,
 			-(c*x(2-1))+d*(x(1-1)*x2+x1*(-x2+x(2-1))),
@@ -105,39 +107,39 @@ namespace thesis{
 			-x(2-1)+d*x2*x(7-1)+(-c+d*x1)*x(8-1),
 			((-2*r*x1+k*(r-b*x2))*x(9-1)-b*k*x1*x(10-1))/k,
 			-(x1*x2)+x2*x(1-1)+x1*x(2-1)+d*x2*x(9-1)-c*x(10-1)+d*x1*x(10-1);
-		
+
 		return result;
 	}*/
 
 	mat nonlinearOdes::angiogenesis(const double& t, const vec& x, const vec& u)
 	{
 		double m = u(0); // m>0
-		double n = 1; //u(1); // n = .25, = 1 
+		double n = 1; //u(1); // n = .25, = 1
 		double a = u(2); // a>=0
 		double c = u(3); // c(t) = c = 0 => no treatment, c = const implies fixed treatment
 		double w = u(4); // w>=0
 		double g = u(5); // g>=0
-		
+
 		/*
 		double m = u(0); // m>0
-		double n = .25; // n = .25, = 1 
+		double n = .25; // n = .25, = 1
 		double a = u(1); // a>=0
 		double c = u(2); // c(t) = c = 0 => no treatment, c = const implies fixed treatment
 		double w = u(3); // w>=0
 		double g = u(4); // g>=0
 		*/
-		
+
 		double f;
 		if(n == 0){
 			f = -m*log(x(0)/x(1));
 		}else{
 			f = m*x(0)/n*(1-pow(x(0)/x(1),n));
 		}
-	
-		mat result(2,1); 
+
+		mat result(2,1);
 		result(0) = -a*c*x(1) + f;
 		result(1) = -a*c*x(1) + w*x(0) - g*pow(x(0)*x(0),1/3)*x(1);
-		
+
 		return result;
 	}
 
@@ -152,10 +154,10 @@ namespace thesis{
 
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
-		
+
 		double x1 = Xn.interpolate(t);
 		double x2 = Yn.interpolate(t);
-		
+
 		mat result(14,1);
 		result << m*x1*pow(x2,-1 - n)*(-((2 + n)*pow(x1,n)*x(1-1)*x2) - x1*pow(x2,1 + n) + 2*x(1-1)*pow(x2,1 + n) + pow(x1,1 + n)*(x2 + n*x(2-1))),
 		w*x(1-1) + (-3*a*c*pow(x1,1/3)*x(2-1) + g*(2*x1*x2 - 2*x(1-1)*x2 - 3*x1*x(2-1)))/(3*pow(x1,1/3)),
@@ -169,34 +171,34 @@ namespace thesis{
 		(-3*a*pow(x1,1/3)*x(2-1) + (3*w*pow(x1,1/3) - 2*g*x2)*x(9-1) - 3*(a*c + g*pow(x1,2/3))*pow(x1,1/3)*x(10-1))/(3*pow(x1,1/3)),
 		m*x1*pow(x2,-1 - n)*(-(x2*((2 + n)*pow(x1,n) - 2*pow(x2,n))*x(11-1)) + n*pow(x1,1 + n)*x(12-1)),
 		(3*pow(x1,1/3)*x(1-1) + (3*w*pow(x1,1/3) - 2*g*x2)*x(11-1) - 3*(a*c + g*pow(x1,2/3))*pow(x1,1/3)*x(12-1))/(3*pow(x1,1/3)),
-		m*x1*pow(x2,-1 - n)*(-(x2*((2 + n)*pow(x1,n) - 2*pow(x2,n))*x(13-1)) + n*pow(x1,1 + n)*x(14-1)), 
+		m*x1*pow(x2,-1 - n)*(-(x2*((2 + n)*pow(x1,n) - 2*pow(x2,n))*x(13-1)) + n*pow(x1,1 + n)*x(14-1)),
 		w*x(13-1) + (2*x1*x2 - 2*x2*x(1-1) - 3*x1*x(2-1) - 2*g*x2*x(13-1) - 3*a*c*pow(x1,1/3)*x(14-1) - 3*g*x1*x(14-1))/(3*pow(x1,1/3));
-		
+
 		return result;
 	}*/
-	
+
 	mat nonlinearOdes::cancer(const double& t, const vec& x, const vec& u)
 	{
 		double d   = u(0); // >=0
-		double tau = u(1); // >=0 
+		double tau = u(1); // >=0
 		double g   = u(2); // >=0
 		double a   = u(3); // >=0, a <= g/2
-		double k   = u(4); // >=0		
-		double R   = 1.0;	
-		mat result(2,1); 
+		double k   = u(4); // >=0
+		double R   = 1.0;
+		mat result(2,1);
 		result(0) = d*R - x(0)/tau - g*x(0)*x(0);
 		result(1) = -(a*R + k*x(0))*x(1);
-		
+
 		return result;
 	}
-	
+
 	/* mat nonlinearOdes::coral(const double& t, const vec& x, const vec& u)
 	{
 		//input
 		double m = u(0);
 		double r = u(1);
 		double k1 = u(2);
-		double p = u(3); 
+		double p = u(3);
 		double k2 = u(4);
 		double k3 = u(5);
 
@@ -206,21 +208,21 @@ namespace thesis{
 		double N = 1750;
 		double I0 = 2000;
 		double pi = atan(1)*4;
-		
-		mat result(2,1); 
+
+		mat result(2,1);
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
 		result(1) = k2*x(2-1)+ k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
-		
+
 		return result;
 	} */
-	
+
 	mat nonlinearOdes::coral5(const double& t, const vec& x, const vec& u)
 	{
 		//input
 		double m = u(0);
 		double r = u(1);
 		double k1 = u(2);
-		//double p = u(0); 
+		//double p = u(0);
 		double k2 = u(3);
 		double k3 = u(4);
 
@@ -230,21 +232,21 @@ namespace thesis{
 		double N = 1750;
 		double I0 = 2000;
 		double pi = atan(1)*4;
-		
-		mat result(2,1); 
+
+		mat result(2,1);
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1);// - p*x(1-1);
 		result(1) = k2*x(2-1)+ k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
-		
+
 		return result;
 	}
-	
+
 	/* mat nonlinearOdes::coral_pw(const double& t, const vec& x, const vec& u)
 	{
 		//input
 		double m = u(0);
 		double r = u(1);
 		double k1 = u(2);
-		double p = u(3); 
+		double p = u(3);
 		double k2 = u(4);
 		double k3 = u(5);
 
@@ -254,25 +256,25 @@ namespace thesis{
 		double N = 1750;
 		double I0 = 2000;
 		double pi = atan(1)*4;
-		
-		mat result(2,1); 
+
+		mat result(2,1);
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
 		result(1) = k2*x(2-1);
-		
+
 		/*double modulus = mod(t,24);//= t/24 - floor(t/24);
 		if(modulus >= 0 && modulus < 12){
 			result(1) += k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
 		}*/
 		//return result;
 	//}*/
-	
+
 	/* mat nonlinearOdes::coral_two(const double& t, const vec& x, const vec& u)
 	{
 		//input
 		double m = u(0);
 		double r = u(1); // 0.00125; //u(1);
 		double k1 = u(2); // 0.000001;// u(2);
-		double p = u(3); //u(3); 
+		double p = u(3); //u(3);
 		double k2 = u(4); // 0.015;//u(4);
 		double k3 = u(5); // .0025;//u(5);
 
@@ -282,25 +284,25 @@ namespace thesis{
 		double N = u(8); // 1750;
 		double I0 = u(9); //2000;
 		double pi = atan(1)*4;
-		
-		mat result(2,1); 
+
+		mat result(2,1);
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
 		result(1) = k2*x(2-1);
-		
+
 		/*double modulus = mod(t,24);//= t/24 - floor(t/24);
 		if(modulus >= 0 && modulus < 13){
 			result(1) += k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
 		}*/
 		/*return result;
 	}
-	
+
 		mat nonlinearOdes::coral_four(const double& t, const vec& x, const vec& u)
 	{
 		//input
 		double m = .02;
 		double r = u(0);
 		double k1 = u(1);
-		double p = .02; 
+		double p = .02;
 		double k2 = u(2);
 		double k3 = u(3);
 
@@ -310,21 +312,21 @@ namespace thesis{
 		double N = 1750;
 		double I0 = 2000;
 		double pi = atan(1)*4;
-		
-		mat result(2,1); 
+
+		mat result(2,1);
 		result(0) = m*x(1-1) + r*x(1-1)*(1 - x(1-1)/N) - k1*x(2-1)*x(1-1) - p*x(1-1);
 		result(1) = k2*x(2-1)+ k3*a2*b2*pow(2,b2*sin(pi*t/12))*I0*log(2)/12*pi*cos(pi*t/12);
-		
+
 		return result;
 	} */
-	
+
 	/*mat nonlinearOdes::coral_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
 		//input
 		double m = u(0);
 		double r = u(1);
 		double k1 = u(2);
-		double p = u(3); 
+		double p = u(3);
 		double k2 = u(4);
 		double k3 = u(5);
 
@@ -333,15 +335,15 @@ namespace thesis{
 		double b2 = .0013;
 		double I0 = 2000;
 		double N = 1750;
-		
+
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
-		
+
 		double x1 = Xn.interpolate(t);
 		double x2 = Yn.interpolate(t);
-		
+
 		double pi = atan(1)*4;
-		
+
 		mat result(14,1);
 		result <<
 				m*x1 + r*x1*(1 - x1/N) - k1*x1*x2 - p*x2 + (m + r - 2*r*x1/N - k1*x2)*(x(1-1)-x1) - (k1*x1 + p)*(x(2-1) - x2),
@@ -360,48 +362,48 @@ namespace thesis{
 				a2*b2*pow(2,b2*I0*sin(pi*t/12))*log(2)*pi*I0/12*cos(pi*t/12)+ k2*x(14-1);
 		return result;
 	}*/
-	
+
 	mat nonlinearOdes::bistable_switch(const double& t, const vec& x, const vec& p)
 	{
 		double alpha = p(0);
 		double u     = p(1);
 		double n     = p(2);
 
-		mat result(2,1); 
+		mat result(2,1);
 		result(0) = alpha/(1 + pow(u*x(2-1),n)) - x(1-1);
 		result(1) = alpha/(1 + pow(x(1-1),n))- x(2-1);
-			
+
 		return result;
 	}
-	
+
 	mat nonlinearOdes::bistable_switch_two(const double& t, const vec& x, const vec& p)
 	{
 		double alpha = p(0);
 		double u     = 3.2;
 		double n     = p(1);
 
-		mat result(2,1); 
+		mat result(2,1);
 		result(0) = alpha/(1 + pow(u*x(1),n)) - x(0);
 		result(1) = alpha/(1 + pow(x(0),n))- x(1);
-			
+
 		return result;
 	}
-	
+
 	/* mat nonlinearOdes::bistable_switch_linearization(const double& t, const vec& x, const vec& p, const mat& xn, const vec& time)
 	{
 		double alpha = p(0);
 		double u 	 = p(1);
 		double n 	 = p(2);
-		
+
 		thesis::spline Xn(time, xn.row(0));
 		thesis::spline Yn(time, xn.row(1));
-		
+
 		double A = Xn.interpolate(t);
 		double B = Yn.interpolate(t);
-		
+
 		double g;
 		double d;
-		
+
 		if(u*B < 0){
 			complex<double> G = u*B;
 			G = pow(G,n);
@@ -417,27 +419,27 @@ namespace thesis{
 		}
 		else{
 			d = 1 + pow(A,n);
-		}	
+		}
 		mat result(8,1);
 		result << -x(1-1) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*x(2-1) + alpha*n*pow(u*B,n)/pow(g,2) + alpha/g,
 			-alpha*n*pow(A,n-1)*x(1-1)/pow(d,2) - x(2-1) + alpha*n*pow(A,n)/pow(d,2) + alpha/d,
 			// wrt alpha
 			-x(3-1) - (n*pow(u,n)*pow(B,n-1)/pow(g,2))*x(2-1) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*x(4-1) + n*pow(u*B,n)/pow(g,2) + (10)/g,
 			-n*pow(A,n-1)*x(1-1)/pow(d,2) - alpha*n*pow(A,n-1)*x(3-1)/pow(d,2) - x(4-1) + n*pow(A,n)/pow(d,2) + (10)/d,
-			//wrt u	
+			//wrt u
 			-x(5-1) - alpha*pow(n,2)*pow(u,n-1)*pow(B,n-1)/pow(g,2)*x(2-1) + 2*alpha*pow(n,2)*pow(u*B,2*n-1)/pow(g,2)*x(2-1) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*x(6-1) + alpha*pow(n,2)*pow(u,n-1)*pow(B,n)/pow(g,2) - 2*alpha*pow(n,2)*pow(u,2*n-1)*pow(B,2*n)/pow(g,3) - alpha*n*pow(u,n-1)*pow(B,n)/pow(g,2),
 			-alpha*n*pow(A,n-1)*x(5-1)/pow(d,2) - x(6-1),
 			// wrt n
 			-x(7-1) - (alpha*pow(u*B,n)/(B*pow(g,2))) *((1 - 2/pow(g,2)*pow(u*B,n))*log(u*B)*x(2-1) + x(8-1)) - (alpha/B)*pow(u*B,n)/pow(g,2)*x(2-1) + alpha*(u*B)/pow(g,2)*(1 + n*log(u*B)-2*n/g*pow(u*B,n)*log(u*B)) - alpha/pow(g,2)*pow(u*B,n)*log(u*B),
 			-(alpha*pow(A,n-1)/pow(d,2))*((1 + n*log(A) - 2*n*pow(A,n)*log(A)/d)*x(1-1) + n*x(7-1)) - x(8-1) + (alpha*pow(A,n)/pow(d,2))*(1 + (n-1)*log(A) - 2*n*pow(A,n)*log(A)/d);
-			
+
 		return result;
 	} */
 	mat nonlinearOdes::eight_part(const double& t, const vec& x, const vec& pp)
 	{
 		double P = .05;
 		double S = 10;
-		
+
 		vec p(36);
 		if(pp.size() < 36){
 			p << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
@@ -447,7 +449,7 @@ namespace thesis{
 		}else{
 			p << pp;
 		}
-		mat result(8,1); 
+		mat result(8,1);
 		result << p(1-1)/(1 + pow(P/p(2-1), p(3-1))   + pow(p(4-1)/S      , p(5-1)))  - p(6-1)*x(1-1),
 				  p(7-1)/(1 + pow(P/p(8-1), p(9-1))   + pow(p(10-1)/x(7-1), p(11-1))) - p(12-1)*x(2-1),
 				  p(13-1)/(1 + pow(P/p(14-1),p(15-1)) + pow(p(16-1)/x(8-1), p(17-1))) - p(18-1)*x(3-1),
@@ -456,18 +458,18 @@ namespace thesis{
 				  p(25-1)*x(3-1)/(p(26-1) + x(3-1)) - p(27-1)*x(6-1),
 				  p(28-1)*x(4-1)*(S - x(7-1))/(p(29-1)*(1 + S/p(29-1) + x(7-1)/p(30-1))) - p(31-1)*x(5-1)*(x(7-1) - x(8-1))/(p(32-1)*(1 + x(7-1)/p(32-1) + x(8-1)/p(33-1))),
 				  p(31-1)*x(5-1)*(x(7-1) - x(8-1))/(p(32-1)*(1 + x(7-1)/p(32-1) + x(8-1)/p(33-1))) -  p(34-1)*x(6-1)*(x(8-1) - P)/(p(35-1)*(1 + x(8-1)/p(35-1) + P/p(36-1)));
-				
+
 		return result;
 	}
-	
+
 	 mat nonlinearOdes::eight_part_spc(const double& t, const vec& x, const vec& pp)
 	{
 		double P = 1;
 		double S = .1;
-		
+
 		vec p(36);
 		p << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
-		
+
 		p(5) = pp(0);
 		p(10) = pp(1);
 		p(11) = pp(2);
@@ -477,7 +479,7 @@ namespace thesis{
 		for(int i=30; i<34; i++){
 			p(i) = pp(i-16);
 		}
-		mat result(8,1); 
+		mat result(8,1);
 		result << p(1-1)/(1 + pow(P/p(2-1), p(3-1))   + pow(p(4-1)/S      , p(5-1)))  - p(6-1)*x(1-1),
 				  p(7-1)/(1 + pow(P/p(8-1), p(9-1))   + pow(p(10-1)/x(7-1), p(11-1))) - p(12-1)*x(2-1),
 				  p(13-1)/(1 + pow(P/p(14-1),p(15-1)) + pow(p(16-1)/x(8-1), p(17-1))) - p(18-1)*x(3-1),
@@ -486,15 +488,15 @@ namespace thesis{
 				  p(25-1)*x(3-1)/(p(26-1) + x(3-1)) - p(27-1)*x(6-1),
 				  p(28-1)*x(4-1)*(S - x(7-1))/(p(29-1)*(1 + S/p(29-1) + x(7-1)/p(30-1))) - p(31-1)*x(5-1)*(x(7-1) - x(8-1))/(p(32-1)*(1 + x(7-1)/p(32-1) + x(8-1)/p(33-1))),
 				  p(31-1)*x(5-1)*(x(7-1) - x(8-1))/(p(32-1)*(1 + x(7-1)/p(32-1) + x(8-1)/p(33-1))) -  p(34-1)*x(6-1)*(x(8-1) - P)/(p(35-1)*(1 + x(8-1)/p(35-1) + P/p(36-1)));
-				
+
 		return result;
 	} /**/
-	
+
 	/*mat nonlinearOdes::eight_part(const double& t, const vec& x, const vec& pp)
 	{
 		double P = 1;
 		double S = .1;
-		
+
 		vec p(36);
 		if(pp.size() < 36){
 			p << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
@@ -505,7 +507,7 @@ namespace thesis{
 		}else{
 			p << pp;
 		}
-		mat result(8,1); 
+		mat result(8,1);
 		result << p(1-1)/(1 + pow(P/p(2-1), p(3-1)) + pow(p(4-1)/S      , p(5-1)))  - p(6-1)*x(1-1),
 				  p(7-1)/(1 + pow(P/p(8-1), p(9-1)) + pow(p(10-1)/x(7-1), p(11-1))) - p(12-1)*x(2-1),
 				 p(13-1)/(1 + pow(P/p(14-1),p(15-1)) + pow(p(16-1)/x(8-1), p(17-1))) - p(18-1)*x(3-1),
@@ -514,15 +516,15 @@ namespace thesis{
 				  p(25-1)*x(3-1)/(p(26-1) + x(3-1)) - p(27-1)*x(6-1),
 				  p(28-1)*x(4-1)*(S - x(7-1))/(p(29-1)*(1 + S/p(29-1) + x(7-1)/p(30-1))) - p(31-1)*x(5-1)*(x(7-1) - x(8-1))/(p(32-1)*(1 + x(7-1)/p(32-1) + x(8-1)/p(33-1))),
 				  p(31-1)*x(5-1)*(x(7-1) - x(8-1))/(p(32-1)*(1 + x(7-1)/p(32-1) + x(8-1)/p(33-1))) - p(34-1)*x(6-1)*(x(8-1) - P)/(p(35-1)*(1 + x(8-1)/p(35-1) + P/p(36-1)));
-				
+
 		return result;
 	}*/
-	
+
 	/*mat nonlinearOdes::eight_part_linearization(const double& t, const vec& x, const vec& p, const mat& xn, const vec& time)
 	{
 		double P = 1;
 		double S = 1;
-		
+
 		thesis::spline Xn1(time, xn.row(0));
 		thesis::spline Xn2(time, xn.row(1));
 		thesis::spline Xn3(time, xn.row(2));
@@ -531,7 +533,7 @@ namespace thesis{
 		thesis::spline Xn6(time, xn.row(5));
 		thesis::spline Xn7(time, xn.row(6));
 		thesis::spline Xn8(time, xn.row(7));
-		
+
 		double x1 = Xn1.interpolate(t);
 		double x2 = Xn2.interpolate(t);
 		double x3 = Xn3.interpolate(t);
@@ -540,7 +542,7 @@ namespace thesis{
 		double x6 = Xn6.interpolate(t);
 		double x7 = Xn7.interpolate(t);
 		double x8 = Xn8.interpolate(t);
-		
+
 		mat result(296,1);
 		result << p(1-1)/(1+pow(P/p(2-1), p(3-1))+pow(p(4-1)/S, p(5-1)))-p(6-1)*x(1-1),
 		-(p(12-1)*x(2-1))+(p(7-1)*((1+pow(P/p(8-1), p(9-1))+pow(p(10-1)/x7,p(11-1))-p(11-1)*pow(p(10-1)/x7,p(11-1)))*x7+p(11-1)*pow(p(10-1)/x7,p(11-1))*x(7-1)))/(pow((1+pow(P/p(8-1), p(9-1))+pow(p(10-1)/x7,p(11-1))),2)*x7),
@@ -838,47 +840,105 @@ namespace thesis{
 		(p(25-1)*p(26-1)*x(291-1)-p(27-1)*pow(p(26-1)+x3,2)*x(294-1))/pow(p(26-1)+x3,2),
 		(p(28-1)*p(30-1)*((S-x7)*(p(30-1)*S+p(29-1)*(p(30-1)+x7))*x(292-1)-(p(30-1)*S+p(29-1)*(p(30-1)+S))*x4*x(295-1)))/pow((p(30-1)*S+p(29-1)*(p(30-1)+x7)),2)-(p(31-1)*p(33-1)*((x7-x8)*(p(33-1)*x7+p(32-1)*(p(33-1)+x8))*x(293-1)+x5*((p(33-1)*x8+p(32-1)*(p(33-1)+x8))*x(295-1)-(p(33-1)*x7+p(32-1)*(p(33-1)+x7))*x(296-1))))/pow(p(33-1)*x7+p(32-1)*(p(33-1)+x8),2),
 		(2*p(34-1)*p(36-1)*(p(35-1)+x8)*(-((P-x8)*(P*p(35-1)+p(36-1)*(p(35-1)+x8))*x(6-1))-(p(35-1)*p(36-1)+P*(p(35-1)+p(36-1)))*x6*(x8-x(8-1))))/pow((P*p(35-1)+p(36-1)*(p(35-1)+x8)),3)+(p(34-1)*((P-x8)*(P*p(35-1)+p(36-1)*(p(35-1)+x8))*x(6-1)+(p(35-1)*p(36-1)+P*(p(35-1)+p(36-1)))*x6*(x8-x(8-1))))/pow(P*p(35-1)+p(36-1)*(p(35-1)+x8),2)-(p(34-1)*p(36-1)*(-(P*x6*x8)-p(35-1)*x6*x8-(P-x8)*(p(35-1)+x8)*x(6-1)+(P+p(35-1))*x6*x(8-1)-pow(P,2)*p(35-1)*x(294-1)-P*p(35-1)*p(36-1)*x(294-1)+P*p(35-1)*x8*x(294-1)-P*p(36-1)*x8*x(294-1)+p(35-1)*p(36-1)*x8*x(294-1)+p(36-1)*pow(x8,2)*x(294-1)+P*p(35-1)*x6*x(296-1)+P*p(36-1)*x6*x(296-1)+p(35-1)*p(36-1)*x6*x(296-1)))/pow(P*p(35-1)+p(36-1)*(p(35-1)+x8),2)+(p(31-1)*p(33-1)*((x7-x8)*(p(33-1)*x7+p(32-1)*(p(33-1)+x8))*x(293-1)+x5*((p(33-1)*x8+p(32-1)*(p(33-1)+x8))*x(295-1)-(p(33-1)*x7+p(32-1)*(p(33-1)+x7))*x(296-1))))/pow(p(33-1)*x7+p(32-1)*(p(33-1)+x8),2);
-		
+
 		return result;
 	}*/
-	
-	mat nonlinearOdes::gen_switch(const double& t, const vec& x, const vec& u)
+
+	mat nonlinearOdes::toggle_switch(const double& t, const vec& x, const vec& u)
 	{
+		/*
+		double kL1 = u(0);
+		double kL2 = u(1);
+		double KT = 10.0;
+		double nT = u(2);
+		double dL1 = u(3);
+		double dL2 = u(4);
+
+		double kT1 = u(5);
+		double kT2 = u(6);
+		double KL = 10.0;
+		double nL = u(7);
+		double dT1 = u(8);
+		double dT2 = u(9);
+
+
+
 		double kL1 = u(0);
 		double kL2 = u(1);
 		double KT = u(2);
 		double nT = 2.0;
 		double dL1 = u(3);
 		double dL2 = u(4);
-		
+
 		double kT1 = u(5);
 		double kT2 = u(6);
 		double KL = u(7);
 		double nL = 2.0;
 		double dT1 = u(8);
 		double dT2 = u(9);
-		
-		/*
+		*/
 		double kL1 = u(0);
 		double kL2 = u(1);
 		double KT = u(2);
 		double nT = u(3);
 		double dL1 = u(4);
 		double dL2 = u(5);
-		
+
 		double kT1 = u(6);
 		double kT2 = u(7);
 		double KL = u(8);
 		double nL = u(9);
 		double dT1 = u(10);
 		double dT2 = u(11);
-		*/
-		mat result(4,1); 
+
+		mat result(4,1);
 		result << 	kL1*pow(KT,nT)/(pow(KT,nT) + pow(x(3),nT)) - dL1*x(0),
 					kL2*x(0) - dL2*x(1),
 					kT1*pow(KL,nL)/(pow(KL,nL) + pow(x(1),nL)) - dT1*x(2),
 					kT2*x(2) - dT2*x(3);
-				
+
+		return result;
+	}
+	mat nonlinearOdes::toggle_switch_noise(const double& t, const vec& x, const vec& u)
+	{
+		double kL1 = u(0);
+		double kL2 = u(1);
+		double KT = u(2);
+		double nT = u(3);
+		double dL1 = u(4);
+		double dL2 = u(5);
+
+		double kT1 = u(6);
+		double kT2 = u(7);
+		double KL = u(8);
+		double nL = u(9);
+		double dT1 = u(10);
+		double dT2 = u(11);
+
+		mat result(4,1);
+		result << 	kL1*pow(KT,nT)/(pow(KT,nT) + pow(x(3),nT)) - dL1*x(0),
+					kL2*x(0) - dL2*x(1),
+					kT1*pow(KL,nL)/(pow(KL,nL) + pow(x(1),nL)) - dT1*x(2),
+					kT2*x(2) - dT2*x(3);
+
+		return result;
+	}
+	
+	mat nonlinearOdes::repressilator(const double& t, const vec& x, const vec& u)
+	{
+		double a = u(0);
+		double a0 = u(1);
+		double n = u(2);
+		double b = u(3);
+
+		mat result(6,1);
+		result << 	-x(0) + a/(1 + pow(x(5),n)) + a0,
+					-b*(x(1) - x(0)),
+					-x(2) + a/(1 + pow(x(1),n)) + a0,
+					-b*(x(3) - x(2)),
+					-x(4) + a/(1 + pow(x(3),n)) + a0,
+					-b*(x(5) - x(4));
+
 		return result;
 	}
 }

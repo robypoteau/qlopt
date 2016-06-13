@@ -87,7 +87,7 @@ int main(int argc, char *argv[])
 
 	mp_mat mp_measure;
 	mp_mat mp_measure2;
-	mp_measure = mp_rungekutta4(system, times.cast<mpreal>(), u.cast<mpreal>(),\
+	//mp_measure = mp_rungekutta4(system, times.cast<mpreal>(), u.cast<mpreal>(),\
 		yNot.cast<mpreal>());
 
 	spline spl_msmtRow[n];
@@ -129,8 +129,8 @@ int main(int argc, char *argv[])
 	output.col(0) = u;
 	output2.topRows(n) = measure;
 
-	//timelatexOutput(t, " &", measure.rows(), u.size());
-	//latexOutput(measure, u, 0, " &");
+	timelatexOutput(t, " &", measure.rows(), u.size());
+	latexOutput(measure, u, 0, " &");
 	int badrun = 0;
 
 	for(int q=0; q<OUT_ARR_SIZE; q++)
@@ -170,8 +170,8 @@ int main(int argc, char *argv[])
 				}
 			}
 		}
-		//latexOutput(msmt, u, -11111, " &");
-		cout << endl << msmt << endl;
+		latexOutput(msmt, u, -11111, " &");
+		//cout << endl << msmt << endl;
         log_info(norm(measure.leftCols(msmt.cols())-msmt));
 		lyNot.head(n) = msmt.col(0);
 
@@ -190,7 +190,7 @@ int main(int argc, char *argv[])
 				//latexOutput(msmt, du, q+1, " &");
 			}else{
 				cout <<"goodrun "<< q << endl;
-				//latexOutput(msmt, du, q+1, " \\\\");
+				latexOutput(msmt, du, q+1, " \\\\");
 			}
 		}
 	}
