@@ -271,11 +271,10 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					*env->nth_soln = bob.topRows(n);
 					A = findA(*env->time, U, m);
 					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
-					cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 
 					du = A.inverse()*P;
 					uNot += du;
-					//latexOutput(*env->nth_soln, uNot, i+1, " &");
+					latexOutput(*env->nth_soln, uNot, i+1, " &");
 					if(du.norm() < 0.00001 || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
@@ -299,7 +298,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 
 					du = A.inverse()*P;
 					uNot += du;
-					//latexOutput(*env->nth_soln, uNot, i+1, " &");
+					latexOutput(*env->nth_soln, uNot, i+1, " &");
 					if(du.norm() < 0.00001 || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){

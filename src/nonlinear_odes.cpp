@@ -27,6 +27,7 @@ namespace thesis{
 		odeFuncMap["toggle_switch"] = nonlinearOdes::toggle_switch;
 		odeFuncMap["toggle_switch_noise"] = nonlinearOdes::toggle_switch_noise;
 		odeFuncMap["repressilator"] = nonlinearOdes::repressilator;
+		odeFuncMap["general_repressilator"] = nonlinearOdes::general_repressilator;
 	}
 
 	mat nonlinearOdes::lotka_volterra(const double& t, const vec& x, const vec& u)
@@ -923,7 +924,7 @@ namespace thesis{
 
 		return result;
 	}
-	
+
 	mat nonlinearOdes::repressilator(const double& t, const vec& x, const vec& u)
 	{
 		double a = u(0);
@@ -938,6 +939,37 @@ namespace thesis{
 					-b*(x(3) - x(2)),
 					-x(4) + a/(1 + pow(x(3),n)) + a0,
 					-b*(x(5) - x(4));
+
+		return result;
+	}
+
+	mat nonlinearOdes::general_repressilator(const double& t, const vec& x, const vec& u)
+	{
+		double a = u(0);
+		double b = u(1);
+		double n = u(2);
+		double y = u(3);
+		double d = u(4);
+
+		double aB = u(5);
+		double bB = u(6);
+		double nB = u(7);
+		double yB = u(8);
+		double dB = u(9);
+
+		double aC = u(10);
+		double bC = u(11);
+		double nC = u(12);
+		double yC = u(13);
+		double dC = u(14);
+
+		mat result(6,1);
+		result << 	-x(0) + a/(1 + pow(x(5),n)) + b,
+					-y*x(1) + d*x(0),
+					-x(2) + aB/(1 + pow(x(1),nB)) + bB,
+					-yB*x(3) + dB*x(2),
+					-x(4) + aC/(1 + pow(x(3),nC)) + bC,
+					-yC*x(5) + dC*x(4);
 
 		return result;
 	}

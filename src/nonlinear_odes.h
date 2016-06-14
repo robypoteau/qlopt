@@ -44,6 +44,7 @@ namespace thesis{
 		static mat toggle_switch(const double& t, const vec& x, const vec& u);
 		static mat toggle_switch_noise(const double& t, const vec& x, const vec& u);
 		static mat repressilator(const double& t, const vec& x, const vec& u);
+		static mat general_repressilator(const double& t, const vec& x, const vec& u);
 	};
 }
 #endif
