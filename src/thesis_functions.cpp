@@ -89,7 +89,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	//params.A = &A;
 	//params.P = &P;
 
- 	double rnorm, snorm, lambda = 0.001	;
+ 	double rnorm, snorm, lambda = 0.005	;
 	gsl_matrix *qr = gsl_matrix_alloc(m,m);
 	gsl_vector *b = gsl_vector_alloc(m);
 	gsl_vector *x = gsl_vector_alloc(m);
