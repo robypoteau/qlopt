@@ -1,4 +1,4 @@
-#Thesis project makefile
+#Dissertation research makefile
 CC=g++
 CFLAGS=-c -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG -std=c++11 #$(shell /usr/bin/python3.4-config --cflags) $(OPTFLAGS)
 LIBS = -lgsl -lgslcblas -lmpfr -lgmp -lm #$(shell /usr/bin/python3.4-config --ldflags) $(OPTLIBS)

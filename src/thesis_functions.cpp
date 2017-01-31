@@ -86,12 +86,12 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	mat BT = B.transpose();
 	vec P(m);
 	vec du(m), u1(m), u2(m);
-	double gamma;
+	//double gamma;
 
 	//params.A = &A;
 	//params.P = &P;
 
- 	double rnorm, snorm, lambda=0.0005;
+ 	double rnorm, snorm, lambda=0.1;
 	gsl_matrix *qr = gsl_matrix_alloc(m,m);
 	gsl_vector *b = gsl_vector_alloc(m);
 	gsl_vector *x = gsl_vector_alloc(m);
@@ -308,15 +308,9 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					matToGslMat(A, qr);
 					vecToGslVec(P, b);
 
-					gsl_multilarge_linear_reset(w);
-					gsl_multilarge_linear_accumulate(qr, b, w);
-					gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
-					du = gslVecToVec(x);
-
-					//du = A.inverse()*P;
-
+					du = A.inverse()*P;
 					uNot += du;
-					//latexOutput(*env->nth_soln, uNot, i+1, " &");
+					latexOutput(*env->nth_soln, uNot, i+1, " &");
 					cout << i << endl;
 					if(du.norm() < 0.00001 || std::isnan(du.norm())){
 						break;
