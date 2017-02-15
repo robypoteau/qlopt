@@ -6,6 +6,8 @@ namespace thesis{
 	nonlinearOdes::nonlinearOdes(){
 		odeFuncMap["lotka_volterra"] = nonlinearOdes::lotka_volterra;
 		odeFuncMap["lotka4"] = nonlinearOdes::lotka4;
+		odeFuncMap["general_lv"] = nonlinearOdes::general_lv;
+		odeFuncMap["lorenz"] = nonlinearOdes::lorenz;
 		//qLinFuncMap["lotka_volterra_linearization"] = nonlinearOdes::lotka_volterra_linearization;
 		odeFuncMap["pielou"] = nonlinearOdes::pielou;
 		//qLinFuncMap["pielou_linearization"] = nonlinearOdes::pielou_linearization;
@@ -48,6 +50,33 @@ namespace thesis{
 		return result;
 	}
 
+	mat nonlinearOdes::general_lv(const double& t, const vec& x, const vec& u)
+	{
+		size_t n = x.size();
+		check(n*(n+1) == u.size(), "In general_lv the parameter vector u is the wrong dimension.");
+
+		mat result(n,1);
+		for(size_t i=0; i<n; i++)
+		{
+			result(i) = u(n*i)*x(i);
+			for(size_t j=0; j<n; j++)
+			{
+				result(i) += u(n*i + j+1)*x(i)*x(j);
+			}
+		}
+
+		return result;
+	}
+
+	mat nonlinearOdes::lorenz(const double& t, const vec& x, const vec& u)
+	{
+		mat result(3,1);
+		result(0) = u(0)*(x(1) - x(0));
+		result(1) = x(0)*(u(1) - x(2)) - x(1);
+		result(2) = x(0)*x(1) - u(2)*x(2);
+
+		return result;
+	}
 	/*
 	mat nonlinearOdes::lotka_volterra_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
 	{
@@ -861,22 +890,6 @@ namespace thesis{
 		double nL = u(7);
 		double dT1 = u(8);
 		double dT2 = u(9);
-
-
-
-		double kL1 = u(0);
-		double kL2 = u(1);
-		double KT = u(2);
-		double nT = 2.0;
-		double dL1 = u(3);
-		double dL2 = u(4);
-
-		double kT1 = u(5);
-		double kT2 = u(6);
-		double KL = u(7);
-		double nL = 2.0;
-		double dT1 = u(8);
-		double dT2 = u(9);
 		*/
 		double kL1 = u(0);
 		double kL2 = u(1);
@@ -905,16 +918,16 @@ namespace thesis{
 		double kL1 = u(0);
 		double kL2 = u(1);
 		double KT = u(2);
-		double nT = u(3);
-		double dL1 = u(4);
-		double dL2 = u(5);
+		double nT = 2.0;
+		double dL1 = u(3);
+		double dL2 = u(4);
 
-		double kT1 = u(6);
-		double kT2 = u(7);
-		double KL = u(8);
-		double nL = u(9);
-		double dT1 = u(10);
-		double dT2 = u(11);
+		double kT1 = u(5);
+		double kT2 = u(6);
+		double KL = u(7);
+		double nL = 2.0;
+		double dT1 = u(8);
+		double dT2 = u(9);
 
 		mat result(4,1);
 		result << 	kL1*pow(KT,nT)/(pow(KT,nT) + pow(x(3),nT)) - dL1*x(0),

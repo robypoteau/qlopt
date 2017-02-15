@@ -2,7 +2,7 @@
 #define NONLINEAR_ODES_H
 
 #include <map>
-
+#include <dbg.h>
 #include <misc.h>
 #include <spline.h>
 
@@ -19,6 +19,8 @@ namespace thesis{
 
 		static mat lotka_volterra(const double& t, const vec& x, const vec& u);
 		static mat lotka4(const double& t, const vec& x, const vec& u);
+		static mat lorenz(const double& t, const vec& x, const vec& u);
+		static mat general_lv(const double& t, const vec& x, const vec& u);
 		//static mat lotka_volterra_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time);
 		static mat pielou(const double& t, const vec& x, const vec& u);
 		//static mat pielou_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time);

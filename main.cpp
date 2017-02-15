@@ -12,9 +12,9 @@
 #include <numerical_integration.h>
 #include <thesis_functions.h>
 #include <input.h>
-//#include <bspline.h>
+#include <bspline.h>
 //#include <least_squares.h>
-#include <tsqr.h>
+//#include <tsqr.h>
 //#include <nnls.h>
 //#include <logittsqr.h>
 //#include <expo_tsqr.h>
@@ -88,17 +88,18 @@ int main(int argc, char *argv[])
 	mp_mat mp_measure;
 	mp_mat mp_measure2;
 	//mp_measure = mp_rungekutta4(system, times.cast<mpreal>(), u.cast<mpreal>(),\
-		yNot.cast<mpreal>());
+	//	yNot.cast<mpreal>());
 
 	spline spl_msmtRow[n];
 	mp_spline mp_spl_msmtRow[n];
-	//size_t order = 4;
+	size_t ncoeffs = 12;
+	size_t order = 4;
 	//check(0 < lt-order-1, "number of coeffs is negative");
-	//bspline msmtRows(order, NCOEFFS-order-1, lt);
+	bspline msmtRows(order, ncoeffs, lt);
 
-	size_t order = in.getNcoeffs();
+	//size_t order = in.getNcoeffs();
     //lsquares lsq_msmt(times.size(), order);
-    tsqr lsq_msmt(times.size(), order);
+    //tsqr lsq_msmt(times.size(), order);
     //nnls lsq_msmt(times.size(), order);
     //logittsqr lsq_msmt(times.size(), order);
 	//expo_tsqr lsq_msmt(times);
@@ -139,10 +140,11 @@ int main(int argc, char *argv[])
 			measure2 = noise(measure, in.getNoise(), q+badrun);
 			if(in.useBSpline() == true){
 				for(int i=0; i<n; i++){
-					lsq_msmt.update(times, measure2.row(i));
+					msmtRows.update(times, measure2.row(i));
+					//lsq_msmt.update(times, measure2.row(i));
 					for(int j = 0; j<lt; j++){
-						msmt(i,j) = lsq_msmt.interpolate(t(j));
-                        //cout << msmt(i,j) << "," ;
+						msmt(i,j) = msmtRows.interpolate(t(j));
+						//lsq_msmt.interpolate(t(j));
 					}
 				}
 			}else{
