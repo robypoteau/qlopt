@@ -1,53 +1,69 @@
 #Dissertation research makefile
 CC=g++
-CFLAGS=-c -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG -std=c++11 #$(shell /usr/bin/python3.4-config --cflags) $(OPTFLAGS)
-LIBS = -lgsl -lgslcblas -lmpfr -lgmp -lm #$(shell /usr/bin/python3.4-config --ldflags) $(OPTLIBS)
+CXXFLAGS=-c -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG -std=c++11
+LIBS=-lgsl -lgslcblas -lmpfr -lgmp -lm
+PRJNAME=paramid
 
-SRC = $(wildcard src/*.cpp)
-OBJ = $(patsubst %.cpp,%.o,$(SRC))
+BUILDDIR=build
+BINDIR=bin
+SRCDIR=src
+APPSRCDIR=appsrc
+SRCEXT=cpp
+
+APPSRC=$(shell find $(APPSRCDIR) -type f -name "*.$(SRCEXT)")
+EXE=$(patsubst $(APPSRCDIR)/%,$(BINDIR)/%,$(APPSRC:.$(SRCEXT)=))
+
+SRC=$(shell find $(SRCDIR) -type f -name "*.$(SRCEXT)")
+OBJ=$(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SRC:.$(SRCEXT)=.o))
 
 TEST_SRC=$(wildcard tests/*_tests.cpp)
 TEST_OBJ=$(patsubst %.cpp,%.o,$(TEST_SRC))
 TESTS=$(patsubst %.cpp,%,$(TEST_SRC))
 
-TARGET=build/libparamid.a
+TARGET=$(BUILDDIR)/lib$(PRJNAME).a
 SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
-all: main.o $(TARGET) $(SO_TARGET) tests
-	$(CC) -g $(OBJ) $< $(LIBS) -o bin/prog
+all: $(TARGET) $(SO_TARGET) $(EXE) tests
 
-%.o: %.cpp
-	$(CC) $(CFLAGS) $< $(LIBS) -o $@
-
-build:
-	@mkdir -p build
-	@mkdir -p bin
-
-dev: CFLAGS=-c -g -Wall -Wextra -std=c++11
+dev: CXXFLAGS=-c -g -Wall -Wextra -std=c++11
 dev: all
 
-$(TARGET): CFLAGS += -fPIC
-$(TARGET): build $(OBJ)
+#Redefining rules, this with the % refine rules
+$(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
+	$(CC) $(CXXFLAGS) $< $(LIBS) -o $@
+
+$(BINDIR)/%:$(APPSRCDIR)/%.$(SRCEXT)
+	$(CC) $(CXXFLAGS) $< $(LIBS) -o $@
+#End of redfinitions
+
+#TODO convert this into a refefinition rule also
+$(TESTS): $(TEST_SRC)
+	$(CC) $(CXXFLAGS) $< $(LIBS) -o $@
+
+$(BUILDDIR):
+	@mkdir -p $(BUILDDIR)
+	@mkdir -p bin
+
+$(TARGET): CXXFLAGS += -fPIC
+$(TARGET): $(BUILDDIR) $(BINDIR) $(OBJ)
 	ar rcs $@ $(OBJ)
 
 $(SO_TARGET): $(TARGET)
 	$(CC) -shared -o $@ $(OBJ)
 
 .PHONY: tests
-tests: CFLAGS=-Isrc
-tests: LIBS=-Lbuild -lparamid -lgsl -lgslcblas -lboost_system -lboost_unit_test_framework
+tests: CXXFLAGS=Ibuild
+tests: LIBS=-L$(BUILDDIR) -l$(PRJNAME) -lgsl -lgslcblas -lboost_system -lboost_unit_test_framework
 tests: $(TESTS)
-	export LD_LIBRARY_PATH=$(PWD)/build
+	export LD_LIBRARY_PATH=$(PWD)/$(BUILDDIR)
 #	sh ./tests/runtests.sh
 
-$(TESTS): $(TEST_SRC)
-	$(CC) $(CFLAGS) $< $(LIBS) -o $@
 
-clean:
-	rm -rf main.o $(OBJ)
+cleanapps:
+	rm -rf $(BINDIR)
+
+cleanbuild:
+	rm -rf $(BUILDDIR)
 
 cleantests:
 	rm -rf $(TESTS)
-
-cleanall: clean cleantests
-	rm -rf bin build
