@@ -1,6 +1,6 @@
 #Dissertation research makefile
 CC=g++
-CXXFLAGS=-c -g -O2 -Wall -Wextra -Isrc -rdynamic -DNDEBUG -std=c++11
+CXXFLAGS=-g -O2 -Wall -Wextra -Isrc -Lbuild -rdynamic -DNDEBUG -std=c++11
 LIBS=-lgsl -lgslcblas -lmpfr -lgmp -lm
 PRJNAME=paramid
 
@@ -28,12 +28,14 @@ all: $(TARGET) $(SO_TARGET) $(EXE) tests
 dev: CXXFLAGS=-c -g -Wall -Wextra -std=c++11
 dev: all
 
+apps: $(BINDIR) $(EXE)
+
 #Redefining rules, this with the % refine rules
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	$(CC) $(CXXFLAGS) $< $(LIBS) -o $@
+	$(CC) -c $(CXXFLAGS) $< $(LIBS) -o $@
 
 $(BINDIR)/%:$(APPSRCDIR)/%.$(SRCEXT)
-	$(CC) $(CXXFLAGS) $< $(LIBS) -o $@
+	$(CC) $(CXXFLAGS) $< -l$(PRJNAME) -Wl,-rpath=build $(LIBS) -o $@
 #End of redfinitions
 
 #TODO convert this into a refefinition rule also
@@ -42,7 +44,9 @@ $(TESTS): $(TEST_SRC)
 
 $(BUILDDIR):
 	@mkdir -p $(BUILDDIR)
-	@mkdir -p bin
+
+$(BINDIR):
+	@mkdir -p $(BINDIR)
 
 $(TARGET): CXXFLAGS += -fPIC
 $(TARGET): $(BUILDDIR) $(BINDIR) $(OBJ)

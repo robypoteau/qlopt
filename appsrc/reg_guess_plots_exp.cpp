@@ -57,13 +57,6 @@ int main(int argc, char *argv[])
 	size_t order = 4;
 	bspline msmtRows(order, ncoeffs, lt);
 
-	//size_t order = in.getNcoeffs();
-    //lsquares lsq_msmt(times.size(), order);
-    //tsqr lsq_msmt(times.size(), order);
-    //nnls lsq_msmt(times.size(), order);
-    //logittsqr lsq_msmt(times.size(), order);
-	//expo_tsqr lsq_msmt(times);
-
 	mat msmt(n,lt);
 
 	vec du(m);
@@ -79,9 +72,8 @@ int main(int argc, char *argv[])
 	env->initial_params = &uNot;
 	env->nth_soln = &msmt;
 	env->measurements = &measure;
-	lyNot.head(n) = msmt.col(0);
 
-	if(in.useBSpline() == true){
+	if(false){
 		for(int i=0; i<n; i++){
 			msmtRows.update(times, measure2.row(i));
 			//lsq_msmt.update(times, measure2.row(i));
@@ -98,7 +90,8 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+	lyNot.head(n) = msmt.col(0);
 	// getNumDivs is where the function should break and print graph values
-	regparamexp1a(env, u, in.getNumDivs());
+	reg_guess_plots(env, u, in.getUGuess(), in.getNumDivs());
 	return 0;
 }

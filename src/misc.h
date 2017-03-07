@@ -26,8 +26,10 @@ typedef struct{
 	vec *initial_cond;
 	vec *initial_params;
 	mat *nth_soln;
-	mp_mat *mp_nth_soln;
-	mat *measurements; //remove from struct, no longer needed
-	mp_mat *mp_measurements;
+	mat *measurements;
+
+	//remove from struct, no longer needed
+	//mp_mat *mp_nth_soln;
+	//mp_mat *mp_measurements;
 } soln_env;
 #endif
