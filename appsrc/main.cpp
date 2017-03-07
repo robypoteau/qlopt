@@ -19,7 +19,6 @@
 //#include <logittsqr.h>
 //#include <expo_tsqr.h>
 #include <latex_output.h>
-#include <mp_spline.h>
 
 using namespace thesis;
 
@@ -29,9 +28,6 @@ mat noise(const mat& M, double noise, int seed);
 
 int main(int argc, char *argv[])
 {
-	const int bits = 128;	//const int bytes = bits/8;
-	mpreal::set_default_prec(bits);
-
 	time_t begin;
 	begin = time(NULL);
 
@@ -85,13 +81,7 @@ int main(int argc, char *argv[])
 	mat measure2;
 	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
 
-	mp_mat mp_measure;
-	mp_mat mp_measure2;
-	//mp_measure = mp_rungekutta4(system, times.cast<mpreal>(), u.cast<mpreal>(),\
-	//	yNot.cast<mpreal>());
-
 	spline spl_msmtRow[n];
-	mp_spline mp_spl_msmtRow[n];
 	size_t ncoeffs = 12;
 	size_t order = 4;
 	//check(0 < lt-order-1, "number of coeffs is negative");
@@ -105,7 +95,6 @@ int main(int argc, char *argv[])
 	//expo_tsqr lsq_msmt(times);
 
 	mat msmt(n,lt);
-	mp_mat mp_msmt(n,times.size());
 
 	vec du(m);
 
@@ -113,16 +102,13 @@ int main(int argc, char *argv[])
 	lyNot.fill(0);
 
 	soln_env* env;
-	env = (soln_env*) malloc(sizeof(string*) + 4*sizeof(vec*) + 2*sizeof(mat*) \
-		+ 2*sizeof(mp_mat*));
+	env = (soln_env*) malloc(sizeof(string*) + 4*sizeof(vec*) + 2*sizeof(mat*));
 	env->ode = &system;
 	env->time = &t;
 	env->initial_cond = &lyNot;
 	env->initial_params = &uNot;
 	env->nth_soln = &msmt;
 	env->measurements = &measure;
-	env->mp_nth_soln = &mp_msmt;
-	env->mp_measurements = &mp_measure;
 
 	cout.precision(7);
 	mat output(m,OUT_ARR_SIZE+3);
@@ -138,37 +124,19 @@ int main(int argc, char *argv[])
 	{
 		if(in.isNoisy() == true){
 			measure2 = noise(measure, in.getNoise(), q+badrun);
-			if(in.useBSpline() == true){
-				for(int i=0; i<n; i++){
-					msmtRows.update(times, measure2.row(i));
-					//lsq_msmt.update(times, measure2.row(i));
-					for(int j = 0; j<lt; j++){
-						msmt(i,j) = msmtRows.interpolate(t(j));
-						//lsq_msmt.interpolate(t(j));
-					}
-				}
-			}else{
-				for(int i=0; i<n; i++){
-					spl_msmtRow[i].update(times, measure2.row(i));
-					for(int j = 0; j<lt; j++){
-						msmt(i,j) = spl_msmtRow[i].interpolate(t(j));
-					}
+			for(int i=0; i<n; i++){
+				msmtRows.update(times, measure2.row(i));
+				//lsq_msmt.update(times, measure2.row(i));
+				for(int j = 0; j<lt; j++){
+					msmt(i,j) = msmtRows.interpolate(t(j));
+					//lsq_msmt.interpolate(t(j));
 				}
 			}
 		}else{
-			if(false){
-				for(int i=0; i<n; i++){
-					//mp_spl_msmtRow[i].update(times.cast<mpreal>(), mp_measure.row(i));
-					for(int j = 0; j<lt; j++){
-						//mp_msmt(i,j) = mp_spl_msmtRow[i].interpolate(mp_t(j));
-					}
-				}
-			}else{
-				for(int i=0; i<n; i++){
-					spl_msmtRow[i].update(times, measure.row(i));
-					for(int j = 0; j<lt; j++){
-						msmt(i,j) = spl_msmtRow[i].interpolate(t(j));
-					}
+			for(int i=0; i<n; i++){
+				spl_msmtRow[i].update(times, measure.row(i));
+				for(int j = 0; j<lt; j++){
+					msmt(i,j) = spl_msmtRow[i].interpolate(t(j));
 				}
 			}
 		}

@@ -9,7 +9,6 @@
 #include <misc.h>
 #include <nonlinear_odes.h>
 #include <numerical_integration.h>
-//#include <thesis_functions.h>
 #include <regularization.h>
 #include <input.h>
 #include <bspline.h>
@@ -51,7 +50,6 @@ int main(int argc, char *argv[])
 	mat measure2;
 	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
 
-
 	spline spl_msmtRow[n];
 	size_t ncoeffs = 12;
 	size_t order = 4;
@@ -79,7 +77,9 @@ int main(int argc, char *argv[])
 	env->initial_params = &uNot;
 	env->nth_soln = &msmt;
 	env->measurements = &measure;
-	lyNot.head(n) = msmt.col(0);
+
+	timelatexOutput(t, " &", measure.rows(), u.size());
+	latexOutput(measure, u, 0, " &");
 
 	if(in.useBSpline() == true){
 		for(int i=0; i<n; i++){
@@ -98,7 +98,8 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
-	// getNumDivs is where the function should break and print graph values
-	regparamexp1a(env, u, in.getNumDivs());
+	lyNot.head(n) = msmt.col(0);
+	//getNoise is being used to acquire a regularization parameter
+	reg_guess(env, in.getUGuess(), in.getNoise());
 	return 0;
 }

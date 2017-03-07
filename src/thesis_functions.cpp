@@ -91,7 +91,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	//params.A = &A;
 	//params.P = &P;
 
- 	double rnorm, snorm, lambda=0.1;
+ 	double rnorm, snorm, lambda=0.05;
 	gsl_matrix *qr = gsl_matrix_alloc(m,m);
 	gsl_vector *b = gsl_vector_alloc(m);
 	gsl_vector *x = gsl_vector_alloc(m);
@@ -121,12 +121,13 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					//O = findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0));
 					//cout << "cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 
-					matToGslMat(A, qr);
+					/*matToGslMat(A, qr);
 					vecToGslVec(P, b);
 
 					gsl_multilarge_linear_reset(w);
 					gsl_multilarge_linear_accumulate(qr, b, w);
 					gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
+					*/
 
 					// cout << "No regs norm Au-P " << (norm(A*gslVecToVec(x)-P)) << endl;
 					// gamma = norm(A*gslVecToVec(x)-P);
@@ -147,8 +148,8 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					// }else{
 					// 	gsl_multilarge_linear_solve (0.0, x, &rnorm, &snorm, w);
 					// }
-
-					du = gslVecToVec(x);
+					du = inverse(A + lambda*B.transpose()*B)*P;
+					//du = gslVecToVec(x);
 
 					//gamma = (double) (du.transpose()*((AT*A)+lambda*lambda*B)*du)/(P.transpose()*A*du);
 					//cout << "gamma = "  << (du.transpose()*((AT*A)+lambda*lambda*B)*du)/((P.transpose()*A*du)) << endl;
@@ -305,8 +306,8 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					*env->nth_soln = bob.topRows(n);
 					A = findA(*env->time, U, m);
 					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
-					matToGslMat(A, qr);
-					vecToGslVec(P, b);
+					//matToGslMat(A, qr);
+					//vecToGslVec(P, b);
 
 					du = A.inverse()*P;
 					uNot += du;
