@@ -12,7 +12,6 @@
 #include <regularization.h>
 #include <input.h>
 #include <bspline.h>
-#include <dbg.h>
 
 using namespace thesis;
 
@@ -65,8 +64,7 @@ int main(int argc, char *argv[])
 
 	mat msmt(n,lt);
 
-	vec du(m), u1(m), u2;
-	u2 = uNot;
+	vec du(m);
 
 	vec lyNot(n*(m+1));
 	lyNot.fill(0);
@@ -81,7 +79,7 @@ int main(int argc, char *argv[])
 	env->measurements = &measure;
 
 	timelatexOutput(t, " &", measure.rows(), u.size());
-	cout << "\\lambda &" << endl;
+	cout << "$\\lambda$ &" << endl;
 
 	if(in.useBSpline() == true){
 		for(int i=0; i<n; i++){
@@ -102,20 +100,8 @@ int main(int argc, char *argv[])
 	}
 	lyNot.head(n) = msmt.col(0);
 	//getNoise is being used to acquire a regularization parameter
-	double TOL = .1;
-
-	u1 = in.getUGuess();
-	//do{
-	//	u2 = uNot;
-		u1 = reg_guess(env, u1, in.getNoise());
-		latexOutput(measure, u, 0, " \\\\");
-		cout << " \\\\" << endl << endl;
-		uNot = u1;
-	//	log_err(norm(u2-u1));
-	//}while(norm(u2-u1) > TOL);
-
-	reg_guess(env, u1, 0.0);
+	reg1(env, in.getUGuess(), in.getNoise());
 	latexOutput(measure, u, 0, " \\\\");
-	cout << " \\\\" << endl << endl;
+	cout << " \\\\" << endl;
 	return 0;
 }

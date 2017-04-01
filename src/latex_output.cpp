@@ -5,20 +5,20 @@ void latexOutput(const mat& xn, const vec& u, int p, string buf){
 	int m = u.size();
 	int lt = xn.cols();
 
-	int interval = (int)(lt/10+.5);
+	int interval = (int)(lt/5+.5);
 	if(interval == 0){
 		interval = 1;
 	}
 	int j;
 	for(int i=0; i<n; i++){
 		j = 0;
-		cout << "$\\vec{x}_{"<< p <<"}(t,u)$ " << buf << endl;
+		cout << "$x_{"<< p <<"}$ " << buf << endl;
 		while(j<lt){
 			cout << xn(i, j) << buf << endl;
 			j+=interval;
 		}
 	}
-	cout << "\t "<< buf << endl;
+	cout << "$\\vecu_{"<< p <<"}$ " << buf << endl;
 	for(int k=0; k<m; k++){
 		cout << u(k) << buf << endl;
 	}
@@ -27,7 +27,7 @@ void latexOutput(const mat& xn, const vec& u, int p, string buf){
 void timelatexOutput(const vec& t, string buf, int n, int p){
 	int lt = t.size();
 
-	int interval = (int)(lt/10+.5);
+	int interval = (int)(lt/5+.5);
 	if(interval == 0){
 		interval = 1;
 	}
@@ -41,7 +41,7 @@ void timelatexOutput(const vec& t, string buf, int n, int p){
 			j+=interval;
 		}
 	}
-	for(int k=0; k<p; k++){
+	for(int k=0; k<p+1; k++){
 		cout << "\t " << buf << endl;
 	}
 }

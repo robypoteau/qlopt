@@ -7,10 +7,11 @@
 
 void regparamexp1a(soln_env *env, vec u, int brk);
 void regparamexp1b(soln_env *env, vec u, int brk);
-void reg_guess_plots(soln_env *env, vec u, vec u_guess, int brk);
+void reg_guess_plots(soln_env *env, vec u, vec u_guess, double gamma, int brk);
 vec reg_guess(soln_env *env, vec u_guess, double gamma);
 vec reg_guess2(soln_env *env, vec u_guess);
 double func(double a, mat A, vec P, double O, mat B, vec u_guess, vec uNot);
 double findLambda(mat A, vec P, double O, mat B, vec u_guess, vec uNot);
-
+vec reg1(soln_env *env, vec u_guess, double gamma);
+vec reg2(soln_env *env, vec u_guess);
 #endif

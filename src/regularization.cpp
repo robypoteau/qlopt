@@ -121,7 +121,7 @@ void regparamexp1b(soln_env *env, vec u, int brk){
 //Used to find plots for the ||u_n + \delta u_n+1 - u*|| vs \aplha
 // When we try to increase the range of convergance using
 // + a^2 ||u - u_0|| regularization
-void reg_guess_plots(soln_env *env, vec u, vec u_guess, int brk){
+void reg_guess_plots(soln_env *env, vec u, vec u_guess, double gamma, int brk){
 	int n = (*env->nth_soln).rows();
 	int m = (*env->initial_params).size();
 	int lt = (*env->time).size();
@@ -133,14 +133,9 @@ void reg_guess_plots(soln_env *env, vec u, vec u_guess, int brk){
 	mat U(n*m, n*lt);
 	mat A(m,m), AT(m,m);
 	mat B = mat::Identity(m, m);
-	for(int i=0; i<m-1; i++){
-		//B(i+1,i) = -1;
-	}
-	mat BT = B.transpose();
 	vec P(m);
 	vec du(m);
-	double TOL = 0.00001;
-	double gamma;
+	double TOL = 0.00001, g;
 	int LIMIT = 200;
 	cout.precision(10);
 
@@ -152,15 +147,15 @@ void reg_guess_plots(soln_env *env, vec u, vec u_guess, int brk){
 		A = findA(*env->time, U, m);
 		P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
 		if(i != brk){
-			gamma = .0001;
-			du = inverse(A + gamma*BT*B)*(P + gamma*(u_guess - uNot));
+			du = inverse(A + gamma*B)*(P + gamma*(u_guess - uNot));
 		}else{
-			gamma = 0.000;
+			g = 0.0000;
 			do{
-				du = inverse(A + gamma*BT*B)*(P + gamma*(u_guess - uNot));
-				cout << gamma << "," << norm(uNot + du - u) << endl;
-				gamma += 0.0000001;
-			}while(gamma <= 0.0001);
+				du = inverse(A + gamma*B)*(P + gamma*(u_guess - uNot));
+				//cout << gamma << "," << norm(uNot + du - u) << endl;
+				cout << norm(P-A*du) << "," << norm(uNot + du - u) << endl;
+				g += 0.00001;
+			}while(g <= 2.0);
 			exit(0);
 		}
 		uNot += du;
@@ -186,13 +181,9 @@ vec reg_guess(soln_env *env, vec u_guess, double gamma){
     mat U(n*m, n*lt);
     mat A(m,m), AT(m,m);
     mat B = mat::Identity(m, m);
-    for(int i=0; i<m-1; i++){
-        //B(i+1,i) = -1;
-    }
-    mat BT = B.transpose();
     vec P(m);
     vec du(m);
-    double TOL = 0.00001, g;
+    double TOL = 0.00001;
     int LIMIT = 1500;
     cout.precision(10);
 
@@ -204,15 +195,16 @@ vec reg_guess(soln_env *env, vec u_guess, double gamma){
         *env->nth_soln = bob.topRows(n);
         A = findA(*env->time, U, m);
         P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
-		g = norm(u_guess - uNot);
-		du = inverse(A + g*gamma*BT*B)*(P + g*gamma*(u_guess - uNot));
+		du = inverse(A + gamma*B)*(P + gamma*(u_guess - uNot));
 
 		uNot += du;
         if(du.norm() < TOL || std::isnan(du.norm())){
-			latexOutput(*env->nth_soln, uNot, i+1, " \\\\");
+			latexOutput(*env->nth_soln, uNot, i+1, " &");
+			cout << gamma << " &" << endl;
             break;
         }
 		latexOutput(*env->nth_soln, uNot, i+1, " &");
+		cout << gamma << " &" << endl;
     }
 	return uNot;
 }
@@ -281,4 +273,86 @@ double findLambda(mat A, vec P, double O, mat B, vec u_guess, vec uNot){
 	}
 	log_err(a3);
 	return a3;
+}
+
+// This function is to test if we can increase the range of convergance using
+// + a^2 ||u|| regularization
+vec reg1(soln_env *env, vec u_guess, double gamma){
+    int n = (*env->nth_soln).rows();
+    int m = (*env->initial_params).size();
+    int lt = (*env->time).size();
+    const mat measurements = *env->nth_soln;
+
+    vec uNot(m);
+    uNot = *env->initial_params;
+    mat bob;
+    mat U(n*m, n*lt);
+    mat A(m,m), AT(m,m);
+    mat B = mat::Identity(m, m);
+    vec P(m);
+    vec du(m);
+    double TOL = 0.00001;
+    int LIMIT = 1500;
+    cout.precision(10);
+	norm(u_guess);
+	latexOutput(*env->nth_soln, uNot, 0, " &");
+    for(int i = 0; i<LIMIT; i++)
+    {
+        bob = qLinearRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, measurements);
+        U = reshape(bob.bottomRows(n*m), m, n*lt);
+        *env->nth_soln = bob.topRows(n);
+        A = findA(*env->time, U, m);
+        P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
+		du = inverse(A + gamma*B)*(P);
+
+		uNot += du;
+        if(du.norm() < TOL || std::isnan(du.norm())){
+			latexOutput(*env->nth_soln, uNot, i+1, " &");
+			cout << gamma << " &" << endl;
+            break;
+        }
+		latexOutput(*env->nth_soln, uNot, i+1, " &");
+		cout << gamma << " &" << endl;
+    }
+	return uNot;
+}
+
+// This function is to test if we can increase the range of convergance using
+// + a^2 ||u|| regularization
+vec reg2(soln_env *env, vec u_guess){
+    int n = (*env->nth_soln).rows();
+    int m = (*env->initial_params).size();
+    int lt = (*env->time).size();
+    const mat measurements = *env->nth_soln;
+
+    vec uNot(m);
+    uNot = *env->initial_params;
+    mat bob;
+    mat U(n*m, n*lt);
+    mat A(m,m), AT(m,m);
+    mat B = mat::Identity(m, m);
+    vec P(m);
+    vec du(m);
+    double TOL = 0.00001, g, O;
+    int LIMIT = 1500;
+    cout.precision(10);
+
+	latexOutput(*env->nth_soln, uNot, 0, " &");
+    for(int i = 0; i<LIMIT; i++)
+    {
+        bob = qLinearRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, measurements);
+        U = reshape(bob.bottomRows(n*m), m, n*lt);
+        *env->nth_soln = bob.topRows(n);
+        A = findA(*env->time, U, m);
+        P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
+		O = findO(reshape(measurements - *env->nth_soln, 1, n*lt).row(0), *env->time);
+		g = findLambda(A, P, O, B, u_guess, uNot);
+		uNot += inverse(A + g*B)*P;
+        if(du.norm() < TOL || std::isnan(du.norm())){
+			latexOutput(*env->nth_soln, uNot, i+1, " \\\\");
+            break;
+        }
+		latexOutput(*env->nth_soln, uNot, i+1, " &");
+    }
+	return uNot;
 }

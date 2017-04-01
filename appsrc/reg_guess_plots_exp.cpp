@@ -92,6 +92,6 @@ int main(int argc, char *argv[])
 	}
 	lyNot.head(n) = msmt.col(0);
 	// getNumDivs is where the function should break and print graph values
-	reg_guess_plots(env, u, in.getUGuess(), in.getNumDivs());
+	reg_guess_plots(env, u, in.getUGuess(), in.getNoise(), in.getNumDivs());
 	return 0;
 }
