@@ -29,7 +29,7 @@ mat rungekutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot){
 	return w;
 }
 
-mp_mat mp_rungekutta4(string fname, const mp_vec& time, const mp_vec& u, const mp_vec& yNot){
+/*mp_mat mp_rungekutta4(string fname, const mp_vec& time, const mp_vec& u, const mp_vec& yNot){
 	thesis::mpnonlinearOdes no;
 	mp_sys fhandle = no.mpOdeFuncMap[fname];
 
@@ -59,7 +59,7 @@ mp_mat mp_rungekutta4(string fname, const mp_vec& time, const mp_vec& u, const m
 	}
 
 	return w;
-}
+}*/
 
 mat qLinearRungeKutta4(string fname, const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
 {
@@ -150,6 +150,31 @@ double simpson(const vec& t, const vec& x)
 
     area = h/3 * area;
 	return area;
+}
+
+struct curve_params { vec t; vec x;};
+
+double f (double t, void * params) {
+	struct curve_params * p = (struct curve_params *) params;
+	vec tvec = (p->t);
+	vec x = (p->x);
+	thesis::spline sim(tvec,x);
+	return sim.interpolate(t);
+}
+
+double gsl_integration(const vec& t, const vec& x)
+{
+	gsl_integration_workspace * w = gsl_integration_workspace_alloc (1000);
+	struct curve_params params = {t,x};
+	double result, error;
+	gsl_function F;
+	F.function = &f;
+	F.params = &params;
+
+	gsl_integration_qags (&F, t(0), t(t.size()-1), 0, 1e-7, 1000, w, &result, &error);
+	gsl_integration_workspace_free (w);
+
+	return result;
 }
 
 mat der(const mat& dx, const double& dt){

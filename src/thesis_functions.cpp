@@ -60,6 +60,7 @@ double innerProd(const vec& u1, const vec& u2, const vec& time)
 	}
 
 	return simpson(time, aij);
+	//return gsl_integration(time, aij);
 }
 
 vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
@@ -78,12 +79,8 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	mat bob;
 	mat U(n*m, n*lt);
 	mat A(m,m), AT(m,m);
-	mat B = ((*env->time)(lt-1) - (*env->time)(0))*mat::Identity(m, m);
 	mat I = mat::Identity(m, m);
-	for(int i=0; i<m-1; i++){
-		//B(i+1,i) = -1;
-	}
-	mat BT = B.transpose();
+
 	vec P(m);
 	vec du(m), u1(m), u2(m);
 	//double gamma;
@@ -91,7 +88,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	//params.A = &A;
 	//params.P = &P;
 
- 	double rnorm, snorm, lambda=0.05;
+ 	double O, rnorm, snorm, lambda;
 	gsl_matrix *qr = gsl_matrix_alloc(m,m);
 	gsl_vector *b = gsl_vector_alloc(m);
 	gsl_vector *x = gsl_vector_alloc(m);
@@ -105,9 +102,8 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	//int signum;
 	//double now, last, temp = gamma;
 
-	int LIMIT = 500;
+	int LIMIT = 750;
 	if(regs){
-		//TOL = .0001;
 		for(int j = 0; j<numdivs; j++)
 		{
 			if(j == numdivs-1){
@@ -118,7 +114,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					*env->nth_soln = bob.topRows(n);
 					A = findA(*env->time, U, m);
 					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
-					//O = findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0));
+					O = findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0));
 					//cout << "cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 
 					/*matToGslMat(A, qr);
@@ -148,7 +144,11 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					// }else{
 					// 	gsl_multilarge_linear_solve (0.0, x, &rnorm, &snorm, w);
 					// }
-					du = inverse(A + lambda*B.transpose()*B)*P;
+					lambda = 0.0005;
+					//lambda = alpha(A, P, uNot);
+					//lambda = alpha(A, P, O);
+					du = inverse(A + lambda*I)*P;
+					cout << "du = " << du.transpose() << endl;
 					//du = gslVecToVec(x);
 
 					//gamma = (double) (du.transpose()*((AT*A)+lambda*lambda*B)*du)/(P.transpose()*A*du);
@@ -313,7 +313,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					uNot += du;
 					latexOutput(*env->nth_soln, uNot, i+1, " &");
 					cout << i << endl;
-					if(du.norm() < 0.00001 || std::isnan(du.norm())){
+					if(du.norm() < TOL || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
 						log_err("Function did not converge.");
@@ -337,7 +337,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					du = A.inverse()*P;
 					uNot += du;
 					latexOutput(*env->nth_soln, uNot, i+1, " &");
-					if(du.norm() < 0.00001 || std::isnan(du.norm())){
+					if(du.norm() < TOL || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
 						log_err("Function did not converge.");

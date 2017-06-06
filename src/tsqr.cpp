@@ -15,8 +15,8 @@ namespace thesis{
 		gslx = gsl_vector_alloc(num_obs);
 		gsly = gsl_vector_alloc(num_obs);
 		c    = gsl_vector_alloc(order);
-		lambda = 0.0;
-		divs = 1;
+		lambda = 0.00;
+		divs = 8;
 	}
 
 	tsqr::~tsqr()
@@ -56,29 +56,29 @@ namespace thesis{
 
 	void tsqr::generate_xi(double xi, gsl_vector *gslv)
 	{
-        /*gsl_vector_set(gslv, 0, 1.0);
-		for (size_t i=1; i<order; i++){
+        gsl_vector_set(gslv, 0, 1.0);
+		for (size_t i = 1; i<order; i++){
 			gsl_vector_set(gslv, i, pow(xi,i));
-		}*/
-
+		}
+		/*
 		for (size_t i=0; i<order/2; i++){
 			gsl_vector_set(gslv, i, cos(xi*i/divs));
 			gsl_vector_set(gslv, i+order/2, sin(xi*i/divs));
-		}
+		}*/
 	}
 
 	double tsqr::interpolate(double xi)
 	{
-		/*double y = gsl_vector_get(c,0);
-		for(int i = 1; i<order; i++){
+		double y = gsl_vector_get(c,0);
+		for(size_t i = 1; i<order; i++){
 			y += gsl_vector_get(c,i)*pow(xi,i);
-		}*/
+		}
 
-		double y = 0.0;
+		/*double y = 0.0;
 		for (size_t i=0; i<order/2; i++){
 			y += gsl_vector_get(c,i)*cos(xi*i/divs);
 			y += gsl_vector_get(c,i+order/2)*sin(xi*i/divs);
-		}
+		}*/
 
 		return y;
 	}

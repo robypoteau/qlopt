@@ -100,7 +100,7 @@ int main(int argc, char *argv[])
 	}
 	lyNot.head(n) = msmt.col(0);
 	//getNoise is being used to acquire a regularization parameter
-	reg1(env, in.getUGuess(), in.getNoise());
+	reg1(env, in.getNoise());
 	latexOutput(measure, u, 0, " \\\\");
 	cout << " \\\\" << endl;
 	return 0;

@@ -44,7 +44,9 @@ namespace thesis{
 		static mat eight_part_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time);
 		*/
 		static mat toggle_switch(const double& t, const vec& x, const vec& u);
-		static mat toggle_switch_noise(const double& t, const vec& x, const vec& u);
+		static mat toggle_switch_config1(const double& t, const vec& x, const vec& u);
+		static mat toggle_switch_config2(const double& t, const vec& x, const vec& u);
+		static mat toggle_switch_config3(const double& t, const vec& x, const vec& u);
 		static mat repressilator(const double& t, const vec& x, const vec& u);
 		static mat general_repressilator(const double& t, const vec& x, const vec& u);
 	};

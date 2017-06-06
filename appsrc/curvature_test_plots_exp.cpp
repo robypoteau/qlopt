@@ -9,10 +9,10 @@
 #include <misc.h>
 #include <nonlinear_odes.h>
 #include <numerical_integration.h>
+//#include <thesis_functions.h>
 #include <regularization.h>
 #include <input.h>
 #include <bspline.h>
-#include <dbg.h>
 
 using namespace thesis;
 
@@ -51,22 +51,15 @@ int main(int argc, char *argv[])
 	mat measure2;
 	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
 
+
 	spline spl_msmtRow[n];
 	size_t ncoeffs = 12;
 	size_t order = 4;
 	bspline msmtRows(order, ncoeffs, lt);
 
-	//size_t order = in.getNcoeffs();
-    //lsquares lsq_msmt(times.size(), order);
-    //tsqr lsq_msmt(times.size(), order);
-    //nnls lsq_msmt(times.size(), order);
-    //logittsqr lsq_msmt(times.size(), order);
-	//expo_tsqr lsq_msmt(times);
-
 	mat msmt(n,lt);
 
-	vec du(m), u1(m), u2;
-	u2 = uNot;
+	vec du(m);
 
 	vec lyNot(n*(m+1));
 	lyNot.fill(0);
@@ -80,10 +73,7 @@ int main(int argc, char *argv[])
 	env->nth_soln = &msmt;
 	env->measurements = &measure;
 
-	timelatexOutput(t, " &", measure.rows(), u.size());
-	cout << "\\lambda &" << endl;
-
-	if(in.useBSpline() == true){
+	if(false){
 		for(int i=0; i<n; i++){
 			msmtRows.update(times, measure2.row(i));
 			//lsq_msmt.update(times, measure2.row(i));
@@ -101,16 +91,7 @@ int main(int argc, char *argv[])
 		}
 	}
 	lyNot.head(n) = msmt.col(0);
-
-	//getNoise is being used to acquire a regularization parameter
-	u1 = in.getUGuess();
-	u1 = reg_guess(env, u1, in.getNoise());
-	latexOutput(measure, u, 0, " \\\\");
-	cout << " \\\\" << endl << endl;
-	uNot = u1;
-
-	reg1(env, 0.0);
-	latexOutput(measure, u, 0, " \\\\");
-	cout << " \\\\" << endl << endl;
+	// getNumDivs is where the function should break and print graph values
+	curvature_test_plots(env, in.getNumDivs());
 	return 0;
 }

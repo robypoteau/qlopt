@@ -14,7 +14,7 @@
 #include <input.h>
 #include <bspline.h>
 //#include <least_squares.h>
-//#include <tsqr.h>
+#include <tsqr.h>
 //#include <nnls.h>
 //#include <logittsqr.h>
 //#include <expo_tsqr.h>
@@ -87,9 +87,9 @@ int main(int argc, char *argv[])
 	//check(0 < lt-order-1, "number of coeffs is negative");
 	bspline msmtRows(order, ncoeffs, lt);
 
-	//size_t order = in.getNcoeffs();
+	size_t lsorder = in.getNcoeffs();
     //lsquares lsq_msmt(times.size(), order);
-    //tsqr lsq_msmt(times.size(), order);
+    tsqr lsq_msmt(times.size(), lsorder);
     //nnls lsq_msmt(times.size(), order);
     //logittsqr lsq_msmt(times.size(), order);
 	//expo_tsqr lsq_msmt(times);
@@ -125,11 +125,11 @@ int main(int argc, char *argv[])
 		if(in.isNoisy() == true){
 			measure2 = noise(measure, in.getNoise(), q+badrun);
 			for(int i=0; i<n; i++){
-				msmtRows.update(times, measure2.row(i));
-				//lsq_msmt.update(times, measure2.row(i));
+				//msmtRows.update(times, measure2.row(i));
+				lsq_msmt.update(times, measure2.row(i));
 				for(int j = 0; j<lt; j++){
-					msmt(i,j) = msmtRows.interpolate(t(j));
-					//lsq_msmt.interpolate(t(j));
+					//msmt(i,j) = msmtRows.interpolate(t(j));
+					msmt(i,j) = lsq_msmt.interpolate(t(j));
 				}
 			}
 		}else{

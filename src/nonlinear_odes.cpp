@@ -27,7 +27,9 @@ namespace thesis{
 		odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
 		//qLinFuncMap["eight_part_linearization"] = nonlinearOdes::eight_part_linearization;
 		odeFuncMap["toggle_switch"] = nonlinearOdes::toggle_switch;
-		odeFuncMap["toggle_switch_noise"] = nonlinearOdes::toggle_switch_noise;
+		odeFuncMap["toggle_switch_config1"] = nonlinearOdes::toggle_switch_config1;
+		odeFuncMap["toggle_switch_config2"] = nonlinearOdes::toggle_switch_config2;
+		odeFuncMap["toggle_switch_config3"] = nonlinearOdes::toggle_switch_config3;
 		odeFuncMap["repressilator"] = nonlinearOdes::repressilator;
 		odeFuncMap["general_repressilator"] = nonlinearOdes::general_repressilator;
 	}
@@ -876,21 +878,8 @@ namespace thesis{
 
 	mat nonlinearOdes::toggle_switch(const double& t, const vec& x, const vec& u)
 	{
-		/*
-		double kL1 = u(0);
-		double kL2 = u(1);
-		double KT = 10.0;
-		double nT = u(2);
-		double dL1 = u(3);
-		double dL2 = u(4);
+		(void)t;
 
-		double kT1 = u(5);
-		double kT2 = u(6);
-		double KL = 10.0;
-		double nL = u(7);
-		double dT1 = u(8);
-		double dT2 = u(9);
-		*/
 		double kL1 = u(0);
 		double kL2 = u(1);
 		double KT = u(2);
@@ -913,33 +902,89 @@ namespace thesis{
 
 		return result;
 	}
-	mat nonlinearOdes::toggle_switch_noise(const double& t, const vec& x, const vec& u)
+	mat nonlinearOdes::toggle_switch_config1(const double& t, const vec& x, const vec& u)
 	{
+		(void)t;
+
 		double kL1 = u(0);
 		double kL2 = u(1);
 		double KT = u(2);
-		double nT = 2.0;
+		double nT = 2;
 		double dL1 = u(3);
 		double dL2 = u(4);
 
 		double kT1 = u(5);
 		double kT2 = u(6);
 		double KL = u(7);
-		double nL = 2.0;
+		double nL = 2;
 		double dT1 = u(8);
 		double dT2 = u(9);
+
 
 		mat result(4,1);
 		result << 	kL1*pow(KT,nT)/(pow(KT,nT) + pow(x(3),nT)) - dL1*x(0),
 					kL2*x(0) - dL2*x(1),
-					kT1*pow(KL,nL)/(pow(KL,nL) + pow(x(1),nL)) - dT1*x(2),
+					kT1/(1 + pow(x(1)/KL,nL)) - dT1*x(2),
 					kT2*x(2) - dT2*x(3);
 
 		return result;
 	}
+	mat nonlinearOdes::toggle_switch_config2(const double& t, const vec& x, const vec& u)
+	{
+		(void)t;
 
+		double kL1 = u(0);
+		double kL2 = u(1);
+		double KTnT = u(2);
+		double nT = 2;
+		double dL1 = u(3);
+		double dL2 = u(4);
+
+		double kT1 = u(5);
+		double kT2 = u(6);
+		double KLnL = u(7);
+		double nL = 2;
+		double dT1 = u(8);
+		double dT2 = u(9);
+
+		mat result(4,1);
+		result << 	kL1/(1 + pow(x(3),nT)/KTnT) - dL1*x(0),
+					kL2*x(0) - dL2*x(1),
+					kT1/(1 + pow(x(1),nL)/KLnL) - dT1*x(2),
+					kT2*x(2) - dT2*x(3);
+
+		return result;
+	}
+	mat nonlinearOdes::toggle_switch_config3(const double& t, const vec& x, const vec& u)
+	{
+		(void)t;
+
+		double kL1 = u(0);
+		double kL2 = u(1);
+		double KTnT = u(2);
+		double nT = u(3);
+		double dL1 = u(4);
+		double dL2 = u(5);
+
+		double kT1 = u(6);
+		double kT2 = u(7);
+		double KLnL = u(8);
+		double nL = u(9);
+		double dT1 = u(10);
+		double dT2 = u(11);
+
+
+		mat result(4,1);
+		result << 	kL1/(1 + pow(x(3),nT)/KTnT) - dL1*x(0),
+					kL2*x(0) - dL2*x(1),
+					kT1/(1 + pow(x(1),nL)/KLnL) - dT1*x(2),
+					kT2*x(2) - dT2*x(3);
+
+		return result;
+	}
 	mat nonlinearOdes::repressilator(const double& t, const vec& x, const vec& u)
 	{
+		(void) t;
 		double a = u(0);
 		double a0 = u(1);
 		double n = u(2);
@@ -958,6 +1003,12 @@ namespace thesis{
 
 	mat nonlinearOdes::general_repressilator(const double& t, const vec& x, const vec& u)
 	{
+		/*int maxdiv=1, divnum=1;
+		if(u.size() > 15){
+			maxdiv = u(15);
+			divnum = u(16);
+		}*/
+		(void)t;
 		double a = u(0);
 		double b = u(1);
 		double n = u(2);

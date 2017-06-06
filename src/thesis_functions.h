@@ -19,7 +19,7 @@
 #include <numerical_integration.h>
 #include <latex_output.h>
 #include <nonlinear_odes.h>
-#include <regs.h>
+#include <regularization.h>
 #include <nonlinear_odes.h>
 
 mat findA(const vec& t, const mat& U, int m);
