@@ -280,7 +280,7 @@ vec reg1(soln_env *env, double gamma){
     mat B = mat::Identity(m, m);
     vec P(m);
     vec du(m);
-	du.fill(0.25);
+	//du.fill(0.25);
     double TOL = 0.00001;
     int LIMIT = 1500;
     cout.precision(7);
@@ -292,11 +292,11 @@ vec reg1(soln_env *env, double gamma){
         *env->nth_soln = bob.topRows(n);
         A = findA(*env->time, U, m);
         P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
-		//du = inverse(A + gamma*B)*(P);
+		du = inverse(A + gamma*B)*(P);
 
-		du = dtregs(0.0, du, A, P);
-		log_info(norm(du));
-		log_info(norm(inverse(A + gamma*B)*(P)));
+		//du = dtregs(0.0, du, A, P);
+		//log_info(norm(du));
+		//log_info(norm(inverse(A + gamma*B)*(P)));
 
 		uNot += du;
         if(du.norm() < TOL || std::isnan(du.norm())){
@@ -570,7 +570,7 @@ vec reg_plot_and_finda(soln_env *env, vec u){
     vec P(m);
     vec du(m);
 
-    double TOL = 0.00001, gamma;
+    double TOL = 0.00001, gamma = 0.005;
     int LIMIT = 1500;
     cout.precision(7);
 	latexOutput(*env->nth_soln, uNot, 0, " &");
@@ -582,8 +582,10 @@ vec reg_plot_and_finda(soln_env *env, vec u){
 		A = findA(*env->time, U, m);
 		P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
 
-		gamma = findGamma(A, P, uNot, u);
-		note(gamma);
+		if(i % 3 == 0){
+			gamma = findGamma(A, P, uNot, u);
+		}
+
 		du = inverse(A + gamma*I)*P;
 
 		output_uNot_u_fig(*env->ode, A, P, uNot, u, i);

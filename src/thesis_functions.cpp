@@ -144,7 +144,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					// }else{
 					// 	gsl_multilarge_linear_solve (0.0, x, &rnorm, &snorm, w);
 					// }
-					lambda = 0.005;
+					lambda = 0.00001;
 					//lambda = alpha(A, P, uNot);
 					//lambda = alpha(A, P, O);
 					du = inverse(A + lambda*I)*P;

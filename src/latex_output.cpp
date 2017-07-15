@@ -257,7 +257,11 @@ void output_uNot_u_fig(string name, mat A, vec P, vec uNot, vec u, int N){
     outfile << "legend style={font=\\tiny}" << endl;
     outfile << "]" << endl;
     outfile << "\\addplot[color=red] coordinates {" << endl;
-    for(int j = -14; j<2; j++){
+
+	total = uNot + A.inverse()*P - u;
+	outfile << "(" << 0.0 << "," << total.norm() << ")" << endl;
+
+    for(int j = -10; j<3; j++){
         gamma = 1*pow(10,j);
         dg = (1*pow(10,j)-1*pow(10,j-1))/dvs;
         for(int k = 0; k<(dvs+1); k++){

@@ -23,7 +23,7 @@ TESTS=$(patsubst %.cpp,%,$(TEST_SRC))
 TARGET=$(BUILDDIR)/lib$(PRJNAME).a
 SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
 
-all: $(TARGET) $(SO_TARGET) $(EXE) tests
+all: $(TARGET) $(SO_TARGET) $(EXE)
 
 dev: CXXFLAGS=-c -g -Wall -Wextra -std=c++11
 dev: all
@@ -56,7 +56,7 @@ $(SO_TARGET): $(TARGET)
 	$(CC) -shared -o $@ $(OBJ)
 
 .PHONY: tests
-tests: CXXFLAGS=Ibuild
+tests: CXXFLAGS=-I$(BUILDDIR) -I$(SRCDIR)
 tests: LIBS=-L$(BUILDDIR) -l$(PRJNAME) -lgsl -lgslcblas -lboost_system -lboost_unit_test_framework
 tests: $(TESTS)
 	export LD_LIBRARY_PATH=$(PWD)/$(BUILDDIR)
