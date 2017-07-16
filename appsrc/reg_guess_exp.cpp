@@ -49,7 +49,7 @@ int main(int argc, char *argv[])
 	// Create measurement and add noise if necessary
 	mat measure;
 	mat measure2;
-	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
+	measure = rungekutta4(system, times, u, yNot);
 
 	spline spl_msmtRow[n];
 	size_t ncoeffs = 12;

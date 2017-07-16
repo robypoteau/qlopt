@@ -236,3 +236,86 @@ void tablefooter(){
 		 <<	"\\label{}\n" \
 		 << "\\end{table}" << endl;
 }
+
+void output_uNot_u_fig(string name, mat A, vec P, vec uNot, vec u, int N){
+    ofstream outfile;
+    string filename = "tiks/figs/" + name + std::to_string(N+1) + ".tex";
+    outfile.open(filename);
+
+    double gamma, dg, dvs = 100;
+    int m = P.size();
+    vec du(m), total(m);
+    mat I = mat::Identity(m, m);
+    mat B(m,m);
+
+    outfile << "\\begin{figure}" << endl;
+    outfile << "\\begin{tikzpicture}" << endl;
+    outfile << "\\begin{semilogxaxis}[" << endl;
+    outfile << "xlabel=$\\alpha$," << endl;
+    outfile << "ylabel=$| \\vec{u}_{N-1} + \\Delta \\vec{u}_N  - \\vec{u}|$," << endl;
+    outfile << "grid=major," << endl;
+    outfile << "legend style={font=\\tiny}" << endl;
+    outfile << "]" << endl;
+    outfile << "\\addplot[color=red] coordinates {" << endl;
+    for(int j = -14; j<2; j++){
+        gamma = 1*pow(10,j);
+        dg = (1*pow(10,j)-1*pow(10,j-1))/dvs;
+        for(int k = 0; k<(dvs+1); k++){
+            B = A + gamma*I;
+
+            du = B.inverse()*P;
+            total = uNot + du - u;
+            outfile << "(" << gamma << "," << total.norm() << ")" << endl;
+            gamma += dg;
+        }
+    }
+    outfile << "};" << endl;
+    outfile << "\\end{semilogxaxis}" << endl;
+    outfile << "\\end{tikzpicture}" << endl;
+    outfile << "\\caption{Graph of the $\\alpha$ vs. $| \\vec{u}_{N-1} + \\Delta \\vec{u}_N  - \\vec{u}|$ at iteration $" << N+1 << "$.} " << endl;
+    outfile << "\\label{fig:" << name << N+1 << "}" << endl;
+    outfile << "\\end{figure}" << endl;
+
+    outfile.close();
+}
+
+void g_output_uNot_u_fig(string name, mat A, vec P, vec uNot, vec u, vec ug, int N){
+    ofstream outfile;
+    string filename = "tiks/figs/" + name + std::to_string(N+1) + ".tex";
+    outfile.open(filename);
+
+    double gamma, dg, dvs = 100;
+    int m = P.size();
+    vec du(m), total(m);
+    mat I = mat::Identity(m, m);
+    mat B(m,m);
+
+    outfile << "\\begin{figure}" << endl;
+    outfile << "\\begin{tikzpicture}" << endl;
+    outfile << "\\begin{semilogxaxis}[" << endl;
+    outfile << "xlabel=$\\alpha$," << endl;
+    outfile << "ylabel=$| \\vec{u}_{N-1} + \\Delta \\vec{u}_N  - \\vec{u}|$," << endl;
+    outfile << "grid=major," << endl;
+    outfile << "legend style={font=\\tiny}" << endl;
+    outfile << "]" << endl;
+    outfile << "\\addplot[color=red] coordinates {" << endl;
+    for(int j = -14; j<2; j++){
+        gamma = 1*pow(10,j);
+        dg = (1*pow(10,j)-1*pow(10,j-1))/dvs;
+        for(int k = 0; k<(dvs+1); k++){
+            B = A + gamma*I;
+            du = B.inverse()*(P+gamma*(ug - uNot));
+            total = uNot + du - u;
+            outfile << "(" << gamma << "," << total.norm() << ")" << endl;
+            gamma += dg;
+        }
+    }
+    outfile << "};" << endl;
+    outfile << "\\end{semilogxaxis}" << endl;
+    outfile << "\\end{tikzpicture}" << endl;
+    outfile << "\\caption{Graph of the $\\alpha$ vs. $| \\vec{u}_{N-1} + \\Delta \\vec{u}_N  - \\vec{u}|$ at iteration $" << N+1 << "$.} " << endl;
+    outfile << "\\label{fig:" << name << N+1 << "}" << endl;
+    outfile << "\\end{figure}" << endl;
+
+    outfile.close();
+}

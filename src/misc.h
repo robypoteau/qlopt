@@ -17,6 +17,7 @@ typedef Matrix<double, Dynamic, Dynamic, RowMajor> mat;
 typedef Matrix<mpreal, Dynamic, 1> mp_vec;
 typedef Matrix<mpreal, Dynamic, Dynamic, RowMajor> mp_mat;
 
+typedef double (*functype)(double t, void *params);
 typedef mat (*sys)(const double& t, const vec& x, const vec& u);
 typedef mp_mat (*mp_sys)(const mpreal& t, const mp_vec& x, const mp_vec& u);
 

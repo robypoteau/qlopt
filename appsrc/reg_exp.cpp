@@ -48,19 +48,12 @@ int main(int argc, char *argv[])
 	// Create measurement and add noise if necessary
 	mat measure;
 	mat measure2;
-	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
+	measure = rungekutta4(system, times, u, yNot);
 
 	spline spl_msmtRow[n];
 	size_t ncoeffs = 12;
 	size_t order = 4;
 	bspline msmtRows(order, ncoeffs, lt);
-
-	//size_t order = in.getNcoeffs();
-    //lsquares lsq_msmt(times.size(), order);
-    //tsqr lsq_msmt(times.size(), order);
-    //nnls lsq_msmt(times.size(), order);
-    //logittsqr lsq_msmt(times.size(), order);
-	//expo_tsqr lsq_msmt(times);
 
 	mat msmt(n,lt);
 

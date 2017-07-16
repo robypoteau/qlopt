@@ -70,7 +70,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	int lt = (*env->time).size();
 
 	int divs = (int) (lt/numdivs+1);
-	double TOL = .00001;
+	double TOL = .0001;
 
 	const mat measurements = *env->nth_soln;
 
@@ -144,7 +144,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					// }else{
 					// 	gsl_multilarge_linear_solve (0.0, x, &rnorm, &snorm, w);
 					// }
-					lambda = 0.0005;
+					lambda = 0.005;
 					//lambda = alpha(A, P, uNot);
 					//lambda = alpha(A, P, O);
 					du = inverse(A + lambda*I)*P;

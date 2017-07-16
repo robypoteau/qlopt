@@ -11,8 +11,8 @@ for i in {1..2}; do
 	-y 5,1,10,1,15,1 \
 	-k 4 \
 	-p 16 \
-	-n $i \
 	-r \
 	> results/gr_results/gr$i.txt
 done
 echo "Finished Running General Repressilator Script"
+#	-n $i \

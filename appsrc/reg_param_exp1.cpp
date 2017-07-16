@@ -9,7 +9,6 @@
 #include <misc.h>
 #include <nonlinear_odes.h>
 #include <numerical_integration.h>
-//#include <thesis_functions.h>
 #include <regularization.h>
 #include <input.h>
 #include <bspline.h>
@@ -49,20 +48,13 @@ int main(int argc, char *argv[])
 	// Create measurement and add noise if necessary
 	mat measure;
 	mat measure2;
-	measure = rungekutta4(no.odeFuncMap[system], times, u, yNot);
+	measure = rungekutta4(system, times, u, yNot);
 
 
 	spline spl_msmtRow[n];
 	size_t ncoeffs = 12;
 	size_t order = 4;
 	bspline msmtRows(order, ncoeffs, lt);
-
-	//size_t order = in.getNcoeffs();
-    //lsquares lsq_msmt(times.size(), order);
-    //tsqr lsq_msmt(times.size(), order);
-    //nnls lsq_msmt(times.size(), order);
-    //logittsqr lsq_msmt(times.size(), order);
-	//expo_tsqr lsq_msmt(times);
 
 	mat msmt(n,lt);
 
@@ -79,7 +71,6 @@ int main(int argc, char *argv[])
 	env->initial_params = &uNot;
 	env->nth_soln = &msmt;
 	env->measurements = &measure;
-	lyNot.head(n) = msmt.col(0);
 
 	if(in.useBSpline() == true){
 		for(int i=0; i<n; i++){
@@ -98,7 +89,8 @@ int main(int argc, char *argv[])
 			}
 		}
 	}
+	lyNot.head(n) = msmt.col(0);
 	// getNumDivs is where the function should break and print graph values
-	regparamexp1a(env, u, in.getNumDivs());
+	regparamexp1a(env, u, in.getNoise(), in.getNumDivs());
 	return 0;
 }

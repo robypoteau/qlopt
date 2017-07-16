@@ -1,6 +1,9 @@
 #include <numerical_integration.h>
 
-mat rungekutta4(sys fhandle, const vec& time, const vec& u, const vec& yNot){
+mat rungekutta4(string fname, const vec& time, const vec& u, const vec& yNot){
+	thesis::nonlinearOdes no;
+	sys fhandle = no.odeFuncMap[fname];
+
 	int N = time.size();
 
 	//number of equations
