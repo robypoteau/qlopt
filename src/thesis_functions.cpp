@@ -1,10 +1,16 @@
-#include <dbg.h>
 #include <thesis_functions.h>
-#include <glpk.h>
-#include <nonlinear_odes.h>
-#include <regs.h>
-#include <float.h>
-#include <Eigen/LU>
+#include <algorithm>    // std::max
+
+struct parameters{
+	gsl_multilarge_linear_workspace *w;
+	gsl_matrix * qr;
+	gsl_vector * b;
+
+	//mat *A;
+	//vec *P;
+	//double *O;
+	//vec *du;
+} params;
 
 mat findA(const vec& t, const mat& U, int m)
 {
@@ -33,6 +39,11 @@ vec findP(const vec& t, const mat& U, const vec& dx, int m)
 	return P;
 }
 
+double findO(const vec& t, const vec& dx)
+{
+	return innerProd(dx, dx, t);
+}
+
 double innerProd(const vec& u1, const vec& u2, const vec& time)
 {
 	int mid = time.size();
@@ -49,6 +60,7 @@ double innerProd(const vec& u1, const vec& u2, const vec& time)
 	}
 
 	return simpson(time, aij);
+	//return gsl_integration(time, aij);
 }
 
 vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
@@ -57,7 +69,7 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	int m = (*env->initial_params).size();
 	int lt = (*env->time).size();
 
-	int divs = (int) (lt/numdivs);
+	int divs = (int) (lt/numdivs+1);
 	double TOL = .0001;
 
 	const mat measurements = *env->nth_soln;
@@ -67,29 +79,31 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	mat bob;
 	mat U(n*m, n*lt);
 	mat A(m,m), AT(m,m);
-	mat B = ((*env->time)(lt-1) - (*env->time)(0))*mat::Identity(m, m);
-	for(int i=0; i<m-1; i++){
-		//B(i+1,i) = -1;
-	}
-	mat BT = B.transpose();
-	vec P(m);
-	vec du(m);
-	double gamma = 4.0;
+	mat I = mat::Identity(m, m);
 
-	gsl_matrix *gslA = gsl_matrix_alloc(m,m);
+	vec P(m);
+	vec du(m), u1(m), u2(m);
+	//double gamma;
+
+	//params.A = &A;
+	//params.P = &P;
+
+ 	double O, rnorm, snorm, lambda;
 	gsl_matrix *qr = gsl_matrix_alloc(m,m);
-	gsl_vector *tau = gsl_vector_alloc(m);
 	gsl_vector *b = gsl_vector_alloc(m);
 	gsl_vector *x = gsl_vector_alloc(m);
-	gsl_vector *residual = gsl_vector_alloc(m);
-	gsl_permutation *perm = gsl_permutation_alloc(m);
-	int signum;
-	double now, last, temp = gamma;
+	gsl_multilarge_linear_workspace *w \
+		= gsl_multilarge_linear_alloc(gsl_multilarge_linear_tsqr, m);
 
-	int LIMIT = 500;
+	params.w = w;
+	params.qr = qr;
+	params.b = b;
+
+	//int signum;
+	//double now, last, temp = gamma;
+
+	int LIMIT = 750;
 	if(regs){
-		//TOL = .01;
-		/*uNot = regularization(env);*/
 		for(int j = 0; j<numdivs; j++)
 		{
 			if(j == numdivs-1){
@@ -99,33 +113,58 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
 					*env->nth_soln = bob.topRows(n);
 					A = findA(*env->time, U, m);
-					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m); // cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
+					O = findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0));
+					//cout << "cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 
-					matToGslMat(A, gslA);
-					matToGslMat(A, qr);
+					/*matToGslMat(A, qr);
 					vecToGslVec(P, b);
 
-					if(A.fullPivHouseholderQr().rank() < m){
-						//log_err("A_N Matrix is Singular");
-						gsl_linalg_QR_decomp(qr, tau);
-						gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
-						//uNot(1) = NAN;
-						//break;
-					}else{
-						gsl_linalg_LU_decomp (qr, perm, &signum);
-						gsl_linalg_LU_solve (qr, perm, b, x);
-						gsl_linalg_LU_refine (gslA, qr, perm, b, x, residual);
-					}
-					du = gslVecToVec(x);
-					//du = A.inverse()*P;
+					gsl_multilarge_linear_reset(w);
+					gsl_multilarge_linear_accumulate(qr, b, w);
+					gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
+					*/
+
+					// cout << "No regs norm Au-P " << (norm(A*gslVecToVec(x)-P)) << endl;
+					// gamma = norm(A*gslVecToVec(x)-P);
+					// if(cond(A) > 1e-8 || A.fullPivHouseholderQr().rank() < m){
+					// 	lambda = 1.0;
+					// 	for(int k = 0; k<55; k++){
+					// 		gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
+					// 		u1 = gslVecToVec(x);
+					//
+					// 		cout << "Norm Au-P  " << (norm(A*u1-P)) << endl;
+					//
+					// 		if(norm(A*u1-P) < std::max(1.1*gamma,.0005)){
+					// 			break;
+					// 		}
+					// 		lambda = lambda/1.5;
+					// 	}
+					// 	du = u1;
+					// }else{
+					// 	gsl_multilarge_linear_solve (0.0, x, &rnorm, &snorm, w);
+					// }
+					lambda = 0.005;
+					//lambda = alpha(A, P, uNot);
+					//lambda = alpha(A, P, O);
+					du = inverse(A + lambda*I)*P;
+					cout << "du = " << du.transpose() << endl;
+					//du = gslVecToVec(x);
+
+					//gamma = (double) (du.transpose()*((AT*A)+lambda*lambda*B)*du)/(P.transpose()*A*du);
+					//cout << "gamma = "  << (du.transpose()*((AT*A)+lambda*lambda*B)*du)/((P.transpose()*A*du)) << endl;
+					//cout << "du = " << du.transpose() << endl;
+					//cout << "g*du = " << gamma*du.transpose() << endl;
+					//cout << "minimzed du = " << findGamma(1, &params) << endl;
 					uNot += du;
-					//latexOutput(*env->nth_soln, uNot, i+1, " &");
+					//cout << " u = " << uNot.transpose() << endl;
+					latexOutput(*env->nth_soln, uNot, i+1, " &");
 					if(du.norm() < TOL || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
 						note("u = ");
 						note(uNot);
-						if(du.norm() < 0.1){
+						if(du.norm() < TOL){
 							break;
 						}
 						else{
@@ -142,30 +181,37 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					U = reshape(bob.bottomRows(n*m), m, n*(j+1)*divs);
 					A = findA((*env->time).head((j+1)*divs), U, m);
 					P = findP((*env->time).head((j+1)*divs), U, reshape(measurements.leftCols((j+1)*divs) - bob.topRows(n), 1, n*(j+1)*divs).row(0), m);
+					//O = findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0));
 
-					//cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
-					//cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+					cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
+					cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
 
-					matToGslMat(A, gslA);
 					matToGslMat(A, qr);
 					vecToGslVec(P, b);
 
-					if(A.fullPivHouseholderQr().rank() < m){
-						//log_err("A_N Matrix is Singular");
-						gsl_linalg_QR_decomp(qr, tau);
-						gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
-						//uNot(1) = NAN;
-						//break;
-					}else{
-						gsl_linalg_LU_decomp (qr, perm, &signum);
-						gsl_linalg_LU_solve (qr, perm, b, x);
-						gsl_linalg_LU_refine (gslA, qr, perm, b, x, residual);
-						//du = dulp(A, P, uNot);
-					}
+					gsl_multilarge_linear_reset(w);
+					gsl_multilarge_linear_accumulate(qr, b, w);
+
+					// if(cond(A) > 1e-8 || A.fullPivHouseholderQr().rank() < m){
+					// 	lambda = 1.0;
+					// 	for(int k = 0; k<15; k++){
+					// 		gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
+					// 		u1 = gslVecToVec(x);
+					//
+					// 		if(norm(A*u1-P) < TOL){
+					// 			break;
+					// 		}
+					// 		lambda = lambda/2;
+					// 	}
+					// 	du = u1;
+					// }
+
+					gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
 					du = gslVecToVec(x);
-					//du = A.inverse()*P;
+
 					uNot += du;
-					//latexOutput(*env->nth_soln, uNot, i+1, " &");
+
+					latexOutput(*env->nth_soln, uNot, i+1, " &");
 					if(du.norm() < TOL || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
@@ -260,12 +306,14 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 					*env->nth_soln = bob.topRows(n);
 					A = findA(*env->time, U, m);
 					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
-					//cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+					//matToGslMat(A, qr);
+					//vecToGslVec(P, b);
 
 					du = A.inverse()*P;
 					uNot += du;
-					//latexOutput(*env->nth_soln, uNot, i+1, " &");
-					if(du.norm() < 0.00001 || std::isnan(du.norm())){
+					latexOutput(*env->nth_soln, uNot, i+1, " &");
+					cout << i << endl;
+					if(du.norm() < TOL || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
 						log_err("Function did not converge.");
@@ -288,8 +336,8 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 
 					du = A.inverse()*P;
 					uNot += du;
-					//latexOutput(*env->nth_soln, uNot, i+1, " &");
-					if(du.norm() < 0.00001 || std::isnan(du.norm())){
+					latexOutput(*env->nth_soln, uNot, i+1, " &");
+					if(du.norm() < TOL || std::isnan(du.norm())){
 						break;
 					} else if (i >= LIMIT-1){
 						log_err("Function did not converge.");
@@ -378,6 +426,58 @@ bool allpositive(const vec& x){
 
 double cond(const mat& A){
 	return A.norm()*A.inverse().norm();
+}
+
+/*double fn1 (double x, void * params)
+{
+	struct parameters * pParams = (struct parameters *) params;
+	mat A = *(pParams->A);
+	vec P = *(pParams->P);
+	double O = *(pParams->O);
+	vec du = *(pParams->du);
+
+	return O - 2*x*P.transpose()*du + x*x*du.transpose()*A*du;
+}*/
+
+double fn1 (double x, void * params)
+{
+	double rnorm, snorm;
+	struct parameters * pParams = (struct parameters *) params;
+	gsl_vector * du = gsl_vector_alloc((pParams->b)->size);
+	gsl_multilarge_linear_reset(pParams->w);
+	gsl_multilarge_linear_accumulate(pParams->qr, pParams->b, pParams->w);
+	gsl_multilarge_linear_solve (x, du, &rnorm, &snorm, pParams->w);
+
+	return rnorm;
+}
+
+double findGamma(double initialGuess, void * params)
+{
+	int status;
+	int iter = 0, max_iter = 100;
+	const gsl_min_fminimizer_type *T;
+	gsl_min_fminimizer *s;
+	double m = initialGuess;
+	double a = 0.0, b = 10000.0;
+	gsl_function F;
+	F.function = &fn1;
+	F.params = params;
+	T = gsl_min_fminimizer_brent;
+	s = gsl_min_fminimizer_alloc (T);
+	gsl_min_fminimizer_set (s, &F, m, a, b);
+
+	do
+	{
+		iter++;
+		status = gsl_min_fminimizer_iterate (s);
+		m = gsl_min_fminimizer_x_minimum (s);
+		a = gsl_min_fminimizer_x_lower (s);
+		b = gsl_min_fminimizer_x_upper (s);
+		status = gsl_min_test_interval (a, b, 0.001, 0.0);
+	}
+	while (status == GSL_CONTINUE && iter < max_iter);
+	gsl_min_fminimizer_free (s);
+	return m;
 }
 
 /*

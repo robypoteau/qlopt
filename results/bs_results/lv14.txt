@@ -1,8 +1,0 @@
-
-badrun 1
-
-badrun 2
-[NOTE] in src/thesis_functions.cpp:290: u = 
-[NOTE] in src/thesis_functions.cpp:291: 298.5714
-1.217443
-1.894278

@@ -64,6 +64,7 @@ namespace thesis{
 		for (size_t i=0; i<order; i++){
 			gsl_vector_set(gslv, i, pow(xi,i));
 		}
+		
 		/*for (size_t i=0; i<order/2; i++){
 			gsl_vector_set(gslv, i, cos(xi*i));
 			gsl_vector_set(gslv, i+order/2, sin(xi*i));
@@ -77,14 +78,17 @@ namespace thesis{
 		gsl_vector *temp = gsl_vector_alloc(order);
 		generate_xi(xi, temp);
 		gsl_multifit_linear_est(temp, c, cov, &yi, &yerr);
-		return yi;
-		*/
-		
+		return yi;*/
+
 		double y = gsl_vector_get(c,0);
 		for(int i = 1; i<order; i++){
 			y += gsl_vector_get(c,i)*pow(xi,i);
 		}
-		return y;
 
+		/*for (size_t i=0; i<order/2; i++){
+			gsl_vector_get(c, i)*cos(xi*i));
+			gsl_vector_set(c, i+order/2)*sin(xi*i));
+		}*/
+		return y;
 	}
 }

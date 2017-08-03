@@ -1,2 +1,7 @@
 #~/bin/bash
-./bin/prog -s gen_switch -t 0:.001:4 -i 0:.001:4 -u 10,1,2,1,1,10,1,2,1,1 -o 5,1,1,1,1,5,1,1,1,1 -y 20,20,20,20 -k 1 -p 4 -r > results/std.txt
+echo "Running Toggle Switch Script:"
+for i in {1..1}; do
+	echo $i
+	./bin/prog -s toggle_switch -t 0:.05:12 -i 0:.05:12 -u 1,1,10,2,1,1,1,1,10,2,1,1 -o .5,.5,5,.5,.5,.5,.5,.5,5,.5,.5,.5 -y 5,2,5,2 -k 5 -p 4 -n $i -r -b > results/ts_results/ts$i.txt
+done
+echo "Finished Running Toggle Switch Script"

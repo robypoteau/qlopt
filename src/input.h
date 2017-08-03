@@ -23,6 +23,7 @@ namespace thesis{
 		vec getTimeData();
 		vec getInterval();
 		vec getU();
+		vec getUGuess();
 		vec getUNot();
 		vec getYNot();
 		bool isRegularized();
@@ -167,6 +168,11 @@ namespace thesis{
 	vec input::getU()
 	{
 		return commaStringToVector(argv[extract((char*)"-u")]);
+	}
+
+	vec input::getUGuess()
+	{
+		return commaStringToVector(argv[extract((char*)"-g")]);
 	}
 
 	vec input::getUNot()

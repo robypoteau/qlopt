@@ -11,16 +11,16 @@ namespace thesis{
 	class tsqr {
 		private:
 			size_t num_obs;
-			size_t order;
+			size_t order, divs;
 			gsl_matrix *X;
 			gsl_vector *gslx, *gsly, *c;
 			gsl_multilarge_linear_workspace * w;
 			double rnorm, snorm, rcond, lambda;
-			
+
 			void vecToGslVec(const vec& v, gsl_vector *gslv);
 			void generateX(gsl_matrix *M, gsl_vector *gslv);
 			void generate_xi(double xi, gsl_vector *gslv);
-			
+
 		public:
 			tsqr(){}
 			~tsqr();
