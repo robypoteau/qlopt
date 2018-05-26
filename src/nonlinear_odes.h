@@ -6,22 +6,34 @@
 #include <misc.h>
 #include <spline.h>
 
+typedef mat  (*sys)(const double& t, const vec& x, const vec& u);
+typedef mat (*qsys)(const double& t, const vec& x, const vec& u, vector<thesis::spline> xn);
+
 namespace thesis{
 	class nonlinearOdes{
 		typedef mat (*odeFuncPtr)(const double& , const vec&, const vec&);
-		typedef mat (*qLinFuncPtr)(const double& , const vec&, const vec&, const mat&, const vec&);
-
+		typedef mat (*qLinFuncPtr)(const double& , const vec&, const vec&, std::vector<thesis::spline>);
+		static int counter;
+		
 	public:
 		map<string, odeFuncPtr> odeFuncMap;
 		map<string, qLinFuncPtr> qLinFuncMap;
 
 		nonlinearOdes();
-
+		static void setCounter(int val){
+			counter = val;
+		}
+		static int getCounter(){
+			return counter;
+		}
+		static void addCounter(){
+			counter++;
+		}
 		static mat lotka_volterra(const double& t, const vec& x, const vec& u);
 		static mat lotka4(const double& t, const vec& x, const vec& u);
 		static mat lorenz(const double& t, const vec& x, const vec& u);
 		static mat general_lv(const double& t, const vec& x, const vec& u);
-		//static mat lotka_volterra_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time);
+		static mat lotka_volterra_linearization(const double& t, const vec& x, const vec& u, std::vector<thesis::spline> xn);
 		static mat pielou(const double& t, const vec& x, const vec& u);
 		//static mat pielou_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time);
 		static mat angiogenesis(const double& t, const vec& x, const vec& u);
@@ -37,7 +49,7 @@ namespace thesis{
 		*/
 		static mat bistable_switch(const double& t, const vec& x, const vec& u);
 		static mat bistable_switch_two(const double& t, const vec& x, const vec& p);
-		//static mat bistable_switch_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time);
+		static mat bistable_switch_linearization(const double& t, const vec& x, const vec& u, std::vector<thesis::spline> xn);
 		static mat eight_part(const double& t, const vec& x, const vec& u);
 		static mat eight_part_spc(const double& t, const vec& x, const vec& u);
 		/*

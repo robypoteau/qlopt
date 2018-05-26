@@ -28,7 +28,10 @@ namespace thesis{
 		vec getYNot();
 		bool isRegularized();
 		bool isNoisy();
+		bool isSimulatedData();
 		double getNoise();
+		double getLambda();
+		int getRegs();
 		int getNcoeffs();
 		int getNumDivs();
 		int getNumberOfIterations();
@@ -122,6 +125,21 @@ namespace thesis{
 		return strtod(argv[extract((char*)"-n")],NULL);
 	}
 
+	double input::getLambda()
+	{
+		return strtod(argv[extract((char*)"-l")],NULL);
+	}
+
+	int input::getRegs()
+	{
+		if(input::isRegularized()){
+			return strtol(argv[extract((char*)"-r")],NULL,0);
+		}
+		else{
+			return 0;
+		}
+	}
+
 	int input::getNcoeffs()
 	{
 		return strtol(argv[extract((char*)"-p")],NULL,0);
@@ -138,6 +156,15 @@ namespace thesis{
 
 	bool input::isNoisy(){
 		if(extract((char*)"-n") != -1){
+			return true;
+		}
+		else{
+			return false;
+		}
+	}
+	
+	bool input::isSimulatedData(){
+		if(extract((char*)"-m") != -1){
 			return true;
 		}
 		else{

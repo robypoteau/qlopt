@@ -48,7 +48,7 @@ namespace thesis{
 		}
 	}
 
-	double spline::interpolate(double ti){
+	double spline::interpolate(const double& ti){
 		int i = 0;
 
 		for(int j=(n-2); j>0; j--){ // turn into a function

@@ -64,13 +64,13 @@ mat rungekutta4(string fname, const vec& time, const vec& u, const vec& yNot){
 	return w;
 }*/
 
-mat qLinearRungeKutta4(string fname, const vec& time, const vec& u, const vec& yNot, const mat& xNminus)
+mat qLinearRungeKutta4(string fname, const vec& time, const vec& u, const vec& yNot, std::vector<thesis::spline> Xn)
 {
 	thesis::nonlinearOdes no;
 	sys fhandle = no.odeFuncMap[fname];
 
 	int N = time.size();
-	int n = xNminus.col(1).size();
+	int n = Xn.size();
 
 	//number of equations
 	int m = yNot.size();
@@ -85,18 +85,62 @@ mat qLinearRungeKutta4(string fname, const vec& time, const vec& u, const vec& y
 
 	vec k1(m), k2(m), k3(m), k4(m);
 
-	thesis::spline Xn[n];
-	for(int i = 0; i < n; i++){
-		Xn[i].update(time, xNminus.row(i));
-	}
-
 	for (int i = 0; i<N-1; i++)
 	{
 
-		k1 = h*qlinear(fhandle, time(i),       w.col(i),        u, Xn, n);
-		k2 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k1/2, u, Xn, n);
-		k3 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k2/2, u, Xn, n);
-		k4 = h*qlinear(fhandle, time(i) + h,   w.col(i) + k3,   u, Xn, n);
+		k1 = h*qlinear(fhandle, time(i),       w.col(i),        u, Xn);
+		k2 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k1/2, u, Xn);
+		k3 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k2/2, u, Xn);
+		k4 = h*qlinear(fhandle, time(i) + h,   w.col(i) + k3,   u, Xn);
+
+		//cout <<"(" << i <<")\nk1"<< k1 << "\nk2:" << k2 << "\nk3:" << k3 << "\nk4:" << k4 <<endl;
+		w.col(i+1) = w.col(i) + (k1 + 2*(k2 + k3) + k4)/6;
+	}
+
+	return w;
+}
+
+mat qlOdeInt(string fname, const vec& time, const vec& u, const vec& yNot, std::vector<thesis::spline> xNminus)
+{
+	thesis::nonlinearOdes no;
+	qsys fhandle = no.qLinFuncMap[fname+"_linearization"];
+	//linearized_system_wrapper(fhandle);
+	int N = time.size();
+	//int n = xNminus.size();
+
+	//number of equations
+	int m = yNot.size();
+	
+	
+}
+
+mat qlRungeKutta4(string fname, const vec& time, const vec& u, const vec& yNot, std::vector<thesis::spline> xNminus)
+{
+	thesis::nonlinearOdes no;
+	qsys fhandle = no.qLinFuncMap[fname+"_linearization"];
+
+	int N = time.size();
+
+	//number of equations
+	int m = yNot.size();
+
+	//timestep
+	double h;
+
+	//init stuff
+	mat w(m, N);
+	w.fill(0);
+	w.col(0) = yNot;
+
+	vec k1(m), k2(m), k3(m), k4(m);
+
+	for (int i = 0; i<N-1; i++)
+	{
+		h  = time(i+1)-time(i);
+		k1 = h*fhandle(time(i-1),		w.col(i-1), u, xNminus);
+		k2 = h*fhandle(time(i-1) + h/2, w.col(i-1) + k1/2, u, xNminus);
+		k3 = h*fhandle(time(i-1) + h/2, w.col(i-1) + k2/2, u, xNminus);
+		k4 = h*fhandle(time(i-1) + h, 	w.col(i-1) + k3, u, xNminus);
 
 		//cout <<"(" << i <<")\nk1"<< k1 << "\nk2:" << k2 << "\nk3:" << k3 << "\nk4:" << k4 <<endl;
 		w.col(i+1) = w.col(i) + (k1 + 2*(k2 + k3) + k4)/6;
@@ -199,9 +243,10 @@ mat jac(sys f, double t, const mat& x, const mat& u, const double& h){
 	return fprime/(12*h);
 }
 
-mat qlinear(sys fhandle, const double& t, const vec& x, const vec& u, thesis::spline* Xn, int n)
+mat qlinear(sys fhandle, const double& t, const vec& x, const vec& u, std::vector<thesis::spline> Xn)
 {
 	int m = u.size();
+	int n = Xn.size();
 	double step = 5E-6;
 
 	vec xn1(n); // this is x_N-1

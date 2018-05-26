@@ -1,16 +1,6 @@
 #include <thesis_functions.h>
-#include <algorithm>    // std::max
 
-struct parameters{
-	gsl_multilarge_linear_workspace *w;
-	gsl_matrix * qr;
-	gsl_vector * b;
-
-	//mat *A;
-	//vec *P;
-	//double *O;
-	//vec *du;
-} params;
+int thesis::nonlinearOdes::counter = 0;
 
 mat findA(const vec& t, const mat& U, int m)
 {
@@ -63,14 +53,15 @@ double innerProd(const vec& u1, const vec& u2, const vec& time)
 	//return gsl_integration(time, aij);
 }
 
-vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
+output findActualParam(soln_env *env, const int regs=0, const int numdivs = 1)
 {
 	int n = (*env->nth_soln).rows();
 	int m = (*env->initial_params).size();
 	int lt = (*env->time).size();
-
+	
 	int divs = (int) (lt/numdivs+1);
-	double TOL = .0001;
+	double TOL = 1E-7;
+	double lambda = *env->lambda;
 
 	const mat measurements = *env->nth_soln;
 
@@ -80,277 +71,212 @@ vec findActualParam(soln_env *env, bool regs=false, const int numdivs = 1)
 	mat U(n*m, n*lt);
 	mat A(m,m), AT(m,m);
 	mat I = mat::Identity(m, m);
-
+	/*for(int i=0; i<m-1; i++){
+        I(i+1,i) = -1;
+    }
+	I = I.transpose()*I;*/
+	
 	vec P(m);
-	vec du(m), u1(m), u2(m);
-	//double gamma;
+	vec du(m), u1(m), u2(m);	
 
-	//params.A = &A;
-	//params.P = &P;
+ 	double O, objval, objval2;
+	
+	thesis::nonlinearOdes::setCounter(0);
+	int LIMIT = 500;
+	bool FD = true;
 
- 	double O, rnorm, snorm, lambda;
-	gsl_matrix *qr = gsl_matrix_alloc(m,m);
-	gsl_vector *b = gsl_vector_alloc(m);
-	gsl_vector *x = gsl_vector_alloc(m);
-	gsl_multilarge_linear_workspace *w \
-		= gsl_multilarge_linear_alloc(gsl_multilarge_linear_tsqr, m);
-
-	params.w = w;
-	params.qr = qr;
-	params.b = b;
-
-	//int signum;
-	//double now, last, temp = gamma;
-
-	int LIMIT = 750;
-	if(regs){
-		for(int j = 0; j<numdivs; j++)
+	std::vector<thesis::spline> ext_data;
+	for(int i = 0; i < n; i++){
+		ext_data.push_back(thesis::spline((*env->time), measurements.row(i))) ;
+	}
+	
+	int i;
+	output results = {0, 0, uNot};
+	vec temp;
+	for(int j = 0; j<numdivs; j++)
+	{
+		if(j == numdivs-1)
 		{
-			if(j == numdivs-1){
-				for(int i = 0; i<LIMIT; i++)
+			for(i = 0; i<LIMIT; i++)
+			{	
+				if(FD){ 
+					bob = qLinearRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, ext_data);
+				}else{
+					bob = qlRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, ext_data);
+				}
+				
+				U = reshape(bob.bottomRows(n*m), m, n*lt);
+				*env->nth_soln = bob.topRows(n);
+				//cout << "bob = \n" << bob << endl;
+				A = findA(*env->time, U, m);
+				//cout << "C = \n" << corrMat(A) << endl;
+				cout << "rcond(A) = " << rcond(A) << endl;
+				if(rcond(A) < 2.2E-10)
+					cout << "A is near to being singular." << endl;
+					
+				temp = reshape(measurements - *env->nth_soln, 1, n*lt).row(0);
+				P = findP(*env->time, U, temp, m);
+				O = findO(*env->time, temp);
+				
+				//cout <<"\nDeterminant(A) = " << A.determinant() << endl;
+				///cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+
+				
+				if(regs == 0)
 				{
-					bob = qLinearRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, measurements);
-					U = reshape(bob.bottomRows(n*m), m, n*lt);
-					*env->nth_soln = bob.topRows(n);
-					A = findA(*env->time, U, m);
-					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
-					O = findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0));
-					//cout << "cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl; cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
-
-					/*matToGslMat(A, qr);
-					vecToGslVec(P, b);
-
-					gsl_multilarge_linear_reset(w);
-					gsl_multilarge_linear_accumulate(qr, b, w);
-					gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
-					*/
-
-					// cout << "No regs norm Au-P " << (norm(A*gslVecToVec(x)-P)) << endl;
-					// gamma = norm(A*gslVecToVec(x)-P);
-					// if(cond(A) > 1e-8 || A.fullPivHouseholderQr().rank() < m){
-					// 	lambda = 1.0;
-					// 	for(int k = 0; k<55; k++){
-					// 		gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
-					// 		u1 = gslVecToVec(x);
-					//
-					// 		cout << "Norm Au-P  " << (norm(A*u1-P)) << endl;
-					//
-					// 		if(norm(A*u1-P) < std::max(1.1*gamma,.0005)){
-					// 			break;
-					// 		}
-					// 		lambda = lambda/1.5;
-					// 	}
-					// 	du = u1;
-					// }else{
-					// 	gsl_multilarge_linear_solve (0.0, x, &rnorm, &snorm, w);
-					// }
-					lambda = 0.00001;
-					//lambda = alpha(A, P, uNot);
-					//lambda = alpha(A, P, O);
+					du = A.inverse()*P;
+				}
+				else if(regs == 1)
+				{
 					du = inverse(A + lambda*I)*P;
-					cout << "du = " << du.transpose() << endl;
-					//du = gslVecToVec(x);
-
-					//gamma = (double) (du.transpose()*((AT*A)+lambda*lambda*B)*du)/(P.transpose()*A*du);
-					//cout << "gamma = "  << (du.transpose()*((AT*A)+lambda*lambda*B)*du)/((P.transpose()*A*du)) << endl;
-					//cout << "du = " << du.transpose() << endl;
-					//cout << "g*du = " << gamma*du.transpose() << endl;
-					//cout << "minimzed du = " << findGamma(1, &params) << endl;
-					uNot += du;
-					//cout << " u = " << uNot.transpose() << endl;
-					latexOutput(*env->nth_soln, uNot, i+1, " &");
-					if(du.norm() < TOL || std::isnan(du.norm())){
-						break;
-					} else if (i >= LIMIT-1){
-						note("u = ");
-						note(uNot);
-						if(du.norm() < TOL){
-							break;
-						}
-						else{
-							log_err("Function did not converge.");
-							uNot(1) = NAN;
-						}
-					}
 				}
-			}else{
-				for(int i = 0; i<LIMIT; i++)
+				else if(regs == 2)
 				{
-					bob = qLinearRungeKutta4(*env->ode, (*env->time).head((j+1)*divs), \
-						uNot, *env->initial_cond, measurements.leftCols((j+1)*divs));
-					U = reshape(bob.bottomRows(n*m), m, n*(j+1)*divs);
-					A = findA((*env->time).head((j+1)*divs), U, m);
-					P = findP((*env->time).head((j+1)*divs), U, reshape(measurements.leftCols((j+1)*divs) - bob.topRows(n), 1, n*(j+1)*divs).row(0), m);
-					//O = findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0));
-
-					cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
-					cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
-
-					matToGslMat(A, qr);
-					vecToGslVec(P, b);
-
-					gsl_multilarge_linear_reset(w);
-					gsl_multilarge_linear_accumulate(qr, b, w);
-
-					// if(cond(A) > 1e-8 || A.fullPivHouseholderQr().rank() < m){
-					// 	lambda = 1.0;
-					// 	for(int k = 0; k<15; k++){
-					// 		gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
-					// 		u1 = gslVecToVec(x);
-					//
-					// 		if(norm(A*u1-P) < TOL){
-					// 			break;
-					// 		}
-					// 		lambda = lambda/2;
-					// 	}
-					// 	du = u1;
-					// }
-
-					gsl_multilarge_linear_solve (lambda, x, &rnorm, &snorm, w);
-					du = gslVecToVec(x);
-
-					uNot += du;
-
-					latexOutput(*env->nth_soln, uNot, i+1, " &");
-					if(du.norm() < TOL || std::isnan(du.norm())){
-						break;
-					} else if (i >= LIMIT-1){
-						log_err("Function did not converge.");
-						note("u = ");
-						note(uNot);
-						uNot(1) = NAN;
-					}
+					du = inverse(A + lambda*I)*(P + lambda*I*((*env->u_guess) - uNot));
+					
+					cout << "rcond(A + lambda*I) = " << rcond(A + lambda*I) << endl;
+					if(rcond(A + lambda*I) < 2.2E-10)
+						cout << "A + lambda*I is near to being singular." << endl;
 				}
-			}
-		}
-		/*for(int i = 0; i<LIMIT; i++)
-		{
-			bob = qLinearRungeKutta4(*env->ode, *env->time, uNot, *env->initial_cond, measurements);
-
-			U = reshape(bob.bottomRows(n*m), m, n*lt);
-			*env->nth_soln = bob.topRows(n);
-
-			A = findA(*env->time, U, m);
-			P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
-
-			AT = A.transpose();
-
-			cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
-			cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
-
-			/*
-			matToGslMat(A, gslA);
-			matToGslMat(A, qr);
-			vecToGslVec(P, b);
-
-			if(A.fullPivHouseholderQr().rank() < m){
-				log_err("A_N Matrix is Singular");
-				gsl_linalg_QR_decomp(qr, tau);
-				gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
-				//uNot(1) = NAN;
-				//break;
-			}else{
-				gsl_linalg_LU_decomp (qr, perm, &signum);
-				gsl_linalg_LU_solve (qr, perm, b, x);
-				gsl_linalg_LU_refine (gslA, qr, perm, b, x, residual);
-			}
-			du = gslVecToVec(x);
-			*/
-			/*
-			gamma = 4.0;
-			du = inverse(AT*A + gamma*gamma*BT*B)*(AT*P);
-			last = norm(A*du-P) + norm(gamma*(B*du));	note(last);
-
-			while(gamma > 0.0){
-				if(std::isnan(du.norm())){
+				else if(regs == 3)
+				{
+					//du = fnnls(A, P+A*uNot);
+					//cout << "du = \n" << uNot.transpose() + du.transpose() << endl;
+				}
+				else
+				{
+					log_err("Termination: No such regularization method.");
+					exit(0);
+				}
+				
+				if(regs < 3){
+					uNot += du;
+				}else{
+					uNot = du;
+				}
+				
+				//latexOutput(*env->nth_soln, uNot, i+1, " &");
+				results.iterations++;
+				if (std::isnan(du.norm())){
+					log_err("Termination: value for parameter is NaN.");
+					exit(0);
+				}else if(du.norm() < TOL){
+					log_info("Termination: absolute parameter value tolerance.");
+					log_info(du.norm());
+					break;
+				}else if (i >= LIMIT-1){
+					log_info("Termination: max iterations reached.");
+				}else if(du.norm()/uNot.norm() < TOL){
+					log_info("Termination: relative parameter value tolerance.");
+					log_info(du.norm()/uNot.norm());
 					break;
 				}
-				du = inverse(AT*A + gamma*gamma*BT*B)*(AT*P);
-				now = norm(A*du-P) + norm(gamma*(B*du));	//note(now);
-				if(now < last){
-					temp = gamma;
-					last = now;
-				}
-				gamma -= 0.01;
-			}
-			gamma = temp;
-			du = inverse(AT*A + gamma*gamma*BT*B)*(AT*P);
-			now = norm(A*du-P) + norm(gamma*(B*du));
-			cout << "FINAL gamma = " << gamma << "\nFINAL now = " << now << endl;
-
-			uNot += du;
-			latexOutput(*env->nth_soln, uNot, i+1, " &");
-			if(du.norm() < 0.0001 || std::isnan(du.norm())){
-				break;
-			} else if (i >= LIMIT-1){
-				log_err("Function did not converge.");
-				note("u = ");
-				note(uNot);
-				uNot(1) = NAN;
-				break;
-				//exit(1);
-			} else if (uNot.norm() > 1000){
-				log_err("uNot is increasing without bound.");
-				uNot(1) = NAN;
-				break;
-			}
-		}*/
-	}else{
-		for(int j = 0; j<numdivs; j++)
-		{
-			if(j == numdivs-1){
-				for(int i = 0; i<LIMIT; i++)
-				{
-					bob = qLinearRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, measurements);
-					U = reshape(bob.bottomRows(n*m), m, n*lt);
-					*env->nth_soln = bob.topRows(n);
-					A = findA(*env->time, U, m);
-					P = findP(*env->time, U, reshape(measurements - *env->nth_soln, 1, n*lt).row(0), m);
-					//matToGslMat(A, qr);
-					//vecToGslVec(P, b);
-
-					du = A.inverse()*P;
-					uNot += du;
-					latexOutput(*env->nth_soln, uNot, i+1, " &");
-					cout << i << endl;
-					if(du.norm() < TOL || std::isnan(du.norm())){
+				if(i > 0){
+					objval2 = O - 2*P.transpose()*du + du.transpose()*A*du;
+					if(abs(objval - objval2) < TOL){
+						log_info("Termination: absolute objective function value tolerance.");
+						log_info(abs(objval - objval2));
 						break;
-					} else if (i >= LIMIT-1){
-						log_err("Function did not converge.");
-						note("u = ");
-						note(uNot);
-						uNot(1) = NAN;
 					}
+					objval = objval2;
+				}else{
+					objval = O - 2*P.transpose()*du + du.transpose()*A*du;
 				}
-			}else{
-				for(int i = 0; i<LIMIT; i++)
-				{
+			}
+		}else{
+			for(int i = 0; i<LIMIT; i++)
+			{
+				if(FD){ 
 					bob = qLinearRungeKutta4(*env->ode, (*env->time).head((j+1)*divs), \
-						uNot, *env->initial_cond, measurements.leftCols((j+1)*divs));
-					U = reshape(bob.bottomRows(n*m), m, n*(j+1)*divs);
-					A = findA((*env->time).head((j+1)*divs), U, m);
-					P = findP((*env->time).head((j+1)*divs), U, reshape(measurements.leftCols((j+1)*divs) - bob.topRows(n), 1, n*(j+1)*divs).row(0), m);
+						uNot, *env->initial_cond, ext_data);
+				}else{
+					bob = qlRungeKutta4(*env->ode, (*env->time).head((j+1)*divs), \
+						uNot, *env->initial_cond,  ext_data);
+				}
+				
+				U = reshape(bob.bottomRows(n*m), m, n*(j+1)*divs);
+				A = findA((*env->time).head((j+1)*divs), U, m);
+				P = findP((*env->time).head((j+1)*divs), U, reshape(measurements.leftCols((j+1)*divs) - bob.topRows(n), 1, n*(j+1)*divs).row(0), m);
+				O = findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0));
 
-					//cout <<" cond(A) = "<< cond(A) <<"\nDeterminant(A) = " << A.determinant() << endl;
-					//cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
-
+				//cout <<"\nDeterminant(A) = " << A.determinant() << endl;
+				//cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+				
+				if(regs == 0)
+				{
 					du = A.inverse()*P;
+				}
+				else if(regs == 1)
+				{
+					du = inverse(A + lambda*I)*P;
+				}
+				else if(regs == 2)
+				{
+					du = inverse(A + lambda*I)*(P + lambda*I*((*env->u_guess) - uNot));
+					
+					cout << "rcond(A + lambda*I) = " << rcond(A + lambda*I) << endl;
+					if(rcond(A + lambda*I) < 2.2E-10)
+						cout << "A + lambda*I is near to being singular." << endl;
+				}
+				else if(regs == 3)
+				{
+					//du = fnnls(A, P+A*uNot);
+					//cout << "du = \n" << uNot.transpose() + du.transpose() << endl;
+				}
+				else
+				{
+					log_err("Termination: No such regularization method.");
+					exit(0);
+				}
+				
+				if(regs < 3){
 					uNot += du;
-					latexOutput(*env->nth_soln, uNot, i+1, " &");
-					if(du.norm() < TOL || std::isnan(du.norm())){
-						break;
-					} else if (i >= LIMIT-1){
-						log_err("Function did not converge.");
-						note("u = ");
-						note(uNot);
-						uNot(1);
+				}else{
+					uNot = du;
+				}
+				//latexOutput(*env->nth_soln, uNot, i+1, " &");
+				results.iterations++;
+				if (std::isnan(du.norm())){
+					log_err("Termination: value for parameter is NaN.");
+					exit(0);
+				}else if(du.norm() < TOL){
+					log_info("Termination: absolute parameter value tolerance.");
+					log_info(du.norm());
+					break;
+				}else if (i >= LIMIT-1){
+					log_info("Termination: max iterations reached.");
+					log_info(i+1);
+				}else if(du.norm()/uNot.norm() < TOL){
+					log_info("Termination: relative parameter value tolerance.");
+					log_info(du.norm()/uNot.norm());
+					break;
+				}
+				if(i > 0){
+					objval2 = O - 2*P.transpose()*du + du.transpose()*A*du;
+					if(abs(objval - objval2) < TOL){
+						log_info("Termination: absolute objective function value tolerance.");
+						log_info(abs(objval - objval2));
 						break;
 					}
+					objval = objval2;
+				}else{
+					objval = O - 2*P.transpose()*du + du.transpose()*A*du;
 				}
 			}
 		}
 	}
-	return uNot;
+	cout << lt << endl;
+	if(FD){ 
+		bob = qLinearRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, ext_data);
+	}else{
+		bob = qlRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, ext_data);
+	}
+	O = sqrt(findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0)));
+	cout << "("	<< lt << "," << O << ")" << endl;
+	//cout << "number of function evaluations: " << thesis::nonlinearOdes::getCounter() << endl;
+	results.fevals = thesis::nonlinearOdes::getCounter();
+	results.du = uNot;
+	return results;
 }
 
 mat reshape(const mat& U, int n, int m)
@@ -377,174 +303,59 @@ mat inverse(const mat& M){
 	return M.inverse();
 }
 
-void vecToGslVec(const vec& v, gsl_vector* gslv)
-{
-	for (size_t i=0; i<gslv->size; i++){
-		gsl_vector_set(gslv, i, v(i));
+mat corrMat(const mat& M){
+	int n = M.rows();
+	mat C(n,n);
+	
+	for(int i = 0; i<n; i++){
+		for(int j = 0; j<n; j++){
+			C(i,j) = M(i,j)/sqrt(M(i,i)*M(j,j));
+		}	
 	}
+	
+	return C;
+
 }
-void matToGslMat(const mat& m, gsl_matrix *gslm)
+
+double rcond(const mat& M){
+	return 1.0/(matnorm1(M)*matnorm1(M.inverse()));
+}
+
+double matnorm1(const mat& M){
+	return M.cwiseAbs().colwise().sum().maxCoeff();	
+}
+
+/*vec fnnls(const mat& A, const vec& B)
 {
-	//gslm = gsl_matrix_alloc(m.rows(),m.cols());
-	for(int i=0; i<m.rows(); i++){
-		for(int j=0; j<m.cols(); j++){
-			gsl_matrix_set(gslm, i, j, m(i,j));
+	size_t n = B.size();
+	vec x(n), s;
+	x.fill(0.0);
+	s = x;
+	std::stack<int> P;
+	std::queue<int> R;
+	for(int i=0; i<n; i++)
+		R.push(i);
+	vec w;
+	w = B-A*x;
+	
+	int j;
+	while(R.size() > 0 || w.maxCoeff() > 1E-7){
+		j = std::max_element(w.begin(), w.end())
+		
+		
+		s.head(P.back()) = A.block()*B.head(P.back())
+		if(s.head(P.back()).minCoeff() <= 0){
+			
 		}
 	}
-}
-vec gslVecToVec(gsl_vector* gslv)
-{
-	vec v(gslv->size);
-	for (size_t i=0; i<gslv->size; i++){
-		v(i) = gsl_vector_get(gslv, i);
-	}
-	return v;
+	
+	
+	
+	return x;
 }
 
-mat gslMatToMat(gsl_matrix *gslm){
-	mat m(gslm->size1, gslm->size2);
-	for (size_t i=0; i<gslm->size1; i++){
-		for (size_t j=0; j<gslm->size2; j++){
-			m(i,j) = gsl_matrix_get(gslm, i,j);
-		}
-	}
-	return m;
-}
-
-bool allpositive(const vec& x){
-	bool allpos = true;
-	for(int i=0; i < x.size(); i++){
-		if(x(i)>0){
-		}
-		else{
-			allpos = false;
-			break;
-		}
-	}
-	return allpos;
-}
-
-double cond(const mat& A){
-	return A.norm()*A.inverse().norm();
-}
-
-/*double fn1 (double x, void * params)
-{
-	struct parameters * pParams = (struct parameters *) params;
-	mat A = *(pParams->A);
-	vec P = *(pParams->P);
-	double O = *(pParams->O);
-	vec du = *(pParams->du);
-
-	return O - 2*x*P.transpose()*du + x*x*du.transpose()*A*du;
+double argmax(const vec& v){
+	
+	return
 }*/
 
-double fn1 (double x, void * params)
-{
-	double rnorm, snorm;
-	struct parameters * pParams = (struct parameters *) params;
-	gsl_vector * du = gsl_vector_alloc((pParams->b)->size);
-	gsl_multilarge_linear_reset(pParams->w);
-	gsl_multilarge_linear_accumulate(pParams->qr, pParams->b, pParams->w);
-	gsl_multilarge_linear_solve (x, du, &rnorm, &snorm, pParams->w);
-
-	return rnorm;
-}
-
-double findGamma(double initialGuess, void * params)
-{
-	int status;
-	int iter = 0, max_iter = 100;
-	const gsl_min_fminimizer_type *T;
-	gsl_min_fminimizer *s;
-	double m = initialGuess;
-	double a = 0.0, b = 10000.0;
-	gsl_function F;
-	F.function = &fn1;
-	F.params = params;
-	T = gsl_min_fminimizer_brent;
-	s = gsl_min_fminimizer_alloc (T);
-	gsl_min_fminimizer_set (s, &F, m, a, b);
-
-	do
-	{
-		iter++;
-		status = gsl_min_fminimizer_iterate (s);
-		m = gsl_min_fminimizer_x_minimum (s);
-		a = gsl_min_fminimizer_x_lower (s);
-		b = gsl_min_fminimizer_x_upper (s);
-		status = gsl_min_test_interval (a, b, 0.001, 0.0);
-	}
-	while (status == GSL_CONTINUE && iter < max_iter);
-	gsl_min_fminimizer_free (s);
-	return m;
-}
-
-/*
-mat ichol(const mat& A){
-	gsl_matrix *L;
-	L = gsl_matrix_alloc(A.rows(), A.cols());
-	matToGslMat(A,L);
-	gsl_linalg_cholesky_decomp(L);
-	for (int i=0; i<A.rows(); i++){
-		for (int j=0; j<A.cols(); j++){
-			if(A(i,j)<1E-13){
-				gsl_matrix_set(L, i, j, 0);
-			}
-		}
-	}
-	return gslMatToMat(L);
-}*/
-
- /* vec dulp(const mat& A, const vec& b, const vec& u){
-	int m = b.size();
-	int ia[m*m+1], ja[m*m+1];
-    double ar[m*m+1];
-	//double x[1+m]; //x[0] is the soln to obj func, x[1] -> x[m] are variables
-	vec v(m);
-	int result;
-
-	glp_prob *lp;
-	lp = glp_create_prob();
-	glp_add_rows(lp, m);
-	glp_add_cols(lp, m);
-	for (int j=1; j<m+1; j++){
-		glp_set_row_bnds(lp, j, GLP_FX, b(j-1), b(j-1)); // RHS of the equal-sign
-		glp_set_col_bnds(lp, j, GLP_FR, -u(j-1), 2.0); //variables
-		glp_set_obj_coef(lp, j, 1.0);
-	}
-
-	for (int i=0; i<m; i++){
-		for (int j=0; j<m; j++){
-			ia[m*i+j+1] = i+1, ja[m*i+j+1] = j+1, ar[m*i+j+1] = A(i,j);
-		}
-	}
-	glp_load_matrix(lp, m*m, ia, ja, ar);
-	result = glp_simplex(lp, NULL);
-	if(result == 0){
-		for (int i=0; i<m; i++){
-			v(i) = glp_get_col_prim(lp, i+1);
-		}
-	}else{
-		for (int i=0; i<m; i++){
-			v(i) = NAN;
-		}
-	}
-
-	glp_delete_prob(lp);
-    glp_free_env();
-	return v;
-} */
-
-
-/* du1 = dulp(A, P, uNot);
-if(std::isnan(du.norm())){
-	du = du1;
-}else{
-	matToGslMat(A, qr);
-	gsl_linalg_QR_decomp(qr, tau);
-	vecToGslVec(P, b);
-	//gsl_linalg_QR_solve(qr, tau, b, x);
-	gsl_linalg_QR_lssolve(qr, tau, b, x, residual);
-	du = gslVecToVec(x);*/
-//}

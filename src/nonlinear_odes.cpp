@@ -8,7 +8,7 @@ namespace thesis{
 		odeFuncMap["lotka4"] = nonlinearOdes::lotka4;
 		odeFuncMap["general_lv"] = nonlinearOdes::general_lv;
 		odeFuncMap["lorenz"] = nonlinearOdes::lorenz;
-		//qLinFuncMap["lotka_volterra_linearization"] = nonlinearOdes::lotka_volterra_linearization;
+		qLinFuncMap["lotka_volterra_linearization"] = nonlinearOdes::lotka_volterra_linearization;
 		odeFuncMap["pielou"] = nonlinearOdes::pielou;
 		//qLinFuncMap["pielou_linearization"] = nonlinearOdes::pielou_linearization;
 		odeFuncMap["angiogenesis"] = nonlinearOdes::angiogenesis;
@@ -22,7 +22,7 @@ namespace thesis{
 		//qLinFuncMap["coral_linearization"] = nonlinearOdes::coral_linearization;
 		odeFuncMap["bistable_switch"] = nonlinearOdes::bistable_switch;
 		odeFuncMap["bistable_switch_two"] = nonlinearOdes::bistable_switch_two;
-		//qLinFuncMap["bistable_switch_linearization"] = nonlinearOdes::bistable_switch_linearization;
+		qLinFuncMap["bistable_switch_linearization"] = nonlinearOdes::bistable_switch_linearization;
 		odeFuncMap["eight_part"] = nonlinearOdes::eight_part;
 		odeFuncMap["eight_part_spc"] = nonlinearOdes::eight_part_spc;
 		//qLinFuncMap["eight_part_linearization"] = nonlinearOdes::eight_part_linearization;
@@ -34,12 +34,14 @@ namespace thesis{
 		odeFuncMap["general_repressilator"] = nonlinearOdes::general_repressilator;
 	}
 
+
 	mat nonlinearOdes::lotka_volterra(const double& t, const vec& x, const vec& u)
 	{
 		mat result(2,1);
 		result(0) = u(0)*x(0) - u(1)*x(0)*x(1);
 		result(1) = u(1)*x(0)*x(1) - u(2)*x(1);
-
+		
+		nonlinearOdes::addCounter();	
 		return result;
 	}
 
@@ -76,17 +78,14 @@ namespace thesis{
 		result(0) = u(0)*(x(1) - x(0));
 		result(1) = x(0)*(u(1) - x(2)) - x(1);
 		result(2) = x(0)*x(1) - u(2)*x(2);
-
+		nonlinearOdes::addCounter();
 		return result;
 	}
-	/*
-	mat nonlinearOdes::lotka_volterra_linearization(const double& t, const vec& x, const vec& u, const mat& xn, const vec& time)
+	
+	mat nonlinearOdes::lotka_volterra_linearization(const double& t, const vec& x, const vec& u, std::vector<thesis::spline> xn)
 	{
-		thesis::spline Xn(time, xn.row(0));
-		thesis::spline Yn(time, xn.row(1));
-
-		double xnt = Xn.interpolate(t);
-		double ynt = Yn.interpolate(t);
+		double xnt = xn[0].interpolate(t);
+		double ynt = xn[1].interpolate(t);
 
 		mat result(8,1);
 		result << (u(0)-u(1)*ynt)*x(0) - u(1)*xnt*x(1) + u(1)*xnt*ynt,
@@ -100,7 +99,6 @@ namespace thesis{
 
 		return result;
 	}
-	*/
 
 	mat nonlinearOdes::pielou(const double& t, const vec& x, const vec& u)
 	{
@@ -404,7 +402,8 @@ namespace thesis{
 		mat result(2,1);
 		result(0) = alpha/(1 + pow(u*x(2-1),n)) - x(1-1);
 		result(1) = alpha/(1 + pow(x(1-1),n))- x(2-1);
-
+		
+		nonlinearOdes::addCounter();
 		return result;
 	}
 
@@ -417,56 +416,42 @@ namespace thesis{
 		mat result(2,1);
 		result(0) = alpha/(1 + pow(u*x(1),n)) - x(0);
 		result(1) = alpha/(1 + pow(x(0),n))- x(1);
-
+				nonlinearOdes::addCounter();
 		return result;
 	}
 
-	/* mat nonlinearOdes::bistable_switch_linearization(const double& t, const vec& x, const vec& p, const mat& xn, const vec& time)
+	mat nonlinearOdes::bistable_switch_linearization(const double& t, const vec& x, const vec& p, std::vector<thesis::spline> xn)
 	{
 		double alpha = p(0);
 		double u 	 = p(1);
 		double n 	 = p(2);
 
-		thesis::spline Xn(time, xn.row(0));
-		thesis::spline Yn(time, xn.row(1));
-
-		double A = Xn.interpolate(t);
-		double B = Yn.interpolate(t);
+		double A = xn[0].interpolate(t);
+		double B = xn[1].interpolate(t);
 
 		double g;
 		double d;
 
-		if(u*B < 0){
-			complex<double> G = u*B;
-			G = pow(G,n);
-			g = 1. + G.real();
-		}
-		else{
-			g = 1 + pow(u*B,n);
-		}
-		if(A < 0){
-			complex<double> D = A;
-			D = pow(D,n);
-			d = 1. + D.real();
-		}
-		else{
-			d = 1 + pow(A,n);
-		}
+		g = 1 + pow(u*B,n);
+		d = 1 + pow(A,n);
+		
 		mat result(8,1);
-		result << -x(1-1) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*x(2-1) + alpha*n*pow(u*B,n)/pow(g,2) + alpha/g,
-			-alpha*n*pow(A,n-1)*x(1-1)/pow(d,2) - x(2-1) + alpha*n*pow(A,n)/pow(d,2) + alpha/d,
+		result << alpha/g - x(1-1) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*(x(2-1)-B),
+				  alpha/d - x(2-1) - alpha*n*pow(A,n-1)/pow(d,2)*(x(1-1)-A),
 			// wrt alpha
-			-x(3-1) - (n*pow(u,n)*pow(B,n-1)/pow(g,2))*x(2-1) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*x(4-1) + n*pow(u*B,n)/pow(g,2) + (10)/g,
-			-n*pow(A,n-1)*x(1-1)/pow(d,2) - alpha*n*pow(A,n-1)*x(3-1)/pow(d,2) - x(4-1) + n*pow(A,n)/pow(d,2) + (10)/d,
+			1/g - x(3-1) - n*pow(u,n)*pow(B,n-1)/pow(g,2)*(x(2-1)-B) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*(x(4-1)),
+			1/d - x(4-1) - n*pow(A,n-1)/pow(d,2)*(x(1-1)-A) - alpha*n*pow(A,n-1)/pow(d,2)*(x(3-1)),
 			//wrt u
-			-x(5-1) - alpha*pow(n,2)*pow(u,n-1)*pow(B,n-1)/pow(g,2)*x(2-1) + 2*alpha*pow(n,2)*pow(u*B,2*n-1)/pow(g,2)*x(2-1) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*x(6-1) + alpha*pow(n,2)*pow(u,n-1)*pow(B,n)/pow(g,2) - 2*alpha*pow(n,2)*pow(u,2*n-1)*pow(B,2*n)/pow(g,3) - alpha*n*pow(u,n-1)*pow(B,n)/pow(g,2),
-			-alpha*n*pow(A,n-1)*x(5-1)/pow(d,2) - x(6-1),
+			-alpha*n*pow(u,n-1)*pow(B,n)/pow(g,2) - x(5-1) - (alpha*n*n*pow(u*B,n-1)*g - 2*alpha*n*pow(u*B,2*n-1))/pow(g,3)*(x(2-1)-B) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*(x(6-1)),
+			-x(6-1) - alpha*n*pow(A,n-1)/pow(d,2)*(x(5-1)),
 			// wrt n
-			-x(7-1) - (alpha*pow(u*B,n)/(B*pow(g,2))) *((1 - 2/pow(g,2)*pow(u*B,n))*log(u*B)*x(2-1) + x(8-1)) - (alpha/B)*pow(u*B,n)/pow(g,2)*x(2-1) + alpha*(u*B)/pow(g,2)*(1 + n*log(u*B)-2*n/g*pow(u*B,n)*log(u*B)) - alpha/pow(g,2)*pow(u*B,n)*log(u*B),
-			-(alpha*pow(A,n-1)/pow(d,2))*((1 + n*log(A) - 2*n*pow(A,n)*log(A)/d)*x(1-1) + n*x(7-1)) - x(8-1) + (alpha*pow(A,n)/pow(d,2))*(1 + (n-1)*log(A) - 2*n*pow(A,n)*log(A)/d);
-
+			-alpha*pow(u*B,n)*log(u*B)/pow(g,2) - x(7-1) - alpha*n*pow(u,n)*pow(B,n-1)/pow(g,2)*((1/n + log(u*B) - 2*pow(u*B,n)*log(u*B)/g)*(x(2-1)-B) + x(8-1)),
+			-alpha*pow(A,n)*log(A)/pow(d,2) - x(8-1) - alpha*n*pow(A,n-1)/pow(d,2)*((1/n + log(A) - 2*pow(A,n)*log(A)/d)*(x(1-1)-A) + x(7-1));
+		
+		nonlinearOdes::addCounter();
 		return result;
-	} */
+	}
+	
 	mat nonlinearOdes::eight_part(const double& t, const vec& x, const vec& pp)
 	{
 		double P = .05;
@@ -907,26 +892,26 @@ namespace thesis{
 		(void)t;
 
 		double kL1 = u(0);
-		double kL2 = u(1);
-		double KT = u(2);
-		double nT = 2;
-		double dL1 = u(3);
-		double dL2 = u(4);
+		double kL2 = u(2);
+		double KT = 1;
+		double nT = u(8);
+		double dL1 = u(1);
+		double dL2 = u(3);
 
-		double kT1 = u(5);
+		double kT1 = u(4);
 		double kT2 = u(6);
-		double KL = u(7);
-		double nL = 2;
-		double dT1 = u(8);
-		double dT2 = u(9);
+		double KL = 1;
+		double nL = u(9);
+		double dT1 = u(5);
+		double dT2 = u(7);
 
 
 		mat result(4,1);
 		result << 	kL1*pow(KT,nT)/(pow(KT,nT) + pow(x(3),nT)) - dL1*x(0),
 					kL2*x(0) - dL2*x(1),
-					kT1/(1 + pow(x(1)/KL,nL)) - dT1*x(2),
+					kT1*pow(KL,nL)/(pow(KL,nL) + pow(x(1),nL)) - dT1*x(2),
 					kT2*x(2) - dT2*x(3);
-
+				nonlinearOdes::addCounter();
 		return result;
 	}
 	mat nonlinearOdes::toggle_switch_config2(const double& t, const vec& x, const vec& u)
@@ -952,7 +937,7 @@ namespace thesis{
 					kL2*x(0) - dL2*x(1),
 					kT1/(1 + pow(x(1),nL)/KLnL) - dT1*x(2),
 					kT2*x(2) - dT2*x(3);
-
+		nonlinearOdes::addCounter();
 		return result;
 	}
 	mat nonlinearOdes::toggle_switch_config3(const double& t, const vec& x, const vec& u)
@@ -979,7 +964,7 @@ namespace thesis{
 					kL2*x(0) - dL2*x(1),
 					kT1/(1 + pow(x(1),nL)/KLnL) - dT1*x(2),
 					kT2*x(2) - dT2*x(3);
-
+		nonlinearOdes::addCounter();
 		return result;
 	}
 	mat nonlinearOdes::repressilator(const double& t, const vec& x, const vec& u)
@@ -997,17 +982,12 @@ namespace thesis{
 					-b*(x(3) - x(2)),
 					-x(4) + a/(1 + pow(x(3),n)) + a0,
 					-b*(x(5) - x(4));
-
+		nonlinearOdes::addCounter();
 		return result;
 	}
 
 	mat nonlinearOdes::general_repressilator(const double& t, const vec& x, const vec& u)
 	{
-		/*int maxdiv=1, divnum=1;
-		if(u.size() > 15){
-			maxdiv = u(15);
-			divnum = u(16);
-		}*/
 		(void)t;
 		double a = u(0);
 		double b = u(1);
@@ -1034,7 +1014,7 @@ namespace thesis{
 					-yB*x(3) + dB*x(2),
 					-x(4) + aC/(1 + pow(x(3),nC)) + bC,
 					-yC*x(5) + dC*x(4);
-
+					
 		return result;
 	}
 }

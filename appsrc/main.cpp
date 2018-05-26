@@ -1,7 +1,10 @@
 #include <iostream>
 #include <stdlib.h>
-#include <time.h>
+#include <chrono>
 #include <math.h>
+#include <fstream>
+#include <string>
+#include <vector>
 
 #include <Eigen/LU>
 #include <gsl/gsl_rng.h>
@@ -13,6 +16,7 @@
 #include <thesis_functions.h>
 #include <input.h>
 #include <bspline.h>
+#include <spline.h>
 //#include <least_squares.h>
 #include <tsqr.h>
 //#include <nnls.h>
@@ -24,24 +28,16 @@ using namespace thesis;
 
 bool isNegative(const vec& x);
 bool isLessThanOne(const vec& x);
-mat noise(const mat& M, double noise, int seed);
+mat noise(const mat& M, double noise, gsl_rng* r);
+std::vector<std::string> split(const std::string &s, char delim);
+mat convertData(string filname);
 
 int main(int argc, char *argv[])
 {
-	time_t begin;
-	begin = time(NULL);
-
 	nonlinearOdes no;
-	input in(argc, argv);
-
 	//Gather input from the console
+	input in(argc, argv);
 	string system = in.getSystem();
-
-	vec times;
-	times = in.getTimeData();
-
-	//vec times(21);
-	//times << 0,1,2,3,4,5,6,7,8,9,10,11,12,13,14,15,16,17,18,19,20;
 
 	vec u;
 	u = in.getU();
@@ -51,45 +47,110 @@ int main(int argc, char *argv[])
 
 	vec uNot;
 	uNot = in.getUNot();
+	
+	vec uGuess;
+	if(in.getRegs()==2){
+		uGuess = in.getUGuess();
+	}else{
+		uGuess = uNot;
+	}
 
 	vec t;
 	t = in.getInterval();
-	mp_mat mp_t = t.cast<mpreal>();
-	int OUT_ARR_SIZE = in.getNumberOfIterations();
+	
+	double lambda;
+	if(in.getRegs() < 3){
+		lambda = in.getLambda();
+	}else{
+		lambda = 0.0;
+	}
+	size_t OUT_ARR_SIZE = in.getNumberOfIterations();
 	//End Console Input
 
 
-	// Init key parameters
-	int lt = t.size();
-	int m  = uNot.size();
-	int n  = yNot.size();
-
+	/*
+		This block of code is to get data from a 
+		CSV file and convert it into a time vector
+		and data matrix.
+	*/
+	
+	// Init key parameter
+	size_t n;
+	size_t lt;
+	vec timeData;
+	mat featureData;
+	
+	if(in.isSimulatedData())
+	{
+		//measure = rungekutta4(system, times, u, yNot);
+		n  = yNot.size();
+	}
+	else
+	{
+		string filename = "data/" + system + "_data.csv"; 
+	
+		std::ifstream csvfile;
+		std::string line;
+		std::vector<std::string> dataAsStr, headers, dataRow;
+		csvfile.open(filename);
+		if(csvfile.is_open())
+		{
+			while(std::getline(csvfile, line))
+			{	
+				dataAsStr.push_back(line);
+			}
+			csvfile.close();
+		}
+		else
+		{
+			std::cerr << "ERROR: Unable to open file"; 
+		}
+	
+		headers = split(dataAsStr[0], ',');
+		dataAsStr.erase(dataAsStr.begin());
+	
+		n = headers.size() - 1;
+		lt = dataAsStr.size();
+		timeData.setZero(lt);
+		featureData.setZero(n, lt);
+	
+		for(size_t i=0; i<lt; i++)
+		{
+			dataRow = split(dataAsStr[i], ',');
+			timeData(i) = std::stod(dataRow[0]);
+			for(size_t j = 0; j<n; j++)
+			{
+				featureData(j,i) = std::stod(dataRow[j+1]);
+			}
+		}
+	}
+	
+	lt = t.size();
+	size_t m  = uNot.size();
+	//int n  = yNot.size();
+	
 	// Create measurement and add noise if necessary
+	spline fdsa;
+	mat measure(n,lt);
+	for(size_t i=0; i<n; i++)
+	{
+		fdsa.update(timeData, featureData.row(i));
+		for(size_t j=0; j<lt; j++)
+		{	
+			measure(i,j) = fdsa.interpolate(t(j));
+		}
+	}
 
-	//mat measure(2,16);
-	//measure << 35,65,78,82,65,26,15,10,1,2,3,22,75,95,78,20,
-	//			0.287,0.38,0.762,1.467,1.904,3.029,3.178,1.806,0.664,0.349,0.288,0.575,0.931,1.265,1.692,1.861;
-
-	mat measure;
-	//measure << 28,20,15,15,25,35,65,78,82,65,26,15,10,1,2,3,22,75,95,78,20,
-	//			4.242,4.664,1.889,0.722,0.317,0.287,0.38,0.762,1.467,1.904,3.029,3.178,1.806,0.664,0.349,0.288,0.575,0.931,1.265,1.692,1.861;
-
-	//measure << 30,47.2,70.2,77.4,36.3,20.6,18.1,21.4,22,25.4,27.1,40.3,57,76.6,52.3,19.5,11.2,7.6,14.6,16.2,24.7,
-	//			4,6.1,9.8,35.2,59.4,41.7,19,13,8.3,9.1,7.4,8,12.3,19.5,45.7,51.1,29.7,15.8,9.7,10.1,8.6;
-
-	//mat measure;
-	mat measure2;
-	measure = rungekutta4(system, times, u, yNot);
-
-	spline spl_msmtRow[n];
-	size_t ncoeffs = 12;
-	size_t order = 4;
+	mat measure2;	
+	//spline spl_msmtRow[n];
+	//size_t ncoeffs = 12;
+	//size_t order = 4;
 	//check(0 < lt-order-1, "number of coeffs is negative");
-	bspline msmtRows(order, ncoeffs, lt);
+	//bspline msmtRows(order, ncoeffs, lt);
 
 	size_t lsorder = in.getNcoeffs();
     //lsquares lsq_msmt(times.size(), order);
-    tsqr lsq_msmt(times.size(), lsorder);
+    tsqr lsq_msmt(timeData.size(), lsorder);
     //nnls lsq_msmt(times.size(), order);
     //logittsqr lsq_msmt(times.size(), order);
 	//expo_tsqr lsq_msmt(times);
@@ -102,77 +163,124 @@ int main(int argc, char *argv[])
 	lyNot.fill(0);
 
 	soln_env* env;
-	env = (soln_env*) malloc(sizeof(string*) + 4*sizeof(vec*) + 2*sizeof(mat*));
+	env = (soln_env*) malloc(sizeof(string*) + 4*sizeof(vec*) + 2*sizeof(mat*) + sizeof(double));
 	env->ode = &system;
 	env->time = &t;
 	env->initial_cond = &lyNot;
 	env->initial_params = &uNot;
+	env->u_guess = &uGuess;
 	env->nth_soln = &msmt;
 	env->measurements = &measure;
+	env->lambda = &lambda;
 
 	cout.precision(7);
-	mat output(m,OUT_ARR_SIZE+3);
+	mat duoutput(m,OUT_ARR_SIZE);
 	mat output2(n*(OUT_ARR_SIZE+1),lt);
-	output.col(0) = u;
+	vec ctimeOutput(OUT_ARR_SIZE);
+	vec iterOutput(OUT_ARR_SIZE);
+	vec fevalOutput(OUT_ARR_SIZE);
 	output2.topRows(n) = measure;
 
-	timelatexOutput(t, " &", measure.rows(), u.size());
-	latexOutput(measure, u, 0, " &");
+	//timelatexOutput(t, " &", measure.rows(), u.size());
+	//latexOutput(measure, u, 0, " &");
 	int badrun = 0;
+	std::chrono::duration<double, milli> elapsed;
+	output results;
+	
+	//Random number generator
+	const gsl_rng_type* T;
+	gsl_rng* r;
+	gsl_rng_env_setup();
 
-	for(int q=0; q<OUT_ARR_SIZE; q++)
+	T = gsl_rng_default;
+	r = gsl_rng_alloc(T);
+	//end rand
+
+	gsl_rng_set(r, time(NULL));
+	
+	
+	for(size_t q=0; q<OUT_ARR_SIZE; q++)
 	{
-		if(in.isNoisy() == true){
-			measure2 = noise(measure, in.getNoise(), q+badrun);
-			for(int i=0; i<n; i++){
-				//msmtRows.update(times, measure2.row(i));
-				lsq_msmt.update(times, measure2.row(i));
-				for(int j = 0; j<lt; j++){
+		if(in.isNoisy() == true)
+		{
+			measure2 = noise(featureData, in.getNoise(), r);
+			for(size_t i=0; i<n; i++)
+			{
+				//msmtRows.update(timeData, measure2.row(i));
+				lsq_msmt.update(timeData, measure2.row(i));
+				for(size_t j = 0; j<lt; j++)
+				{
 					//msmt(i,j) = msmtRows.interpolate(t(j));
 					msmt(i,j) = lsq_msmt.interpolate(t(j));
 				}
 			}
-		}else{
-			for(int i=0; i<n; i++){
-				spl_msmtRow[i].update(times, measure.row(i));
-				for(int j = 0; j<lt; j++){
-					msmt(i,j) = spl_msmtRow[i].interpolate(t(j));
-				}
-			}
+			log_info(norm(measure.leftCols(msmt.cols())-msmt));
 		}
-		latexOutput(msmt, u, -11111, " &");
-		//cout << endl << msmt << endl;
-        log_info(norm(measure.leftCols(msmt.cols())-msmt));
+		else
+		{
+			msmt = measure;
+		}
+		
+		//latexOutput(msmt, u, -11111, " &");
 		lyNot.head(n) = msmt.col(0);
-
-		du = findActualParam(env, in.isRegularized(), in.getNumDivs());
-
+		
+    	std::chrono::time_point<std::chrono::high_resolution_clock> start = std::chrono::high_resolution_clock::now();
+		results = findActualParam(env, in.getRegs(), in.getNumDivs());
+    	std::chrono::time_point<std::chrono::high_resolution_clock> end = std::chrono::high_resolution_clock::now();
+		elapsed = end-start;
+		du = results.du;
+		
 		if(std::isnan(du.norm())){
 			q -= 1;
 			//latexOutput(msmt, du, q+1, " ....bad run");
 			badrun += 1;
 			cout << "badrun "<< badrun << endl;
 		}else{
-			output.col(q+1) = du;
+			//Output Results
+			ctimeOutput(q) = (elapsed.count()/1000.0);
+			fevalOutput(q) = (results.fevals);
+			iterOutput(q) = (results.iterations);
+			duoutput.col(q) = du;
 			output2.middleRows((q+1)*n,n) = msmt;
+			
+			
 			if(q != OUT_ARR_SIZE-1){
 			cout <<"goodrun "<< q << ", ";// << endl;
 				//latexOutput(msmt, du, q+1, " &");
 			}else{
 				cout <<"goodrun "<< q << endl;
-				latexOutput(msmt, du, q+1, " \\\\");
+				//latexOutput(msmt, du, q+1, " \\\\");
 			}
 		}
 	}
+	gsl_rng_free (r);
 	//longlatexOutput(output);
 	cout << "(bad runs: " << badrun << ")" <<endl;
-	shortlatexOutput(output);
+	//shortlatexOutput(duoutput);
 	//shortNormalizedLatexOutput(output);
 	R(t(1)-t(0), output2, n);
 	//M(output2, n); Mi(output2, n);
-	time_t end;
-	end = time(NULL);
-	cout << end - begin << endl;
+	//cout.precision(14);
+	vec dumid;
+	cout << duoutput << endl << endl << u << endl << endl;
+	cout << duoutput - u << endl << endl;
+	
+	for(size_t i =0; i<m; i++){
+		for(size_t j =0; j<OUT_ARR_SIZE; j++){
+			duoutput(i,j) = abs(duoutput(i,j) - u(i))/u(i);
+		}
+	}
+	cout << duoutput << endl << endl;
+	dumid = duoutput.colwise().sum()/m;
+	cout << duoutput << endl << endl;
+	
+	cout << "accuracy of parameter (relative mean error): " << dumid.sum()/dumid.size() << "\n";
+	//dumid = duoutput.colwise().max()/m;
+	cout << "accuracy of parameter (relative max  error): " << dumid.sum()/dumid.size() << "\n";
+	cout << "mean iterations: "  <<  iterOutput.sum()/iterOutput.size()  << "\n";	
+	cout << "mean fevals: "  <<  fevalOutput.sum()/fevalOutput.size()  << "\n";	
+	cout << "mean computational time (local search): " << ctimeOutput.sum()/ctimeOutput.size() << "s\n";
+	
 	return 0;
 }
 
@@ -200,27 +308,77 @@ bool isLessThanOne(const vec& x){
 
 	return value;
 }
-
-mat noise(const mat& M, double noise, int seed){
-	mat oM = M;
-
-	const gsl_rng_type* T;
-	gsl_rng* r;
-	gsl_rng_env_setup();
-
-	T = gsl_rng_default;
-	r = gsl_rng_alloc(T);
-
-	gsl_rng_set(r, time(NULL)+seed);
-	double temp;
-
+/*
+	Noise model: x + noise*x*e
+	x - true signal
+	noise - a percentage
+	e ~ N(0,1)
+*/
+mat noise(const mat& M, double noise, gsl_rng* r){
+	mat oM = noise/100*M;
+	
 	for(int j=0; j<oM.cols(); j++){
-		temp = noise*gsl_ran_ugaussian(r);
 		for(int i=0; i<oM.rows(); i++){
-			oM(i,j) += temp;
+			oM(i,j) = M(i,j) + oM(i,j)*gsl_ran_ugaussian(r);;
 		}
 	}
-	gsl_rng_free (r);
 
 	return oM;
 }
+
+std::vector<std::string> split(const std::string &s, char delim) {
+    std::stringstream ss(s);
+    std::string item;
+    std::vector<std::string> tokens;
+    while (std::getline(ss, item, delim)) {
+        tokens.push_back(item);
+    }
+    return tokens;
+}
+
+mat convertData(string filename)
+{
+	/*
+		This block of code is to get data from a 
+		CSV file and convert it into a time vector
+		and data matrix.
+		
+		TODO Convert this into a function for readability
+	*/
+	std::ifstream csvfile;
+	std::string line;
+	std::vector<std::string> dataAsStr, headers, dataRow;
+	csvfile.open(filename);
+	if(csvfile.is_open())
+	{
+		while(std::getline(csvfile, line))
+		{	
+			dataAsStr.push_back(line);
+		}
+    	csvfile.close();
+    }
+	else
+	{
+		std::cerr << "ERROR: Unable to open file"; 
+	}
+	
+	headers = split(dataAsStr[0], ',');
+	dataAsStr.erase(dataAsStr.begin());
+	
+	size_t n = headers.size() - 1;
+	size_t lt = dataAsStr.size();
+	vec timeData(lt);
+	mat featureData(n, lt);
+	
+	for(size_t i=0; i<lt; i++)
+	{
+		dataRow = split(dataAsStr[i], ',');
+		timeData(i) = std::stod(dataRow[0]);
+		for(size_t j = 0; j<n; j++)
+		{
+			featureData(j,i) = std::stod(dataRow[j+1]);
+		}
+	}
+}
+
+

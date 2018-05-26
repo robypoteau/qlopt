@@ -3,7 +3,7 @@ CC=g++
 CXXFLAGS=-g -O2 -Wall -Wextra -Isrc -Lbuild -rdynamic -DNDEBUG -std=c++11
 LIBS=-lgsl -lgslcblas -lmpfr -lgmp -lm
 PRJNAME=paramid
-
+#CXXFLAgS 
 BUILDDIR=build
 BINDIR=bin
 SRCDIR=src
