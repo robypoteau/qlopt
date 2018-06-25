@@ -64,19 +64,19 @@ mat rungekutta4(string fname, const vec& time, const vec& u, const vec& yNot){
 	return w;
 }*/
 
-mat qLinearRungeKutta4(string fname, const vec& time, const vec& u, const vec& yNot, std::vector<thesis::spline> Xn)
+mat qLinearRungeKutta4(string fname, const vec& time, 
+const vec& u, const vec& yNot, std::vector<thesis::spline> Xn)
 {
 	thesis::nonlinearOdes no;
 	sys fhandle = no.odeFuncMap[fname];
 
 	int N = time.size();
-	int n = Xn.size();
-
+	
 	//number of equations
 	int m = yNot.size();
 
 	//timestep
-	double h = time(1)-time(0);
+	double h = 0.0;
 
 	//init stuff
 	mat w(m, N);
@@ -87,7 +87,7 @@ mat qLinearRungeKutta4(string fname, const vec& time, const vec& u, const vec& y
 
 	for (int i = 0; i<N-1; i++)
 	{
-
+		h = time(i+1)-time(i);
 		k1 = h*qlinear(fhandle, time(i),       w.col(i),        u, Xn);
 		k2 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k1/2, u, Xn);
 		k3 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k2/2, u, Xn);
@@ -247,7 +247,7 @@ mat qlinear(sys fhandle, const double& t, const vec& x, const vec& u, std::vecto
 {
 	int m = u.size();
 	int n = Xn.size();
-	double step = 5E-6;
+	double step = 5E-7;
 
 	vec xn1(n); // this is x_N-1
 	vec dxn(n);
@@ -297,7 +297,8 @@ mat qlinear(sys fhandle, const double& t, const vec& x, const vec& u, std::vecto
 				  fhandle(t, xn1+dx.col(k), u+dun.col(j))
 				- fhandle(t, xn1+dx.col(k), u-dun.col(j))
 				- fhandle(t, xn1-dx.col(k), u+dun.col(j))
-				+ fhandle(t, xn1-dx.col(k), u-dun.col(j)), 4*step*step)*dxn(k); //phi_ij
+				+ fhandle(t, xn1-dx.col(k), u-dun.col(j)), 
+				4*step*step)*dxn(k); //phi_ij
 		}
 	}
 

@@ -26,11 +26,25 @@
 
 using namespace thesis;
 
-bool isNegative(const vec& x);
-bool isLessThanOne(const vec& x);
 mat noise(const mat& M, double noise, gsl_rng* r);
 std::vector<std::string> split(const std::string &s, char delim);
 mat convertData(string filname);
+
+class lotka
+{
+private:
+	vec input;
+public:
+	lotka(vec control){input = control;}
+	mat operator() (double t, vec  x, vec u)
+	{
+		mat result(2,1);
+		result(0) = u(0)*x(0) - u(1)*x(0)*x(1) + input(0);
+		result(1) = u(1)*x(0)*x(1) - u(2)*x(1) + input(1);
+		
+		return result;
+	}
+};
 
 int main(int argc, char *argv[])
 {
@@ -59,11 +73,12 @@ int main(int argc, char *argv[])
 	t = in.getInterval();
 	
 	double lambda;
-	if(in.getRegs() < 3){
+	if(in.getRegs() > 0){
 		lambda = in.getLambda();
 	}else{
 		lambda = 0.0;
 	}
+	
 	size_t OUT_ARR_SIZE = in.getNumberOfIterations();
 	//End Console Input
 
@@ -82,7 +97,8 @@ int main(int argc, char *argv[])
 	
 	if(in.isSimulatedData())
 	{
-		//measure = rungekutta4(system, times, u, yNot);
+		timeData = in.getTimeData();
+		featureData = rungekutta4(system, timeData, u, yNot);
 		n  = yNot.size();
 	}
 	else
@@ -255,59 +271,29 @@ int main(int argc, char *argv[])
 	}
 	gsl_rng_free (r);
 	//longlatexOutput(output);
-	cout << "(bad runs: " << badrun << ")" <<endl;
+	//cout << "(bad runs: " << badrun << ")" <<endl;
 	//shortlatexOutput(duoutput);
 	//shortNormalizedLatexOutput(output);
-	R(t(1)-t(0), output2, n);
+	//R(t(1)-t(0), output2, n);
 	//M(output2, n); Mi(output2, n);
 	//cout.precision(14);
 	vec dumid;
-	cout << duoutput << endl << endl << u << endl << endl;
-	cout << duoutput - u << endl << endl;
-	
+	cout << "\nSolutions for " << OUT_ARR_SIZE << " run(s):\n" << duoutput << endl << endl; 
+	cout << "True Solution: \n" << u << endl << endl;
 	for(size_t i =0; i<m; i++){
 		for(size_t j =0; j<OUT_ARR_SIZE; j++){
 			duoutput(i,j) = abs(duoutput(i,j) - u(i))/u(i);
 		}
 	}
-	cout << duoutput << endl << endl;
 	dumid = duoutput.colwise().sum()/m;
-	cout << duoutput << endl << endl;
-	
 	cout << "accuracy of parameter (relative mean error): " << dumid.sum()/dumid.size() << "\n";
-	//dumid = duoutput.colwise().max()/m;
 	cout << "accuracy of parameter (relative max  error): " << dumid.sum()/dumid.size() << "\n";
 	cout << "mean iterations: "  <<  iterOutput.sum()/iterOutput.size()  << "\n";	
-	cout << "mean fevals: "  <<  fevalOutput.sum()/fevalOutput.size()  << "\n";	
 	cout << "mean computational time (local search): " << ctimeOutput.sum()/ctimeOutput.size() << "s\n";
 	
 	return 0;
 }
 
-bool isNegative(const vec& x){
-	bool value = false;
-	for(int i=0; i < x.size(); i++){
-		if(x(i) < 0){
-			value = true;
-			break;
-		}
-	}
-	return value;
-}
-
-bool isLessThanOne(const vec& x){
-	bool value = false;
-	for(int i=0; i < x.size()-1; i++){
-		if(x(i) < .9){
-			value = true;
-			break;
-		}
-	}
-	if(x(x.size()-1) < 1)
-			value = true;
-
-	return value;
-}
 /*
 	Noise model: x + noise*x*e
 	x - true signal

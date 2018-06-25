@@ -97,8 +97,11 @@ output findActualParam(soln_env *env, const int regs=0, const int numdivs = 1)
 	{
 		if(j == numdivs-1)
 		{
+			cout << "\nTime interval: " << (*env->time)(0) << " to " \
+						<< (*env->time)(lt-1) << endl << endl;
 			for(i = 0; i<LIMIT; i++)
 			{	
+				cout << "\tIteration " << i << endl;
 				if(FD){ 
 					bob = qLinearRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, ext_data);
 				}else{
@@ -107,20 +110,13 @@ output findActualParam(soln_env *env, const int regs=0, const int numdivs = 1)
 				
 				U = reshape(bob.bottomRows(n*m), m, n*lt);
 				*env->nth_soln = bob.topRows(n);
-				//cout << "bob = \n" << bob << endl;
 				A = findA(*env->time, U, m);
 				//cout << "C = \n" << corrMat(A) << endl;
-				cout << "rcond(A) = " << rcond(A) << endl;
-				if(rcond(A) < 2.2E-10)
-					cout << "A is near to being singular." << endl;
+				cout << "\trcond(A) = " << rcond(A) << endl;
 					
 				temp = reshape(measurements - *env->nth_soln, 1, n*lt).row(0);
 				P = findP(*env->time, U, temp, m);
 				O = findO(*env->time, temp);
-				
-				//cout <<"\nDeterminant(A) = " << A.determinant() << endl;
-				///cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
-
 				
 				if(regs == 0)
 				{
@@ -133,10 +129,6 @@ output findActualParam(soln_env *env, const int regs=0, const int numdivs = 1)
 				else if(regs == 2)
 				{
 					du = inverse(A + lambda*I)*(P + lambda*I*((*env->u_guess) - uNot));
-					
-					cout << "rcond(A + lambda*I) = " << rcond(A + lambda*I) << endl;
-					if(rcond(A + lambda*I) < 2.2E-10)
-						cout << "A + lambda*I is near to being singular." << endl;
 				}
 				else if(regs == 3)
 				{
@@ -184,8 +176,11 @@ output findActualParam(soln_env *env, const int regs=0, const int numdivs = 1)
 				}
 			}
 		}else{
+			cout << "\nTime interval: " << (*env->time)(0) << " to " \
+						<< (*env->time)((j+1)*divs-1) << endl << endl;
 			for(int i = 0; i<LIMIT; i++)
 			{
+				cout << "\tIteration " << i << endl;
 				if(FD){ 
 					bob = qLinearRungeKutta4(*env->ode, (*env->time).head((j+1)*divs), \
 						uNot, *env->initial_cond, ext_data);
@@ -196,11 +191,9 @@ output findActualParam(soln_env *env, const int regs=0, const int numdivs = 1)
 				
 				U = reshape(bob.bottomRows(n*m), m, n*(j+1)*divs);
 				A = findA((*env->time).head((j+1)*divs), U, m);
+				cout << "\trcond(A) = " << rcond(A) << endl;
 				P = findP((*env->time).head((j+1)*divs), U, reshape(measurements.leftCols((j+1)*divs) - bob.topRows(n), 1, n*(j+1)*divs).row(0), m);
-				O = findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0));
-
-				//cout <<"\nDeterminant(A) = " << A.determinant() << endl;
-				//cout << "rank(A) = " << A.fullPivHouseholderQr().rank() <<endl;
+				O = findO(*env->time, reshape(measurements.leftCols((j+1)*divs) - bob.topRows(n), 1, n*lt).row(0));
 				
 				if(regs == 0)
 				{
@@ -213,10 +206,6 @@ output findActualParam(soln_env *env, const int regs=0, const int numdivs = 1)
 				else if(regs == 2)
 				{
 					du = inverse(A + lambda*I)*(P + lambda*I*((*env->u_guess) - uNot));
-					
-					cout << "rcond(A + lambda*I) = " << rcond(A + lambda*I) << endl;
-					if(rcond(A + lambda*I) < 2.2E-10)
-						cout << "A + lambda*I is near to being singular." << endl;
 				}
 				else if(regs == 3)
 				{
@@ -265,16 +254,15 @@ output findActualParam(soln_env *env, const int regs=0, const int numdivs = 1)
 			}
 		}
 	}
-	cout << lt << endl;
-	if(FD){ 
+	/*if(FD){ 
 		bob = qLinearRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, ext_data);
 	}else{
 		bob = qlRungeKutta4(*env->ode, (*env->time), uNot, *env->initial_cond, ext_data);
-	}
-	O = sqrt(findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0)));
-	cout << "("	<< lt << "," << O << ")" << endl;
+	}*/
+	//O = sqrt(findO(*env->time, reshape(measurements - *env->nth_soln, 1, n*lt).row(0)));
+	//cout << "("	<< lt << "," << O << ")" << endl;
 	//cout << "number of function evaluations: " << thesis::nonlinearOdes::getCounter() << endl;
-	results.fevals = thesis::nonlinearOdes::getCounter();
+	results.fevals = 0; //thesis::nonlinearOdes::getCounter();
 	results.du = uNot;
 	return results;
 }

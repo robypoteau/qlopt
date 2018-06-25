@@ -30,6 +30,7 @@ namespace thesis{
 		odeFuncMap["toggle_switch_config1"] = nonlinearOdes::toggle_switch_config1;
 		odeFuncMap["toggle_switch_config2"] = nonlinearOdes::toggle_switch_config2;
 		odeFuncMap["toggle_switch_config3"] = nonlinearOdes::toggle_switch_config3;
+		odeFuncMap["toggle_switch_config4"] = nonlinearOdes::toggle_switch_config4;
 		odeFuncMap["repressilator"] = nonlinearOdes::repressilator;
 		odeFuncMap["general_repressilator"] = nonlinearOdes::general_repressilator;
 	}
@@ -37,11 +38,11 @@ namespace thesis{
 
 	mat nonlinearOdes::lotka_volterra(const double& t, const vec& x, const vec& u)
 	{
+		(void) t;
 		mat result(2,1);
 		result(0) = u(0)*x(0) - u(1)*x(0)*x(1);
 		result(1) = u(1)*x(0)*x(1) - u(2)*x(1);
 		
-		nonlinearOdes::addCounter();	
 		return result;
 	}
 
@@ -892,18 +893,18 @@ namespace thesis{
 		(void)t;
 
 		double kL1 = u(0);
-		double kL2 = u(2);
-		double KT = 1;
-		double nT = u(8);
-		double dL1 = u(1);
-		double dL2 = u(3);
+		double kL2 = u(1);
+		double KT = u(2);
+		double nT = 2;
+		double dL1 = u(3);
+		double dL2 = u(4);
 
-		double kT1 = u(4);
+		double kT1 = u(5);
 		double kT2 = u(6);
-		double KL = 1;
-		double nL = u(9);
-		double dT1 = u(5);
-		double dT2 = u(7);
+		double KL = u(7);
+		double nL = 2;
+		double dT1 = u(8);
+		double dT2 = u(9);
 
 
 		mat result(4,1);
@@ -965,6 +966,33 @@ namespace thesis{
 					kT1/(1 + pow(x(1),nL)/KLnL) - dT1*x(2),
 					kT2*x(2) - dT2*x(3);
 		nonlinearOdes::addCounter();
+		return result;
+	}
+	mat nonlinearOdes::toggle_switch_config4(const double& t, const vec& x, const vec& u)
+	{
+		(void)t;
+
+		double kL1 = u(0);
+		double kL2 = u(1);
+		double KT = 1;
+		double nT = u(2);
+		double dL1 = u(3);
+		double dL2 = u(4);
+
+		double kT1 = u(5);
+		double kT2 = u(6);
+		double KL = 1;
+		double nL = u(7);
+		double dT1 = u(8);
+		double dT2 = u(9);
+
+
+		mat result(4,1);
+		result << 	kL1*pow(KT,nT)/(pow(KT,nT) + pow(x(3),nT)) - dL1*x(0),
+					kL2*x(0) - dL2*x(1),
+					kT1*pow(KL,nL)/(pow(KL,nL) + pow(x(1),nL)) - dT1*x(2),
+					kT2*x(2) - dT2*x(3);
+				nonlinearOdes::addCounter();
 		return result;
 	}
 	mat nonlinearOdes::repressilator(const double& t, const vec& x, const vec& u)
