@@ -14,19 +14,26 @@ namespace thesis{
 		//Use values from input struct and data info
 		size_t n = params.gen.numOfStates;
 		size_t m = u0.size();
-		size_t lt = t.size();
+		size_t lt = (int)(params.dat.endTime-params.dat.initialTime)
+					/params.dat.timeIncrement + 1;//t.size();
 		size_t ds = data.size();
-		
+		vec ts(lt);
+		ts(0) = params.dat.initialTime;
+		for(size_t j=1; j<lt; j++)
+		{
+			ts(j) += ts(j-1) + params.dat.timeIncrement;
+		}
+
 		//TODO construct another more time dense things
 			
 		vec ly0(n*(m+1));
 		ly0.fill(0);
 		ly0.head(n) = y0;
-		
-		mat bob, temp, U, A(ds*m,m);
+
+		mat bob, temp, U, A(ds*m,m), A1(m,m);
 		mat I = mat::Identity(m, m);
-		vec P(ds*m), du(m);
-		double O, objval, objval2;
+		vec P(ds*m), P1(m), du(m);
+		double O, objval, objval2, alpha = 1E-5;
 		
 		OdeWrapper odewrapper(fun);
 		
@@ -42,16 +49,16 @@ namespace thesis{
 		}
 		results.ufinal = u0;
 		//TODO improve U mat stuff
-		std::vector<std::vector<vec>> Us(n, std::vector<vec>(m));
+		//std::vector<std::vector<vec>> Us(n, std::vector<vec>(m));
 		for(size_t j=0; j<params.tol.maxiter; j++)
 		{		
 			//TODO Solution to quasilinear
-			O = 0.0;
+			A1.fill(0.0), P1.fill(0.0), O = 0.0;
 			for(size_t i = 0; i < ds; i++)
 			{
 				odewrapper.setControl(input[i]);
 				if(params.gen.finitediff){ 
-					bob = qloptRungeKutta4(odewrapper, t, results.ufinal, ly0, spl_pairs[i]);
+					bob = qloptRungeKutta4(odewrapper, ts, results.ufinal, ly0, spl_pairs[i]);
 				}else{
 					//bob = qlRungeKutta4(*env->ode, (*env->time), uNot, y0, ext_data);
 				}
@@ -59,15 +66,21 @@ namespace thesis{
 				U = reshape(bob.bottomRows(n*m), m, n*lt);
 				temp = reshape(data[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
 				
-				for(size_t q = 0; q < n ; q++){
+				/*for(size_t q = 0; q < n ; q++){
 					for(size_t w = 0; w < m; w++){
 						Us[q][w] = bob.bottomRows(n*m).row(q*w);
 					}
-				}
+				}*/
 				
-				A.middleRows(i*m, m) = findA(t, U, m);
-				P.segment(i*m, m) = findP(t, U, temp, m);
-				O += findO(t, temp);
+				if(params.reg.type == 0){
+					A.middleRows(i*m, m) = findA(t, U, m);
+					P.segment(i*m, m) = findP(t, U, temp, m);
+				}else if(params.reg.type == 1){
+					A1 += findA(ts, U, m);
+					P1 += findP(ts, U, temp, m);
+				}
+				O += findO(ts, temp);
+				/**/
 			}
 			if(params.reg.type == 0)
 			{
@@ -75,7 +88,7 @@ namespace thesis{
 			}
 			else if(params.reg.type == 1)
 			{
-				//du = inverse(A + lambda*I)*P;
+				du = inverse(A1 + alpha*I)*P1;
 			}
 			else
 			{
@@ -85,6 +98,7 @@ namespace thesis{
 			
 			std::cout << du << endl << endl;
 			results.ufinal += du;
+			std::cout << results.ufinal << endl << endl;
 			
 			results.iterations++;
 			if (std::isnan(du.norm())){

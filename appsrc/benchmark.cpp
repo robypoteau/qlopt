@@ -49,12 +49,12 @@ int main(int argc, char *argv[])
 	//Data parameters.
 	params.dat.spacing = "uniform";	//Options: "uniform", "nonuniform"
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
-	params.dat.endTime = 10.0;		//Should be set to proper value
-	params.dat.timeIncrement = 0.5;	//Should be set to proper value
-	params.dat.numOfDataSets = 8;
+	params.dat.endTime = 120.0;		//Should be set to proper value
+	params.dat.timeIncrement = 1.0;	//Should be set to proper value
+	params.dat.numOfDataSets = 16;
 	
 	//Regularization parameters.
-	params.reg.type = 0; 	// 0 - none, 
+	params.reg.type = 1; 	// 0 - none, 
 							// 1 - Type 1, 
 							// 2 - Type 2
 							
@@ -78,35 +78,38 @@ int main(int argc, char *argv[])
 		54,60,66,72,78,84,90,96,102,
 		108,114,120;
 	
-	input[0](0) = 0.1; input[0](1) = 0.05;
-	input[1](0) = 0.1; input[1](1) = 0.13572;
-	input[2](0) = 0.1; input[2](1) = 0.3684;	
-	input[3](0) = 0.1; input[3](1) = 1.0;
-	input[4](0) = 0.46416; input[4](1) = 0.05;
-	input[5](0) = 0.46416; input[5](1) = 0.13572;
-	input[6](0) = 0.46416; input[6](1) = 0.3684;
-	input[7](0) = 0.46416; input[7](1) = 1.0;
+	input[0](0) = 0.1; 		input[0](1) = 0.05;
+	input[1](0) = 0.1; 		input[1](1) = 0.13572;
+	input[2](0) = 0.1; 		input[2](1) = 0.3684;	
+	input[3](0) = 0.1; 		input[3](1) = 1.0;
+	input[4](0) = 0.46416; 	input[4](1) = 0.05;
+	input[5](0) = 0.46416; 	input[5](1) = 0.13572;
+	input[6](0) = 0.46416; 	input[6](1) = 0.3684;
+	input[7](0) = 0.46416; 	input[7](1) = 1.0;
+	input[8](0) = 2.1544; 	input[8](1) = 0.05;
+	input[9](0) = 2.1544; 	input[9](1) = 0.13572;
+	input[10](0) = 2.1544; 	input[10](1) = 0.3684;	
+	input[11](0) = 2.1544; 	input[11](1) = 1.0;
+	input[12](0) = 10; 		input[12](1) = 0.05;
+	input[13](0) = 10; 		input[13](1) = 0.13572;
+	input[14](0) = 10; 		input[14](1) = 0.3684;
+	input[15](0) = 10; 		input[15](1) = 1.0;
 	
 	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
 	{
 		data[i] = getCsvData("data/benchmark_" + std::to_string(i+1) + ".csv");
-		cout << data[i]<< endl<< endl;
+		//cout << data[i]<< endl<< endl;
 	}
 
 	y0 << 6.6667e-1, 5.7254e-1, 4.1758e-1, 4.0e-1, 
 		3.6409e-1, 2.9457e-1, 1.419, 9.3464e-1;
-	u0 << 2.5,2.5,2.5,2.5,2.5,2.5,
-		  2.5,2.5,2.5,2.5,2.5,2.5,
-		  2.5,2.5,2.5,2.5,2.5,2.5,
-		  2.5,2.5,2.5,2.5,2.5,2.5,
-		  2.5,2.5,2.5,2.5,2.5,2.5,
-		  2.5,2.5,2.5,2.5,2.5,2.5;
+	u0.fill(1.5);
 	
 	/*
 		This structure contains the many outputs of the method. Which the user
 		can manipulate to get the desired graphics and numerical summaries.
 	*/
-	//qlopt(benchmark, t, u0, y0, input, data, params);
+	qlopt(benchmark, t, u0, y0, input, data, params);
 	
 	return 0;
 }
