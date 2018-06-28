@@ -4,10 +4,15 @@
 #include <vector>
 #include <iostream>
 #include <string>
+#include <cmath>
+
+// External headers
+ #include <Eigen/QR>
 
 // My headers
 #include <misc.h>
 #include <spline.h>
+#include <tallskinnyqr.h>
 
 namespace thesis{
 	typedef vec (*odefunction)(const double& t, 
@@ -53,9 +58,10 @@ namespace thesis{
 			unsigned int numOfDataSets;
 		} dat;
 		struct regularization {
-			regularization() : type(0)
+			regularization() : type(0), alpha(0.0)
 				{};
-			unsigned int type;	
+			unsigned int type;
+			double alpha;
 		} reg;
 		struct initialValueProblem {
 			initialValueProblem(){

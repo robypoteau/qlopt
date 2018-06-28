@@ -50,14 +50,14 @@ int main(int argc, char *argv[])
 	params.dat.spacing = "uniform";	//Options: "uniform", "nonuniform"
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
-	params.dat.timeIncrement = 1.0;	//Should be set to proper value
+	params.dat.timeIncrement = 6;	//Should be set to proper value
 	params.dat.numOfDataSets = 16;
 	
 	//Regularization parameters.
 	params.reg.type = 1; 	// 0 - none, 
 							// 1 - Type 1, 
 							// 2 - Type 2
-							
+	params.reg.alpha = 128.0;						
 	//Initial value problem parameters.
 	params.ivp.solver = "mine";	// "mine", "boost_rk4", "cvodes", ...
 	
@@ -94,7 +94,7 @@ int main(int argc, char *argv[])
 	input[13](0) = 10; 		input[13](1) = 0.13572;
 	input[14](0) = 10; 		input[14](1) = 0.3684;
 	input[15](0) = 10; 		input[15](1) = 1.0;
-	
+	/**/
 	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
 	{
 		data[i] = getCsvData("data/benchmark_" + std::to_string(i+1) + ".csv");
@@ -102,9 +102,10 @@ int main(int argc, char *argv[])
 	}
 
 	y0 << 6.6667e-1, 5.7254e-1, 4.1758e-1, 4.0e-1, 
-		3.6409e-1, 2.9457e-1, 1.419, 9.3464e-1;
-	u0.fill(1.5);
-	
+		  3.6409e-1, 2.9457e-1, 1.419    , 9.3464e-1;
+	u0 << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,
+		1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
+		
 	/*
 		This structure contains the many outputs of the method. Which the user
 		can manipulate to get the desired graphics and numerical summaries.

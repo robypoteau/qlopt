@@ -24,8 +24,7 @@ namespace thesis{
 			ts(j) += ts(j-1) + params.dat.timeIncrement;
 		}
 
-		//TODO construct another more time dense things
-			
+		//TODO construct another more time dense things			
 		vec ly0(n*(m+1));
 		ly0.fill(0);
 		ly0.head(n) = y0;
@@ -33,7 +32,7 @@ namespace thesis{
 		mat bob, temp, U, A(ds*m,m), A1(m,m);
 		mat I = mat::Identity(m, m);
 		vec P(ds*m), P1(m), du(m);
-		double O, objval, objval2, alpha = 1E-5;
+		double O, objval, objval2, alpha = params.reg.alpha;
 		
 		OdeWrapper odewrapper(fun);
 		
@@ -48,8 +47,12 @@ namespace thesis{
 			}
 		}
 		results.ufinal = u0;
+		std::cout << "u  = " << results.ufinal.transpose() << endl << endl;
+			
 		//TODO improve U mat stuff
 		//std::vector<std::vector<vec>> Us(n, std::vector<vec>(m));
+		
+		tallskinnyqr tsqr(ds*m, m, 300);
 		for(size_t j=0; j<params.tol.maxiter; j++)
 		{		
 			//TODO Solution to quasilinear
@@ -76,6 +79,9 @@ namespace thesis{
 					A.middleRows(i*m, m) = findA(t, U, m);
 					P.segment(i*m, m) = findP(t, U, temp, m);
 				}else if(params.reg.type == 1){
+					A.middleRows(i*m, m) = findA(t, U, m);
+					P.segment(i*m, m) = findP(t, U, temp, m);
+				}else if(params.reg.type == 2){
 					A1 += findA(ts, U, m);
 					P1 += findP(ts, U, temp, m);
 				}
@@ -84,11 +90,35 @@ namespace thesis{
 			}
 			if(params.reg.type == 0)
 			{
+				if(std::isnan(P.norm())){
+					std::cerr << "Termination: du is NaN." << endl; 
+					exit(0);
+				}
+
 				du = A.fullPivHouseholderQr().solve(P);
+				//std::cout << "A = \n" << A << endl;
+				//std::cout << "P = \n" << P << endl;
 			}
 			else if(params.reg.type == 1)
 			{
-				du = inverse(A1 + alpha*I)*P1;
+				if(std::isnan(P.norm())){
+					std::cerr << "Termination: du is NaN." << endl;
+					exit(0);
+				}
+				
+				tsqr.update(A,P);
+				du = tsqr.solve();
+			}
+			else if(params.reg.type == 2)
+			{
+				if(std::isnan(P.norm())){
+					std::cerr << "Termination: du is NaN." << endl;
+					exit(0);
+				}
+				A1 += alpha*I;
+				du = A1.inverse()*P1;
+				//std::cout << "A = \n" << A1 << endl;
+				//std::cout << "P = \n" << P1 << endl;
 			}
 			else
 			{
@@ -96,9 +126,9 @@ namespace thesis{
 				exit(0);
 			}
 			
-			std::cout << du << endl << endl;
+			std::cout << "du = " << du.transpose() << endl << endl;
 			results.ufinal += du;
-			std::cout << results.ufinal << endl << endl;
+			std::cout << "u  = " << results.ufinal.transpose() << endl << endl;
 			
 			results.iterations++;
 			if (std::isnan(du.norm())){
@@ -106,40 +136,40 @@ namespace thesis{
 				exit(0);
 			}else if (j >= params.tol.maxiter-1){
 				std::cout << "Termination: max iterations reached." << endl;
-			}else if(du.norm() < params.tol.absparam){
-				std::cout << "Termination: absolute parameter value tolerance." << endl;
-				std::cout << du.norm() << endl;
-				break;
 			}else if(du.norm()/u0.norm() < params.tol.relparam){
 				std::cout << "Termination: relative parameter value tolerance." << endl;
-				std::cout << du.norm()/u0.norm() << endl;
+				std::cout << "du/u = " << du.norm()/u0.norm() << endl;
+				break;
+			}else if(du.norm() < params.tol.absparam){
+				std::cout << "Termination: absolute parameter value tolerance." << endl;
+				std::cout << "du = "<< du.norm() << endl;
 				break;
 			}
 			//TODO to avoid calculating the Obj func val use O with reps ||x-xn||^2
 			if(j > 0){
-				objval2 = 0.0;
+				objval2 = O;
 				for(size_t i = 0; i < ds; i++){
-					objval2 += O 
+					objval2 = objval2
 						- 2*P.segment(i*m, m).transpose()*du 
 						+ du.transpose()*A.middleRows(i*m, m)*du;
 				}
 				
 				if(abs(objval - objval2) < params.tol.absobj){
 					std::cout << "Termination: absolute objective function value tolerance." << endl;
-					std::cout << abs(objval - objval2) << endl;
+					std::cout << "|J_new - J_old| = " << abs(objval - objval2) << endl;
 					break;
 				}
 				objval = objval2;
 			}else{
-				objval = 0.0;
+				objval = O;
 				for(size_t i = 0; i < ds; i++){
-					objval += O 
+					objval = objval 
 						- 2*P.segment(i*m, m).transpose()*du 
 						+ du.transpose()*A.middleRows(i*m, m)*du;
 				}
 			}
 		}
-		std::cout << results.ufinal << endl;
+		std::cout << results.ufinal.transpose() << endl;
 		return results;
 	} 
 	
@@ -182,7 +212,7 @@ namespace thesis{
 	{
 		size_t m = u.size();
 		size_t n = Xn.size();
-		double step = 5E-7;
+		double step = sqrt(2.2E-16);
 
 		vec xn1(n); // this is x_N-1
 		vec dxn(n);
