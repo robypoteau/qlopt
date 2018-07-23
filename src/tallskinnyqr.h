@@ -36,6 +36,7 @@ namespace thesis{
 			void init(const size_t n, const size_t p, const size_t nlcurve);
 			void update(const mat& A, const vec& P);
 			vec solve();
+			vec rsolve(double alpha);
 	};
 }
 

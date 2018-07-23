@@ -118,11 +118,14 @@ namespace thesis{
 
 	outputStruct qlopt(odefunction fun, 
 		const vec& t, 
-		const vec& u0, 
+		const vec& u0,
+		const vec& uguess, 
 		const vec& y0,
 		const vector<vec>& input, 
 		const vector<mat>& data, 
 		const inputStruct& params);
+	
+	double findGamma(mat A, vec P, vec uNot, vec u);
 		
 	mat qloptRungeKutta4(OdeWrapper& fhandle, const vec& time, 
 		const vec& u, const vec& yNot,  std::vector<thesis::spline>& Xn);

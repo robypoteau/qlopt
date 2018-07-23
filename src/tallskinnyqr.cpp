@@ -16,7 +16,7 @@ namespace thesis{
 		gslA = gsl_matrix_alloc(num_obs, order);
 		gslx = gsl_vector_alloc(order);
 		gslb = gsl_vector_alloc(num_obs);
-		lambda = 1E-5;
+		lambda = 0.0;
 		
 		reg_param = gsl_vector_alloc(nlcurve);
 		rho = gsl_vector_alloc(nlcurve);
@@ -39,11 +39,17 @@ namespace thesis{
 		gsl_multilarge_linear_accumulate(gslA, gslb, w);
 		
 	}
-
 	vec tallskinnyqr::solve()
 	{
 		gsl_multilarge_linear_lcurve(reg_param, rho, eta, w);
 		gsl_multilarge_linear_solve(lambda, gslx, &rnorm, &snorm, w);
+		gsl_multilarge_linear_rcond(&rcond, w);
+		std::cout << "rcond = " << rcond << endl << endl;
+		return gslVecToVec(gslx);
+	}
+	vec tallskinnyqr::rsolve(double alpha)
+	{
+		gsl_multilarge_linear_solve(alpha, gslx, &rnorm, &snorm, w);
 		gsl_multilarge_linear_rcond(&rcond, w);
 		std::cout << "rcond = " << rcond << endl << endl;
 		return gslVecToVec(gslx);

@@ -33,21 +33,23 @@ int main(int argc, char *argv[])
 	
 	//Data parameters.
 	params.dat.spacing = "uniform";	//Options: "uniform", "nonuniform"
-	params.dat.initialTime = 0.0; 	//Should be set to proper value
-	params.dat.endTime = 10.0;		//Should be set to proper value
-	params.dat.timeIncrement = 0.5;	//Should be set to proper value
+	params.dat.initialTime = 0.000; 	//Should be set to proper value
+	params.dat.endTime = 0.011;		//Should be set to proper value
+	params.dat.timeIncrement = 0.001;	//Should be set to proper value
+	params.dat.numOfDataSets = 2;
 	
 	//Regularization parameters.
-	params.reg.type = 0; 	// 0 - none, 
+	params.reg.type = 1; 	// 0 - none, 
 							// 1 - Type 1, 
 							// 2 - Type 2
-							
+	params.reg.alpha = 0.0;						
+	
 	//Initial value problem parameters.
 	params.ivp.solver = "mine";	// "mine", "boost_rk4", "cvodes", ...
 	
 	//General parameters.
-	params.gen.numOfStates = 2;	//Should be set to proper value
-	params.gen.numOfParams = 3;	//Should be set to proper value
+	params.gen.numOfStates = 2;		//Should be set to proper value
+	params.gen.numOfParams = 3;		//Should be set to proper value
 	params.gen.divisions = 1;		//Change optional, default value given
 	params.gen.finitediff = true;	//Change optional, default value given
 	
@@ -63,23 +65,25 @@ int main(int argc, char *argv[])
 	std::vector<mat> data(2);
 	vec t(12);
 	vec u0(3);
-	vec y0(2);
-	
+  vec u(3);
+  vec y0(2);
+
 	input[0] = vec::Zero(2);
 	input[1] = vec::Zero(2); //input[1](0) = 68.48; input[1](1) = 4.29;
-	
-	t << 0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009,0.01,0.011;
+
+	t << 0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009,0.010,0.011;
 	data[0] = d1;
 	data[1] = d1;
 	u0 << .5,.5,.5;
-	y0 << 35,4;
-	
+  u << 1,2,1;
+	y0 << 35, 4;
+
 	/*
 		This structure contains the many outputs of the method. Which the user
 		can manipulate to get the desired graphics and numerical summaries.
 	*/
-	qlopt(lotka, t, u0, y0, input, data, params);
-	
+	qlopt(lotka, t, u0, u, y0, input, data, params);
+  //qlopt(benchmark, t2, u0, u, y0, input, data, params);
 	return 0;
 }
 
