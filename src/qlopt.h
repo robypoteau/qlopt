@@ -88,6 +88,9 @@ namespace thesis{
 		unsigned int iterations;
 		double comptime;
 		vec ufinal;
+		mat xvals;
+		mat uvals;
+				
 		
 		output_struct(){
 			numfevals = 0;
