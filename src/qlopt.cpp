@@ -48,7 +48,8 @@ namespace thesis{
 		}
 		results.ufinal = u0;
 		results.uvals = u0;
-		
+		results.iterations = 0;
+		std::cout << "u  = " << results.uvals << endl << endl;
 		//TODO improve U mat stuff
 		//std::vector<std::vector<vec>> Us(n, std::vector<vec>(m));
 		
@@ -91,7 +92,8 @@ namespace thesis{
 					results.uvals.conservativeResize(NoChange, results.uvals.cols()+1); 
 					results.uvals.col(results.uvals.cols()-1) = results.ufinal;
 					
-					std::cout << "u  = " << results.ufinal.transpose() << endl << endl;
+					std::cout << "u  = " << results.ufinal << endl << endl;
+					//std::cout << "u  = " << results.uvals << endl << endl;
 			
 					// Check the termination conditions
 					if (std::isnan(du.norm())){
@@ -133,7 +135,10 @@ namespace thesis{
 				std::cout << "|u_n - u*| = " << norm(results.ufinal.transpose() - uguess.transpose()) << endl;
 			}
 		}
+		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1); 
+		results.uvals.col(results.uvals.cols()-1) = uguess;
 		std::cout << results.ufinal.transpose() << endl;
+		parameterOutput(results.uvals);
 		return results;
 	}
 
@@ -148,7 +153,7 @@ namespace thesis{
 		vec du(m), total(m);
 		mat B(m,m);
 		
-		for(int j = -9; j<1; j++){
+		for(int j = -14; j<0; j++){
 		    gamma = pow(10,j);
 		    dg = .1; //(pow(10,j)-pow(10,j-1))/dvs;
 		    for(int k = 0; k<(dvs); k++){

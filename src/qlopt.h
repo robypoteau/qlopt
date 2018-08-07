@@ -13,6 +13,7 @@
 #include <misc.h>
 #include <spline.h>
 #include <tallskinnyqr.h>
+#include <latex_output.h>
 
 namespace thesis{
 	typedef vec (*odefunction)(const double& t, 

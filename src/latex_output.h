@@ -8,6 +8,8 @@
 #include <iostream>
 #include <fstream>
 
+void parameterOutput(const mat& uvals);
+
 void latexOutput(const mat& xn, const vec& u, int p, string buf);
 void timelatexOutput(const vec& t, string buf, int n, int p);
 void longlatexOutput(const mat& otpt);

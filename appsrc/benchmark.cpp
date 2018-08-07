@@ -52,8 +52,8 @@ int main(int argc, char *argv[])
 	//Data parameters.
 	params.dat.spacing = "uniform";	//Options: "uniform", "nonuniform"
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
-	params.dat.endTime = 12.0;		//Should be set to proper value
-	params.dat.timeIncrement = .10;	//Should be set to proper value
+	params.dat.endTime = 1.0;		//Should be set to proper value
+	params.dat.timeIncrement = .010;	//Should be set to proper value
 	params.dat.numOfDataSets = 16;
 
 	//Regularization parameters.
@@ -76,7 +76,7 @@ int main(int argc, char *argv[])
 	
 	vec t(21);
   	vec t2;
- 	t2 = vec::LinSpaced(121,0.0,12.0);
+ 	t2 = vec::LinSpaced(101,0.0,1.0);
   	//cout << t2 << endl << endl;
   	vec u(params.gen.numOfParams);
 	vec u0(params.gen.numOfParams);
@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 		54,60,66,72,78,84,90,96,102,
 		108,114,120;
 
-	/*input[0](0) = 0.1; 		input[0](1) = 0.05;
+	input[0](0) = 0.1; 		input[0](1) = 0.05;
 	input[1](0) = 0.1; 		input[1](1) = 0.13572;
 	input[2](0) = 0.1; 		input[2](1) = 0.3684;
 	input[3](0) = 0.1; 		input[3](1) = 1.0;
@@ -101,9 +101,9 @@ int main(int argc, char *argv[])
 	input[12](0) = 10; 		input[12](1) = 0.05;
 	input[13](0) = 10; 		input[13](1) = 0.13572;
 	input[14](0) = 10; 		input[14](1) = 0.3684;
-	input[15](0) = 10; 		input[15](1) = 1.0;*/
+	input[15](0) = 10; 		input[15](1) = 1.0;/**/
 
-	input[0](0) = 0.1; 		input[0](1) = 0.05;
+	/*input[0](0) = 10; 		input[0](1) = 0.05;
 	input[1](0) = 0.46416; 	input[1](1) = 0.13572;
 	input[2](0) = 2.1544; 	input[2](1) = 0.3684;
 	input[3](0) = 10; 		input[3](1) = 1.0;
@@ -121,19 +121,19 @@ int main(int argc, char *argv[])
 	input[12](0) = 0.1; 	input[12](1) = 1.0;
 	input[13](0) = 0.46416; input[13](1) = 0.3684;
 	input[14](0) = 2.1544; 	input[14](1) = 0.13572;
-	input[15](0) = 10; 		input[15](1) = 0.05;/**/
+	input[15](0) = 10; 		input[15](1) = 0.05;*/
 	
 
 
   y0 << 6.6667e-1, 5.7254e-1, 4.1758e-1, 4.0e-1,
-    3.6409e-1, 2.9457e-1, 1.419    , 9.3464e-1;
+    3.6409e-1, 2.9457e-1, 1.419, 9.3464e-1;
 
   //y0.fill(.5);
 
   u << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,
 		1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
 
-  u0.fill(2.5);
+  u0.fill(1.0);
   //u0 = u0 + u;
   //u0 = u;
 	//u0 << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,
