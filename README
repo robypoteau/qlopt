@@ -1,3 +1,46 @@
 Roby Poteau Dissertation research turned into a software package for the identification of parameters of nonlinear ODES with constant and variable coefficients. Details concerning the mathematical formulation of the method and convergence can be found in UGA1, UGA2, RRP-Dis.
 
-Depedencies: gsl
+Depedencies: gsl, Eigen, boost
+
+For many of our results you can run the provided scripts. For our preselected systems.
+
+Example .sh script follow by an explanation
+
+#~/bin/bash
+echo "Running Repressilator Script:"
+./bin/main \
+-s general_repressilator \
+-i 0:.02:10 \
+-u 216,0.216,2,0.2,0.2,216,0.216,2,0.2,0.2,216,0.216,2,0.2,0.2 \
+-o 175,.5,1,.5,.5,175,.5,1,.5,.5,175,.5,1,.5,.5 \
+-g 250,.4,3,.4,.4,250,.4,3,.4,.4,250,.4,3,.4,.4 \
+-y 5,1,10,1,15,1 \
+-k 1 \
+-p 22 \
+-d 1 \
+-r 1 \
+-l 0.000001 \
+echo "Finished Running Repressilator Script"
+
+In nonlinearOdes.cpp, you can find the list of all available 
+nonlinear odes and you can add to it if you want to test new models.
+
+-s is the flag for the name of the model
+-i is a matlab style range of values for times used (you can use a subset or offset of the time data given)
+-u is the true parameters
+-o is the initial guess for the parameters
+-g (optional, necessary if -r 2 is being used), this is the parameter guess for Type 2 regularization
+-y is the initial condition for the system of ODEs
+-k is the number of time to run the full algorithm (usually used for averaging over noisy results)
+-p is followed by the number of coeffecients for lsq when removing noise from noisy data (used when -n is active) 
+-d the number of subdivision of time to solve over. If -d 2 For -i 1:.1:10, it will solve for 1 to 5 first then 1 to 10 
+-r 0 - no regularization, 1 is Type I and 2 is Type 2
+-n (optional) this is the flag for noise, the amount of percent noise must be added afterwards (e.g. for 1% noise, -n 1)
+-l (optional) if you are using regularization this is the value for the regularization parameter
+-m (optional) use simulated data
+-t (optional, needed if you use simulated data) time intervals for the simulated data, e.g. -t 0:.01:5
+All the flags which are not marked optional must be active for the algorithm to run.
+
+If you have any questions feel free to e-mail me at:
+rpoteau2010@my.fit.edu
+
