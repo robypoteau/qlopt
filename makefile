@@ -7,7 +7,7 @@ PRJNAME=paramid
 BUILDDIR=build
 BINDIR=bin
 SRCDIR=src
-APPSRCDIR=appsrc
+APPSRCDIR=examples
 SRCEXT=cpp
 
 APPSRC=$(shell find $(APPSRCDIR) -type f -name "*.$(SRCEXT)")

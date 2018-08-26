@@ -12,7 +12,6 @@
 // My headers
 #include <misc.h>
 #include <spline.h>
-#include <tallskinnyqr.h>
 #include <latex_output.h>
 
 namespace thesis{
@@ -34,7 +33,7 @@ namespace thesis{
 				relparam =  1E-7;
 				absobj =  1E-7;
 				relobj =  1E-7;
-				maxiter = 500;
+				maxiter = 150;
 				//unsigned int maxfunceval = 3E2;
 			};
 			double absparam;
@@ -66,7 +65,7 @@ namespace thesis{
 		} reg;
 		struct initialValueProblem {
 			initialValueProblem(){
-				solver="boost_rk4";//"cvodes";			
+				solver="rk4";//"boost_rk4";//"cvodes";			
 			};
 			std::string solver;
 		} ivp ;

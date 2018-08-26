@@ -25,11 +25,11 @@ int main(int argc, char *argv[])
 	*/
 	inputStruct params;
 	//Tolerance parameter.
-	params.tol.absparam = 1E-7; //Change optional, default value given
-	params.tol.relparam = 1E-7; //Change optional, default value given
-	params.tol.absobj = 1E-7; 	//Change optional, default value given
-	params.tol.relobj = 1E-7; 	//Change optional, default value given
-	params.tol.maxiter = 500; 	//Change optional, default value given
+	//params.tol.absparam = 1E-7; //Change optional, default value given
+	//params.tol.relparam = 1E-7; //Change optional, default value given
+	//params.tol.absobj = 1E-7; 	//Change optional, default value given
+	//params.tol.relobj = 1E-7; 	//Change optional, default value given
+	//params.tol.maxiter = 500; 	//Change optional, default value given
 	
 	//Data parameters.
 	params.dat.spacing = "uniform";	//Options: "uniform", "nonuniform"
@@ -45,7 +45,7 @@ int main(int argc, char *argv[])
 	params.reg.alpha = 0.0;						
 	
 	//Initial value problem parameters.
-	params.ivp.solver = "mine";	// "mine", "boost_rk4", "cvodes", ...
+	//params.ivp.solver = "rk4";	// "rk4", "boost_rk4", "cvodes", ...
 	
 	//General parameters.
 	params.gen.numOfStates = 2;		//Should be set to proper value
