@@ -32,26 +32,23 @@ namespace thesis{
 				absparam =  1E-7;
 				relparam =  1E-7;
 				absobj =  1E-7;
-				relobj =  1E-7;
 				maxiter = 150;
-				//unsigned int maxfunceval = 3E2;
 			};
 			double absparam;
 			double relparam;
 			double absobj;
 			double relobj;
 			unsigned int maxiter;
-			//double maxfunceval;
 		} tol ;
 		struct data {
 			data(){
-				spacing = "uniform";
+				//spacing = "uniform";
 				initialTime = 0.0;
 				endTime = 0.0;
 				timeIncrement = 0.0;
 				numOfDataSets = 1;
 			};
-			std::string spacing;
+			//std::string spacing;
 			double initialTime;
 			double endTime;
 			double timeIncrement;

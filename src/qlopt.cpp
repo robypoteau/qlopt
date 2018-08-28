@@ -78,10 +78,24 @@ namespace thesis{
 					
 					if(std::isnan(P.norm()) || std::isnan(A.norm())){
 						std::cerr << "Termination: du is NaN." << endl; 
-						exit(0);
+						exit(1);
 					}
-
-					alpha  = findGamma(A, P, u0, uguess);
+					
+					switch(params.reg.type)
+					{
+						case 0: alpha = 0.0;
+								break;
+						
+						case 1: alpha = params.reg.alpha;
+								break;
+								
+						case 3: alpha  = findGamma(A, P, u0, uguess);
+								break;
+								
+						default: cerr << "Chose a regularization option 0-4." << endl;
+								exit(1);
+					}
+					
 					du = inverse(A + alpha*I)*P;
 				    cout << "alpha = " << alpha << endl;
 				
@@ -109,12 +123,8 @@ namespace thesis{
 						std::cout << "Termination: absolute parameter value tolerance." << endl;
 						std::cout << "du = "<< du.norm() << endl;
 						break;
-					}/*else if(O < params.tol.absparam){
-						std::cout << "Termination: absolute normed difference tolerance." << endl;
-						std::cout << "|x- x_N|^2 = "<< O << endl;
-						break;
-					}*/
-					//TODO to avoid calculating the Obj func val use O with reps ||x-xn||^2
+					}
+					
 					if(j > 0){
 						objval2 = O 
 							- 2*P.segment(i*m, m).transpose()*du 
@@ -136,9 +146,6 @@ namespace thesis{
 			}
 		}
 		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1); 
-		results.uvals.col(results.uvals.cols()-1) = uguess;
-		std::cout << results.ufinal.transpose() << endl;
-		parameterOutput(results.uvals);
 		return results;
 	}
 

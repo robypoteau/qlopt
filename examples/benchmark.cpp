@@ -50,14 +50,13 @@ int main(int argc, char *argv[])
 	params.tol.maxiter = 150; 	//Change optional, default value given
 
 	//Data parameters.
-	params.dat.spacing = "uniform";	//Options: "uniform", "nonuniform"
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 1.0;		//Should be set to proper value
 	params.dat.timeIncrement = .010;	//Should be set to proper value
 	params.dat.numOfDataSets = 16;
 
 	//Regularization parameters.
-	params.reg.type = 5; 	// 0 - none,
+	params.reg.type = 1; 	// 0 - none,
   // 1 - Type 1,
   // 2 - Type 2
 	params.reg.alpha = 1.0E-5;
