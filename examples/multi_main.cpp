@@ -3,16 +3,20 @@
 //The namespace for the objects found in qlopt.h
 using namespace thesis;
 
-// Construct the ODE system it should have the same structure/arguments
+// Construct the ODE system for your examples it should have the same structure/arguments
 vec lotka (const double& t, const vec&  x, const vec& u, const vec& input)
 {
 	(void) t;
+	(void) input;
 	mat result(2,1);
-	result(0) = u(0)*x(0) - u(1)*x(0)*x(1) + input(0);
-	result(1) = u(1)*x(0)*x(1) - u(2)*x(1) + input(1);
+	result(0) = u(0)*x(0) - u(1)*x(0)*x(1);
+	result(1) = u(1)*x(0)*x(1) - u(2)*x(1);
 
 	return result;
 }
+
+mat rungekutta4(odefunction fhandle, const vec& t, const vec& u,
+                const vec& y0, const vec& input);
 
 int main(int argc, char *argv[])
 {
@@ -23,69 +27,98 @@ int main(int argc, char *argv[])
 		values, but some values still need to be adjusted. All the elements of 
 		the struct will be displayed and some changed.
 	*/
+	
 	inputStruct params;
+	
 	//Tolerance parameter.
-	//params.tol.absparam = 1E-7; //Change optional, default value given
-	//params.tol.relparam = 1E-7; //Change optional, default value given
+	//params.tol.absparam = 1E-7; 	//Change optional, default value given
+	//params.tol.relparam = 1E-7; 	//Change optional, default value given
 	//params.tol.absobj = 1E-7; 	//Change optional, default value given
 	//params.tol.relobj = 1E-7; 	//Change optional, default value given
-	//params.tol.maxiter = 500; 	//Change optional, default value given
+	//params.tol.maxiter = 150; 	//Change optional, default value given
 	
-	//Data parameters.
-	params.dat.spacing = "uniform";	//Options: "uniform", "nonuniform"
-	params.dat.initialTime = 0.000; 	//Should be set to proper value
-	params.dat.endTime = 0.011;		//Should be set to proper value
-	params.dat.timeIncrement = 0.001;	//Should be set to proper value
-	params.dat.numOfDataSets = 2;
+	//Data parameters. Time information used in qlopt.
+	params.dat.initialTime = 0.0; 	//Should be set to proper value
+	params.dat.endTime = 1.0;			//Should be set to proper value
+	params.dat.timeIncrement = 0.01;	//Should be set to proper value
+	params.dat.numOfDataSets = 1;
 	
 	//Regularization parameters.
-	params.reg.type = 1; 	// 0 - none, 
-							// 1 - Type 1, 
-							// 2 - Type 2
-	params.reg.alpha = 0.0;						
-	
-	//Initial value problem parameters.
-	//params.ivp.solver = "rk4";	// "rk4", "boost_rk4", "cvodes", ...
+	params.reg.type = 0; 	// 0 - none, 
+							// 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
+							// 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
+	//params.reg.alpha = 0.0005;						
 	
 	//General parameters.
 	params.gen.numOfStates = 2;		//Should be set to proper value
 	params.gen.numOfParams = 3;		//Should be set to proper value
 	params.gen.divisions = 1;		//Change optional, default value given
-	params.gen.finitediff = true;	//Change optional, default value given
+	params.gen.finitediff = true;	//Finite difference only
 	
-	mat d1(2,12), d2(2,12);
-	d1 << 35,35.013,35.026,35.04,35.053,35.066,35.079,35.092,35.105,35.119,35.132,35.145,
-		  4,3.9999,3.9998,3.9998,3.9997,3.9996,3.9995,3.9995,3.9994,3.9993,3.9993,3.9992;
-		  
-	//d2 << 88.06,68.51,32.19,12.64,21.49,30.35,2.18,152.65,148.36,85.81,41.41,
-	//	  34.38,29.59,21.30,13.69,7.650,4.080,4.09,14.330,38.220,60.78,70.77;
-		  
 	//Inputs and data
-	std::vector<vec> input(2);
-	std::vector<mat> data(2);
-	vec t(12);
-	vec u0(3);
-  vec u(3);
-  vec y0(2);
+	vec t;
+	std::vector<vec> input(params.dat.numOfDataSets, vec::Zero(0));
+	std::vector<mat> data(params.dat.numOfDataSets);
 
-	input[0] = vec::Zero(2);
-	input[1] = vec::Zero(2); //input[1](0) = 68.48; input[1](1) = 4.29;
-
-	t << 0,0.001,0.002,0.003,0.004,0.005,0.006,0.007,0.008,0.009,0.010,0.011;
-	data[0] = d1;
-	data[1] = d1;
-	u0 << .5,.5,.5;
-  u << 1,2,1;
+	//Simulated data
+	vec u(3);
+  	vec u0(3);
+  	vec uguess(3);
+  	vec y0(2);
+  	
+  	u << 1,2,1;
+	u0 << 5,6,5;
+	uguess << 1,2,1;
 	y0 << 35, 4;
+	
+	t = vec::LinSpaced(101,0.0,1.0);
+	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
+    {
+      data[i] = rungekutta4(lotka, t, u, y0, input[i]);
+    }	
 
 	/*
 		This structure contains the many outputs of the method. Which the user
 		can manipulate to get the desired graphics and numerical summaries.
+		It contains u values at each iteration.
 	*/
-	qlopt(lotka, t, u0, u, y0, input, data, params);
-  //qlopt(benchmark, t2, u0, u, y0, input, data, params);
+	outputStruct results;
+	
+	results = qlopt(lotka, t, u0, uguess, y0, input, data, params);
+	
+	results.uvals.col(results.uvals.cols()-1) = u;
+	std::cout << results.ufinal.transpose() << endl;
+	cout << "Latex Output:" << endl << endl;
+	parameterOutput(results.uvals);
+
 	return 0;
 }
 
+mat rungekutta4(odefunction fhandle, const vec& t, const vec& u,
+                const vec& y0, const vec& input)
+{
+  const unsigned int n = y0.size();
+  const unsigned int N = t.size();
+  double h = 0.0;
 
+  mat w(n, N);
+  w.fill(0.0);
+	w.col(0) = y0;
+
+	vec k1(n), k2(n), k3(n), k4(n);
+
+	for (size_t i = 0; i<N-1; i++)
+    {
+      h = t(i+1)-t(i);
+
+      k1 = h*fhandle(t(i), 		 w.col(i), 		  u, input);
+      k2 = h*fhandle(t(i) + h/2, w.col(i) + k1/2, u, input);
+      k3 = h*fhandle(t(i) + h/2, w.col(i) + k2/2, u, input);
+      k4 = h*fhandle(t(i) + h, 	 w.col(i) + k3,   u, input);
+
+      w.col(i+1) = w.col(i) + (k1 + 2*(k2 + k3) + k4)/6;
+    }
+
+	return w;
+}
 
