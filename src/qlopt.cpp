@@ -49,7 +49,7 @@ namespace thesis{
 		results.ufinal = u0;
 		results.uvals = u0;
 		results.iterations = 0;
-		std::cout << "u  = " << results.uvals << endl << endl;
+		std::cout << "u  = " << results.uvals.transpose() << endl << endl;
 		//TODO improve U mat stuff
 		//std::vector<std::vector<vec>> Us(n, std::vector<vec>(m));
 		
@@ -63,6 +63,8 @@ namespace thesis{
 				for(size_t j=0; j<params.tol.maxiter; j++)
 				{
 					results.iterations++;
+					std::cout << "iteration = " << results.iterations << endl << endl;
+					
 					if(params.gen.finitediff){ 
 						bob = qloptRungeKutta4(odewrapper, ts, results.ufinal, ly0, spl_pairs[i]);
 					}else{
@@ -97,16 +99,15 @@ namespace thesis{
 					}
 					
 					du = inverse(A + alpha*I)*P;
-				    cout << "alpha = " << alpha << endl;
-				
-					std::cout << "iteration = " << results.iterations << endl << endl;
-					std::cout << "du = " << du.transpose() << endl << endl;
+					
+				    cout << "\talpha = " << alpha << endl << endl;
+					std::cout << "\tdu = " << du.transpose() << endl << endl;
 					
 					results.ufinal += du;
 					results.uvals.conservativeResize(NoChange, results.uvals.cols()+1); 
 					results.uvals.col(results.uvals.cols()-1) = results.ufinal;
 					
-					std::cout << "u  = " << results.ufinal << endl << endl;
+					std::cout << "\tu  = " << results.ufinal.transpose() << endl << endl;
 					//std::cout << "u  = " << results.uvals << endl << endl;
 			
 					// Check the termination conditions
