@@ -57,7 +57,7 @@ int main(int argc, char *argv[])
 	
 	//Inputs and data
 	vec t;
-	std::vector<vec> input(params.dat.numOfDataSets, vec::Zero(0));
+	std::vector<vec> input(params.dat.numOfDataSets, vec::Zero(1));
 	std::vector<mat> data(params.dat.numOfDataSets);
 
 	//Simulated data
@@ -67,8 +67,8 @@ int main(int argc, char *argv[])
   	vec y0(2);
   	
   	u << 1,2,1;
-	u0 << 5,6,5;
-	uguess << 1,2,1;
+	u0 << 3,4,3;
+	uguess << 0,0,0;
 	y0 << 35, 4;
 	
 	t = vec::LinSpaced(101,0.0,1.0);
@@ -87,8 +87,10 @@ int main(int argc, char *argv[])
 	results = qlopt(lotka, t, u0, uguess, y0, input, data, params);
 	
 	results.uvals.col(results.uvals.cols()-1) = u;
+	
+	//Using the results from qlopt to construct a latex table
 	std::cout << results.ufinal.transpose() << endl;
-	cout << "Latex Output:" << endl << endl;
+	cout << "\nLatex Output:" << endl << endl;
 	parameterOutput(results.uvals);
 
 	return 0;

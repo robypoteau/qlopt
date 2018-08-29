@@ -63,8 +63,8 @@ tests: $(TESTS)
 #	sh ./tests/runtests.sh
 
 
-cleanapps:
-	rm -rf $(BINDIR)
+clean:
+	rm -rf $(BINDIR) $(BUILDDIR)
 
 cleanbuild:
 	rm -rf $(BUILDDIR)
