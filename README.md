@@ -4,11 +4,18 @@ This is a software package developed to pursue numerical calculations reported
 in the paper “Identification of parameters in systems biology” by 
 Ugur G. Abdulla & Roby Poteau, submitted to Mathematical Biosciences.
 
-Professor Ugur G. Abdulla,Ph.D.,Dr.Sci.      Roby Poteau
-Department of Mathematical Sciences          Ph.D. Student in Operations Research
-Florida Institute of Technology              Department of Mathematical Sciences
-Melbourne, FL                                Florida Institute of Technology
-Email:abdulla@fit.edu                        Email:rpoteau2010@my.fit.edu
+Professor Ugur G. Abdulla,Ph.D.,Dr.Sci.
+Department of Mathematical Sciences
+Florida Institute of Technology
+Melbourne, FL
+Email:abdulla@fit.edu              
+
+Roby Poteau
+Ph.D. Student in Operations Research
+Department of Mathematical Sciences
+Florida Institute of Technology
+Email:rpoteau2010@my.fit.edu
+
 
 ### Prerequisites
 
