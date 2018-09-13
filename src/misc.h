@@ -2,23 +2,23 @@
 #define MISC_H
 
 #include <Eigen/Dense>
-#include <mpreal.h>
-#include <unsupported/Eigen/MPRealSupport>
+//#include <mpreal.h>
+#include <eigen3/unsupported/Eigen/MPRealSupport>
 
 using namespace Eigen;
 using namespace std;
-using mpfr::mpreal;
+//using mpfr::mpreal;
 
-#define BITS 128
+//#define BITS 128
 
 typedef Matrix<double, Dynamic, 1> vec;
 typedef Matrix<double, Dynamic, Dynamic, RowMajor> mat;
 
-typedef Matrix<mpreal, Dynamic, 1> mp_vec;
-typedef Matrix<mpreal, Dynamic, Dynamic, RowMajor> mp_mat;
+//typedef Matrix<mpreal, Dynamic, 1> mp_vec;
+//typedef Matrix<mpreal, Dynamic, Dynamic, RowMajor> mp_mat;
 
 typedef double (*functype)(double t, void *params);
-typedef mp_mat (*mp_sys)(const mpreal& t, const mp_vec& x, const mp_vec& u);
+//typedef mp_mat (*mp_sys)(const mpreal& t, const mp_vec& x, const mp_vec& u);
 
 typedef struct{
 	string *ode;
