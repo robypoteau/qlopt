@@ -44,10 +44,10 @@ int main(int argc, char *argv[])
 	params.dat.numOfDataSets = 1;
 
 	//Regularization parameters.
-	params.reg.type = 0; 	// 0 - none,
+	params.reg.type = 2; 	// 0 - none,
 							// 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
 							// 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
-	//params.reg.alpha = 0.0005;
+	params.reg.alpha = 0.00005;
 
 	//General parameters.
 	params.gen.numOfStates = 2;		//Should be set to proper value
@@ -67,9 +67,9 @@ int main(int argc, char *argv[])
   	vec y0(2);
 
   	u << 1,2,1;
-	u0 << 3,4,3;
-	uguess << 0,0,0; // The guess value for Type II Regularization
-	y0 << 35, 4;
+	u0 << 10,50,120;
+	uguess << 5,6,5; // The guess value for Type II Regularization
+	y0 << 1, 1;
 
 	t = vec::LinSpaced(101,0.0,1.0);
 	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
@@ -84,6 +84,7 @@ int main(int argc, char *argv[])
 	*/
 	outputStruct results;
 
+	//uguess is for Type II Regularization
 	results = qlopt(lotka, t, u0, uguess, y0, input, data, params);
 
 	results.uvals.col(results.uvals.cols()-1) = u;
