@@ -1,24 +1,24 @@
 #include <qlopt.h>
 
 namespace thesis{
-	outputStruct qlopt(odefunction fun, 
-		const vec& t, 
+	outputStruct qlopt(odefunction fun,
+		const vec& t,
 		const vec& u0,
 		const vec& uguess,
 		const vec& y0,
-		const vector<vec>& input, 
-		const vector<mat>& data, 
+		const vector<vec>& input,
+		const vector<mat>& data,
 		const inputStruct& params)
 	{
 		outputStruct results;
-		
+
 		//Use values from input struct and data info
 		size_t n = params.gen.numOfStates;
 		size_t m = u0.size();
 		size_t lt = (int)((params.dat.endTime-params.dat.initialTime)
                       /params.dat.timeIncrement) + 1;//t.size();
 		std::cout << "lt  = " << lt << endl << endl;
-		
+
 		size_t ds = data.size();
 		vec ts(lt);
 		ts(0) = params.dat.initialTime;
@@ -36,11 +36,12 @@ namespace thesis{
 		mat I = mat::Identity(m, m);
 		vec P(m), du(m);
 		double O, objval, objval2, alpha = params.reg.alpha;
+		double alpha2 = 0.0;
 		OdeWrapper odewrapper(fun);
-		
+
 		//Spline all the data sets
 		std::vector<std::vector<thesis::spline>> spl_pairs(ds);
-		for(size_t j=0; j<ds; j++){	
+		for(size_t j=0; j<ds; j++){
 			for(size_t i=0; i<n; i++){
 				spl_pairs[j].push_back(thesis::spline(t, data[j].row(i)));
 				//std::cout << spl_pairs[j][i].interpolate(1) << endl;
@@ -52,64 +53,64 @@ namespace thesis{
 		std::cout << "u  = " << results.uvals.transpose() << endl << endl;
 		//TODO improve U mat stuff
 		//std::vector<std::vector<vec>> Us(n, std::vector<vec>(m));
-		
+
 		cout.precision(7);
 		for(size_t k = 0; k < 1; k++)
 		{
 			for(size_t i = 0; i < ds; i++)
 			{
 				odewrapper.setControl(input[i]);
-			
+
 				for(size_t j=0; j<params.tol.maxiter; j++)
 				{
 					results.iterations++;
 					std::cout << "iteration = " << results.iterations << endl << endl;
-					
-					if(params.gen.finitediff){ 
+
+					if(params.gen.finitediff){
 						bob = qloptRungeKutta4(odewrapper, ts, results.ufinal, ly0, spl_pairs[i]);
 					}else{
 						//bob = qlRungeKutta4(*env->ode, (*env->time), uNot, y0, ext_data);
 					}
-			
+
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
 					temp = reshape(data[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
-			
+
 					A = findA(ts, U, m);
 					P = findP(ts, U, temp, m);
 					O = findO(ts, temp);
-					
+
 					if(std::isnan(P.norm()) || std::isnan(A.norm())){
-						std::cerr << "Termination: du is NaN." << endl; 
+						std::cerr << "Termination: du is NaN." << endl;
 						exit(1);
 					}
-					
+
 					switch(params.reg.type)
 					{
 						case 0: alpha = 0.0;
 								break;
-						
+
 						case 1: alpha = params.reg.alpha;
 								break;
-								
-						case 3: alpha  = findGamma(A, P, u0, uguess);
+
+						case 2: alpha = alpha2 = params.reg.alpha;
 								break;
-								
-						default: cerr << "Chose a regularization option 0-4." << endl;
+
+						default: cerr << "Chose a regularization option 0-2." << endl;
 								exit(1);
 					}
-					
-					du = inverse(A + alpha*I)*P;
-					
+
+					du = inverse(A + alpha*I)*(P + alpha2*(uguess - results.ufinal));
+
 				    cout << "\talpha = " << alpha << endl << endl;
 					std::cout << "\tdu = " << du.transpose() << endl << endl;
-					
+
 					results.ufinal += du;
-					results.uvals.conservativeResize(NoChange, results.uvals.cols()+1); 
+					results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
 					results.uvals.col(results.uvals.cols()-1) = results.ufinal;
-					
+
 					std::cout << "\tu  = " << results.ufinal.transpose() << endl << endl;
 					//std::cout << "u  = " << results.uvals << endl << endl;
-			
+
 					// Check the termination conditions
 					if (std::isnan(du.norm())){
 						std::cerr << "Termination: value for parameter is NaN." << endl;
@@ -125,12 +126,12 @@ namespace thesis{
 						std::cout << "du = "<< du.norm() << endl;
 						break;
 					}
-					
+
 					if(j > 0){
-						objval2 = O 
-							- 2*P.segment(i*m, m).transpose()*du 
+						objval2 = O
+							- 2*P.segment(i*m, m).transpose()*du
 							+ du.transpose()*A.middleRows(i*m, m)*du;
-					
+
 						if(abs(objval - objval2) < params.tol.absobj){
 							std::cout << "Termination: absolute objective function value tolerance." << endl;
 							std::cout << "|J_new - J_old| = " << abs(objval - objval2) << endl;
@@ -138,14 +139,14 @@ namespace thesis{
 						}
 						objval = objval2;
 					}else{
-						objval = O 
-							- 2*P.segment(i*m, m).transpose()*du 
+						objval = O
+							- 2*P.segment(i*m, m).transpose()*du
 							+ du.transpose()*A.middleRows(i*m, m)*du;
 					}
 				}
 			}
 		}
-		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1); 
+		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
 		return results;
 	}
 
@@ -159,7 +160,7 @@ namespace thesis{
 
 		vec du(m), total(m);
 		mat B(m,m);
-		
+
 		for(int j = -14; j<0; j++){
 		    gamma = pow(10,j);
 		    dg = .1; //(pow(10,j)-pow(10,j-1))/dvs;
@@ -187,7 +188,7 @@ namespace thesis{
 		return hold;
 	}
 
-	mat qloptRungeKutta4(OdeWrapper& fhandle, const vec& time, 
+	mat qloptRungeKutta4(OdeWrapper& fhandle, const vec& time,
 		const vec& u, const vec& yNot, std::vector<thesis::spline>& Xn)
 	{
 		size_t N = time.size();
@@ -219,8 +220,8 @@ namespace thesis{
 
 		return w;
 	}
-	
-	mat qlinear(OdeWrapper& fhandle, const double& t, const vec& x, 
+
+	mat qlinear(OdeWrapper& fhandle, const double& t, const vec& x,
 		const vec& u, std::vector<thesis::spline>& Xn)
 	{
 		size_t m = u.size();
@@ -267,14 +268,14 @@ namespace thesis{
 					  fhandle(t, xn1+dx.col(k)*xn1(k), u+dun.col(j)*u(j))
 					- fhandle(t, xn1+dx.col(k)*xn1(k), u-dun.col(j)*u(j))
 					- fhandle(t, xn1-dx.col(k)*xn1(k), u+dun.col(j)*u(j))
-					+ fhandle(t, xn1-dx.col(k)*xn1(k), u-dun.col(j)*u(j)), 
+					+ fhandle(t, xn1-dx.col(k)*xn1(k), u-dun.col(j)*u(j)),
 					4*step*xn1(k)*step*u(j))*dxn(k); //phi_ij
 			}
 		}
 
 		return ans;
 	}
-	
+
 	mat der(const mat& dx, const double& dt)
 	{
 		mat ans(dx.size(),1);
@@ -282,7 +283,7 @@ namespace thesis{
 		return ans;
 	}
 
-	mat jac(OdeWrapper& f, double t, const mat& x, const mat& u, 
+	mat jac(OdeWrapper& f, double t, const mat& x, const mat& u,
 		const double& h)
 	{
 		int n = x.size();
@@ -296,7 +297,7 @@ namespace thesis{
 
 		return fprime/(12*h);
 	}
-	
+
 	mat reshape(const mat& U, int n, int m)
 	{
 		mat newU(n,m);
@@ -363,7 +364,7 @@ namespace thesis{
 		return simpson(time, aij);
 		//return gsl_integration(time, aij);
 	}
-	
+
 	double simpson(const vec& t, const vec& x)
 	{
 		thesis::spline sim(t,x);
@@ -390,7 +391,7 @@ namespace thesis{
 		area = h/3 * area;
 		return area;
 	}
-	
+
 	double norm(const mat& M)
 	{
 		return M.norm();
@@ -405,13 +406,13 @@ namespace thesis{
 	{
 		int n = M.rows();
 		mat C(n,n);
-	
+
 		for(int i = 0; i<n; i++){
 			for(int j = 0; j<n; j++){
 				C(i,j) = M(i,j)/sqrt(M(i,i)*M(j,j));
-			}	
+			}
 		}
-	
+
 		return C;
 	}
 
@@ -419,8 +420,8 @@ namespace thesis{
 	{
 		return 1.0/(matnorm1(M)*matnorm1(M.inverse()));
 	}
-	
+
 	double matnorm1(const mat& M){
-		return M.cwiseAbs().colwise().sum().maxCoeff();	
+		return M.cwiseAbs().colwise().sum().maxCoeff();
 	}
 }
