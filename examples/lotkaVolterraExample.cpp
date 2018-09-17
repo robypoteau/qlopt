@@ -89,7 +89,7 @@ int main(int argc, char *argv[])
 	results.uvals.col(results.uvals.cols()-1) = u;
 	
 	//Using the results from qlopt to construct a latex table
-	std::cout << results.ufinal.transpose() << endl;
+	std::cout << "\nu =" << results.ufinal.transpose() << endl;
 	cout << "\nLatex Output:" << endl << endl;
 	parameterOutput(results.uvals);
 

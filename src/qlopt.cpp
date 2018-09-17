@@ -143,7 +143,6 @@ namespace thesis{
 							+ du.transpose()*A.middleRows(i*m, m)*du;
 					}
 				}
-				std::cout << "|u_n - u*| = " << norm(results.ufinal.transpose() - uguess.transpose()) << endl;
 			}
 		}
 		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1); 

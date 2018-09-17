@@ -7,7 +7,7 @@
 #include <cmath>
 
 // External headers
- #include <Eigen/QR>
+ #include <eigen3/Eigen/QR>
 
 // My headers
 #include <misc.h>
@@ -15,7 +15,7 @@
 #include <latex_output.h>
 
 namespace thesis{
-	typedef vec (*odefunction)(const double& t, 
+	typedef vec (*odefunction)(const double& t,
 		const vec& x, const vec& u, const vec& control);
 
 	//TODO Make constructor to input values
@@ -25,7 +25,7 @@ namespace thesis{
 			regularization();
 			data();
 			initialValueProblem();
-			general();			
+			general();
 		}
 		struct tolerance {
 			tolerance(){
@@ -62,7 +62,7 @@ namespace thesis{
 		} reg;
 		struct initialValueProblem {
 			initialValueProblem(){
-				solver="rk4";//"boost_rk4";//"cvodes";			
+				solver="rk4";//"boost_rk4";//"cvodes";
 			};
 			std::string solver;
 		} ivp ;
@@ -87,8 +87,8 @@ namespace thesis{
 		vec ufinal;
 		mat xvals;
 		mat uvals;
-				
-		
+
+
 		output_struct(){
 			numfevals = 0;
 			iterations = 0;
@@ -105,7 +105,7 @@ namespace thesis{
 	{
 	private:
 		vec control;
-		odefunction fun; 
+		odefunction fun;
 	public:
 		OdeWrapper(odefunction of){fun = of;}
 		void setControl(vec input){control = input;}
@@ -116,28 +116,28 @@ namespace thesis{
 		}
 	};
 
-	outputStruct qlopt(odefunction fun, 
-		const vec& t, 
+	outputStruct qlopt(odefunction fun,
+		const vec& t,
 		const vec& u0,
-		const vec& uguess, 
+		const vec& uguess,
 		const vec& y0,
-		const vector<vec>& input, 
-		const vector<mat>& data, 
+		const vector<vec>& input,
+		const vector<mat>& data,
 		const inputStruct& params);
-	
+
 	double findGamma(mat A, vec P, vec uNot, vec u);
-		
-	mat qloptRungeKutta4(OdeWrapper& fhandle, const vec& time, 
+
+	mat qloptRungeKutta4(OdeWrapper& fhandle, const vec& time,
 		const vec& u, const vec& yNot,  std::vector<thesis::spline>& Xn);
-		
-	mat qlinear(OdeWrapper& fhandle, const double& t, const vec& x, 
+
+	mat qlinear(OdeWrapper& fhandle, const double& t, const vec& x,
 		const vec& u, std::vector<thesis::spline>& Xn);
-			
+
 	mat der(const mat& dx, const double& dt);
-	
-	mat jac(OdeWrapper& f, double t, const mat& x, const mat& u, 
+
+	mat jac(OdeWrapper& f, double t, const mat& x, const mat& u,
 		const double& h);
-	
+
 	mat findA(const vec& t, const mat& U, const size_t& m);
 	vec findP(const vec& t, const mat& U, const vec& dx, const size_t& m);
 	double findO(const vec& t, const vec& dx);
