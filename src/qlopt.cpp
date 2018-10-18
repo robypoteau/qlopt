@@ -95,6 +95,9 @@ namespace thesis{
 						case 2: alpha = alpha2 = params.reg.alpha;
 								break;
 
+						case 3: alpha = findAlpha(A, P);
+								break;
+
 						default: cerr << "Chose a regularization option 0-2." << endl;
 								exit(1);
 					}
@@ -148,6 +151,30 @@ namespace thesis{
 		}
 		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
 		return results;
+	}
+
+	double findAlpha(mat A, vec P){
+		double alpha = 0.1, atemp;
+
+		mat I;
+		I = mat::Identity(A.rows(), A.cols());
+
+		vec du(P.size());
+		du = inverse(A+alpha*I)*P;
+
+		double obj1 = du.transpose()*((A+alpha*I)*du - P);
+		double obj2;
+
+		for(int i = 2; i<9; i++){
+			atemp = pow(10,-i);
+			du = inverse(A + atemp*I)*P;
+			obj2 = du.transpose()*((A+atemp*I)*du - P);
+			if(obj1 > obj2){
+				alpha = atemp;
+				obj1 = obj2;
+			}
+		}
+		return alpha;
 	}
 
 	double findGamma(mat A, vec P, vec uNot, vec u){

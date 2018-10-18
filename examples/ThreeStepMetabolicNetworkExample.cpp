@@ -56,7 +56,8 @@ int main(int argc, char *argv[])
 	params.dat.numOfDataSets = 2;
 
 	//Regularization parameters.
-	params.reg.type = 1; 	// 0 - none,
+	params.reg.type = 3; 	// 0 - none,
+                            // 3 - Brute force search for alpha
  	params.reg.alpha = 1.0E-5;
 
 	//General parameters.
@@ -83,7 +84,7 @@ int main(int argc, char *argv[])
 		108,114,120;
     */
     input[0](0) = 0.05;		input[0](1) = 10;
-    //input[1](0) = 0.05;		input[1](1) = 10;
+    input[1](0) = 0.055;		input[1](1) = 10.5;
     //input[1](0) =  0.13572; input[1](1) = 10.1;
 	/*input[0](0) = 0.1; 		input[0](1) = 0.05;
 	input[1](0) = 0.1; 		input[1](1) = 0.13572;
