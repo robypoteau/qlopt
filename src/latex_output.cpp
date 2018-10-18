@@ -2,12 +2,12 @@
 
 void parameterOutput(const mat& uvals)
 {
-	
-	size_t m = uvals.rows(), 
+
+	size_t m = uvals.rows(),
 		divs = 3;
 	size_t nmax = uvals.cols()-1,
 		n = ceil(nmax/divs);
-	
+
 	tableheader(divs+1);
 	cout << "\t\t";
 	for(size_t i=0; i<nmax-n; i+=n){
@@ -15,7 +15,7 @@ void parameterOutput(const mat& uvals)
 	}
 	cout << "$\\vecu_{"<< nmax-1 <<"}$ "  << "& ";
 	cout << "$\\vecu_$ " << "\\\\ \\midrule\n";
-	
+
 	for(size_t j=0; j<m; j++)
 	{
 		cout << "\t\t";
@@ -51,4 +51,3 @@ void tablefooter(){
 		 <<	"\\label{}\n" \
 		 << "\\end{table}" << endl;
 }
-
