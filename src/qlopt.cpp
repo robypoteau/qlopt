@@ -32,9 +32,9 @@ namespace thesis{
 		ly0.fill(0);
 		ly0.head(n) = y0;
 
-		mat bob, temp, U, A(m,m);
+		mat bob, temp, U, A((ds+1)*m,m);
 		mat I = mat::Identity(m, m);
-		vec P(m), du(m);
+		vec P((ds+1)*m), du(m);
 		double O, objval, objval2, alpha = params.reg.alpha;
 		double alpha2 = 0.0;
 		OdeWrapper odewrapper(fun);
@@ -55,17 +55,19 @@ namespace thesis{
 		//std::vector<std::vector<vec>> Us(n, std::vector<vec>(m));
 
 		cout.precision(7);
+		A.fill(0.0); P.fill(0.0);
 		for(size_t k = 0; k < 1; k++)
 		{
-			for(size_t i = 0; i < ds; i++)
+			for(size_t j=0; j<params.tol.maxiter; j++)
 			{
-				odewrapper.setControl(input[i]);
+				results.iterations++;
+				std::cout << "iteration = " << results.iterations << endl << endl;
 
-				for(size_t j=0; j<params.tol.maxiter; j++)
+				O = 0.0;
+
+				for(size_t i = 0; i < ds; i++)
 				{
-					results.iterations++;
-					std::cout << "iteration = " << results.iterations << endl << endl;
-
+					odewrapper.setControl(input[i]);
 					if(params.gen.finitediff){
 						bob = qloptRungeKutta4(odewrapper, ts, results.ufinal, ly0, spl_pairs[i]);
 					}else{
@@ -75,9 +77,14 @@ namespace thesis{
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
 					temp = reshape(data[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
 
-					A = findA(ts, U, m);
-					P = findP(ts, U, temp, m);
-					O = findO(ts, temp);
+					//A = findA(ts, U, m);
+					//P = findP(ts, U, temp, m);
+					//O = findO(ts, temp);
+
+					A.middleRows(i*m, m) = findA(ts, U, m);
+					P.segment(i*m, m) = findP(ts, U, temp, m);
+
+					O += findO(ts, temp);
 
 					if(std::isnan(P.norm()) || std::isnan(A.norm())){
 						std::cerr << "Termination: du is NaN." << endl;
@@ -98,53 +105,60 @@ namespace thesis{
 						case 3: alpha = findAlpha(A, P);
 								break;
 
-						default: cerr << "Chose a regularization option 0-2." << endl;
+						default: cerr << "Chose a regularization option 0-3." << endl;
 								exit(1);
 					}
+				}
+				alpha = O;
+				A.bottomRows(m) = alpha*I;
+				//P.tail(m) = alpha2*(uguess - results.ufinal);
+				du = A.fullPivHouseholderQr().solve(P);
 
-					du = inverse(A + alpha*I)*(P + alpha2*(uguess - results.ufinal));
+				cout << "\talpha = " << alpha << endl << endl;
+				std::cout << "\tdu = " << du.transpose() << endl << endl;
 
-				    cout << "\talpha = " << alpha << endl << endl;
-					std::cout << "\tdu = " << du.transpose() << endl << endl;
+				results.ufinal += du;
+				results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
+				results.uvals.col(results.uvals.cols()-1) = results.ufinal;
 
-					results.ufinal += du;
-					results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
-					results.uvals.col(results.uvals.cols()-1) = results.ufinal;
+				std::cout << "\tu  = " << results.ufinal.transpose() << endl << endl;
+				//std::cout << "u  = " << results.uvals << endl << endl;
 
-					std::cout << "\tu  = " << results.ufinal.transpose() << endl << endl;
-					//std::cout << "u  = " << results.uvals << endl << endl;
+				// Check the termination conditions
+				if (std::isnan(du.norm())){
+					std::cerr << "Termination: value for parameter is NaN." << endl;
+					exit(0);
+				}else if (j >= params.tol.maxiter-1){
+					std::cout << "Termination: max iterations reached." << endl;
+				}else if(du.norm()/u0.norm() < params.tol.relparam){
+					std::cout << "Termination: relative parameter value tolerance." << endl;
+					std::cout << "du/u = " << du.norm()/u0.norm() << endl;
+					break;
+				}else if(du.norm() < params.tol.absparam){
+					std::cout << "Termination: absolute parameter value tolerance." << endl;
+					std::cout << "du = "<< du.norm() << endl;
+					break;
+				}
 
-					// Check the termination conditions
-					if (std::isnan(du.norm())){
-						std::cerr << "Termination: value for parameter is NaN." << endl;
-						exit(0);
-					}else if (j >= params.tol.maxiter-1){
-						std::cout << "Termination: max iterations reached." << endl;
-					}else if(du.norm()/u0.norm() < params.tol.relparam){
-						std::cout << "Termination: relative parameter value tolerance." << endl;
-						std::cout << "du/u = " << du.norm()/u0.norm() << endl;
-						break;
-					}else if(du.norm() < params.tol.absparam){
-						std::cout << "Termination: absolute parameter value tolerance." << endl;
-						std::cout << "du = "<< du.norm() << endl;
+				if(j > 0){
+					objval2 = O;
+						for(size_t i = 0; i < ds; i++)
+						{
+							objval2 += du.transpose()*(A.middleRows(i*m, m)*du
+								- 2*P.segment(i*m, m));
+						}
+					if(abs(objval - objval2) < params.tol.absobj){
+						std::cout << "Termination: absolute objective function value tolerance." << endl;
+						std::cout << "|J_new - J_old| = " << abs(objval - objval2) << endl;
 						break;
 					}
-
-					if(j > 0){
-						objval2 = O
-							- 2*P.segment(i*m, m).transpose()*du
-							+ du.transpose()*A.middleRows(i*m, m)*du;
-
-						if(abs(objval - objval2) < params.tol.absobj){
-							std::cout << "Termination: absolute objective function value tolerance." << endl;
-							std::cout << "|J_new - J_old| = " << abs(objval - objval2) << endl;
-							break;
-						}
-						objval = objval2;
-					}else{
-						objval = O
-							- 2*P.segment(i*m, m).transpose()*du
-							+ du.transpose()*A.middleRows(i*m, m)*du;
+					objval = objval2;
+				}else{
+					objval = O;
+					for(size_t i = 0; i < ds; i++)
+					{
+						objval += du.transpose()*(A.middleRows(i*m, m)*du
+							- 2*P.segment(i*m, m));
 					}
 				}
 			}
@@ -154,28 +168,44 @@ namespace thesis{
 	}
 
 	double findAlpha(mat A, vec P){
-		double alpha = 0.1, atemp;
+		int m = A.cols();
+		int ds = A.rows()/m;
+
+		double alpha = 1.0E1, atemp;
+
+
 
 		mat I;
-		I = mat::Identity(A.rows(), A.cols());
+		I = mat::Identity(m,m);
+		A.bottomRows(m) = alpha*I;
 
-		vec du(P.size());
-		du = inverse(A+alpha*I)*P;
+		vec du(m);
+		du = A.fullPivHouseholderQr().solve(P);
 
-		double obj1 = du.transpose()*((A+alpha*I)*du - P);
-		double obj2;
+		double obj1=0.0, obj2=0.0;
+		for(int i=0; i<ds-1; i++){
+			obj1 += du.transpose()*(A.middleRows(i*m, m)*du
+				- 2*P.segment(i*m, m));
+		}
 
-		for(int i = 2; i<9; i++){
+		for(int i = 0; i<3; i++){
 			atemp = pow(10,-i);
-			du = inverse(A + atemp*I)*P;
-			obj2 = du.transpose()*((A+atemp*I)*du - P);
+			A.bottomRows(m) = atemp*I;
+			du = A.fullPivHouseholderQr().solve(P);
+			for(int i=0; i<ds-1; i++){
+				obj2 += du.transpose()*(A.middleRows(i*m, m)*du
+					- 2*P.segment(i*m, m));
+			}
 			if(obj1 > obj2){
 				alpha = atemp;
 				obj1 = obj2;
 			}
+			obj2 = 0.0;
 		}
 		return alpha;
 	}
+
+
 
 	double findGamma(mat A, vec P, vec uNot, vec u){
 		int m = P.size();

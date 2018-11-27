@@ -53,12 +53,12 @@ int main(int argc, char *argv[])
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 1.0;		//Should be set to proper value
 	params.dat.timeIncrement = .010;	//Should be set to proper value
-	params.dat.numOfDataSets = 2;
+	params.dat.numOfDataSets = 16;
 
 	//Regularization parameters.
-	params.reg.type = 3; 	// 0 - none,
+	params.reg.type = 0; 	// 0 - none,
                             // 3 - Brute force search for alpha
- 	params.reg.alpha = 1.0E-5;
+ 	params.reg.alpha = 1.0E-2;
 
 	//General parameters.
 	params.gen.numOfStates = 8;	//Should be set to proper value
@@ -83,10 +83,10 @@ int main(int argc, char *argv[])
 		54,60,66,72,78,84,90,96,102,
 		108,114,120;
     */
-    input[0](0) = 0.05;		input[0](1) = 10;
-    input[1](0) = 0.055;		input[1](1) = 10.5;
+    //input[0](0) = 0.05;		input[0](1) = 10;
+    //input[1](0) = 0.055;		input[1](1) = 10.5;
     //input[1](0) =  0.13572; input[1](1) = 10.1;
-	/*input[0](0) = 0.1; 		input[0](1) = 0.05;
+	input[0](0) = 0.1; 		input[0](1) = 0.05;
 	input[1](0) = 0.1; 		input[1](1) = 0.13572;
 	input[2](0) = 0.1; 		input[2](1) = 0.3684;
 	input[3](0) = 0.1; 		input[3](1) = 1.0;
@@ -101,7 +101,7 @@ int main(int argc, char *argv[])
 	input[12](0) = 10; 		input[12](1) = 0.05;
 	input[13](0) = 10; 		input[13](1) = 0.13572;
 	input[14](0) = 10; 		input[14](1) = 0.3684;
-	input[15](0) = 10; 		input[15](1) = 1.0;*/
+	input[15](0) = 10; 		input[15](1) = 1.0;/**/
 
 
   y0 << 6.6667e-1, 5.7254e-1, 4.1758e-1, 4.0e-1,
@@ -135,7 +135,7 @@ int main(int argc, char *argv[])
     //Using the results from qlopt to construct a latex table
 	std::cout << "\nu =" << results.ufinal.transpose() << endl;
 	cout << "\nLatex Output:" << endl << endl;
-	parameterOutput(results.uvals);
+	//parameterOutput(results.uvals);
 
     return 0;
 }
