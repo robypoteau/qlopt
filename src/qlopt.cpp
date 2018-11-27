@@ -105,13 +105,15 @@ namespace thesis{
 						case 3: alpha = findAlpha(A, P);
 								break;
 
-						default: cerr << "Chose a regularization option 0-3." << endl;
+						case 4: alpha = O;
+								break;
+
+						default: cerr << "Chose a regularization option 0-4." << endl;
 								exit(1);
 					}
 				}
-				alpha = O;
+
 				A.bottomRows(m) = alpha*I;
-				//P.tail(m) = alpha2*(uguess - results.ufinal);
 				du = A.fullPivHouseholderQr().solve(P);
 
 				cout << "\talpha = " << alpha << endl << endl;
