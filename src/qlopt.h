@@ -87,6 +87,9 @@ namespace thesis{
 		vec ufinal;
 		mat xvals;
 		mat uvals;
+        vec objval;
+        vec alpha;
+        vec deltau;
 
 
 		output_struct(){
@@ -142,6 +145,7 @@ namespace thesis{
 	vec findP(const vec& t, const mat& U, const vec& dx, const size_t& m);
 	double findO(const vec& t, const vec& dx);
     double findAlpha(mat A, vec P);
+    double findAlpha2(mat A, vec P, const double max);
 	double findGamma(double initialGuess, void * params);
 	double innerProd(const vec& u1, const vec& u2, const vec& time);
 	double simpson(const vec& t, const vec& x);

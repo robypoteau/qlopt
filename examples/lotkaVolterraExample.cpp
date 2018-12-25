@@ -44,10 +44,12 @@ int main(int argc, char *argv[])
 	params.dat.numOfDataSets = 1;
 
 	//Regularization parameters.
-	params.reg.type = 0; 	// 0 - none,
+	params.reg.type = 4; 	// 0 - none,
 							// 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
 							// 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
-	//params.reg.alpha = 0.0005;
+							// 3 - Brute force search for alpha
+                            // 4 -
+	params.reg.alpha = 0.000001;
 
 	//General parameters.
 	params.gen.numOfStates = 2;		//Should be set to proper value
@@ -74,7 +76,7 @@ int main(int argc, char *argv[])
 	t = vec::LinSpaced(101,0.0,1.0);
 	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
-      data[i] = rungekutta4(lotka, t, u, y0, input[i]);
+		data[i] = rungekutta4(lotka, t, u, y0, input[i]);
     }
 
 	/*

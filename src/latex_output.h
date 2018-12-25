@@ -7,7 +7,11 @@
 #include <iostream>
 #include <fstream>
 
-void parameterOutput(const mat& uvals);
+void plotOutput(vec x, vec y);
+void pythonplot(vec x, vec y);
+void latexplot(vec x, vec y);
+void convertVec(vec x);
+void parameterOutput(const mat& uvals, const vec& alpha);
 void tableheader(int n);
 void tablefooter();
 #endif

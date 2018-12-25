@@ -49,6 +49,8 @@ namespace thesis{
 		}
 		results.ufinal = u0;
 		results.uvals = u0;
+		results.alpha(0);
+		results.objval(0);
 		results.iterations = 0;
 		std::cout << "u  = " << results.uvals.transpose() << endl << endl;
 		//TODO improve U mat stuff
@@ -82,6 +84,8 @@ namespace thesis{
 					//O = findO(ts, temp);
 
 					A.middleRows(i*m, m) = findA(ts, U, m);
+					//cout << "Condition numbers:" << endl;
+					//cout << rcond(A.middleRows(i*m, m)) << endl;
 					P.segment(i*m, m) = findP(ts, U, temp, m);
 
 					O += findO(ts, temp);
@@ -105,18 +109,31 @@ namespace thesis{
 						case 3: alpha = findAlpha(A, P);
 								break;
 
-						case 4: alpha = O;
+						case 4: alpha = params.reg.alpha*O;
 								break;
 
-						default: cerr << "Chose a regularization option 0-4." << endl;
+						case 5: alpha = findAlpha2(A, P, params.reg.alpha);
+								break;
+
+						default: cerr << "Chose a regularization option 0-5." << endl;
 								exit(1);
 					}
 				}
 
 				A.bottomRows(m) = alpha*I;
-				du = A.fullPivHouseholderQr().solve(P);
+				du = A.colPivHouseholderQr().solve(P);
+				results.alpha.conservativeResize(results.alpha.size()+1);
+				results.alpha(j) = alpha;
+				results.objval.conservativeResize(results.objval.size()+1);
+				results.objval(j) = O;
+				results.deltau.conservativeResize(results.deltau.size()+1);
+				results.deltau(j) = du.norm();
 
+				cout << "\tO = " << O << endl << endl;
+				cout << "\tO/m = " << O/m << endl << endl;
 				cout << "\talpha = " << alpha << endl << endl;
+				cout << "\t||du|| = " << norm(du) << endl << endl;
+				cout << "\talpha/||du|| = " << alpha/norm(du) << endl << endl;
 				std::cout << "\tdu = " << du.transpose() << endl << endl;
 
 				results.ufinal += du;
@@ -124,7 +141,6 @@ namespace thesis{
 				results.uvals.col(results.uvals.cols()-1) = results.ufinal;
 
 				std::cout << "\tu  = " << results.ufinal.transpose() << endl << endl;
-				//std::cout << "u  = " << results.uvals << endl << endl;
 
 				// Check the termination conditions
 				if (std::isnan(du.norm())){
@@ -182,7 +198,7 @@ namespace thesis{
 		A.bottomRows(m) = alpha*I;
 
 		vec du(m);
-		du = A.fullPivHouseholderQr().solve(P);
+		du = A.colPivHouseholderQr().solve(P);
 
 		double obj1=0.0, obj2=0.0;
 		for(int i=0; i<ds-1; i++){
@@ -193,7 +209,7 @@ namespace thesis{
 		for(int i = 0; i<3; i++){
 			atemp = pow(10,-i);
 			A.bottomRows(m) = atemp*I;
-			du = A.fullPivHouseholderQr().solve(P);
+			du = A.colPivHouseholderQr().solve(P);
 			for(int i=0; i<ds-1; i++){
 				obj2 += du.transpose()*(A.middleRows(i*m, m)*du
 					- 2*P.segment(i*m, m));
@@ -207,7 +223,24 @@ namespace thesis{
 		return alpha;
 	}
 
+	double findAlpha2(mat A, vec P, const double max){
+		int m = A.cols();
+		double alpha;
+		mat I;
+		I = mat::Identity(m, m);
+		vec du(m);
 
+		for(int i = -9; i<2; i++){ // -7 -> 1
+			alpha = pow(10,i);
+			A.bottomRows(m) = alpha*I;
+			du = A.colPivHouseholderQr().solve(P);
+
+			if(du.norm() < max){
+				break;
+			}
+		}
+		return alpha;
+	}
 
 	double findGamma(mat A, vec P, vec uNot, vec u){
 		int m = P.size();
