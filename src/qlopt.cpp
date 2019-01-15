@@ -12,41 +12,57 @@ namespace thesis{
 	{
 		outputStruct results;
 
+		// Get starting timepoint
+		auto start = high_resolution_clock::now();
+
 		//Use values from input struct and data info
 		size_t n = params.gen.numOfStates;
 		size_t m = u0.size();
-		size_t lt = (int)((params.dat.endTime-params.dat.initialTime)
-                      /params.dat.timeIncrement) + 1;//t.size();
-		std::cout << "lt  = " << lt << endl << endl;
+		size_t lt; //= (int)((params.dat.endTime-params.dat.initialTime)
+                //  /params.dat.timeIncrement) + 1;//t.size();
+		//std::cout << "lt  = " << lt << endl << endl;
 
 		size_t ds = data.size();
-		vec ts(lt);
-		ts(0) = params.dat.initialTime;
+		vec ts;
+		/*ts(0) = params.dat.initialTime;
 		for(size_t j=1; j<lt; j++)
 		{
 			ts(j) += ts(j-1) + params.dat.timeIncrement;
-		}
+		}*/
 
 		//TODO construct another more time dense things
 		vec ly0(n*(m+1));
 		ly0.fill(0);
 		ly0.head(n) = y0;
 
-		mat bob, temp, U, A((ds+1)*m,m);
+		mat bob, robert, msmt, temp, U, A((ds+1)*m,m);
 		mat I = mat::Identity(m, m);
 		vec P((ds+1)*m), du(m);
 		double O, objval, objval2, alpha = params.reg.alpha;
 		double alpha2 = 0.0;
-		OdeWrapper odewrapper(fun);
+
+		OdeWrapper odewrapper(fun, input[0], u0);
 
 		//Spline all the data sets
 		std::vector<std::vector<thesis::spline>> spl_pairs(ds);
 		for(size_t j=0; j<ds; j++){
 			for(size_t i=0; i<n; i++){
 				spl_pairs[j].push_back(thesis::spline(t, data[j].row(i)));
-				//std::cout << spl_pairs[j][i].interpolate(1) << endl;
+				//std::cout << spl_pairs[j][i].interpolate(80) << endl;
 			}
 		}
+
+		/*for(size_t j=0; j<ds; j++){
+			cout << "**** Data Set "<< j+1 << " ****\n";
+			for(size_t i=0; i<n; i++){
+					cout << "state " << i+1 << ": ";
+				for(size_t k=0; k<lt; k++){
+					std::cout << spl_pairs[j][i].interpolate(ts(k)) << "\t";
+				}
+				cout << endl <<endl;
+			}
+		}exit(0);*/
+
 		results.ufinal = u0;
 		results.uvals = u0;
 		results.alpha(0);
@@ -58,7 +74,7 @@ namespace thesis{
 
 		cout.precision(7);
 		A.fill(0.0); P.fill(0.0);
-		for(size_t k = 0; k < 1; k++)
+		for(size_t k = 0; k < params.gen.divisions; k++)
 		{
 			for(size_t j=0; j<params.tol.maxiter; j++)
 			{
@@ -70,23 +86,36 @@ namespace thesis{
 				for(size_t i = 0; i < ds; i++)
 				{
 					odewrapper.setControl(input[i]);
-					if(params.gen.finitediff){
-						bob = qloptRungeKutta4(odewrapper, ts, results.ufinal, ly0, spl_pairs[i]);
+					odewrapper.setParameter(results.ufinal);
+					odewrapper.setPreviousIteration(spl_pairs[i]);
+					if(params.gen.finitediff)
+					{
+						robert = OdeIntWrapper(odewrapper, ly0, t);
+						bob = robert.bottomRows(n+n*m);
+						lt = bob.cols();
+						ts = robert.topRows(1).transpose();
 					}else{
 						//bob = qlRungeKutta4(*env->ode, (*env->time), uNot, y0, ext_data);
 					}
 
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
-					temp = reshape(data[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
+					msmt.resize(n,lt);
+					for(size_t j=0; j<n; j++){
+						for(size_t k=0; k<lt; k++){
+							msmt(j,k) = spl_pairs[i][j].interpolate(ts(k));
+						}
+					}
+					temp = reshape(msmt - bob.topRows(n), 1, n*lt).row(0).transpose();
 
-					//A = findA(ts, U, m);
-					//P = findP(ts, U, temp, m);
-					//O = findO(ts, temp);
+					//cout << U << endl << endl;
+					//cout << temp.transpose() << endl << endl;
 
 					A.middleRows(i*m, m) = findA(ts, U, m);
 					//cout << "Condition numbers:" << endl;
-					//cout << rcond(A.middleRows(i*m, m)) << endl;
+					//cout << (A.middleRows(i*m, m)) << endl;
+
 					P.segment(i*m, m) = findP(ts, U, temp, m);
+					//cout << (P.segment(i*m, m)) << endl;
 
 					O += findO(ts, temp);
 
@@ -129,9 +158,9 @@ namespace thesis{
 				results.deltau.conservativeResize(results.deltau.size()+1);
 				results.deltau(j) = du.norm();
 
-				cout << "\tO = " << O << endl << endl;
+				/*cout << "\tO = " << O << endl << endl;
 				cout << "\tO/m = " << O/m << endl << endl;
-				cout << "\talpha = " << alpha << endl << endl;
+				*/cout << "\talpha = " << alpha << endl << endl;
 				cout << "\t||du|| = " << norm(du) << endl << endl;
 				cout << "\talpha/||du|| = " << alpha/norm(du) << endl << endl;
 				std::cout << "\tdu = " << du.transpose() << endl << endl;
@@ -182,6 +211,11 @@ namespace thesis{
 			}
 		}
 		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
+		// Get ending timepoint
+    	auto end = high_resolution_clock::now();
+		auto duration = duration_cast<seconds>(end - start);
+
+		cout << "Computational Time:" << duration.count() << " seconds" << endl;
 		return results;
 	}
 
@@ -189,7 +223,7 @@ namespace thesis{
 		int m = A.cols();
 		int ds = A.rows()/m;
 
-		double alpha = 1.0E1, atemp;
+		double alpha = 1.0E2, atemp;
 
 
 
@@ -206,8 +240,8 @@ namespace thesis{
 				- 2*P.segment(i*m, m));
 		}
 
-		for(int i = 0; i<3; i++){
-			atemp = pow(10,-i);
+		for(int i = -6; i<2; i++){
+			atemp = pow(10,i);
 			A.bottomRows(m) = atemp*I;
 			du = A.colPivHouseholderQr().solve(P);
 			for(int i=0; i<ds-1; i++){
@@ -230,7 +264,7 @@ namespace thesis{
 		I = mat::Identity(m, m);
 		vec du(m);
 
-		for(int i = -9; i<2; i++){ // -7 -> 1
+		for(int i = -12; i<3; i++){ // -7 -> 1
 			alpha = pow(10,i);
 			A.bottomRows(m) = alpha*I;
 			du = A.colPivHouseholderQr().solve(P);
@@ -278,116 +312,6 @@ namespace thesis{
 		}
 		cout << "alpha = " << hold << endl;
 		return hold;
-	}
-
-	mat qloptRungeKutta4(OdeWrapper& fhandle, const vec& time,
-		const vec& u, const vec& yNot, std::vector<thesis::spline>& Xn)
-	{
-		size_t N = time.size();
-
-		//number of equations
-		size_t m = yNot.size();
-
-		//timestep
-		double h = 0.0;
-
-		//init stuff
-		mat w(m, N);
-		w.fill(0);
-		w.col(0) = yNot;
-
-		vec k1(m), k2(m), k3(m), k4(m);
-
-		for (size_t i = 0; i<N-1; i++)
-		{
-			h = time(i+1) - time(i);
-			k1 = h*qlinear(fhandle, time(i),       w.col(i),        u, Xn);
-			k2 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k1/2, u, Xn);
-			k3 = h*qlinear(fhandle, time(i) + h/2, w.col(i) + k2/2, u, Xn);
-			k4 = h*qlinear(fhandle, time(i) + h,   w.col(i) + k3,   u, Xn);
-
-			//cout <<"(" << i <<")\nk1"<< k1 << "\nk2:" << k2 << "\nk3:" << k3 << "\nk4:" << k4 <<endl;
-			w.col(i+1) = w.col(i) + (k1 + 2*(k2 + k3) + k4)/6;
-		}
-
-		return w;
-	}
-
-	mat qlinear(OdeWrapper& fhandle, const double& t, const vec& x,
-		const vec& u, std::vector<thesis::spline>& Xn)
-	{
-		size_t m = u.size();
-		size_t n = Xn.size();
-		double step = sqrt(2.2E-16);
-
-		vec xn1(n); // this is x_N-1
-		vec dxn(n);
-
-		for(size_t i=0; i<n; i++)
-		{
-			xn1(i) = Xn[i].interpolate(t);
-			dxn(i) = x(i) - xn1(i); // x_N - x_{N-1}
-		}
-
-		mat dx(n,n);// for x derivative
-		dx << mat::Identity(n,n)*step;
-
-		//First few lines of linearization
-		mat fx(n,1);
-		fx = fhandle(t, xn1, u);
-		mat ans(n+n*m, 1);
-		ans << mat::Zero(n+n*m, 1);
-		ans.block(0, 0, n, 1) = fx + jac(fhandle, t, xn1, u, step)*dxn;
-
-		mat dfdx(n,1);
-		mat dfdu(n,1);
-
-		// the Un part of t the linearization
-		mat dun(m, m);// for u derivative
-		dun << mat::Identity(m,m)*step;
-
-		size_t ind;
-		for(size_t j=0; j<m; j++)
-		{
-			ind = (j+1)*n;
-			dfdu = fhandle(t, xn1, u+dun.col(j)*u(j));
-			ans.block(ind, 0, n, 1) = der(dfdu - fx, step*u(j)); // df/du
-			for(size_t k=0; k<n; k++){
-				dfdx = fhandle(t, xn1+dx.col(k)*xn1(k), u);
-				ans.block(ind, 0, n, 1) += der(dfdx  - fx, step*xn1(k))*x(ind+k);//J*Un
-
-				ans.block(ind, 0, n, 1) += der(
-					  fhandle(t, xn1+dx.col(k)*xn1(k), u+dun.col(j)*u(j))
-					- fhandle(t, xn1+dx.col(k)*xn1(k), u-dun.col(j)*u(j))
-					- fhandle(t, xn1-dx.col(k)*xn1(k), u+dun.col(j)*u(j))
-					+ fhandle(t, xn1-dx.col(k)*xn1(k), u-dun.col(j)*u(j)),
-					4*step*xn1(k)*step*u(j))*dxn(k); //phi_ij
-			}
-		}
-
-		return ans;
-	}
-
-	mat der(const mat& dx, const double& dt)
-	{
-		mat ans(dx.size(),1);
-		ans << dx/dt;
-		return ans;
-	}
-
-	mat jac(OdeWrapper& f, double t, const mat& x, const mat& u,
-		const double& h)
-	{
-		int n = x.size();
-		mat dx(n,n);
-		dx << mat::Identity(n,n)*h;
-		mat fprime(n,n);
-		for(int j=0; j<n; j++)
-		{
-			fprime.col(j) = (-f(t, x+2*dx.col(j)*x(j), u) + 8*f(t, x+dx.col(j)*x(j), u) - 8*f(t, x-dx.col(j)*x(j), u) + f(t, x-2*dx.col(j)*x(j), u))/x(j);
-		}
-
-		return fprime/(12*h);
 	}
 
 	mat reshape(const mat& U, int n, int m)
@@ -462,7 +386,7 @@ namespace thesis{
 		thesis::spline sim(t,x);
 		double temp;
 
-		int N = 3001;
+		int N = 1000;
 		int end = t.size()-1;
 		double h = (t(end)- t(0))/(N-1);
 
@@ -470,7 +394,7 @@ namespace thesis{
 		for(int i = 1; i<N-1; i++)
 		{
 			temp = sim.interpolate(t(0)+h*i);
-		    if((i+1)%2 == 0)
+			if((i+1)%2 == 0)
 			{
 		        area += 2*temp;
 		    }

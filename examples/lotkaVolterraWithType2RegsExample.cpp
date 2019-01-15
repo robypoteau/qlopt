@@ -92,7 +92,7 @@ int main(int argc, char *argv[])
 	//Using the results from qlopt to construct a latex table
 	std::cout << "\nu =" << results.ufinal.transpose() << endl;
 	cout << "\nLatex Output:" << endl << endl;
-	parameterOutput(results.uvals);
+	parameterOutput(results.uvals, results.alpha);
 
 	return 0;
 }

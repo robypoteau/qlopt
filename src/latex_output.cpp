@@ -88,11 +88,12 @@ void parameterOutput(const mat& uvals, const vec& alpha)
 		cout << uvals(j,nmax-1) << " & ";
 		cout << uvals(j,nmax) << " \\\\\n";
 	}
-	for(size_t i=0; i<nmax-n; i+=n)
+	cout << "\t\t\\alpha & &";
+	for(size_t i=n; i<nmax-n; i+=n)
 	{
-		cout << alpha(i) << " & ";
+		cout << alpha(i-1) << " & ";
 	}
-	cout << alpha(nmax-1) << " & ";
+	cout << alpha(nmax-2) << " & ";
 	cout << " \\\\\n";
 
 	tablefooter();
