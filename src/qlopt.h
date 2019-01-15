@@ -5,6 +5,7 @@
 #include <iostream>
 #include <string>
 #include <cmath>
+#include <chrono>
 
 // External headers
  #include <eigen3/Eigen/QR>
@@ -13,11 +14,12 @@
 #include <misc.h>
 #include <spline.h>
 #include <latex_output.h>
+#include <odesolver.h>
+#include <odeWrapper.h>
+
+using namespace std::chrono;
 
 namespace thesis{
-	typedef vec (*odefunction)(const double& t,
-		const vec& x, const vec& u, const vec& control);
-
 	//TODO Make constructor to input values
 	typedef struct input_struct {
 		input_struct(){
@@ -87,6 +89,9 @@ namespace thesis{
 		vec ufinal;
 		mat xvals;
 		mat uvals;
+        vec objval;
+        vec alpha;
+        vec deltau;
 
 
 		output_struct(){
@@ -101,21 +106,6 @@ namespace thesis{
 		}
 	} outputStruct;
 
-	class OdeWrapper
-	{
-	private:
-		vec control;
-		odefunction fun;
-	public:
-		OdeWrapper(odefunction of){fun = of;}
-		void setControl(vec input){control = input;}
-		vec operator() (double t, vec  x, vec u)
-		{
-			//TODO check that the control has been set.
-			return fun(t, x, u, control);
-		}
-	};
-
 	outputStruct qlopt(odefunction fun,
 		const vec& t,
 		const vec& u0,
@@ -127,21 +117,11 @@ namespace thesis{
 
 	double findGamma(mat A, vec P, vec uNot, vec u);
 
-	mat qloptRungeKutta4(OdeWrapper& fhandle, const vec& time,
-		const vec& u, const vec& yNot,  std::vector<thesis::spline>& Xn);
-
-	mat qlinear(OdeWrapper& fhandle, const double& t, const vec& x,
-		const vec& u, std::vector<thesis::spline>& Xn);
-
-	mat der(const mat& dx, const double& dt);
-
-	mat jac(OdeWrapper& f, double t, const mat& x, const mat& u,
-		const double& h);
-
 	mat findA(const vec& t, const mat& U, const size_t& m);
 	vec findP(const vec& t, const mat& U, const vec& dx, const size_t& m);
 	double findO(const vec& t, const vec& dx);
     double findAlpha(mat A, vec P);
+    double findAlpha2(mat A, vec P, const double max);
 	double findGamma(double initialGuess, void * params);
 	double innerProd(const vec& u1, const vec& u2, const vec& time);
 	double simpson(const vec& t, const vec& x);

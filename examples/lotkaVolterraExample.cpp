@@ -44,10 +44,12 @@ int main(int argc, char *argv[])
 	params.dat.numOfDataSets = 1;
 
 	//Regularization parameters.
-	params.reg.type = 0; 	// 0 - none,
+	params.reg.type = 4; 	// 0 - none,
 							// 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
 							// 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
-	//params.reg.alpha = 0.0005;
+							// 3 - Brute force search for alpha
+                            // 4 -
+	params.reg.alpha = 0.005;
 
 	//General parameters.
 	params.gen.numOfStates = 2;		//Should be set to proper value
@@ -71,10 +73,10 @@ int main(int argc, char *argv[])
 	uguess << 0,0,0; // The guess value for Type II Regularization
 	y0 << 35, 4;
 
-	t = vec::LinSpaced(101,0.0,1.0);
+	t = vec::LinSpaced(1001,0.0,1);
 	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
-      data[i] = rungekutta4(lotka, t, u, y0, input[i]);
+		data[i] = rungekutta4(lotka, t, u, y0, input[i]);
     }
 
 	/*
@@ -89,9 +91,23 @@ int main(int argc, char *argv[])
 	results.uvals.col(results.uvals.cols()-1) = u;
 
 	//Using the results from qlopt to construct a latex table
-	std::cout << "\nu =" << results.ufinal.transpose() << endl;
-	cout << "\nLatex Output:" << endl << endl;
-	parameterOutput(results.uvals);
+	cout << "\n************Latex Output***********" << endl << endl;
+	parameterOutput(results.uvals, results.alpha);
+    cout << endl;
+    latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.objval);
+
+	cout << "\n***********Python Output***********" << endl << endl;
+	cout << "objective values" << endl;
+	convertVec(results.objval);
+	cout << "\ndeltau values" << endl;
+	convertVec(results.deltau);
+	cout << "\nalpha" << endl;
+	convertVec(results.alpha);
+	cout << "\niterations" << endl;
+	convertVec(vec::LinSpaced(results.iterations,1,results.iterations));
+	cout << endl << endl;
+	pythonplot(vec::LinSpaced(results.iterations,1,results.iterations), results.objval);
+
 
 	return 0;
 }
