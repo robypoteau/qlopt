@@ -3,6 +3,8 @@
 
 #include <misc.h>
 #include <odeWrapper.h>
+#include <chrono>
+using namespace std::chrono;
 #include <boost/numeric/odeint.hpp>
 using namespace boost::numeric::odeint;
 

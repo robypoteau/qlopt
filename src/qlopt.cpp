@@ -18,17 +18,17 @@ namespace thesis{
 		//Use values from input struct and data info
 		size_t n = params.gen.numOfStates;
 		size_t m = u0.size();
-		size_t lt; //= (int)((params.dat.endTime-params.dat.initialTime)
-                //  /params.dat.timeIncrement) + 1;//t.size();
-		//std::cout << "lt  = " << lt << endl << endl;
+		size_t lt = (int)((params.dat.endTime-params.dat.initialTime)
+                  /params.dat.timeIncrement) + 1;
+		std::cout << "lt  = " << lt << endl << endl;
 
 		size_t ds = data.size();
-		vec ts;
-		/*ts(0) = params.dat.initialTime;
+		/**/vec ts(lt);
+		ts(0) = params.dat.initialTime;
 		for(size_t j=1; j<lt; j++)
 		{
 			ts(j) += ts(j-1) + params.dat.timeIncrement;
-		}*/
+		}
 
 		//TODO construct another more time dense things
 		vec ly0(n*(m+1));
@@ -90,7 +90,7 @@ namespace thesis{
 					odewrapper.setPreviousIteration(spl_pairs[i]);
 					if(params.gen.finitediff)
 					{
-						robert = OdeIntWrapper(odewrapper, ly0, t);
+						robert = OdeIntWrapper(odewrapper, ly0, ts);
 						bob = robert.bottomRows(n+n*m);
 						lt = bob.cols();
 						ts = robert.topRows(1).transpose();
@@ -213,9 +213,9 @@ namespace thesis{
 		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
 		// Get ending timepoint
     	auto end = high_resolution_clock::now();
-		auto duration = duration_cast<seconds>(end - start);
+		auto duration = duration_cast<microseconds>(end - start);
 
-		cout << "Computational Time:" << duration.count() << " seconds" << endl;
+		cout << "Computational Time:" << duration.count() << " ms" << endl;
 		return results;
 	}
 

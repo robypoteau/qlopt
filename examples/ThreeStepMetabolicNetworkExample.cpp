@@ -56,13 +56,13 @@ int main(int argc, char *argv[])
 	params.dat.numOfDataSets = 16;
 
 	//Regularization parameters.
-	params.reg.type = 3; 	// 0 - none
+	params.reg.type = 4; 	// 0 - none
                             // 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
                             // 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
                             // 3 - Brute force search for alpha Or
-                            // 4 -
-                            // 5 -
- 	params.reg.alpha = 1;
+                            // 4 - alpha is a multiple of O
+                            // 5 - we don't talk about 5
+ 	params.reg.alpha = .25;
 
 	//General parameters.
 	params.gen.numOfStates = 8;	//Should be set to proper value
