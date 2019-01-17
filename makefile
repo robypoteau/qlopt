@@ -1,73 +1,99 @@
-#Dissertation research makefile
-CC=g++
-CXXFLAGS=-g -O2 -Wall -Wextra -Isrc -Lbuild -rdynamic -DNDEBUG -std=c++11
-#LIBS=-lgsl -lgslcblas -lmpfr -lgmp -lm
+PWD=$(shell pwd)
+UNAME=$(shell uname -s)
+
+# Project name
 PRJNAME=paramid
-#CXXFLAgS
-BUILDDIR=build
-BINDIR=bin
-SRCDIR=src
-APPSRCDIR=examples
+
+# Variables related to directory structure
+BUILDDIR?=$(PWD)/build
+BINDIR=$(PWD)/bin
+SRCDIR=$(PWD)/src
+APPSRCDIR=$(PWD)/examples
+# Extension for source files
 SRCEXT=cpp
 
-APPSRC=$(shell find $(APPSRCDIR) -type f -name "*.$(SRCEXT)")
-EXE=$(patsubst $(APPSRCDIR)/%,$(BINDIR)/%,$(APPSRC:.$(SRCEXT)=))
+# Extension for dynamic libraries depends on the platform
+ifeq ($(UNAME), Linux)
+DYLIBEXT:=so
+endif
+ifeq ($(UNAME), Darwin)
+DYLIBEXT:=dylib
+endif
 
-SRC=$(shell find $(SRCDIR) -type f -name "*.$(SRCEXT)")
-OBJ=$(patsubst $(SRCDIR)/%,$(BUILDDIR)/%,$(SRC:.$(SRCEXT)=.o))
+# Build configuration
+CC=g++
+CXXFLAGS_EXTRA?=
+CXXFLAGS=-g -O2 -Wall -Wextra -I$(PWD)/src -rdynamic -fPIC -DNDEBUG -std=c++11 $(CXXFLAGS_EXTRA)
+LIBS=-L$(BUILDDIR) -l$(PRJNAME)
+#LIBS=-lgsl -lgslcblas -lmpfr -lgmp -lm
 
-TEST_SRC=$(wildcard tests/*_tests.cpp)
-TEST_OBJ=$(patsubst %.cpp,%.o,$(TEST_SRC))
-TESTS=$(patsubst %.cpp,%,$(TEST_SRC))
+#TODO: Document variables
+
+APPSRC=$(wildcard $(APPSRCDIR)/*.$(SRCEXT)) # Find all source files under APPSRCDIR
+EXE=$(patsubst $(APPSRCDIR)/%.$(SRCEXT),$(BINDIR)/%,$(APPSRC))
+
+SRC=$(wildcard $(SRCDIR)/*.$(SRCEXT)) # Find all source files under SRCDIR
+OBJ=$(patsubst $(SRCDIR)/%.$(SRCEXT),$(BUILDDIR)/%.o,$(SRC))
+
+TEST_SRC=$(wildcard tests/*_tests.cpp) # Find all source files under tests/
+TEST_OBJ=$(patsubst %.$(SRCEXT),%.o,$(TEST_SRC))
+TESTS=$(patsubst %.$(SRCEXT),%,$(TEST_SRC))
 
 TARGET=$(BUILDDIR)/lib$(PRJNAME).a
-SO_TARGET=$(patsubst %.a,%.so,$(TARGET))
+SO_TARGET=$(patsubst %.a,%.$(DYLIBEXT),$(TARGET))
 
-all: $(TARGET) $(SO_TARGET) $(EXE)
+usage:
+	@echo "usage: make [TARGET]"
+	@echo "    where TARGET is one of"
+	@echo "    - usage (show this message)"
+	@echo "    - static: Generate the QLopt static library"
+	@echo "    - shared: Generate the QLopt shared library"
+	@echo "    - apps: Generate the QLopt executables (under $(APPSRCDIR))"
+	@echo "    - tests: Run the included test script (disabled)"
 
-dev: CXXFLAGS=-c -g -Wall -Wextra -std=c++11
+all: static shared apps
+
+#TODO: use common flags for different builds/targets, or document why they need
+# to vary.
+dev: CXXFLAGS+=-c
 dev: all
 
-apps: $(BINDIR) $(EXE)
+apps: $(EXE)
 
-#Redefining rules, this with the % refine rules
+# The rule below uses a _pattern_: objects matching the string on the left-hand
+# side of the colon (after expanding any variables) using "%" as a wildcard will
+# be built from the corresponding object on the right-hand side using the shell
+# commands below the rule.
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	$(CC) -c $(CXXFLAGS) $< $(LIBS) -o $@
+	@mkdir -p $(dir $@)
+	$(CC) -c $(CXXFLAGS) $<  -o $@
 
-$(BINDIR)/%:$(APPSRCDIR)/%.$(SRCEXT)
-	$(CC) $(CXXFLAGS) $< -l$(PRJNAME) -Wl,-rpath=build $(LIBS) -o $@
-#End of redfinitions
+$(BINDIR)/%: $(APPSRCDIR)/%.$(SRCEXT)
+	@mkdir -p $(dir $@)
+	$(CC) $(CXXFLAGS) $< -Wl,-rpath,$(BUILDDIR) $(LIBS) -o $@
 
-#TODO convert this into a refefinition rule also
+#TODO convert this into a pattern (?) rule also
 $(TESTS): $(TEST_SRC)
 	$(CC) $(CXXFLAGS) $< $(LIBS) -o $@
 
-$(BUILDDIR):
-	@mkdir -p $(BUILDDIR)
+.PHONY: static
+static: $(TARGET)
+$(TARGET): $(OBJ)
+	@mkdir -p $(dir $@)
+	ar rcs $@ $^
 
-$(BINDIR):
-	@mkdir -p $(BINDIR)
-
-$(TARGET): CXXFLAGS += -fPIC
-$(TARGET): $(BUILDDIR) $(BINDIR) $(OBJ)
-	ar rcs $@ $(OBJ)
-
-$(SO_TARGET): $(TARGET)
-	$(CC) -shared -o $@ $(OBJ)
+.PHONY: shared
+shared: $(SO_TARGET)
+$(SO_TARGET): $(OBJ)
+	@mkdir -p $(dir $@)
+	$(CC) -shared -o $@ $^
 
 .PHONY: tests
 tests: CXXFLAGS=-I$(BUILDDIR) -I$(SRCDIR)
-tests: LIBS=-L$(BUILDDIR) -l$(PRJNAME) -lgsl -lgslcblas -lboost_system -lboost_unit_test_framework
 tests: $(TESTS)
 	export LD_LIBRARY_PATH=$(PWD)/$(BUILDDIR)
 #	sh ./tests/runtests.sh
 
-
+.PHONY: clean
 clean:
-	rm -rf $(BINDIR) $(BUILDDIR)
-
-cleanbuild:
-	rm -rf $(BUILDDIR)
-
-cleantests:
-	rm -rf $(TESTS)
+	rm -rf $(BINDIR) $(BUILDDIR) $(TESTS)
