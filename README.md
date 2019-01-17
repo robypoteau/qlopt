@@ -58,6 +58,14 @@ When you create your own examples, just drop it into the examples
 folder and run the make file in the root directory this will create an
 executable which you can run from the bin folder. 
 
+To run the executable, you need libparamid in your system's library
+```
+# At QLOPT root directory
+cd build
+sudo cp libparamid.* /usr/lib/
+sudo ldconfig
+```
+
 ## Questions
 If you have any questions feel free to e-mail us at:
 abdulla@fit.edu; rpoteau2010@my.fit.edu
