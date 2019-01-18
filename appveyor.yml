@@ -1,0 +1,38 @@
+# Build worker image (VM template)
+image:
+  - Visual Studio 2015
+
+build:
+  parallel: true
+  verbosity: detailed
+
+platform:
+  - x64
+  - x86
+
+configuration:
+  - Release
+  - Debug
+
+environment:
+  # update the vcpkg cache even if build fails
+  APPVEYOR_SAVE_CACHE_ON_ERROR: true
+
+#matrix:
+#  fast_finish: true
+#  allow_failures:
+#    - platform: x86
+
+cache: c:\tools\vcpkg\installed\
+
+install:
+  - if "%platform%"=="x86" (   call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86 )
+  - if "%platform%"=="x64" (   call "C:\Program Files\Microsoft SDKs\Windows\v7.1\Bin\SetEnv.cmd" /x64 )
+  - if "%platform%"=="x64" (   call "C:\Program Files (x86)\Microsoft Visual Studio 14.0\VC\vcvarsall.bat" x86_amd64 )
+  - vcpkg install boost-system:%platform%-windows boost-math:%platform%-windows eigen3:%platform%-windows
+
+build_script:
+  - ps: make all
+
+test_script:
+  - ps: make tests

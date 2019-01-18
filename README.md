@@ -1,5 +1,9 @@
 # Qlopt
 
+[![Build Status](https://travis-ci.org/jgoldfar/qlopt.svg?branch=master)](https://travis-ci.org/jgoldfar/qlopt)
+[![Build status](https://ci.appveyor.com/api/projects/status/7oe6e10sjbqt0g6w?svg=true)](https://ci.appveyor.com/project/jgoldfar/qlopt)
+
+
 This is a software package developed to pursue numerical calculations reported 
 in the paper “Identification of parameters in systems biology” by 
 Ugur G. Abdulla & Roby Poteau, submitted to Mathematical Biosciences.

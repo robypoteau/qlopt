@@ -20,44 +20,49 @@ ifeq ($(UNAME), Darwin)
 DYLIBEXT:=dylib
 endif
 
-# Build configuration
-CC=g++
+# Compilation configuration
 CXXFLAGS_EXTRA?=
 CXXFLAGS=-g -O2 -Wall -Wextra -I$(PWD)/src -rdynamic -fPIC -DNDEBUG -std=c++11 $(CXXFLAGS_EXTRA)
+
+# Linking configuration
 LIBS=-L$(BUILDDIR) -l$(PRJNAME)
-#LIBS=-lgsl -lgslcblas -lmpfr -lgmp -lm
 
 #TODO: Document variables
 
+# Build with `make apps`
 APPSRC=$(wildcard $(APPSRCDIR)/*.$(SRCEXT)) # Find all source files under APPSRCDIR
 EXE=$(patsubst $(APPSRCDIR)/%.$(SRCEXT),$(BINDIR)/%,$(APPSRC))
 
+# SRC files are compiled into corresponding OBJ objects
 SRC=$(wildcard $(SRCDIR)/*.$(SRCEXT)) # Find all source files under SRCDIR
 OBJ=$(patsubst $(SRCDIR)/%.$(SRCEXT),$(BUILDDIR)/%.o,$(SRC))
 
+# The variables below are not currently used.
 TEST_SRC=$(wildcard tests/*_tests.cpp) # Find all source files under tests/
 TEST_OBJ=$(patsubst %.$(SRCEXT),%.o,$(TEST_SRC))
 TESTS=$(patsubst %.$(SRCEXT),%,$(TEST_SRC))
 
-TARGET=$(BUILDDIR)/lib$(PRJNAME).a
-SO_TARGET=$(patsubst %.a,%.$(DYLIBEXT),$(TARGET))
+# Static library and corresponding shared library
+STATIC_TARGET=$(BUILDDIR)/lib$(PRJNAME).a
+SHARED_TARGET=$(patsubst %.a,%.$(DYLIBEXT),$(TARGET))
 
+# Phony targets don't result in a file appearing in the filesystem
+# This one prints a usage message if you type `make` without any
+# argument, or if you type `make usage`.
+.PHONY: usage
 usage:
 	@echo "usage: make [TARGET]"
 	@echo "    where TARGET is one of"
 	@echo "    - usage (show this message)"
 	@echo "    - static: Generate the QLopt static library"
 	@echo "    - shared: Generate the QLopt shared library"
-	@echo "    - apps: Generate the QLopt executables (under $(APPSRCDIR))"
+	@echo "    - apps: Generate the QLopt executables (from source files in $(APPSRCDIR))"
 	@echo "    - tests: Run the included test script (disabled)"
 
+.PHONY: all
 all: static shared apps
 
-#TODO: use common flags for different builds/targets, or document why they need
-# to vary.
-dev: CXXFLAGS+=-c
-dev: all
-
+.PHONY: apps
 apps: $(EXE)
 
 # The rule below uses a _pattern_: objects matching the string on the left-hand
@@ -66,33 +71,27 @@ apps: $(EXE)
 # commands below the rule.
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
 	@mkdir -p $(dir $@)
-	$(CC) -c $(CXXFLAGS) $<  -o $@
+	$(CXX) -c $(CXXFLAGS) $< -o $@
 
-$(BINDIR)/%: $(APPSRCDIR)/%.$(SRCEXT)
+$(BINDIR)/%: $(APPSRCDIR)/%.$(SRCEXT) $(SHARED_TARGET)
 	@mkdir -p $(dir $@)
-	$(CC) $(CXXFLAGS) $< -Wl,-rpath,$(BUILDDIR) $(LIBS) -o $@
-
-#TODO convert this into a pattern (?) rule also
-$(TESTS): $(TEST_SRC)
-	$(CC) $(CXXFLAGS) $< $(LIBS) -o $@
+	$(CXX) $(CXXFLAGS) $< -Wl,-rpath,$(BUILDDIR) $(LIBS) -o $@
 
 .PHONY: static
-static: $(TARGET)
-$(TARGET): $(OBJ)
+static: $(STATIC_TARGET)
+$(STATIC_TARGET): $(OBJ)
 	@mkdir -p $(dir $@)
 	ar rcs $@ $^
 
 .PHONY: shared
-shared: $(SO_TARGET)
-$(SO_TARGET): $(OBJ)
+shared: $(SHARED_TARGET)
+$(SHARED_TARGET): $(OBJ)
 	@mkdir -p $(dir $@)
-	$(CC) -shared -o $@ $^
+	$(CXX) -shared -o $@ $^
 
 .PHONY: tests
-tests: CXXFLAGS=-I$(BUILDDIR) -I$(SRCDIR)
-tests: $(TESTS)
-	export LD_LIBRARY_PATH=$(PWD)/$(BUILDDIR)
-#	sh ./tests/runtests.sh
+tests: $(EXE)
+	$(foreach single_exe,$(EXE),$(single_exe);)
 
 .PHONY: clean
 clean:
