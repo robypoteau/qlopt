@@ -1,0 +1,30 @@
+language: cpp
+
+os:
+  - linux
+  - osx
+
+compiler:
+  - clang
+  - gcc
+
+addons:
+  apt:
+    packages:
+      - libeigen3-dev
+  homebrew:
+    packages:
+      - eigen
+
+install:
+  - cd ${TRAVIS_BUILD_DIR}
+  - curl https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz -L -o boost_1_69_0.tar.gz
+  - tar xzf boost_1_69_0.tar.gz
+  - cd boost_1_69_0
+  - ./bootstrap.sh --prefix=${TRAVIS_BUILD_DIR}/usr
+  - travis_wait ./b2 -d0 -q --with-math --with-test --with-system install
+
+script:
+  - cd ${TRAVIS_BUILD_DIR}
+  - make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/include"
+  - make tests
