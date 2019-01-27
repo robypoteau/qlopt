@@ -9,8 +9,8 @@ namespace thesis{
         vector<double> times;
 
         //runge_kutta_fehlberg78<vector_type> stepper;
-        //runge_kutta4<vector_type> stepper;
-        runge_kutta_dopri5< vector_type > stepper;
+        runge_kutta4<vector_type> stepper;
+        //runge_kutta_dopri5< vector_type > stepper;
 
 		auto start = high_resolution_clock::now();
         size_t num_of_steps = integrate_adaptive( stepper,
@@ -22,7 +22,7 @@ namespace thesis{
        	auto end = high_resolution_clock::now();
    		auto duration = duration_cast<microseconds>(end - start);
 
-   		cout << "OdeInt Time: " << duration.count() << " ms" << endl;
+   		cout << "OdeInt Time: " << duration.count()/1E6 << " s" << endl;
 
         size_t xlen = x_vec[0].size();
         size_t tlen = times.size();
