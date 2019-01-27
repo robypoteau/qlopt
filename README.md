@@ -19,15 +19,36 @@ Email:rpoteau2010@my.fit.edu
 
 ### Prerequisites
 
-[Eigen 3.3.4](http://bitbucket.org/eigen/eigen/get/3.3.4.tar.bz2) - the 
-installation instruction can be found on there website 
-[eigen.tuxfamily.org/](http://eigen.tuxfamily.org/).
+I use [GNU Make](https://www.gnu.org/software/make/) which is bundled in build-essential package
 
-I also use [GNU Make](https://www.gnu.org/software/make/).
+```
+sudo apt-get install build-essential
+```
+
+[Eigen 3.3.7](http://eigen.tuxfamily.org/index.php?title=Main_Page)
+
+```
+git clone https://github.com/eigenteam/eigen-git-mirror.git eigen_source
+mkdir eigen_build
+cd eigen_build
+cmake ../eigen_source
+make install            # may need sudo to run this
+```
+
+[Boost 1.69.0](https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz)
+
+```
+wget https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz
+tar xf boost_1_69_0.tar.gz
+cd boost_1_69_0
+sudo ./bootstrap.sh
+sudo ./b2 install
+```
 
 ### Installation
 Make sure Eigen is installed. Download or clone the repository into a 
-folder and run make command in the project's root directory.
+folder and run `make` command in the project's root directory 
+(you can also use `sudo make` if the command doesn't work).
 
 ### Usage
 When you run `make` it will create executables in the bin folder from source files 
@@ -36,6 +57,14 @@ own examples.
 When you create your own examples, just drop it into the examples
 folder and run the make file in the root directory this will create an
 executable which you can run from the bin folder. 
+
+To run the executable, you need libparamid in your system's library
+```
+# At QLOPT root directory
+cd build
+sudo cp libparamid.* /usr/lib/
+sudo ldconfig
+```
 
 ## Questions
 If you have any questions feel free to e-mail us at:
