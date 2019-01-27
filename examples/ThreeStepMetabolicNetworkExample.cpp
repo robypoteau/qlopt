@@ -52,7 +52,7 @@ int main(int argc, char *argv[])
 	//Data parameters.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
-	params.dat.timeIncrement = 0.5;	//Should be set to proper value
+	params.dat.timeIncrement = 1.0;	//Should be set to proper value
 	params.dat.numOfDataSets = 16;
 
 	//Regularization parameters.
@@ -62,7 +62,8 @@ int main(int argc, char *argv[])
                             // 3 - Brute force search for alpha Or
                             // 4 - alpha is a multiple of O
                             // 5 - we don't talk about 5
- 	params.reg.alpha = .25;
+                            // 6 - graph alpha
+ 	params.reg.alpha = .02;
 
 	//General parameters.
 	params.gen.numOfStates = 8;	//Should be set to proper value
@@ -77,20 +78,20 @@ int main(int argc, char *argv[])
 	std::vector<mat> data(params.dat.numOfDataSets);
 
 	vec t;
- 	t = vec::LinSpaced(21,0.0,120.0);
+ 	t = vec::LinSpaced(1201,0.0,120.0);
   	//cout << t << endl << endl;
   	vec u(params.gen.numOfParams);
 	vec u0(params.gen.numOfParams);
     vec uguess(params.gen.numOfParams);
 	vec y0(params.gen.numOfStates);
 
-    /*
+/*
     input[0](0) = 0.05;		input[0](1) = 10.0;
 	input[1](0) = 0.3684;   input[1](1) = 2.1544;
 	input[2](0) = 1.0; 		input[2](1) = 0.1;
 	input[3](0) = 0.09286; 	input[3](1) = 2.1544;
 	input[4](0) = 0.13572; 	input[4](1) = 2.1544;
-    */
+*/
 
     input[0](1) = 0.1; 		input[0](0) = 0.05;
 	input[1](1) = 0.1; 		input[1](0) = 0.13572;
@@ -109,21 +110,26 @@ int main(int argc, char *argv[])
 	input[14](1) = 10; 		input[14](0) = 0.3684;
 	input[15](1) = 10; 		input[15](0) = 1.0;
 
-  y0 << 6.6667e-1, 5.7254e-1, 4.1758e-1, 4.0e-1,
+    y0 << 6.6667e-1, 5.7254e-1, 4.1758e-1, 4.0e-1,
     3.6409e-1, 2.9457e-1, 1.419, 9.3464e-1;
-  //y0.fill(.5);
+    //y0.fill(.5);
 
-  u << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,
-		1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
+    u << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,
+        1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
 
-  u0.fill(0.5);
-  u0 = u0 + u;
+    //u0.fill(0.5);
+    //u0 = u + u0;
+    u0 = u + u*.50;
 
+    size_t lt = t.size();
+    double p = 0.01;
 	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
-        data[i] = getCsvData("data/benchmark_" + std::to_string(i+1) + ".csv");
-        //data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
+        //data[i] = getCsvData("data/benchmark_" + std::to_string(i+1) + ".csv");
+        data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
         //cout << data[i]<< endl<< endl;
+        //data[i].array() += p*data[i].array()*MatrixXd::Random(params.gen.numOfStates,lt).array();
+        //cout << data[i]<< endl<< endl;exit(0);
     }
 
 	/*

@@ -106,7 +106,6 @@ namespace thesis{
 						}
 					}
 					temp = reshape(msmt - bob.topRows(n), 1, n*lt).row(0).transpose();
-
 					//cout << U << endl << endl;
 					//cout << temp.transpose() << endl << endl;
 
@@ -123,30 +122,33 @@ namespace thesis{
 						std::cerr << "Termination: du is NaN." << endl;
 						exit(1);
 					}
+				}
 
-					switch(params.reg.type)
-					{
-						case 0: alpha = 0.0;
-								break;
+				switch(params.reg.type)
+				{
+					case 0: alpha = 0.0;
+							break;
 
-						case 1: alpha = params.reg.alpha;
-								break;
+					case 1: alpha = params.reg.alpha;
+							break;
 
-						case 2: alpha = alpha2 = params.reg.alpha;
-								break;
+					case 2: alpha = alpha2 = params.reg.alpha;
+							break;
 
-						case 3: alpha = findAlpha(A, P);
-								break;
+					case 3: alpha = findAlpha(A, P);
+							break;
 
-						case 4: alpha = params.reg.alpha*O;
-								break;
+					case 4: alpha = params.reg.alpha*pow(O,2);
+							break;
 
-						case 5: alpha = findAlpha2(A, P, params.reg.alpha);
-								break;
+					case 5: alpha = findAlpha2(A, P, params.reg.alpha);
+							break;
 
-						default: cerr << "Chose a regularization option 0-5." << endl;
-								exit(1);
-					}
+					case 6: alpha = findGamma(A, P, results.ufinal, uguess);
+							break;
+
+					default: cerr << "Chose a regularization option 0-6." << endl;
+							exit(1);
 				}
 
 				A.bottomRows(m) = alpha*I;
@@ -158,19 +160,23 @@ namespace thesis{
 				results.deltau.conservativeResize(results.deltau.size()+1);
 				results.deltau(j) = du.norm();
 
-				/*cout << "\tO = " << O << endl << endl;
-				cout << "\tO/m = " << O/m << endl << endl;
-				*/cout << "\talpha = " << alpha << endl << endl;
-				cout << "\t||du|| = " << norm(du) << endl << endl;
-				cout << "\talpha/||du|| = " << alpha/norm(du) << endl << endl;
-				std::cout << "\tdu = " << du.transpose() << endl << endl;
-
 				results.ufinal += du;
 				results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
 				results.uvals.col(results.uvals.cols()-1) = results.ufinal;
 
+				std::cout << "\tdu = " << du.transpose() << endl << endl;
+				//std::cout << "\tdu/|du| = " << du.transpose()/du.norm() << endl << endl;
 				std::cout << "\tu  = " << results.ufinal.transpose() << endl << endl;
 
+				cout << "\t||x-x_N|| = " << O << endl << endl;
+				cout << "\t||x-x_N||/m = " << O/m << endl << endl;
+				cout << "\talpha = " << alpha << endl << endl;
+				cout << "\t||du|| = " << norm(du) << endl << endl;
+
+				std::cout << "Absolute parameter value tolerance." << endl;
+				std::cout << "du = "<< du.norm() << endl;
+				std::cout << "Relative parameter value tolerance." << endl;
+				std::cout << "du/u = " << du.norm()/results.ufinal.norm() << endl;
 				// Check the termination conditions
 				if (std::isnan(du.norm())){
 					std::cerr << "Termination: value for parameter is NaN." << endl;
@@ -179,7 +185,7 @@ namespace thesis{
 					std::cout << "Termination: max iterations reached." << endl;
 				}else if(du.norm()/u0.norm() < params.tol.relparam){
 					std::cout << "Termination: relative parameter value tolerance." << endl;
-					std::cout << "du/u = " << du.norm()/u0.norm() << endl;
+					std::cout << "du/u = " << du.norm()/results.ufinal.norm() << endl;
 					break;
 				}else if(du.norm() < params.tol.absparam){
 					std::cout << "Termination: absolute parameter value tolerance." << endl;
@@ -199,6 +205,15 @@ namespace thesis{
 						std::cout << "|J_new - J_old| = " << abs(objval - objval2) << endl;
 						break;
 					}
+					else if(abs(objval - objval2)/objval2 < params.tol.relobj){
+						std::cout << "Termination: relative objective function value tolerance." << endl;
+						std::cout << "|J_new - J_old|/J_new = " << abs(objval - objval2)/objval2 << endl;
+						break;
+					}
+					std::cout << "Absolute objective function value tolerance." << endl;
+					std::cout << "|J_new - J_old| = " << abs(objval - objval2) << endl;
+					std::cout << "Relative objective function value tolerance." << endl;
+					std::cout << "|J_new - J_old|/J_new = " << abs(objval - objval2)/objval2 << endl;
 					objval = objval2;
 				}else{
 					objval = O;
@@ -215,7 +230,7 @@ namespace thesis{
     	auto end = high_resolution_clock::now();
 		auto duration = duration_cast<microseconds>(end - start);
 
-		cout << "Computational Time:" << duration.count() << " ms" << endl;
+		cout << "Computational Time:" << duration.count()/1E6 << " s" << endl;
 		return results;
 	}
 
@@ -223,7 +238,7 @@ namespace thesis{
 		int m = A.cols();
 		int ds = A.rows()/m;
 
-		double alpha = 1.0E2, atemp;
+		double alpha = 1.0E3, atemp;
 
 
 
@@ -239,9 +254,10 @@ namespace thesis{
 			obj1 += du.transpose()*(A.middleRows(i*m, m)*du
 				- 2*P.segment(i*m, m));
 		}
-
-		for(int i = -6; i<2; i++){
-			atemp = pow(10,i);
+		int mult = 2;
+		for(int i = -6*mult; i<2*mult; i++){
+			atemp = pow(10,(double)i/(double)mult);
+			//cout << "atemp = " << atemp << endl << endl;
 			A.bottomRows(m) = atemp*I;
 			du = A.colPivHouseholderQr().solve(P);
 			for(int i=0; i<ds-1; i++){
@@ -279,20 +295,20 @@ namespace thesis{
 	double findGamma(mat A, vec P, vec uNot, vec u){
 		int m = P.size();
 		mat I = mat::Identity(m, m);
-		double gamma, dg, dvs = 9,
-			hold = pow(10,-14),
-			nu,
-			nup = norm(uNot + inverse(A + hold*I)*P - u);
+		double gamma, dg = .1, dvs = 10,
+			hold = pow(10,-3),
+			nu;
+		A.bottomRows(m) = hold*I;
+		double nup = norm(uNot + A.colPivHouseholderQr().solve(P) - u);
 
 		vec du(m), total(m);
 		mat B(m,m);
 
-		for(int j = -14; j<0; j++){
-		    gamma = pow(10,j);
-		    dg = .1; //(pow(10,j)-pow(10,j-1))/dvs;
-		    for(int k = 0; k<(dvs); k++){
-		        B = A + gamma*I;
-		        du = B.inverse()*P;
+		for(int j = -2; j<4; j++){
+			gamma = pow(10,j);
+		    for(int k = 0; k<dvs; k++){
+				A.bottomRows(m) = gamma*I;
+				du = A.colPivHouseholderQr().solve(P);
 
 		        total = uNot + du - u;
 				nu = total.norm();
@@ -306,8 +322,8 @@ namespace thesis{
 					nup = nu;
 					hold = gamma;
 				}
-				dg += .1;
-				gamma = pow(10,j+dg);
+				//dg += .1;
+				gamma = pow(10,j+(k+1)*dg);
 		    }
 		}
 		cout << "alpha = " << hold << endl;

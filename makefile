@@ -70,6 +70,7 @@ apps: $(EXE)
 # be built from the corresponding object on the right-hand side using the shell
 # commands below the rule.
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
+
 	@mkdir -p $(dir $@)
 	$(CXX) -c $(CXXFLAGS) $< -o $@
 
@@ -82,6 +83,7 @@ static: $(STATIC_TARGET)
 $(STATIC_TARGET): $(OBJ)
 	@mkdir -p $(dir $@)
 	ar rcs $@ $^
+
 
 .PHONY: shared
 shared: $(SHARED_TARGET)
