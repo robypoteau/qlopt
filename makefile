@@ -1,5 +1,4 @@
 #Dissertation research makefile
-CC=g++
 CXXFLAGS=-g -O2 -Wall -Wextra -Isrc -Lbuild -rdynamic -DNDEBUG -std=c++11
 #LIBS=-lgsl -lgslcblas -lmpfr -lgmp -lm
 PRJNAME=paramid
@@ -32,15 +31,15 @@ apps: $(BINDIR) $(EXE)
 
 #Redefining rules, this with the % refine rules
 $(BUILDDIR)/%.o: $(SRCDIR)/%.$(SRCEXT)
-	$(CC) -c $(CXXFLAGS) $< $(LIBS) -o $@
+	$(CXX) -c $(CXXFLAGS) $< $(LIBS) -o $@
 
 $(BINDIR)/%:$(APPSRCDIR)/%.$(SRCEXT)
-	$(CC) $(CXXFLAGS) $< -l$(PRJNAME) -Wl,-rpath=build $(LIBS) -o $@
+	$(CXX) $(CXXFLAGS) $< -l$(PRJNAME) -Wl,-rpath=build $(LIBS) -o $@
 #End of redfinitions
 
 #TODO convert this into a refefinition rule also
 $(TESTS): $(TEST_SRC)
-	$(CC) $(CXXFLAGS) $< $(LIBS) -o $@
+	$(CXX) $(CXXFLAGS) $< $(LIBS) -o $@
 
 $(BUILDDIR):
 	@mkdir -p $(BUILDDIR)
@@ -53,7 +52,7 @@ $(TARGET): $(BUILDDIR) $(BINDIR) $(OBJ)
 	ar rcs $@ $(OBJ)
 
 $(SO_TARGET): $(TARGET)
-	$(CC) -shared -o $@ $(OBJ)
+	$(CXX) -shared -o $@ $(OBJ)
 
 .PHONY: tests
 tests: CXXFLAGS=-I$(BUILDDIR) -I$(SRCDIR)
