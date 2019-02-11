@@ -8,7 +8,8 @@
 #include <chrono>
 
 // External headers
- #include <eigen3/Eigen/QR>
+#include <eigen3/Eigen/QR>
+#include <Eigen/SVD>
 
 // My headers
 #include <misc.h>
@@ -16,6 +17,7 @@
 #include <latex_output.h>
 #include <odesolver.h>
 #include <odeWrapper.h>
+#include <regularization.h>
 
 using namespace std::chrono;
 
@@ -115,12 +117,11 @@ namespace thesis{
 		const vector<mat>& data,
 		const inputStruct& params);
 
-	double findGamma(mat A, vec P, vec uNot, vec u);
+	double findGamma(mat A, vec P, double O, vec uNot, vec u);
 
 	mat findA(const vec& t, const mat& U, const size_t& m);
 	vec findP(const vec& t, const mat& U, const vec& dx, const size_t& m);
 	double findO(const vec& t, const vec& dx);
-    double findAlpha(mat A, vec P);
     double findAlpha2(mat A, vec P, const double max);
 	double findGamma(double initialGuess, void * params);
 	double innerProd(const vec& u1, const vec& u2, const vec& time);
