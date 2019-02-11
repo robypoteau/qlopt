@@ -71,7 +71,7 @@ void parameterOutput(const mat& uvals, const vec& alpha)
 		n = ceil((double)nmax/(double)divs);
 
 	tableheader(divs);
-	cout << "\t\t$\\vecu & ";
+	cout << "\t\t$\\vecu & $";
 	for(size_t i=0; i<nmax-n; i+=n){
 		cout << "$\\vecu_{"<< i <<"}$ " << "& ";
 	}
@@ -80,7 +80,7 @@ void parameterOutput(const mat& uvals, const vec& alpha)
 
 	for(size_t j=0; j<m; j++)
 	{
-		cout << "\t\tp_{" << j+1 << "} & ";
+		cout << "\t\t\\(p_{" << j+1 << "}\\) & ";
 		for(size_t i=0; i<nmax-n; i+=n)
 		{
 			cout << uvals(j,i) << " & ";
@@ -88,7 +88,7 @@ void parameterOutput(const mat& uvals, const vec& alpha)
 		cout << uvals(j,nmax-1) << " & ";
 		cout << uvals(j,nmax) << " \\\\\n";
 	}
-	cout << "\t\t\\alpha & &";
+	cout << "\t\t$\\alpha$ & & ";
 	for(size_t i=n; i<nmax-n; i+=n)
 	{
 		cout << alpha(i-1) << " & ";
