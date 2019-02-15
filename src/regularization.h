@@ -7,7 +7,6 @@
 #include <qlopt.h>
 
 namespace thesis{
-
     double findAlpha(mat A, vec P, double Om, double Nd);
 }
 

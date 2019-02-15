@@ -1,6 +1,7 @@
 #include <qlopt.h>
 #include <string>
 #include <fstream>
+#include <noiseRemoval.h>
 
 //The namespace for the objects found in qlopt.h
 using namespace thesis;
@@ -53,7 +54,7 @@ int main(int argc, char *argv[])
 	//Data parameters.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
-	params.dat.timeIncrement = .5;	//Should be set to proper value
+	params.dat.timeIncrement = .2;	//Should be set to proper value
 	params.dat.numOfDataSets = 5;
 
 	//Regularization parameters.
@@ -75,6 +76,7 @@ int main(int argc, char *argv[])
 	params.gen.finitediff = true;	//Change optional, default value given
 
     params.noise.regParam = atof(argv[1]);
+    cout << "lambda = " << params.noise.regParam << endl;
 
 	//Inputs and data
 	std::vector<vec> input(params.dat.numOfDataSets, vec::Zero(2));
@@ -106,11 +108,12 @@ int main(int argc, char *argv[])
     u0 = u + u*.050;
 
 
-    lt = (int)((params.dat.endTime-params.dat.initialTime)
-              /params.dat.timeIncrement) + 1;
+    lt = 240 + 1;
 
     int dk = (numOfDataPnts-1)/(lt-1);
     std::vector<mat> subset(params.dat.numOfDataSets, mat::Zero(params.gen.numOfStates,lt));
+
+    vec testacc;
 
     double p = 0.01;
     for(size_t i = 0; i<params.dat.numOfDataSets; i++)
@@ -118,11 +121,18 @@ int main(int argc, char *argv[])
         data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
         data[i].array() += p*data[i].array()*MatrixXd::Random(params.gen.numOfStates,numOfDataPnts).array();
 
-        for(size_t k = 0; k<lt; k++)
+        for(int k = 0; k<lt; k++)
         {
             subset[i].col(k) = data[i].col(k*dk);
         }
+        for(size_t j = 0; j<params.gen.numOfStates; j++)
+        {
+            testacc = lsNoiseRemoval(subset[i].row(j), params.noise.regParam);
+            cout << norm(testacc - subset[i].row(j)) << endl;
+            subset[i].row(j) = testacc;
+        }
     }
+    //exit(0);
 
     vec ts(lt);
     ts(0) = params.dat.initialTime;
@@ -155,7 +165,7 @@ int main(int argc, char *argv[])
     cout << "\niterations" << endl;
     convertVec(vec::LinSpaced(results.iterations,1,results.iterations));
     cout << endl << endl;
-        pythonplot(vec::LinSpaced(results.iterations,1,results.iterations), results.objval);
+    pythonplot(vec::LinSpaced(results.iterations,1,results.iterations), results.objval);
 
     return 0;
 }

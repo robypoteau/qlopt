@@ -113,8 +113,8 @@ namespace thesis{
 					case 2: alpha = alpha2 = params.reg.alpha;
 							break;
 
-					case 3: //alpha = findAlpha(A, P, O, lt*ds);
-							alpha = gcv(A, P, results.ufinal, odewrapper, msmt, input, y0, ts, spl_pairs);
+					case 3: alpha = findAlpha(A, P, O, lt*ds);
+							//alpha = gcv(A, P, results.ufinal, odewrapper, msmt, input, y0, ts, spl_pairs);
 							break;
 
 					case 4: //if(O > 0.2)

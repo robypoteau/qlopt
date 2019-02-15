@@ -18,7 +18,7 @@
 #include <odesolver.h>
 #include <odeWrapper.h>
 #include <regularization.h>
-#include <splinterSpline.h>
+//#include <splinterSpline.h>
 
 using namespace std::chrono;
 
