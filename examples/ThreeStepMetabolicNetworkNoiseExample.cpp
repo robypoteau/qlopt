@@ -5,7 +5,6 @@
 //The namespace for the objects found in qlopt.h
 using namespace thesis;
 
-std::vector<std::string> split(const std::string &s, char delim);
 mat rungekutta4(odefunction fhandle, const vec& t, const vec& u,
                 const vec& y0, const vec& input);
 
@@ -42,12 +41,15 @@ int main(int argc, char *argv[])
 	inputStruct params;
 
 	//Tolerance parameter.
-	params.tol.absparam = 1E-7	; //Change optional, default value given
+	/*params.tol.absparam = 1E-7	; //Change optional, default value given
 	params.tol.relparam = 1E-7; //Change optional, default value given
 	params.tol.absobj = 1E-7; 	//Change optional, default value given
 	params.tol.relobj = 1E-7; 	//Change optional, default value given
 	params.tol.maxiter = 150; 	//Change optional, default value given
-
+    */
+    params.tol.normdiff = 1E-7; //Change optional, default value given
+	params.tol.objval = 1E-7; 	//Change optional, default value given
+	params.tol.maxiter = 150; 	//Change optional, default value given
 	//Data parameters.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
@@ -64,29 +66,30 @@ int main(int argc, char *argv[])
                             // 6 - graph alpha
  	//params.reg.alpha = .0063;
     params.reg.alpha = 0.2;
-
 	//General parameters.
 	params.gen.numOfStates = 8;	//Should be set to proper value
+
+
 	params.gen.numOfParams = 36;	//Should be set to proper value
 	params.gen.divisions = 1;		//Change optional, default value given
 	params.gen.finitediff = true;	//Change optional, default value given
 
-    /***************************************************************************
-        Set up the data sets, parameters, control parameters, initial
-        conditions, initial guess for u_0, noise level and time vector.
-    ***************************************************************************/
+    params.noise.regParam = atof(argv[1]);
 
+	//Inputs and data
 	std::vector<vec> input(params.dat.numOfDataSets, vec::Zero(2));
 	std::vector<mat> data(params.dat.numOfDataSets);
 
 	vec t;
- 	t = vec::LinSpaced(12001,0.0,120.0);
-    size_t lt = t.size();
-
+    int numOfDataPnts = 12001;
+ 	t = vec::LinSpaced(numOfDataPnts,0.0,120.0);
+    int lt = t.size();
+  	//cout << t << endl << endl;
   	vec u(params.gen.numOfParams);
 	vec u0(params.gen.numOfParams);
     vec uguess(params.gen.numOfParams);
 	vec y0(params.gen.numOfStates);
+
 
     input[0](0) = 0.05;		input[0](1) = 10.0;
 	input[1](0) = 0.3684;   input[1](1) = 2.1544;
@@ -100,76 +103,40 @@ int main(int argc, char *argv[])
     u << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,
         1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
 
-    u0 = u + u*.250;
+    u0 = u + u*.050;
+
+
+    lt = (int)((params.dat.endTime-params.dat.initialTime)
+              /params.dat.timeIncrement) + 1;
+
+    int dk = (numOfDataPnts-1)/(lt-1);
+    std::vector<mat> subset(params.dat.numOfDataSets, mat::Zero(params.gen.numOfStates,lt));
 
     double p = 0.01;
     for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
         data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
-    }
-    mat testacc = data[0];
-    for(size_t i = 0; i<params.dat.numOfDataSets; i++)
-    {
-        data[i].array() += p*data[i].array()*MatrixXd::Random(params.gen.numOfStates,lt).array();
-    }
-    //cout << data[0].transpose() << endl<< endl;
+        data[i].array() += p*data[i].array()*MatrixXd::Random(params.gen.numOfStates,numOfDataPnts).array();
 
-    /***************************************************************************
-        I will take the log of the data then will use least squares to remove
-        the noise.
-	***************************************************************************/
-    /*size_t degree = 4;
-    degree += 1;
-
-    cout << "gamma = " << argv[1] << endl;
-    double regs = atof(argv[1]);
-    mat X(lt, degree), Xtilda(lt+degree,degree);
-    mat B = mat::Identity(degree, degree);
-    	for(int i=0; i<degree-1; i++){
-    		B(i+1,i) = -1;
-    }
-
-    for(size_t i = 0; i<degree; i++)
-    {
-        X.col(i).array() = t.array().pow(i);
-    }
-    Xtilda << X, regs*B;
-    //cout << "Xtilda = \n" << Xtilda << endl <<endl;
-    vec c(degree);
-    vec temp(lt), temp2(lt+degree);
-    temp2.fill(0);
-    for(size_t i = 0; i<params.dat.numOfDataSets; i++)
-    {
-        for(size_t j = 0; j<params.gen.numOfStates; j++)
+        for(size_t k = 0; k<lt; k++)
         {
-            temp2.head(lt) = data[i].row(j);
-            c = Xtilda.fullPivHouseholderQr().solve(temp2);
-            //  cout << "c = \n" << c.transpose() <<endl <<endl;
-            temp.fill(0.0);
-            for(size_t k = 0; k<lt; k++)
-            {
-                temp(k) = c(0);
-                for(size_t l = 1; l<degree; l++)
-                {
-                    temp(k) += c(l)*t(k);
-                }
-            }
-            data[i].row(j) = temp;
+            subset[i].col(k) = data[i].col(k*dk);
         }
     }
-    //cout << data[0].row(0).transpose() << endl;
-    testacc = testacc - data[0];
-    //cout << testacc << endl;
-    cout << testacc.norm() << endl;
-    cout << testacc.norm()/(testacc.rows()*testacc.cols()) << endl;
-    exit(0);*/
+
+    vec ts(lt);
+    ts(0) = params.dat.initialTime;
+    for(int j=1; j<lt; j++)
+    {
+        ts(j) += ts(j-1) + params.dat.timeIncrement;
+    }
     /***************************************************************************
 		This structure contains the many outputs of the method. Which the user
 		can manipulate to get the desired graphics and numerical summaries.
 	***************************************************************************/
     outputStruct results;
 
-  	results = qlopt(benchmark, t, u0, u, y0, input, data, params);
+  	results = qlopt(benchmark, ts, u0, u, y0, input, subset, params);
     results.uvals.col(results.uvals.cols()-1) = u;
 
     //Using the results from qlopt to construct a latex table

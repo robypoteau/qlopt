@@ -2,11 +2,14 @@
 #define REGULARIZATION_H
 
 #include <misc.h>
+#include <odesolver.h>
+#include <odeWrapper.h>
+#include <qlopt.h>
 
 namespace thesis{
 
     double findAlpha(mat A, vec P, double Om, double Nd);
-
+    double gcv(mat A, vec P, vec u0, OdeWrapper ow, vector<mat>& msmt, const vector<vec>& input, vec y0, vec ts, vector<vector<thesis::spline>> spl_pairs);
 }
 
 #endif

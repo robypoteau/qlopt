@@ -35,7 +35,8 @@ namespace thesis{
 		ly0.fill(0);
 		ly0.head(n) = y0;
 
-		mat bob, robert, msmt, temp, U, A((ds+1)*m,m);
+		mat bob, robert, temp, U, A((ds+1)*m,m);
+		std::vector<mat> msmt(ds);
 		mat I = mat::Identity(m, m);
 		vec P((ds+1)*m), du(m);
 		double O, objval, objval2, alpha = params.reg.alpha;
@@ -45,29 +46,23 @@ namespace thesis{
 
 		//Spline all the data sets
 		std::vector<std::vector<thesis::spline>> spl_pairs(ds);
-		for(size_t j=0; j<ds; j++){
-			for(size_t i=0; i<n; i++){
-				spl_pairs[j].push_back(thesis::spline(t, data[j].row(i)));
-			}
+		for(size_t i=0; i<ds; i++){
+		    msmt[i].resize(n,lt);
+		    for(size_t j=0; j<n; j++){
+		        //spl_pairs[j].push_back(thesis::spline(t, splinterSpline(t, data[j].row(i), params.noise.regParam) ) );
+		        spl_pairs[i].push_back(thesis::spline(t, data[i].row(j)));
+		        for(size_t k=0; k<lt; k++){
+		            msmt[i](j,k) = spl_pairs[i][j].interpolate(ts(k));
+		        }
+		    }
 		}
-
-		/*for(size_t j=0; j<ds; j++){
-			cout << "**** Data Set "<< j+1 << " ****\n";
-			for(size_t i=0; i<n; i++){
-					cout << "state " << i+1 << ": ";
-				for(size_t k=0; k<lt; k++){
-					std::cout << spl_pairs[j][i].interpolate(ts(k)) << "\t";
-				}
-				cout << endl <<endl;
-			}
-		}exit(0);*/
 
 		results.ufinal = u0;
 		results.uvals = u0;
 		results.alpha(0);
 		results.objval(0);
 		results.iterations = 0;
-		std::cout << "u  = " << results.uvals.transpose() << endl << endl;
+		std::cout << "u0 = " << results.uvals.transpose() << endl << endl;
 		//TODO improve U mat stuff
 		//std::vector<std::vector<vec>> Us(n, std::vector<vec>(m));
 
@@ -81,11 +76,10 @@ namespace thesis{
 				std::cout << "iteration = " << results.iterations << endl << endl;
 
 				O = 0.0;
-
+				odewrapper.setParameter(results.ufinal);
 				for(size_t i = 0; i < ds; i++)
 				{
 					odewrapper.setControl(input[i]);
-					odewrapper.setParameter(results.ufinal);
 					odewrapper.setPreviousIteration(spl_pairs[i]);
 					if(params.gen.finitediff)
 					{
@@ -94,27 +88,12 @@ namespace thesis{
 						lt = bob.cols();
 						ts = robert.topRows(1).transpose();
 					}else{
-						//bob = qlRungeKutta4(*env->ode, (*env->time), uNot, y0, ext_data);
 					}
 
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
-					msmt.resize(n,lt);
-					for(size_t j=0; j<n; j++){
-						for(size_t k=0; k<lt; k++){
-							msmt(j,k) = spl_pairs[i][j].interpolate(ts(k));
-						}
-					}
-					temp = reshape(msmt - bob.topRows(n), 1, n*lt).row(0).transpose();
-					//cout << U << endl << endl;
-					//cout << temp.transpose() << endl << endl;
-
+					temp = reshape(msmt[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
 					A.middleRows(i*m, m) = findA(ts, U, m);
-					//cout << "Condition numbers:" << endl;
-					//cout << (A.middleRows(i*m, m)) << endl;
-
 					P.segment(i*m, m) = findP(ts, U, temp, m);
-					//cout << (P.segment(i*m, m)) << endl;
-
 					O += findO(ts, temp);
 
 					if(std::isnan(P.norm()) || std::isnan(A.norm())){
@@ -134,13 +113,13 @@ namespace thesis{
 					case 2: alpha = alpha2 = params.reg.alpha;
 							break;
 
-					case 3: alpha = findAlpha(A, P, O, lt*ds);
+					case 3: //alpha = findAlpha(A, P, O, lt*ds);
+							alpha = gcv(A, P, results.ufinal, odewrapper, msmt, input, y0, ts, spl_pairs);
 							break;
 
-					case 4: if(O > 0.2)
+					case 4: //if(O > 0.2)
 								alpha = params.reg.alpha*pow(O,2);
-							else
-								alpha = findAlpha(A, P, O, lt*ds);
+							//else alpha = params.reg.alpha*O;
 							break;
 
 					case 5: alpha = findAlpha2(A, P, params.reg.alpha);
@@ -158,8 +137,8 @@ namespace thesis{
 
 				results.alpha.conservativeResize(results.alpha.size()+1);
 				results.alpha(j) = alpha;
-				//results.objval.conservativeResize(results.objval.size()+1);
-				//results.objval(j) = O;
+				results.omegaval.conservativeResize(results.omegaval.size()+1);
+				results.omegaval(j) = sqrt(O);
 				results.deltau.conservativeResize(results.deltau.size()+1);
 				results.deltau(j) = du.norm();
 
@@ -167,19 +146,24 @@ namespace thesis{
 				results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
 				results.uvals.col(results.uvals.cols()-1) = results.ufinal;
 
+				objval = O + params.reg.alpha*du.transpose()*du ;
+				for(size_t i = 0; i < ds; i++)
+				{
+					objval += du.transpose()*(A.middleRows(i*m, m)*du
+						- 2*P.segment(i*m, m));
+				}
+				results.objval.conservativeResize(results.objval.size()+1);
+				results.objval(j) = objval;
+
 				std::cout << "\tdu = " << du.transpose() << endl << endl;
-				//std::cout << "\tdu/|du| = " << du.transpose()/du.norm() << endl << endl;
 				std::cout << "\tu  = " << results.ufinal.transpose() << endl << endl;
 
-				cout << "\t||x-x_N||^2 = " << O << endl << endl;
-				cout << "\t||x-x_N||^2/ds = " << O/ds << endl << endl;
+				cout << "\t||x-x_N|| = " << sqrt(O) << endl << endl;
+				cout << "\t||x-x_N||/ds = " << sqrt(O)/ds << endl << endl;
 				cout << "\talpha = " << alpha << endl << endl;
 				cout << "\t||du|| = " << norm(du) << endl << endl;
-
-				std::cout << "Absolute parameter value tolerance." << endl;
-				std::cout << "du = "<< du.norm() << endl;
-				std::cout << "Relative parameter value tolerance." << endl;
-				std::cout << "du/u = " << du.norm()/results.ufinal.norm() << endl;
+				std::cout << "\t||du||/||u||= " << du.norm()/results.ufinal.norm() << endl;
+				std::cout << "\tJ(du) = " << objval << endl;
 
 				// Check the termination conditions
 				if (std::isnan(du.norm())){
@@ -187,7 +171,15 @@ namespace thesis{
 					exit(0);
 				}else if (j >= params.tol.maxiter-1){
 					std::cout << "Termination: max iterations reached." << endl;
-				}/*else if(du.norm()/u0.norm() < params.tol.relparam){
+				}else if (sqrt(O) < params.tol.normdiff){
+					std::cout << "Termination: Normed difference of data and model." << endl;
+					break;
+				}else if (objval < params.tol.objval){
+					std::cout << "Termination: Objective function value." << endl;
+					break;
+				}
+
+				/*else if(du.norm()/u0.norm() < params.tol.relparam){
 					std::cout << "Termination: relative parameter value tolerance." << endl;
 					std::cout << "du/u = " << du.norm()/results.ufinal.norm() << endl;
 					break;
@@ -197,7 +189,7 @@ namespace thesis{
 					break;
 				}*/
 
-				if(j > 0){
+				/*if(j > 0){
 					objval2 = O + params.reg.alpha*du.transpose()*du ;
 					for(size_t i = 0; i < ds; i++)
 					{
@@ -227,19 +219,7 @@ namespace thesis{
 					std::cout << "Relative objective function value tolerance." << endl;
 					std::cout << "|J_new - J_old|/J_new = " << abs(objval - objval2)/objval2 << endl;
 					objval = objval2;
-				}else{
-					objval = O + params.reg.alpha*du.transpose()*du ;
-					for(size_t i = 0; i < ds; i++)
-					{
-						objval += du.transpose()*(A.middleRows(i*m, m)*du
-							- 2*P.segment(i*m, m));
-					}
-					results.objval.conservativeResize(results.objval.size()+1);
-					results.objval(j) = objval;
-					std::cout << "Objective function value." << endl;
-					std::cout << "J_new = " << objval << endl;
-
-				}
+				}else{}*/
 			}
 		}
 		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
