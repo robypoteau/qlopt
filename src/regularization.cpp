@@ -8,7 +8,7 @@ namespace thesis{
 
         vec sv = A.topRows(ds*m).jacobiSvd().singularValues();
 
-        double divs = 24000, upper = 6.0, lower = -6.0;
+        double divs = 24, upper = 6.0, lower = -6.0;
         double alpha = pow(10,lower), da = (upper - lower)/divs;
 
         mat I;
@@ -27,7 +27,7 @@ namespace thesis{
             A.bottomRows(m) = a*I;
             vec du = A.colPivHouseholderQr().solve(P);
             double top = Om;
-            for(size_t i = 0; i < ds; i++)
+            for(int i = 0; i < ds; i++)
             {
                 top += du.transpose()*(A.middleRows(i*m, m)*du
                     - 2*P.segment(i*m, m));
@@ -42,7 +42,7 @@ namespace thesis{
         for(double i=(lower+da); i<=upper; i+=da){
 
             FNew = F(pow(10,i),A);
-            //cout << "(" << pow(10,i) << "," << FNew << ")"  << endl;
+            cout << "(" << pow(10,i) << "," << FNew << ")"  << endl;
             if(FNew < FOld){
                 alpha = pow(10,i);
                 FOld = FNew;
@@ -52,6 +52,4 @@ namespace thesis{
         //exit(0);
         return alpha;
     }
-
-
 }

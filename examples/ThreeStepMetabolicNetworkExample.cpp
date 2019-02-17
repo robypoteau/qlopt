@@ -43,20 +43,18 @@ int main(int argc, char *argv[])
 	inputStruct params;
 
 	//Tolerance parameter.
-	params.tol.absparam = 1E-7	; //Change optional, default value given
-	params.tol.relparam = 1E-7; //Change optional, default value given
-	params.tol.absobj = 1E-7; 	//Change optional, default value given
-	params.tol.relobj = 1E-7; 	//Change optional, default value given
+	params.tol.normdiff = 1E-7; //Change optional, default value given
+	params.tol.objval = 1E-7; 	//Change optional, default value given
 	params.tol.maxiter = 150; 	//Change optional, default value given
 
 	//Data parameters.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
-	params.dat.timeIncrement = .5;	//Should be set to proper value
+	params.dat.timeIncrement = 0.8;	//Should be set to proper value
 	params.dat.numOfDataSets = 5;
 
 	//Regularization parameters.
-	params.reg.type = 4; 	// 0 - none
+	params.reg.type = 3; 	// 0 - none
                             // 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
                             // 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
                             // 3 - Brute force search for alpha Or
@@ -66,6 +64,8 @@ int main(int argc, char *argv[])
  	//params.reg.alpha = .0063;
     params.reg.alpha = 0.2;
 	//General parameters.
+
+
 	params.gen.numOfStates = 8;	//Should be set to proper value
 
 
@@ -76,9 +76,9 @@ int main(int argc, char *argv[])
 	//Inputs and data
 	std::vector<vec> input(params.dat.numOfDataSets, vec::Zero(2));
 	std::vector<mat> data(params.dat.numOfDataSets);
-
 	vec t;
- 	t = vec::LinSpaced(12001,0.0,120.0);
+    int numOfDataPnts = 12001;
+ 	t = vec::LinSpaced(numOfDataPnts,0.0,120.0);
   	//cout << t << endl << endl;
   	vec u(params.gen.numOfParams);
 	vec u0(params.gen.numOfParams);
@@ -121,16 +121,27 @@ int main(int argc, char *argv[])
     //u0 = u + u0;
     u0 = u + u*.250;
 
-    size_t lt = t.size();
-    double p = 0.01;
+    size_t lt = (size_t )((params.dat.endTime-params.dat.initialTime)
+              /params.dat.timeIncrement) + 1;
+
+    int dk = (numOfDataPnts-1)/(lt-1);
+    std::vector<mat> subset(params.dat.numOfDataSets, mat::Zero(params.gen.numOfStates,lt));
+
 	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
         //data[i] = getCsvData("data/benchmark_" + std::to_string(i+1) + ".csv");
         data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
-        //cout << data[i]<< endl<< endl;
-        //data[i].array() += p*data[i].array()*MatrixXd::Random(params.gen.numOfStates,lt).array();
-        //cout << p*MatrixXd::Random(params.gen.numOfStates,lt)<< endl << endl;
-        //cout << data[i]<< endl<< endl;exit(0);
+        for(size_t k = 0; k<lt; k++)
+        {
+            subset[i].col(k) = data[i].col(k*dk);
+        }
+    }
+
+    vec ts(lt);
+    ts(0) = params.dat.initialTime;
+    for(size_t j=1; j<lt; j++)
+    {
+        ts(j) += ts(j-1) + params.dat.timeIncrement;
     }
 
 	/*
@@ -147,6 +158,9 @@ int main(int argc, char *argv[])
 	parameterOutput(results.uvals, results.alpha);
     cout << endl;
     latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.objval);
+    latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.omegaval);
+    //latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.objval);
+    //latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.objval);
 
     cout << "\n***********Python Output***********" << endl << endl;
     cout << "objective values" << endl;
@@ -155,10 +169,12 @@ int main(int argc, char *argv[])
     convertVec(results.deltau);
     cout << "\nalpha" << endl;
     convertVec(results.alpha);
+    cout << "\nnormed difference" << endl;
+    convertVec(results.omegaval);
     cout << "\niterations" << endl;
     convertVec(vec::LinSpaced(results.iterations,1,results.iterations));
     cout << endl << endl;
-        pythonplot(vec::LinSpaced(results.iterations,1,results.iterations), results.objval);
+    pythonplot(vec::LinSpaced(results.iterations,1,results.iterations), results.objval);
 
     return 0;
 }

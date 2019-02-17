@@ -19,10 +19,9 @@ namespace thesis{
            push_back_state_and_time(x_vec, times));
 
         // Get ending timepoint
-       	auto end = high_resolution_clock::now();
+        auto end = high_resolution_clock::now();
    		auto duration = duration_cast<microseconds>(end - start);
-
-   		cout << "OdeInt Time: " << duration.count()/1E6 << " s" << endl;
+        cout << "OdeInt Time: " << duration.count()/1E6 << " s" << endl;
 
         size_t xlen = x_vec[0].size();
         size_t tlen = times.size();

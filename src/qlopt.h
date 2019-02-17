@@ -18,6 +18,7 @@
 #include <odesolver.h>
 #include <odeWrapper.h>
 #include <regularization.h>
+//#include <splinterSpline.h>
 
 using namespace std::chrono;
 
@@ -30,18 +31,16 @@ namespace thesis{
 			data();
 			initialValueProblem();
 			general();
+			smoothing();
 		}
 		struct tolerance {
 			tolerance(){
-				absparam =  1E-7;
-				relparam =  1E-7;
-				absobj =  1E-7;
+				normdiff =  1E-7;
+				objval =  1E-7;
 				maxiter = 150;
 			};
-			double absparam;
-			double relparam;
-			double absobj;
-			double relobj;
+			double normdiff;
+			double objval;
 			unsigned int maxiter;
 		} tol ;
 		struct data {
@@ -82,6 +81,12 @@ namespace thesis{
 			unsigned int divisions;
 			bool finitediff;
 		} gen;
+		struct smoothing {
+			smoothing() {
+				regParam = 0.03;
+			}
+			double regParam;
+		} noise;
 	} inputStruct;
 
 	typedef struct output_struct{
@@ -91,6 +96,7 @@ namespace thesis{
 		vec ufinal;
 		mat xvals;
 		mat uvals;
+		vec omegaval;
         vec objval;
         vec alpha;
         vec deltau;
