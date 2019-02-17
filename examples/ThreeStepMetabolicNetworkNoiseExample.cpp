@@ -54,7 +54,7 @@ int main(int argc, char *argv[])
 	//Data parameters.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
-	params.dat.timeIncrement = .2;	//Should be set to proper value
+	params.dat.timeIncrement = .5;	//Should be set to proper value
 	params.dat.numOfDataSets = 5;
 
 	//Regularization parameters.
@@ -66,7 +66,7 @@ int main(int argc, char *argv[])
                             // 5 - we don't talk about 5
                             // 6 - graph alpha
  	//params.reg.alpha = .0063;
-    params.reg.alpha = 0.2;
+    params.reg.alpha = 0.5;
 	//General parameters.
 	params.gen.numOfStates = 8;	//Should be set to proper value
 
@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 	vec t;
     int numOfDataPnts = 12001;
  	t = vec::LinSpaced(numOfDataPnts,0.0,120.0);
-    int lt = t.size();
+    //int lt = t.size();
   	//cout << t << endl << endl;
   	vec u(params.gen.numOfParams);
 	vec u0(params.gen.numOfParams);
@@ -108,9 +108,10 @@ int main(int argc, char *argv[])
     u0 = u + u*.050;
 
 
-    lt = 240 + 1;
+    int lt = 240 + 1;
 
     int dk = (numOfDataPnts-1)/(lt-1);
+    cout << "dk = " << dk << endl;
     std::vector<mat> subset(params.dat.numOfDataSets, mat::Zero(params.gen.numOfStates,lt));
 
     vec testacc;
@@ -124,7 +125,11 @@ int main(int argc, char *argv[])
         for(int k = 0; k<lt; k++)
         {
             subset[i].col(k) = data[i].col(k*dk);
+            cout << k* dk << endl;
+            cout << data[i].col(k*dk).transpose() << "\n";
         }
+        cout << t.size()-1 << endl;
+        cout << data[i].col(t.size()-1).transpose() << "\n";
         for(size_t j = 0; j<params.gen.numOfStates; j++)
         {
             testacc = lsNoiseRemoval(subset[i].row(j), params.noise.regParam);
@@ -146,7 +151,7 @@ int main(int argc, char *argv[])
 	***************************************************************************/
     outputStruct results;
 
-  	results = qlopt(benchmark, ts, u0, u, y0, input, subset, params);
+  	results = qlopt(benchmark, t, u0, u, y0, input, data, params);
     results.uvals.col(results.uvals.cols()-1) = u;
 
     //Using the results from qlopt to construct a latex table
