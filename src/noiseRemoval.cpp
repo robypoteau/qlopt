@@ -12,7 +12,7 @@ namespace thesis {
         }
 
         I = I + D.transpose()*D.transpose();
-        vec x = I.fullPivHouseholderQr().solve(y);
+        vec x = I.colPivHouseholderQr().solve(y);
         return x;
     }
 

@@ -16,58 +16,45 @@ namespace thesis{
 		auto start = high_resolution_clock::now();
 
 		//Use values from input struct and data info
-		size_t n = params.gen.numOfStates;
+		size_t n = y0.size();
 		size_t m = u0.size();
-		size_t lt = (int)((params.dat.endTime-params.dat.initialTime)
-                  /params.dat.timeIncrement) + 1;
-		std::cout << "lt  = " << lt << endl << endl;
-
+		size_t lt = t.size();
 		size_t ds = data.size();
-		/**/vec ts(lt);
-		ts(0) = params.dat.initialTime;
-		for(size_t j=1; j<lt; j++)
-		{
-			ts(j) += ts(j-1) + params.dat.timeIncrement;
-		}
 
 		//TODO construct another more time dense things
-		vec ly0(n*(m+1));
-		ly0.fill(0);
+		vec ly0 = vec::Zero(n*(m+1));
 		ly0.head(n) = y0;
 
 		mat bob, robert, temp, U, A((ds+1)*m,m);
-		std::vector<mat> msmt(ds);
 		mat I = mat::Identity(m, m);
 		vec P((ds+1)*m), du(m);
 		double O, objval, objval2, alpha = params.reg.alpha;
-		double alpha2 = 0.0;
 
 		OdeWrapper odewrapper(fun, input[0], u0);
 
 		//Spline all the data sets
 		std::vector<std::vector<thesis::spline>> spl_pairs(ds);
 		for(size_t i=0; i<ds; i++){
-		    msmt[i].resize(n,lt);
 		    for(size_t j=0; j<n; j++){
 		        //spl_pairs[j].push_back(thesis::spline(t, splinterSpline(t, data[j].row(i), params.noise.regParam) ) );
 		        spl_pairs[i].push_back(thesis::spline(t, data[i].row(j)));
-		        for(size_t k=0; k<lt; k++){
-		            msmt[i](j,k) = spl_pairs[i][j].interpolate(ts(k));
-		        }
 		    }
 		}
 
+		/******************************************************
+			Enter first value for all the result containers
+		******************************************************/
 		results.ufinal = u0;
 		results.uvals = u0;
 		results.alpha(0);
 		results.objval(0);
+		results.omegaval(0);
 		results.iterations = 0;
+
 		std::cout << "u0 = " << results.uvals.transpose() << endl << endl;
-		//TODO improve U mat stuff
-		//std::vector<std::vector<vec>> Us(n, std::vector<vec>(m));
 
 		cout.precision(7);
-		A.fill(0.0); P.fill(0.0);
+		//A.fill(0.0); P.fill(0.0);
 		for(size_t k = 0; k < params.gen.divisions; k++)
 		{
 			for(size_t j=0; j<params.tol.maxiter; j++)
@@ -81,20 +68,14 @@ namespace thesis{
 				{
 					odewrapper.setControl(input[i]);
 					odewrapper.setPreviousIteration(spl_pairs[i]);
-					if(params.gen.finitediff)
-					{
-						robert = OdeIntWrapper(odewrapper, ly0, ts);
-						bob = robert.bottomRows(n+n*m);
-						lt = bob.cols();
-						ts = robert.topRows(1).transpose();
-					}else{
-					}
+
+					bob =  OdeIntWrapper(odewrapper, ly0, t);
 
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
-					temp = reshape(msmt[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
-					A.middleRows(i*m, m) = findA(ts, U, m);
-					P.segment(i*m, m) = findP(ts, U, temp, m);
-					O += findO(ts, temp);
+					temp = reshape(data[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
+					A.middleRows(i*m, m) = findA(t, U, m);
+					P.segment(i*m, m) = findP(t, U, temp, m);
+					O += findO(t, temp);
 
 					if(std::isnan(P.norm()) || std::isnan(A.norm())){
 						std::cerr << "Termination: du is NaN." << endl;
@@ -110,11 +91,11 @@ namespace thesis{
 					case 1: alpha = params.reg.alpha;
 							break;
 
-					case 2: alpha = alpha2 = params.reg.alpha;
+					case 2: alpha = params.reg.alpha;
 							break;
 
 					case 3: alpha = findAlpha(A, P, O, lt*ds);
-							//alpha = gcv(A, P, results.ufinal, odewrapper, msmt, input, y0, ts, spl_pairs);
+							//alpha = gcv(A, P, results.ufinal, odewrapper, data, input, y0, t, spl_pairs);
 							break;
 
 					case 4: //if(O > 0.2)

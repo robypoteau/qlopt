@@ -51,13 +51,14 @@ int main(int argc, char *argv[])
     params.tol.normdiff = 1E-7; //Change optional, default value given
 	params.tol.objval = 1E-7; 	//Change optional, default value given
 	params.tol.maxiter = 150; 	//Change optional, default value given
-	//Data parameters.
+
+    //Data parameters.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
 	params.dat.timeIncrement = .5;	//Should be set to proper value
 	params.dat.numOfDataSets = 5;
 
-	//Regularization parameters.
+    //Regularization parameters.
 	params.reg.type = 4; 	// 0 - none
                             // 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
                             // 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
@@ -74,9 +75,6 @@ int main(int argc, char *argv[])
 	params.gen.numOfParams = 36;	//Should be set to proper value
 	params.gen.divisions = 1;		//Change optional, default value given
 	params.gen.finitediff = true;	//Change optional, default value given
-
-    params.noise.regParam = atof(argv[1]);
-    cout << "lambda = " << params.noise.regParam << endl;
 
 	//Inputs and data
 	std::vector<vec> input(params.dat.numOfDataSets, vec::Zero(2));
@@ -102,56 +100,61 @@ int main(int argc, char *argv[])
     y0 << 6.6667e-1, 5.7254e-1, 4.1758e-1, 4.0e-1,
     3.6409e-1, 2.9457e-1, 1.419, 9.3464e-1;
 
-    u << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,
-        1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
+    u << 1.0,1.0,2.0,1.0,2.0,1.0,
+        1.0,1.0,2.0,1.0,2.0,1.0,
+        1.0,1.0,2.0,1.0,2.0,1.0,
+        0.1,1.0,0.1,0.1,1.0,0.1,
+        0.1,1.0,0.1,1.0,1.0,1.0,
+        1.0,1.0,1.0,1.0,1.0,1.0;
 
     u0 = u + u*.050;
 
+    uguess.fill(.5);
 
-    int lt = 240 + 1;
-
+    int lt = 1200 + 1;
     int dk = (numOfDataPnts-1)/(lt-1);
     cout << "dk = " << dk << endl;
     std::vector<mat> subset(params.dat.numOfDataSets, mat::Zero(params.gen.numOfStates,lt));
 
-    vec testacc;
+    mat testacc;
 
-    double p = 0.01;
+    //double p = 0.01; //atof(argv[1])
     for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
         data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
-        data[i].array() += p*data[i].array()*MatrixXd::Random(params.gen.numOfStates,numOfDataPnts).array();
+        //data[i].array() += p*data[i].array()*MatrixXd::Random(params.gen.numOfStates,numOfDataPnts).array();
 
         for(int k = 0; k<lt; k++)
         {
             subset[i].col(k) = data[i].col(k*dk);
-            cout << k* dk << endl;
-            cout << data[i].col(k*dk).transpose() << "\n";
         }
-        cout << t.size()-1 << endl;
-        cout << data[i].col(t.size()-1).transpose() << "\n";
-        for(size_t j = 0; j<params.gen.numOfStates; j++)
+
+        testacc = subset[i];
+        //subset[i].array() += p*subset[i].array()*mat::Random(params.gen.numOfStates,lt).array();
+
+        /*for(size_t j = 0; j<params.gen.numOfStates; j++)
         {
-            testacc = lsNoiseRemoval(subset[i].row(j), params.noise.regParam);
-            cout << norm(testacc - subset[i].row(j)) << endl;
-            subset[i].row(j) = testacc;
-        }
+            subset[i].row(j) = lsNoiseRemoval(subset[i].row(j), atof(argv[1]));
+            cout << "norm = " << norm(testacc.row(j) - subset[i].row(j))
+                << " max =" << (testacc.row(j) - subset[i].row(j)).lpNorm<Infinity>() << endl;
+        }*/
     }
-    //exit(0);
 
     vec ts(lt);
     ts(0) = params.dat.initialTime;
     for(int j=1; j<lt; j++)
     {
-        ts(j) += ts(j-1) + params.dat.timeIncrement;
+        ts(j) = ts(j-1) + params.dat.timeIncrement;
     }
+
     /***************************************************************************
 		This structure contains the many outputs of the method. Which the user
 		can manipulate to get the desired graphics and numerical summaries.
 	***************************************************************************/
+
     outputStruct results;
 
-  	results = qlopt(benchmark, t, u0, u, y0, input, data, params);
+  	results = qlopt(benchmark, ts, u0, uguess, y0, input, subset, params);
     results.uvals.col(results.uvals.cols()-1) = u;
 
     //Using the results from qlopt to construct a latex table

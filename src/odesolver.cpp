@@ -25,17 +25,15 @@ namespace thesis{
 
         size_t xlen = x_vec[0].size();
         size_t tlen = times.size();
-        mat output(xlen+1, tlen); //times and x values
+        mat output(xlen, tlen);
 
-        output.row(0) = vectorToVec(times);
         for( size_t i=0; i<tlen; i++ )
         {
            for(size_t j=0; j<xlen; j++ )
            {
-               output(j+1, i) = x_vec[i][j];
+               output(j, i) = x_vec[i][j];
            }
         }
-        //cout << output.topRows(8).transpose() << endl; exit(0);
         return output;
     }
 
