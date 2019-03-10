@@ -35,14 +35,22 @@ namespace thesis{
 		}
 		struct tolerance {
 			tolerance(){
-				normdiff =  1E-7;
-				objval =  1E-7;
+				absobj = 1E-7;
+				relobj = 1E-7;
+				absparam = 1E-7;
+				relparam = 1E-7;
+				normdiff = 1E-7;
+				objval = 1E-7;
 				maxiter = 150;
 			};
+			double absobj;
+			double absparam;
+			double relobj;
+			double relparam;
 			double normdiff;
 			double objval;
 			unsigned int maxiter;
-		} tol ;
+		} tol;
 		struct data {
 			data(){
 				//spacing = "uniform";
@@ -121,15 +129,12 @@ namespace thesis{
 		const vec& y0,
 		const vector<vec>& input,
 		const vector<mat>& data,
-		const inputStruct& params);
-
-	double findGamma(mat A, vec P, double O, vec uNot, vec u);
+		const inputStruct& params,
+		const vec& u);
 
 	mat findA(const vec& t, const mat& U, const size_t& m);
 	vec findP(const vec& t, const mat& U, const vec& dx, const size_t& m);
 	double findO(const vec& t, const vec& dx);
-    double findAlpha2(mat A, vec P, const double max);
-	double findGamma(double initialGuess, void * params);
 	double innerProd(const vec& u1, const vec& u2, const vec& time);
 	double simpson(const vec& t, const vec& x);
 	mat reshape(const mat& U, int n, int m);

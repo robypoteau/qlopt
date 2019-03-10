@@ -86,7 +86,7 @@ int main(int argc, char *argv[])
 	*/
 	outputStruct results;
 
-	results = qlopt(lotka, t, u0, uguess, y0, input, data, params);
+	results = qlopt(lotka, t, u0, uguess, y0, input, data, params, u);
 
 	results.uvals.col(results.uvals.cols()-1) = u;
 

@@ -3,6 +3,7 @@
 /bin
 /extra
 /data
+/scripts
 /experimental_archive
 /results
 makefile.bak

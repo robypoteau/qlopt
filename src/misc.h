@@ -1,11 +1,11 @@
 #ifndef MISC_H
 #define MISC_H
 
-#include <eigen3/Eigen/Dense>
 #include <boost/numeric/ublas/vector.hpp>
 #include <boost/numeric/ublas/matrix.hpp>
 #include <boost/numeric/ublas/io.hpp>
 #include <boost/math/interpolators/cubic_b_spline.hpp>
+#include <eigen3/Eigen/Dense>
 #include <vector>
 //#include <mpreal.h>
 //#include <eigen3/unsupported/Eigen/MPRealSupport>

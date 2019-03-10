@@ -26,7 +26,7 @@ namespace thesis {
             m_times.push_back( t );
         }
     };
-    mat OdeIntWrapper(OdeWrapper sys, const vec& x, const vec& t);
+    mat OdeIntWrapper(OdeWrapper sys, const vec& x, const vec& t, double tol);
     vec vectorToVec(vector<double> x);
     vector<double> vecToVector(const vec& x);
 }

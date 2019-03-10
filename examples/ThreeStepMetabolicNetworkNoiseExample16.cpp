@@ -42,12 +42,11 @@ int main(int argc, char *argv[])
 	inputStruct params;
 
 	//Tolerance parameter.
-	/*params.tol.absparam = 1E-7	; //Change optional, default value given
+	params.tol.absparam = 1E-7	; //Change optional, default value given
 	params.tol.relparam = 1E-7; //Change optional, default value given
 	params.tol.absobj = 1E-7; 	//Change optional, default value given
 	params.tol.relobj = 1E-7; 	//Change optional, default value given
 	params.tol.maxiter = 150; 	//Change optional, default value given
-    */
     params.tol.normdiff = 1E-7; //Change optional, default value given
 	params.tol.objval = 1E-7; 	//Change optional, default value given
 	params.tol.maxiter = 150; 	//Change optional, default value given
@@ -55,19 +54,19 @@ int main(int argc, char *argv[])
     //Data parameters.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
-	params.dat.timeIncrement = .5;	//Should be set to proper value
-	params.dat.numOfDataSets = 5;
+	params.dat.timeIncrement = .25;	//Should be set to proper value
+	params.dat.numOfDataSets = 16;
 
     //Regularization parameters.
-	params.reg.type = 4; 	// 0 - none
+	params.reg.type = 6; 	// 0 - none
                             // 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
                             // 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
                             // 3 - Brute force search for alpha Or
                             // 4 - alpha is a multiple of O
-                            // 5 - we don't talk about 5
-                            // 6 - graph alpha
+                            // 5 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
+                            // 6 -
  	//params.reg.alpha = .0063;
-    params.reg.alpha = 0.5;
+    params.reg.alpha = 0.02;
 	//General parameters.
 	params.gen.numOfStates = 8;	//Should be set to proper value
 
@@ -90,12 +89,22 @@ int main(int argc, char *argv[])
     vec uguess(params.gen.numOfParams);
 	vec y0(params.gen.numOfStates);
 
-
-    input[0](0) = 0.05;		input[0](1) = 10.0;
-	input[1](0) = 0.3684;   input[1](1) = 2.1544;
-	input[2](0) = 1.0; 		input[2](1) = 0.1;
-	input[3](0) = 0.09286; 	input[3](1) = 2.1544;
-	input[4](0) = 0.13572; 	input[4](1) = 2.1544;
+    input[0](1) = 0.1; 		input[0](0) = 0.05;
+	input[1](1) = 0.1; 		input[1](0) = 0.13572;
+	input[2](1) = 0.1; 		input[2](0) = 0.3684;
+	input[3](1) = 0.1; 		input[3](0) = 1.0; //here
+	input[4](1) = 0.46416; 	input[4](0) = 0.05;
+	input[5](1) = 0.46416; 	input[5](0) = 0.13572;
+	input[6](1) = 0.46416; 	input[6](0) = 0.3684;
+	input[7](1) = 0.46416; 	input[7](0) = 1.0;
+	input[8](1) = 2.1544; 	input[8](0) = 0.05;
+	input[9](1) = 2.1544; 	input[9](0) = 0.13572; //here
+	input[10](1) = 2.1544; 	input[10](0) = 0.3684; //here
+	input[11](1) = 2.1544; 	input[11](0) = 1.0;
+	input[12](1) = 10; 		input[12](0) = 0.05; //here
+	input[13](1) = 10; 		input[13](0) = 0.13572;
+	input[14](1) = 10; 		input[14](0) = 0.3684;
+	input[15](1) = 10; 		input[15](0) = 1.0;
 
     y0 << 6.6667e-1, 5.7254e-1, 4.1758e-1, 4.0e-1,
     3.6409e-1, 2.9457e-1, 1.419, 9.3464e-1;
@@ -107,30 +116,28 @@ int main(int argc, char *argv[])
         0.1,1.0,0.1,1.0,1.0,1.0,
         1.0,1.0,1.0,1.0,1.0,1.0;
 
-    u0 = u + u*.050;
+    u0 = u + u*.250;
+    uguess = u ;//+ u*.250;
 
-    uguess.fill(.5);
-
-    int lt = 1200 + 1;
+    int lt = 240 + 1;
     int dk = (numOfDataPnts-1)/(lt-1);
     cout << "dk = " << dk << endl;
     std::vector<mat> subset(params.dat.numOfDataSets, mat::Zero(params.gen.numOfStates,lt));
 
     mat testacc;
 
-    //double p = 0.01; //atof(argv[1])
+    double p = 0.01; //atof(argv[1])
     for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
         data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
-        //data[i].array() += p*data[i].array()*MatrixXd::Random(params.gen.numOfStates,numOfDataPnts).array();
 
         for(int k = 0; k<lt; k++)
         {
             subset[i].col(k) = data[i].col(k*dk);
         }
 
-        testacc = subset[i];
-        //subset[i].array() += p*subset[i].array()*mat::Random(params.gen.numOfStates,lt).array();
+        //testacc = subset[i];
+        subset[i].array() += p*subset[i].array()*mat::Random(params.gen.numOfStates,lt).array();
 
         /*for(size_t j = 0; j<params.gen.numOfStates; j++)
         {
@@ -154,7 +161,7 @@ int main(int argc, char *argv[])
 
     outputStruct results;
 
-  	results = qlopt(benchmark, ts, u0, uguess, y0, input, subset, params);
+  	results = qlopt(benchmark, ts, u0, uguess, y0, input, subset, params, u);
     results.uvals.col(results.uvals.cols()-1) = u;
 
     //Using the results from qlopt to construct a latex table
@@ -170,6 +177,8 @@ int main(int argc, char *argv[])
     convertVec(results.deltau);
     cout << "\nalpha" << endl;
     convertVec(results.alpha);
+    cout << "\nnormed difference" << endl;
+    convertVec(results.omegaval);
     cout << "\niterations" << endl;
     convertVec(vec::LinSpaced(results.iterations,1,results.iterations));
     cout << endl << endl;

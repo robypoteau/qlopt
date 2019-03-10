@@ -7,7 +7,8 @@
 #include <misc.h>
 
 namespace thesis {
-    vec lsNoiseRemoval(const vec& y, double regParam);
+    vec lsNoiseRemoval(const vec& y, double noise);
+    double regs(const vec& y, double noise);
 }
 
 #endif

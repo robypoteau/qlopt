@@ -8,7 +8,8 @@ namespace thesis{
 		const vec& y0,
 		const vector<vec>& input,
 		const vector<mat>& data,
-		const inputStruct& params)
+		const inputStruct& params,
+		const vec& u)
 	{
 		outputStruct results;
 
@@ -26,9 +27,11 @@ namespace thesis{
 		ly0.head(n) = y0;
 
 		mat bob, robert, temp, U, A((ds+1)*m,m);
+		mat SumA, Aplus;
+		vec SumP, Pplus;
 		mat I = mat::Identity(m, m);
-		vec P((ds+1)*m), du(m);
-		double O, objval, objval2, alpha = params.reg.alpha;
+		vec P((ds+1)*m), du(m), intmd;
+		double O, objval, objval2, Oaddl, alpha = params.reg.alpha, tol;
 
 		OdeWrapper odewrapper(fun, input[0], u0);
 
@@ -44,6 +47,7 @@ namespace thesis{
 		/******************************************************
 			Enter first value for all the result containers
 		******************************************************/
+
 		results.ufinal = u0;
 		results.uvals = u0;
 		results.alpha(0);
@@ -53,27 +57,32 @@ namespace thesis{
 
 		std::cout << "u0 = " << results.uvals.transpose() << endl << endl;
 
-		cout.precision(7);
-		//A.fill(0.0); P.fill(0.0);
+		cout.precision(9);
+
 		for(size_t k = 0; k < params.gen.divisions; k++)
 		{
-			for(size_t j=0; j<params.tol.maxiter; j++)
+			for(size_t j=0; j < params.tol.maxiter; j++)
 			{
 				results.iterations++;
 				std::cout << "iteration = " << results.iterations << endl << endl;
 
+				/******************************
+					Construct As, Ps and Os
+				******************************/
 				O = 0.0;
 				odewrapper.setParameter(results.ufinal);
+
 				for(size_t i = 0; i < ds; i++)
 				{
 					odewrapper.setControl(input[i]);
 					odewrapper.setPreviousIteration(spl_pairs[i]);
-
-					bob =  OdeIntWrapper(odewrapper, ly0, t);
+					if
+					bob =  OdeIntWrapper(odewrapper, ly0, t, tol);
 
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
 					temp = reshape(data[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
 					A.middleRows(i*m, m) = findA(t, U, m);
+					//cout << A.middleRows(i*m, m)  << endl << endl;
 					P.segment(i*m, m) = findP(t, U, temp, m);
 					O += findO(t, temp);
 
@@ -83,38 +92,101 @@ namespace thesis{
 					}
 				}
 
+				/*****************************************
+					Determine regularization parameter
+					And find the corresponding du
+				*****************************************/
+
 				switch(params.reg.type)
 				{
 					case 0: alpha = 0.0;
+							A.bottomRows(m) = alpha*I;
+							du = A.colPivHouseholderQr().solve(P);
+							Oaddl = alpha*du.norm();
 							break;
 
 					case 1: alpha = params.reg.alpha;
+							A.bottomRows(m) = alpha*I;
+							du = A.colPivHouseholderQr().solve(P);
+							Oaddl = alpha*du.norm();
 							break;
 
-					case 2: alpha = params.reg.alpha;
+					case 2: alpha  = findAlpha1(A, P, O, lt*ds);
+							A.bottomRows(m) = alpha*I;
+							du = A.colPivHouseholderQr().solve(P);
+							Oaddl = alpha*du.norm();
 							break;
 
-					case 3: alpha = findAlpha(A, P, O, lt*ds);
-							//alpha = gcv(A, P, results.ufinal, odewrapper, data, input, y0, t, spl_pairs);
+					case 3: alpha  = findAlpha2(A, P, O, lt*ds);
+							A.bottomRows(m) = alpha*I;
+							du = A.colPivHouseholderQr().solve(P);
+							Oaddl = alpha*du.norm();
 							break;
 
-					case 4: //if(O > 0.2)
-								alpha = params.reg.alpha*pow(O,2);
-							//else alpha = params.reg.alpha*O;
+					case 4: alpha = params.reg.alpha*pow(O,2);
+							//cout << "before alpha" << results.ufinal.transpose() << endl;
+							//cout << endl << uguess << endl;
+							findGamma(A, P, results.ufinal, u);
+							A.bottomRows(m) = alpha*I;
+							du = A.colPivHouseholderQr().solve(P);
+							Oaddl = alpha*du.norm();
 							break;
 
-					case 5: alpha = findAlpha2(A, P, params.reg.alpha);
+					case 5: //alpha  = findAlpha3(A, P, O, uguess-results.ufinal, lt*ds);
+							alpha = params.reg.alpha*pow(O,2);
+							A.bottomRows(m) = alpha*I;
+							SumA = A.topRows(m);
+							SumP = P.head(m);
+							for(size_t  i = 1; i <= ds; i++)
+							{
+								SumA = SumA + A.middleRows(i*m, m);
+								SumP = SumP + P.segment(i*m,m);
+							}
+							Aplus = SumA + alpha*I;
+				            Pplus = SumP + alpha*(uguess-results.ufinal);
+							du = Aplus.colPivHouseholderQr().solve(Pplus);
+
+							intmd = uguess + du - results.ufinal;
+							Oaddl = ds*alpha*intmd.transpose()*intmd;
 							break;
 
-					case 6: alpha = findGamma(A, P, O, results.ufinal, uguess);
+					case 6: alpha = findGamma(A, P, results.ufinal, u);
+							A.bottomRows(m) = alpha*I;
+							du = A.colPivHouseholderQr().solve(P);
+							Oaddl = alpha*du.norm();
 							break;
 
-					default: cerr << "Chose a regularization option 0-6." << endl;
+					case 7: alpha = findGamma2(A, P, results.ufinal, uguess, u);
+							A.bottomRows(m) = alpha*I;
+							SumA = A.topRows(m);
+							SumP = P.head(m);
+							for(size_t  i = 1; i <= ds; i++)
+							{
+								SumA = SumA + A.middleRows(i*m, m);
+								SumP = SumP + P.segment(i*m,m);
+							}
+							Aplus = SumA + alpha*I;
+				            Pplus = SumP + alpha*(uguess-results.ufinal);
+							du = Aplus.colPivHouseholderQr().solve(Pplus);
+
+							intmd = uguess + du - results.ufinal;
+							Oaddl = ds*alpha*intmd.transpose()*intmd;
+							break;
+
+					case 8: alpha = findAlpha5(A, P, results.ufinal, odewrapper, data,
+										input, ly0, t, spl_pairs);
+							A.bottomRows(m) = alpha*I;
+							du = A.colPivHouseholderQr().solve(P);
+							Oaddl = alpha*du.norm();
+							break;
+
+					default: cerr << "Chose a regularization option 0-8." << endl;
 							exit(1);
 				}
 
-				A.bottomRows(m) = alpha*I;
-				du = A.colPivHouseholderQr().solve(P);
+				/****************************************
+					Collect Results
+				****************************************/
 
 				results.alpha.conservativeResize(results.alpha.size()+1);
 				results.alpha(j) = alpha;
@@ -127,26 +199,38 @@ namespace thesis{
 				results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
 				results.uvals.col(results.uvals.cols()-1) = results.ufinal;
 
-				objval = O + params.reg.alpha*du.transpose()*du ;
+				objval = O;
 				for(size_t i = 0; i < ds; i++)
 				{
 					objval += du.transpose()*(A.middleRows(i*m, m)*du
 						- 2*P.segment(i*m, m));
 				}
+				objval = objval + Oaddl;
 				results.objval.conservativeResize(results.objval.size()+1);
 				results.objval(j) = objval;
 
+				/****************************************
+					CLI output
+				****************************************/
+
 				std::cout << "\tdu = " << du.transpose() << endl << endl;
 				std::cout << "\tu  = " << results.ufinal.transpose() << endl << endl;
+				std::cout << "\talpha = " << alpha << endl << endl;
 
-				cout << "\t||x-x_N|| = " << sqrt(O) << endl << endl;
-				cout << "\t||x-x_N||/ds = " << sqrt(O)/ds << endl << endl;
-				cout << "\talpha = " << alpha << endl << endl;
-				cout << "\t||du|| = " << norm(du) << endl << endl;
+				std::cout << "Normed difference of data and model." << endl;
+				std::cout << "\t\\Sigma||x-x_N|| = " << sqrt(O) << endl << endl;
+				std::cout << "\t\\Sigma||x-x_N||/ds = " << sqrt(O)/ds << endl << endl;
+				std::cout << "Absolute parameter value tolerance." << endl;
+				std::cout << "\t||du|| = " << norm(du) << endl << endl;
+				std::cout << "Relative parameter value tolerance." << endl;
 				std::cout << "\t||du||/||u||= " << du.norm()/results.ufinal.norm() << endl;
+				std::cout << "Objective function value." << endl;
 				std::cout << "\tJ(du) = " << objval << endl;
 
-				// Check the termination conditions
+				/****************************************
+					Check the termination conditions
+				****************************************/
+
 				if (std::isnan(du.norm())){
 					std::cerr << "Termination: value for parameter is NaN." << endl;
 					exit(0);
@@ -158,49 +242,31 @@ namespace thesis{
 				}else if (objval < params.tol.objval){
 					std::cout << "Termination: Objective function value." << endl;
 					break;
-				}
-
-				/*else if(du.norm()/u0.norm() < params.tol.relparam){
+				}else if(du.norm()/u0.norm() < params.tol.relparam){
 					std::cout << "Termination: relative parameter value tolerance." << endl;
-					std::cout << "du/u = " << du.norm()/results.ufinal.norm() << endl;
 					break;
 				}else if(du.norm() < params.tol.absparam){
 					std::cout << "Termination: absolute parameter value tolerance." << endl;
-					std::cout << "du = "<< du.norm() << endl;
 					break;
-				}*/
+				}
 
-				/*if(j > 0){
-					objval2 = O + params.reg.alpha*du.transpose()*du ;
-					for(size_t i = 0; i < ds; i++)
-					{
-						objval2 += du.transpose()*(A.middleRows(i*m, m)*du
-							- 2*P.segment(i*m, m));
-					}
-
-					results.objval.conservativeResize(results.objval.size()+1);
-					results.objval(j) = objval2;
-					std::cout << "Objective function value." << endl;
-					std::cout << "J_new = " << objval2 << endl;
+				if(j > 0){
+					std::cout << "Absolute objective function value tolerance." << endl;
+					std::cout << "\t|J_new - J_old| = " << abs(objval - objval2) << endl;
+					std::cout << "Relative objective function value tolerance." << endl;
+					std::cout << "\t|J_new - J_old|/J_new = " << abs(objval - objval2)/objval << endl;
 
 					if(abs(objval - objval2) < params.tol.absobj){
 						std::cout << "Termination: absolute objective function value tolerance." << endl;
-						std::cout << "|J_new - J_old| = " << abs(objval - objval2) << endl;
 						break;
-					}
-
-					else if(abs(objval - objval2)/objval2 < params.tol.relobj){
+					}else if(abs(objval - objval2)/objval < params.tol.relobj){
 						std::cout << "Termination: relative objective function value tolerance." << endl;
-						std::cout << "|J_new - J_old|/J_new = " << abs(objval - objval2)/objval2 << endl;
 						break;
 					}
-
-					std::cout << "Absolute objective function value tolerance." << endl;
-					std::cout << "|J_new - J_old| = " << abs(objval - objval2) << endl;
-					std::cout << "Relative objective function value tolerance." << endl;
-					std::cout << "|J_new - J_old|/J_new = " << abs(objval - objval2)/objval2 << endl;
-					objval = objval2;
-				}else{}*/
+					objval2 = objval;
+				}else{
+					objval2 = objval;
+				}
 			}
 		}
 		results.uvals.conservativeResize(NoChange, results.uvals.cols()+1);
@@ -210,64 +276,6 @@ namespace thesis{
 
 		cout << "Computational Time:" << duration.count()/1E6 << " s" << endl;
 		return results;
-	}
-
-	double findAlpha2(mat A, vec P, const double max){
-		int m = A.cols();
-		double alpha;
-		mat I;
-		I = mat::Identity(m, m);
-		vec du(m);
-
-		for(int i = -12; i<3; i++){ // -7 -> 1
-			alpha = pow(10,i);
-			A.bottomRows(m) = alpha*I;
-			du = A.colPivHouseholderQr().solve(P);
-
-			if(du.norm() < max){
-				break;
-			}
-		}
-		return alpha;
-	}
-
-	double findGamma(mat A, vec P, double O, vec uNot, vec u){
-		int m = P.size();
-		mat I = mat::Identity(m, m);
-		double gamma, dg = .1, dvs = 10,
-			hold = pow(10,-9),//*pow(O,2),
-			nu;
-		A.bottomRows(m) = hold*I;
-		double nup = norm(uNot + A.colPivHouseholderQr().solve(P) - u);
-
-		vec du(m), total(m);
-		mat B(m,m);
-
-		for(int j = -8; j<4; j++){
-			gamma = pow(10,j);//*pow(O,2);
-		    for(int k = 0; k<dvs; k++){
-				A.bottomRows(m) = gamma*I;
-				du = A.colPivHouseholderQr().solve(P);
-
-		        total = uNot + du - u;
-				nu = total.norm();
-		        cout << "("
-	                   << gamma
-	                   << ","
-	                   << nu
-	                   << ")"
-	                   << endl;
-	            if(nup > nu){
-					nup = nu;
-					hold = gamma;
-				}
-				//dg += .1;
-				gamma = pow(10,j+(k+1)*dg);//*pow(O,2);
-		    }
-		}
-		cout << "alpha = " << hold << endl;
-		//cout << "c = " << hold/pow(O,2) << endl << endl;
-		return hold;
 	}
 
 	mat reshape(const mat& U, int n, int m)
@@ -339,8 +347,8 @@ namespace thesis{
 			ans += aij(k);
 		}
 
-		return ans*(time(1)-time(0));
-		//return simpson(time, aij);
+		//return ans*(time(1)-time(0));
+		return simpson(time, aij);
 		//return gsl_integration(time, aij);
 	}
 
