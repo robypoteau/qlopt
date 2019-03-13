@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
                             // 5 - we don't talk about 5
                             // 6 - graph alpha
  	//params.reg.alpha = .0063;
-    params.reg.alpha = 0.02;
+    params.reg.alpha = 0.01;
 	//General parameters.
 
 
@@ -116,12 +116,13 @@ int main(int argc, char *argv[])
         0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,
         1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
 
-    u0 = u + u*0.25;
+    u0 = u ;//+ u*0.25;
     uguess = u + u*.25;
 
     for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
         data[i] = getCsvData("data/benchmark_" + std::to_string(i+1) + ".csv");
+        //data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
         //cout << data[i] << endl << endl;
     }
 

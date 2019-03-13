@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 	params.dat.numOfDataSets = 5;
 
     //Regularization parameters.
-	params.reg.type = 6; 	// 0 - none
+	params.reg.type = 4; 	// 0 - none
                             // 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
                             // 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
                             // 3 - Brute force search for alpha Or

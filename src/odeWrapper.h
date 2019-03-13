@@ -27,6 +27,7 @@ namespace thesis {
         OdeWrapper(odefunction of, vec input, vec parameters);
         void setControl(const vec& input);
         void setParameter(const vec& parameters);
+        vec getParameter(){ return u; }
         void setPreviousIteration(vector<spline> &prevIter);
         vec fhandle(double t, vec  x, vec u)
         {
@@ -42,6 +43,8 @@ namespace thesis {
             dxdt = vecToVector(qlinear(t, vectorToVec(x)));
         }
 
+        vec flinear(const double& t, const vec& x, const vec& u);
+        //vec fcvs(double t, vec  x);
         //void jacobian( const vector_type & /* x */ , matrix_type &J , const double & t , vector_type &dfdt );
     };
 }

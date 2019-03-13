@@ -55,12 +55,12 @@ int main(int argc, char *argv[])
 	//Data parameters.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
-	params.dat.timeIncrement = .5;	//Should be set to proper value
+	params.dat.timeIncrement = 6;	//Should be set to proper value
 	params.dat.numOfDataSets = 5;
 
 	//Regularization parameters.
 
-	params.reg.type = 8; 	// 0 - none
+	params.reg.type = 4; 	// 0 - none
                             // 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
                             // 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
                             // 3 - Brute force search for alpha Or
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
                             // 5 - we don't talk about 5
                             // 6 - graph alpha
  	//params.reg.alpha = .0063;
-    params.reg.alpha = 0.001;
+    params.reg.alpha = .01;
 	//General parameters.
 
 
@@ -83,7 +83,7 @@ int main(int argc, char *argv[])
 	std::vector<vec> input(params.dat.numOfDataSets, vec::Zero(2));
 	std::vector<mat> data(params.dat.numOfDataSets);
 	vec t;
-    int numOfDataPnts = 12001;
+    int numOfDataPnts = 120001;
  	t = vec::LinSpaced(numOfDataPnts,0.0,120.0);
   	//cout << t << endl << endl;
   	vec u(params.gen.numOfParams);
@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
 
     //u0.fill(0.5);
     //u0 = u + u0;
-    u0 = u + u*0.25;
+    u0 = u ;//+ u*0.25;
     uguess = u + u*.25;
 
     size_t lt = (size_t )((params.dat.endTime-params.dat.initialTime)
