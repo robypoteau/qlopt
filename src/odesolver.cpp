@@ -8,16 +8,16 @@ namespace thesis{
         vector<vector<double>> x_vec;
         vector<double> times;
 
-        //runge_kutta4<vector_type> stepper;
+        runge_kutta4<vector_type> stepper;
         //runge_kutta_dopri5< vector_type > stepper;
         //runge_kutta_fehlberg78<vector_type> stepper;
 
-        bulirsch_stoer< vector_type > stepper( tol, tol, 1.0 , 1.0 );
+        //bulirsch_stoer< vector_type > stepper( tol, tol, 1.0 , 1.0 );
         //bulirsch_stoer_dense_out< vector_type > stepper;
 
         //controlled_runge_kutta< runge_kutta_fehlberg78<vector_type> > stepper;
         //controlled_runge_kutta< runge_kutta_cash_karp54<vector_type> > stepper;
-        //controlled_runge_kutta< runge_kutta_dopri5<vector_type> > stepper( 1E-4, 1E-4 );
+        //controlled_runge_kutta< runge_kutta_dopri5<vector_type> > stepper( 1E-6, 1E-6 );
 
         auto start = high_resolution_clock::now();
         size_t num_of_steps = integrate_const( stepper,
@@ -40,7 +40,7 @@ namespace thesis{
            {
                output(j, i) = x_vec[i][j];
            }
-        }
+       }cout << output.leftCols(4)  << endl;// exit(0);
         return output;
     }
 

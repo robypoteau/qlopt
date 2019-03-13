@@ -124,7 +124,7 @@ int main(int argc, char *argv[])
 
     //u0.fill(0.5);
     //u0 = u + u0;
-    u0 = u + u*0.25;
+    u0 = u;// + u*0.25;
     uguess = u + u*.25;
 
     size_t lt = (size_t )((params.dat.endTime-params.dat.initialTime)

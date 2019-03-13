@@ -76,7 +76,7 @@ namespace thesis{
 				{
 					odewrapper.setControl(input[i]);
 					odewrapper.setPreviousIteration(spl_pairs[i]);
-					if
+
 					bob =  OdeIntWrapper(odewrapper, ly0, t, tol);
 
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
