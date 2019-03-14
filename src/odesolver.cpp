@@ -10,18 +10,6 @@ namespace thesis{
         realtype abstol = 1e-6; // real tolerance of system
         realtype reltol = 1e-6; // absolute tolerance of system
 
-<<<<<<< HEAD
-        runge_kutta4<vector_type> stepper;
-        //runge_kutta_dopri5< vector_type > stepper;
-        //runge_kutta_fehlberg78<vector_type> stepper;
-
-        //bulirsch_stoer< vector_type > stepper( tol, tol, 1.0 , 1.0 );
-        //bulirsch_stoer_dense_out< vector_type > stepper;
-
-        //controlled_runge_kutta< runge_kutta_fehlberg78<vector_type> > stepper;
-        //controlled_runge_kutta< runge_kutta_cash_karp54<vector_type> > stepper;
-        //controlled_runge_kutta< runge_kutta_dopri5<vector_type> > stepper( 1E-6, 1E-6 );
-=======
         vec ppp = sys.getParameter();
 
         // 3. Set problem dimensions etc. for the forward problem.
@@ -120,8 +108,6 @@ namespace thesis{
         //LS = SUNLinSol_SPBCGS(y_forward, 2, 5);
         //LS = SUNLinSol_SPTFQMR(y_forward, 0, 5);
         //LS = SUNLinSol_PCG(y_forward, 2, 5);
->>>>>>> featureCVODES
-
 
         // 12. Attach linear solver module for the forwrad problem.
         // ---------------------------------------------------------------------
@@ -177,25 +163,12 @@ namespace thesis{
    		auto duration = duration_cast<microseconds>(end - start);
         cout << "OdeInt Time: " << duration.count()/1E6 << " s" << endl;
         //cout << output.leftCols(4) << endl;
-
-<<<<<<< HEAD
-        for( size_t i=0; i<tlen; i++ )
-        {
-           for(size_t j=0; j<xlen; j++ )
-           {
-               output(j, i) = x_vec[i][j];
-           }
-       }cout << output.leftCols(4)  << endl;// exit(0);
-        return output;
-    }
-=======
         // 30. Deallocate memory.
         // ---------------------------------------------------------------------------
         N_VDestroy(y_forward);
         N_VDestroyVectorArray_Serial(yS0, M);
         CVodeFree(&cvode_mem);
         // ---------------------------------------------------------------------------
->>>>>>> featureCVODES
 
         // 31. Free linear solver and matrix memory for the backward problem.
         // ---------------------------------------------------------------------------
