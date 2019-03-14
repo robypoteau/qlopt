@@ -77,11 +77,7 @@ namespace thesis{
 					odewrapper.setControl(input[i]);
 					odewrapper.setPreviousIteration(spl_pairs[i]);
 
-<<<<<<< HEAD
-					bob =  OdeIntWrapper(odewrapper, ly0, t, tol);
-=======
 					bob =  OdeIntWrapper(odewrapper, y0, t, tol);
->>>>>>> featureCVODES
 
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
 					temp = reshape(data[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
@@ -115,7 +111,7 @@ namespace thesis{
 							Oaddl = alpha*du.norm();
 							break;
 
-					case 2: alpha  = params.reg.alpha;
+					case 2: alpha  = params.reg.alpha*pow(O,2);
 							A.bottomRows(m) = alpha*I;
 							SumA = A.topRows(m);
 							SumP = P.head(m);
