@@ -77,7 +77,11 @@ namespace thesis{
 					odewrapper.setControl(input[i]);
 					odewrapper.setPreviousIteration(spl_pairs[i]);
 
+<<<<<<< HEAD
 					bob =  OdeIntWrapper(odewrapper, ly0, t, tol);
+=======
+					bob =  OdeIntWrapper(odewrapper, y0, t, tol);
+>>>>>>> featureCVODES
 
 					U = reshape(bob.bottomRows(n*m), m, n*lt);
 					temp = reshape(data[i] - bob.topRows(n), 1, n*lt).row(0).transpose();
@@ -111,10 +115,21 @@ namespace thesis{
 							Oaddl = alpha*du.norm();
 							break;
 
-					case 2: alpha  = findAlpha1(A, P, O, lt*ds);
+					case 2: alpha  = params.reg.alpha;
 							A.bottomRows(m) = alpha*I;
-							du = A.colPivHouseholderQr().solve(P);
-							Oaddl = alpha*du.norm();
+							SumA = A.topRows(m);
+							SumP = P.head(m);
+							for(size_t  i = 1; i <= ds; i++)
+							{
+								SumA = SumA + A.middleRows(i*m, m);
+								SumP = SumP + P.segment(i*m,m);
+							}
+							Aplus = SumA + alpha*I;
+				            Pplus = SumP + alpha*(uguess-results.ufinal);
+							du = Aplus.colPivHouseholderQr().solve(Pplus);
+
+							intmd = uguess + du - results.ufinal;
+							Oaddl = ds*alpha*intmd.transpose()*intmd;
 							break;
 
 					case 3: alpha  = findAlpha2(A, P, O, lt*ds);

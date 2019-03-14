@@ -44,7 +44,7 @@ int main(int argc, char *argv[])
 	params.dat.numOfDataSets = 1;
 
 	//Regularization parameters.
-	params.reg.type = 4; 	// 0 - none,
+	params.reg.type = 0; 	// 0 - none,
 							// 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
 							// 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
 							// 3 - Brute force search for alpha
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
   	vec uguess(3);
   	vec y0(2);
 
-  	u << 1,2,1;
+  	u << 1,2,1; 0.48, 0.026, 0.93;
 	u0 << 3,4,3;
 	uguess << 0,0,0; // The guess value for Type II Regularization
 	y0 << 35, 4;

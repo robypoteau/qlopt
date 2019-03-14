@@ -7,6 +7,14 @@
 #include <boost/math/interpolators/cubic_b_spline.hpp>
 #include <eigen3/Eigen/Dense>
 #include <vector>
+#include <nvector/nvector_serial.h>  // access to serial N_Vector
+
+#define NV_CONTENT_S(v) ( (N_VectorContent_Serial)(v->content) )
+#define NV_OWN_DATA_S(v) ( NV_CONTENT_S(v)->own_data )
+#define NV_DATA_S(v) ( NV_CONTENT_S(v)->data )
+#define NV_LENGTH_S(v) ( NV_CONTENT_S(v)->length )
+#define Ith(v,i) ( NV_DATA_S(v)[i] )
+
 //#include <mpreal.h>
 //#include <eigen3/unsupported/Eigen/MPRealSupport>
 

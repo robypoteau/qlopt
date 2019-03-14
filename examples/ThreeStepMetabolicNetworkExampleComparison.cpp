@@ -60,7 +60,7 @@ int main(int argc, char *argv[])
 
 	//Regularization parameters.
 
-	params.reg.type = 4; 	// 0 - none
+	params.reg.type = 2; 	// 0 - none
                             // 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
                             // 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
                             // 3 - Brute force search for alpha Or
@@ -68,7 +68,7 @@ int main(int argc, char *argv[])
                             // 5 - we don't talk about 5
                             // 6 - graph alpha
  	//params.reg.alpha = .0063;
-    params.reg.alpha = 0.02;
+    params.reg.alpha = 0.0075;
 	//General parameters.
 
 
@@ -91,7 +91,7 @@ int main(int argc, char *argv[])
     vec uguess(params.gen.numOfParams);
 	vec y0(params.gen.numOfStates);
 
-   input[0](1) = 0.1; 		input[0](0) = 0.05;
+    input[0](1) = 0.1; 		input[0](0) = 0.05;
 	input[1](1) = 0.1; 		input[1](0) = 0.13572;
 	input[2](1) = 0.1; 		input[2](0) = 0.3684;
 	input[3](1) = 0.1; 		input[3](0) = 1.0; //here
@@ -116,12 +116,13 @@ int main(int argc, char *argv[])
         0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,
         1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
 
-    u0 = u + u*0.25;
-    uguess = u + u*.25;
+    u0 = u*1.25;
+    uguess = u*1.25;
 
     for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
         data[i] = getCsvData("data/benchmark_" + std::to_string(i+1) + ".csv");
+        //data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
         //cout << data[i] << endl << endl;
     }
 
