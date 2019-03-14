@@ -40,7 +40,7 @@ int main(int argc, char *argv[])
 	//Data parameters. Time information used in qlopt.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 1.0;			//Should be set to proper value
-	params.dat.timeIncrement = 0.5;	//Should be set to proper value
+	params.dat.timeIncrement = 0.01;	//Should be set to proper value
 	params.dat.numOfDataSets = 1;
 
 	//Regularization parameters.
@@ -68,12 +68,12 @@ int main(int argc, char *argv[])
   	vec uguess(3);
   	vec y0(2);
 
-  	u << 0.48, 0.026, 0.93;
-	u0 << u;// 3,4,3;
+  	u << 1,2,1; 0.48, 0.026, 0.93;
+	u0 << 3,4,3;
 	uguess << 0,0,0; // The guess value for Type II Regularization
 	y0 << 35, 4;
 
-	t = vec::LinSpaced(21,0.0,1);
+	t = vec::LinSpaced(1001,0.0,1);
 	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
 		data[i] = rungekutta4(lotka, t, u, y0, input[i]);

@@ -2,59 +2,6 @@
 
 namespace thesis{
 
-    /*mat OdeIntWrapper(OdeWrapper sys, const vec& x, const vec& t, double tol)
-    {
-        vector_type v = vecToVector(x);
-        vector<vector<double>> x_vec;
-        vector<double> times;
-
-        //runge_kutta4<vector_type> stepper;
-        //runge_kutta_dopri5< vector_type > stepper;
-        //runge_kutta_fehlberg78<vector_type> stepper;
-
-        bulirsch_stoer< vector_type > stepper( tol, tol, 1.0 , 1.0 );
-        //bulirsch_stoer_dense_out< vector_type > stepper;
-
-        //controlled_runge_kutta< runge_kutta_fehlberg78<vector_type> > stepper;
-        //controlled_runge_kutta< runge_kutta_cash_karp54<vector_type> > stepper;
-        //controlled_runge_kutta< runge_kutta_dopri5<vector_type> > stepper( 1E-4, 1E-4 );
-
-        auto start = high_resolution_clock::now();
-        size_t num_of_steps = integrate_const( stepper,
-            [&sys](const vector_type &x , vector_type &dxdt , double t){sys.call(x,dxdt,t);},
-            v , t(0), t(t.size()-1), t(1)-t(0),
-           push_back_state_and_time(x_vec, times));
-
-        // Get ending timepoint
-        auto end = high_resolution_clock::now();
-   		auto duration = duration_cast<microseconds>(end - start);
-        cout << "OdeInt Time: " << duration.count()/1E6 << " s" << endl;
-        cout << "Number of steps: " << num_of_steps << endl;
-        size_t xlen = x_vec[0].size();
-        size_t tlen = times.size();
-        mat output(xlen, tlen);
-
-        for( size_t i=0; i<tlen; i++ )
-        {
-           for(size_t j=0; j<xlen; j++ )
-           {
-               output(j, i) = x_vec[i][j];
-           }
-        }
-        return output;
-    }
-
-    vec vectorToVec(vector<double> x)
-    {
-        Map<vec> v(x.data(),x.size());
-        return v;
-    }
-
-    vector<double> vecToVector(const vec& x)
-    {
-        vector<double> v(x.data(), x.data()+x.size());
-        return v;
-    }*/
     mat OdeIntWrapper(OdeWrapper sys, const vec& x, const vec& t, double tol)
     {
         string type = "stiff";
@@ -64,7 +11,6 @@ namespace thesis{
         realtype reltol = 1e-6; // absolute tolerance of system
 
         vec ppp = sys.getParameter();
-
 
         // 3. Set problem dimensions etc. for the forward problem.
         // ---------------------------------------------------------------------
@@ -90,8 +36,8 @@ namespace thesis{
             N_VConst(0.0, yS0[i]);
         }
         // 5. Create CVODES object for the forward problem.
-        // ---------------------------------------------------------------------------
-        void *cvode_mem = NULL; // Problem dedicated memory.
+        // ---------------------------------------------------------------------
+        void *cvode_mem = NULL;
         if(type == "nonstiff"){
             NLS_TYPE = SUNNonlinSol_FixedPoint(y_forward, 0);
             cvode_mem = CVodeCreate(CV_ADAMS);
@@ -114,8 +60,8 @@ namespace thesis{
             auto f = [](realtype t, N_Vector u, N_Vector u_dot,
                 realtype * p, OdeWrapper * sys, int N_forward){
 
-                realtype *udata  = N_VGetArrayPointer(u); // pointer u vector data
-                realtype *dudata = N_VGetArrayPointer(u_dot); // pointer to udot vector data
+                realtype *udata  = N_VGetArrayPointer(u);
+                realtype *dudata = N_VGetArrayPointer(u_dot);
                 vec temp(N_forward);
 
                 for(int i=0; i<N_forward; i++){
@@ -154,9 +100,7 @@ namespace thesis{
 
         // 10. Create linear solver object for the forward problem.
         // ---------------------------------------------------------------------
-
         SUNMatrix DM = SUNDenseMatrix(N_forward, N_forward);
-
         SUNLinearSolver LS;
         LS = SUNLinSol_Dense(y_forward, DM);
         //LS = SUNLinSol_SPGMR(y_forward, 1, 0);
@@ -174,8 +118,8 @@ namespace thesis{
         //  Initialize the cvbandpre preconditioner module
         //flag = CVBandPrecInit(cvode_mem, N_forward, 8, 8);
 
-        flag = CVodeSetMaxNumSteps(cvode_mem, 12001);
-        flag = CVodeSetMinStep(cvode_mem, 1e-10);
+        //flag = CVodeSetMaxNumSteps(cvode_mem, 12001);
+        //flag = CVodeSetMinStep(cvode_mem, 1e-10);
 
         //16 Sensitivity problem
         //----------------------------------------------------------------------
@@ -195,26 +139,21 @@ namespace thesis{
         // loop over output points, call CVode, print results, test for error
         std::cout << "Performing Forward Integration: \n\n";
         for (tout = step_length; tout <= end_time; tout += step_length) {
-            // CVodeF is similar to the CVode advance in time operation, but it also
-            // stores checkpoint data every Nd integration steps.
             flag = CVode(
-                cvode_mem, // pointer to the cvodes memory block
-                tout, // the next time at which a computed solution is desired
-                y_forward, // the computed solution vector y
-                &ts, // the time reached by the solver (output)
+                cvode_mem,
+                tout,
+                y_forward,
+                &ts,
                 CV_NORMAL);
 
             flag = CVodeGetSens(cvode_mem, &ts, yS0);
-            std::cout << "t: " << ts << ", ";
-            //std::cout << "\ny:";
-            //N_VPrint_Serial(y_forward);
             for(int i = 0; i<N_forward; i++)
             {
                 temp(i) = NV_DATA_S(y_forward)[i];
                 //cout << NV_DATA_S(y_forward)[i] << ", "; //CHECKED
                 for(int j = 0; j<M; j++)
                 {
-                    temp((i+1)*N_forward + j) = Ith(yS0[j],i);
+                    temp((j+1)*N_forward + i) = Ith(yS0[j],i);
                 }
             }
             //cout << endl;
@@ -224,7 +163,7 @@ namespace thesis{
         auto end = high_resolution_clock::now();
    		auto duration = duration_cast<microseconds>(end - start);
         cout << "OdeInt Time: " << duration.count()/1E6 << " s" << endl;
-        cout << output.col(1) << endl;
+        //cout << output.leftCols(4) << endl;
 
         // 30. Deallocate memory.
         // ---------------------------------------------------------------------------
