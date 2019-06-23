@@ -29,7 +29,7 @@ install:
   - cd cvodes-4.1.0
   - mkdir build
   - cd build
-  - cmake ..
+  - cmake -DCMAKE_INSTALL_PREFIX:PATH=${TRAVIS_BUILD_DIR}/usr .. 
   - make
   - make install
 script:
