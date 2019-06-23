@@ -85,7 +85,7 @@ int main(int argc, char *argv[])
 	outputStruct results;
 
 	//uguess is for Type II Regularization
-	results = qlopt(lotka, t, u0, uguess, y0, input, data, params);
+	results = qlopt(lotka, t, u0, uguess, y0, input, data, params, u);
 
 	results.uvals.col(results.uvals.cols()-1) = u;
 

@@ -23,7 +23,15 @@ install:
   - cd boost_1_69_0
   - ./bootstrap.sh --prefix=${TRAVIS_BUILD_DIR}/usr
   - travis_wait ./b2 -d0 -q --with-math --with-test --with-system install
-
+  - cd ${TRAVIS_BUILD_DIR}
+  - wget https://computation.llnl.gov/projects/sundials/download/cvodes-4.1.0.tar.gz
+  - tar xzf cvodes-4.1.0.tar.gz
+  - cd cvodes-4.1.0
+  - mkdir build
+  - cd build
+  - cmake ..
+  - make
+  - make install
 script:
   - cd ${TRAVIS_BUILD_DIR}
   - make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/include"

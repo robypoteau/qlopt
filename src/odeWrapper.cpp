@@ -3,6 +3,12 @@ namespace thesis{
     OdeWrapper::OdeWrapper(odefunction of, vec input, vec parameters):
         fun(of), control(input), u(parameters){}
 
+    /*vec OdeWrapper::fcvs(double t, vec  x)
+    {
+        return flinear(t, x);
+        //return fun(t, x, u, control);
+    }*/
+
     void OdeWrapper::setControl(const vec& input)
     {
         control = input;
@@ -16,6 +22,35 @@ namespace thesis{
     void OdeWrapper::setPreviousIteration(std::vector<spline> &prevIter)
     {
         Xn = prevIter;
+    }
+    
+    vec OdeWrapper::flinear(const double& t, const vec& x, const vec& u)
+    {
+        size_t m = u.size();
+        size_t n = this->Xn.size();
+        double step = sqrt(2.2E-16);
+
+        vec xn1(n); // this is x_N-1
+        vec dxn(n);
+
+        for(size_t i=0; i<n; i++)
+        {
+
+            xn1(i) = this->Xn[i].interpolate(t);
+            dxn(i) = x(i) - xn1(i); // x_N - x_{N-1}
+        }
+
+        mat dx(n,n);// for x derivative
+        dx << mat::Identity(n,n)*step;
+
+        //First few lines of linearization
+        vec fx(n);
+        fx = fhandle(t, xn1, u);
+        vec ans(n+n*m);
+        ans << vec::Zero(n+n*m);
+        ans.segment(0, n) = fx + jac(t, xn1, step)*dxn;
+
+        return ans;
     }
 
     vec OdeWrapper::qlinear(const double& t, const vec& x)

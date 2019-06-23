@@ -1,12 +1,11 @@
 #include <qlopt.h>
 #include <string>
 #include <fstream>
+#include <noiseRemoval.h>
 
 //The namespace for the objects found in qlopt.h
 using namespace thesis;
 
-std::vector<std::string> split(const std::string &s, char delim);
-mat getCsvData(std::string data);
 mat rungekutta4(odefunction fhandle, const vec& t, const vec& u,
                 const vec& y0, const vec& input);
 
@@ -42,36 +41,33 @@ int main(int argc, char *argv[])
 	*/
 	inputStruct params;
 
-    //Tolerance parameter.
-    params.tol.absparam = 1E-7	; //Change optional, default value given
-    params.tol.relparam = 1E-7; //Change optional, default value given
-    params.tol.absobj = 1E-7; 	//Change optional, default value given
-    params.tol.relobj = 1E-7; 	//Change optional, default value given
-    params.tol.maxiter = 150; 	//Change optional, default value given
+	//Tolerance parameter.
+	params.tol.absparam = 1E-7	; //Change optional, default value given
+	params.tol.relparam = 1E-7; //Change optional, default value given
+	params.tol.absobj = 1E-7; 	//Change optional, default value given
+	params.tol.relobj = 1E-7; 	//Change optional, default value given
+	params.tol.maxiter = 150; 	//Change optional, default value given
     params.tol.normdiff = 1E-7; //Change optional, default value given
-    params.tol.objval = 1E-7; 	//Change optional, default value given
-    params.tol.maxiter = 150; 	//Change optional, default value given
+	params.tol.objval = 1E-7; 	//Change optional, default value given
+	params.tol.maxiter = 150; 	//Change optional, default value given
 
-	//Data parameters.
+    //Data parameters.
 	params.dat.initialTime = 0.0; 	//Should be set to proper value
 	params.dat.endTime = 120.0;		//Should be set to proper value
-	params.dat.timeIncrement = 6;	//Should be set to proper value
-	params.dat.numOfDataSets = 5;
+	params.dat.timeIncrement = .25;	//Should be set to proper value
+	params.dat.numOfDataSets = 16;
 
-	//Regularization parameters.
-
-	params.reg.type = 4; 	// 0 - none
+    //Regularization parameters.
+	params.reg.type = 6; 	// 0 - none
                             // 1 - Type 1 Tikhonov using ||delta u_{N} - 0||
                             // 2 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
                             // 3 - Brute force search for alpha Or
                             // 4 - alpha is a multiple of O
-                            // 5 - we don't talk about 5
-                            // 6 - graph alpha
+                            // 5 - Type 2 Tikhonov using ||u_{N+1} - u_{N}||
+                            // 6 -
  	//params.reg.alpha = .0063;
-    params.reg.alpha = .01;
+    params.reg.alpha = 0.02;
 	//General parameters.
-
-
 	params.gen.numOfStates = 8;	//Should be set to proper value
 
 
@@ -82,23 +78,18 @@ int main(int argc, char *argv[])
 	//Inputs and data
 	std::vector<vec> input(params.dat.numOfDataSets, vec::Zero(2));
 	std::vector<mat> data(params.dat.numOfDataSets);
+
 	vec t;
-    int numOfDataPnts = 120001;
+    int numOfDataPnts = 12001;
  	t = vec::LinSpaced(numOfDataPnts,0.0,120.0);
+    //int lt = t.size();
   	//cout << t << endl << endl;
   	vec u(params.gen.numOfParams);
 	vec u0(params.gen.numOfParams);
     vec uguess(params.gen.numOfParams);
 	vec y0(params.gen.numOfStates);
 
-
-    input[0](0) = 0.05;		input[0](1) = 10.0;
-	input[1](0) = 0.3684;   input[1](1) = 2.1544;
-	input[2](0) = 1.0; 		input[2](1) = 0.1;
-	input[3](0) = 0.09286; 	input[3](1) = 2.1544;
-	input[4](0) = 0.13572; 	input[4](1) = 2.1544;
-
-/*    input[0](1) = 0.1; 		input[0](0) = 0.05;
+    input[0](1) = 0.1; 		input[0](0) = 0.05;
 	input[1](1) = 0.1; 		input[1](0) = 0.13572;
 	input[2](1) = 0.1; 		input[2](0) = 0.3684;
 	input[3](1) = 0.1; 		input[3](0) = 1.0; //here
@@ -114,47 +105,60 @@ int main(int argc, char *argv[])
 	input[13](1) = 10; 		input[13](0) = 0.13572;
 	input[14](1) = 10; 		input[14](0) = 0.3684;
 	input[15](1) = 10; 		input[15](0) = 1.0;
-    */
 
     y0 << 6.6667e-1, 5.7254e-1, 4.1758e-1, 4.0e-1,
     3.6409e-1, 2.9457e-1, 1.419, 9.3464e-1;
 
-    u << 1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,1.0,1.0,1.0,2.0,1.0,2.0,
-        1.0,0.1,1.0,0.1,0.1,1.0,0.1,0.1,1.0,0.1,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0,1.0;
+    u << 1.0,1.0,2.0,1.0,2.0,1.0,
+        1.0,1.0,2.0,1.0,2.0,1.0,
+        1.0,1.0,2.0,1.0,2.0,1.0,
+        0.1,1.0,0.1,0.1,1.0,0.1,
+        0.1,1.0,0.1,1.0,1.0,1.0,
+        1.0,1.0,1.0,1.0,1.0,1.0;
 
-    //u0.fill(0.5);
-    //u0 = u + u0;
-    u0 = u;// + u*0.25;
-    uguess = u + u*.25;
+    u0 = u + u*.250;
+    uguess = u ;//+ u*.250;
 
-    size_t lt = (size_t )((params.dat.endTime-params.dat.initialTime)
-              /params.dat.timeIncrement) + 1;
-
+    int lt = 240 + 1;
     int dk = (numOfDataPnts-1)/(lt-1);
+    cout << "dk = " << dk << endl;
     std::vector<mat> subset(params.dat.numOfDataSets, mat::Zero(params.gen.numOfStates,lt));
 
-	for(size_t i = 0; i<params.dat.numOfDataSets; i++)
+    mat testacc;
+
+    double p = 0.01; //atof(argv[1])
+    for(size_t i = 0; i<params.dat.numOfDataSets; i++)
     {
-        //data[i] = getCsvData("data/benchmark_" + std::to_string(i+1) + ".csv");
         data[i] = rungekutta4(benchmark, t, u, y0, input[i]);
-        for(size_t k = 0; k<lt; k++)
+
+        for(int k = 0; k<lt; k++)
         {
             subset[i].col(k) = data[i].col(k*dk);
         }
+
+        //testacc = subset[i];
+        subset[i].array() += p*subset[i].array()*mat::Random(params.gen.numOfStates,lt).array();
+
+        /*for(size_t j = 0; j<params.gen.numOfStates; j++)
+        {
+            subset[i].row(j) = lsNoiseRemoval(subset[i].row(j), atof(argv[1]));
+            cout << "norm = " << norm(testacc.row(j) - subset[i].row(j))
+                << " max =" << (testacc.row(j) - subset[i].row(j)).lpNorm<Infinity>() << endl;
+        }*/
     }
 
     vec ts(lt);
     ts(0) = params.dat.initialTime;
-    for(size_t j=1; j<lt; j++)
+    for(int j=1; j<lt; j++)
     {
-        ts(j) += ts(j-1) + params.dat.timeIncrement;
+        ts(j) = ts(j-1) + params.dat.timeIncrement;
     }
-    cout << lt << endl << endl;
-    //cout << dk << endl << endl;
-	/*
+
+    /***************************************************************************
 		This structure contains the many outputs of the method. Which the user
 		can manipulate to get the desired graphics and numerical summaries.
-	*/
+	***************************************************************************/
+
     outputStruct results;
 
   	results = qlopt(benchmark, ts, u0, uguess, y0, input, subset, params, u);
@@ -165,9 +169,6 @@ int main(int argc, char *argv[])
 	parameterOutput(results.uvals, results.alpha);
     cout << endl;
     latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.objval);
-    latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.omegaval);
-    //latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.objval);
-    //latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.objval);
 
     cout << "\n***********Python Output***********" << endl << endl;
     cout << "objective values" << endl;
@@ -184,56 +185,6 @@ int main(int argc, char *argv[])
     pythonplot(vec::LinSpaced(results.iterations,1,results.iterations), results.objval);
 
     return 0;
-}
-
-std::vector<std::string> split(const std::string &s, char delim) {
-    std::stringstream ss(s);
-    std::string item;
-    std::vector<std::string> tokens;
-    while (std::getline(ss, item, delim)) {
-        tokens.push_back(item);
-    }
-    return tokens;
-}
-
-mat getCsvData(std::string data)
-{
-	string filename = data;
-
-	std::ifstream csvfile;
-	std::string line;
-	std::vector<std::string> dataAsStr, headers, dataRow;
-	csvfile.open(filename);
-	if(csvfile.is_open())
-    {
-      while(std::getline(csvfile, line))
-        {
-          dataAsStr.push_back(line);
-        }
-      csvfile.close();
-    }
-	else
-    {
-      std::cerr << "ERROR: Unable to open file";
-    }
-
-	headers = split(dataAsStr[0], ',');
-	dataAsStr.erase(dataAsStr.begin());
-
-	size_t n = headers.size();
-	size_t lt = dataAsStr.size();
-	mat featureData(n, lt);
-
-	for(size_t i=0; i<lt; i++)
-    {
-      dataRow = split(dataAsStr[i], ',');
-      for(size_t j = 0; j<n; j++)
-        {
-          featureData(j,i) = std::stod(dataRow[j]);
-        }
-    }
-
-	return featureData;
 }
 
 mat rungekutta4(odefunction fhandle, const vec& t, const vec& u,

@@ -9,6 +9,7 @@ BUILDDIR?=$(PWD)/build
 BINDIR=$(PWD)/bin
 SRCDIR=$(PWD)/src
 APPSRCDIR=$(PWD)/examples
+
 # Extension for source files
 SRCEXT=cpp
 
@@ -22,10 +23,10 @@ endif
 
 # Compilation configuration
 CXXFLAGS_EXTRA?=
-CXXFLAGS=-g -O2 -Wall -Wextra -I$(PWD)/src -rdynamic -fPIC -DNDEBUG -std=c++11 $(CXXFLAGS_EXTRA)
+CXXFLAGS=-g -O2 -Wall -Wextra -I$(PWD)/src -I/usr/local/include -rdynamic -fPIC -DNDEBUG -std=c++11 $(CXXFLAGS_EXTRA)
 
 # Linking configuration
-LIBS=-L$(BUILDDIR) -l$(PRJNAME)
+LIBS=-L$(BUILDDIR) -l$(PRJNAME) -lsplinter-static-3-0 -lsundials_sunnonlinsolnewton -lsundials_sunnonlinsolfixedpoint -lsundials_cvodes -lsundials_nvecserial -L/usr/local/lib
 
 #TODO: Document variables
 
@@ -49,6 +50,7 @@ SHARED_TARGET=$(patsubst %.a,%.$(DYLIBEXT),$(TARGET))
 # Phony targets don't result in a file appearing in the filesystem
 # This one prints a usage message if you type `make` without any
 # argument, or if you type `make usage`.
+
 .PHONY: usage
 usage:
 	@echo "usage: make [TARGET]"
