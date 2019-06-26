@@ -1,5 +1,7 @@
 language: cpp
 
+dist: xenial
+
 os:
   - linux
   - osx
@@ -8,31 +10,55 @@ compiler:
   - clang
   - gcc
 
+# We have to update Homebrew to work around an issue installing any packages.
+# See: https://travis-ci.community/t/issue-brew-formula-installation-fails-due-to-being-outdated/3872
 addons:
   apt:
     packages:
       - libeigen3-dev
   homebrew:
+    update: true
     packages:
       - eigen
+      - sundials
 
+# Since Homebrew is updated on each build, we'll cache the corresponding package
+# directories:
+cache:
+  directories:
+    - $HOME/Library/Caches/Homebrew
+
+# Since the Homebrew files are now cached, the cache itself should be managed.
+# Before saving the cache, we'll make sure to remove any outdated packages:
+before_cache:
+  - if [ "${TRAVIS_OS_NAME}" == "osx" ] ; then 
+      brew cleanup ;
+    fi
+
+# Sundials and Boost only need to be built from source on Linux
 install:
-  - cd ${TRAVIS_BUILD_DIR}
-  - curl https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz -L -o boost_1_69_0.tar.gz
-  - tar xzf boost_1_69_0.tar.gz
-  - cd boost_1_69_0
-  - ./bootstrap.sh --prefix=${TRAVIS_BUILD_DIR}/usr
-  - travis_wait ./b2 -d0 -q --with-math --with-test --with-system install
-  - cd ${TRAVIS_BUILD_DIR}
-  - wget https://computation.llnl.gov/projects/sundials/download/cvodes-4.1.0.tar.gz
-  - tar xzf cvodes-4.1.0.tar.gz
-  - cd cvodes-4.1.0
-  - mkdir build
-  - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX:PATH=${TRAVIS_BUILD_DIR}/usr .. 
-  - make
-  - make install
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ] ; then 
+      cd ${TRAVIS_BUILD_DIR} ; 
+      curl https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz -L -o boost_1_69_0.tar.gz ; 
+      tar xzf boost_1_69_0.tar.gz ; 
+      cd boost_1_69_0 ; 
+      ./bootstrap.sh --prefix=${TRAVIS_BUILD_DIR}/usr ; 
+      travis_wait ./b2 -d0 -q --with-math --with-test --with-system install ;
+      cd ${TRAVIS_BUILD_DIR} ;
+      wget https://computation.llnl.gov/projects/sundials/download/cvodes-4.1.0.tar.gz ;
+      tar xzf cvodes-4.1.0.tar.gz ;
+      mkdir -p cvodes-4.1.0/build ;
+      cd cvodes-4.1.0/build ;
+      cmake -DCMAKE_INSTALL_PREFIX:PATH=${TRAVIS_BUILD_DIR}/usr .. ;
+      make ;
+      make install ;
+    fi
 script:
   - cd ${TRAVIS_BUILD_DIR}
-  - make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/include"
+  - if [ "${TRAVIS_OS_NAME}" == "linux" ] ; then
+      make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/include" ;
+    fi
+  - if [ "${TRAVIS_OS_NAME}" == "osx" ] ; then
+      make all CXXFLAGS_EXTRA="-I/usr/local/include" ;
+    fi
   - make tests
