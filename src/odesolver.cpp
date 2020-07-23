@@ -1,7 +1,6 @@
 #include <odesolver.h>
 
 namespace thesis{
-
     mat OdeIntWrapper(OdeWrapper sys, const vec& x, const vec& t, double tol)
     {
         string type = "stiff";

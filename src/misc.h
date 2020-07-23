@@ -1,10 +1,10 @@
 #ifndef MISC_H
 #define MISC_H
 
-#include <boost/numeric/ublas/vector.hpp>
-#include <boost/numeric/ublas/matrix.hpp>
-#include <boost/numeric/ublas/io.hpp>
-#include <boost/math/interpolators/cubic_b_spline.hpp>
+//#include <boost/numeric/ublas/vector.hpp>
+//#include <boost/numeric/ublas/matrix.hpp>
+//#include <boost/numeric/ublas/io.hpp>
+//#include <boost/math/interpolators/cubic_b_spline.hpp>
 #include <eigen3/Eigen/Dense>
 #include <vector>
 #include <nvector/nvector_serial.h>  // access to serial N_Vector

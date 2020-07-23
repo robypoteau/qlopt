@@ -1,7 +1,7 @@
 #include <qlopt.h>
 #include <string>
 #include <fstream>
-#include <noiseRemoval.h>
+//#include <noiseRemoval.h>
 #include <stdlib.h>     /* srand, rand */
 #include <time.h>       /* time */
 
@@ -160,27 +160,27 @@ int main(int argc, char *argv[])
 
     vec utemp;
     utemp = u - results.ufinal;
-    cerr << setprecision(9) << results.omegaval(results.iterations-1) << ",\t"
+    std::cerr << results.omegaval(results.iterations-1) << ",\t"
         << utemp.norm() << "," << endl;
 
     //Using the results from qlopt to construct a latex table
-	cout << "\n************Latex Output***********" << endl << endl;
+	std::cout << "\n************Latex Output***********" << endl << endl;
 	parameterOutput(results.uvals, results.alpha);
-    cout << endl;
+    std::cout << endl;
     latexplot(vec::LinSpaced(results.iterations,1,results.iterations),results.objval);
 
-    cout << "\n***********Python Output***********" << endl << endl;
-    cout << "objective values" << endl;
+    std::cout << "\n***********Python Output***********" << endl << endl;
+    std::cout << "objective values" << endl;
     convertVec(results.objval);
-    cout << "\ndeltau values" << endl;
+    std::cout << "\ndeltau values" << endl;
     convertVec(results.deltau);
-    cout << "\nalpha" << endl;
+    std::cout << "\nalpha" << endl;
     convertVec(results.alpha);
-    cout << "\nnormed difference" << endl;
+    std::cout << "\nnormed difference" << endl;
     convertVec(results.omegaval);
-    cout << "\niterations" << endl;
+    std::cout << "\niterations" << endl;
     convertVec(vec::LinSpaced(results.iterations,1,results.iterations));
-    cout << endl << endl;
+    std::cout << endl << endl;
     pythonplot(vec::LinSpaced(results.iterations,1,results.iterations), results.objval);
 
     return 0;

@@ -1,7 +1,7 @@
 # Qlopt
 
 [![Build Status](https://travis-ci.org/robypoteau/qlopt.svg?branch=master)](https://travis-ci.org/robypoteau/qlopt)
-[![Build status](https://ci.appveyor.com/api/projects/status/7oe6e10sjbqt0g6w?svg=true)](https://ci.appveyor.com/project/jgoldfar/qlopt)
+<!---[![Build status](https://ci.appveyor.com/api/projects/status/7oe6e10sjbqt0g6w?svg=true)](https://ci.appveyor.com/project/jgoldfar/qlopt)-->
 
 
 This is a software package developed to pursue numerical calculations reported 

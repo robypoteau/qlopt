@@ -1,7 +1,7 @@
 #include <qlopt.h>
 #include <string>
 #include <fstream>
-#include <noiseRemoval.h>
+//#include <noiseRemoval.h>
 
 //The namespace for the objects found in qlopt.h
 using namespace thesis;
