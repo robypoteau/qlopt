@@ -22,10 +22,10 @@ install:
   - cd sundials-4.1.0
   - mkdir build
   - cd build
-  - cmake -DCMAKE_INSTALL_PREFIX:PATH=${TRAVIS_BUILD_DIR}/usr/include .. 
+  - cmake -DCMAKE_INSTALL_PREFIX:PATH=${TRAVIS_BUILD_DIR}/usr .. 
   - make
   - make install
 script:
   - cd ${TRAVIS_BUILD_DIR}
-  - make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/include -L${TRAVIS_BUILD_DIR}/usr/lib"
+  - make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/include"
   - make tests
