@@ -35,5 +35,5 @@ install:
   - make install
 script:
   - cd ${TRAVIS_BUILD_DIR}
-  - make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/ -L${TRAVIS_BUILD_DIR}/usr/"
+  - make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/include -L${TRAVIS_BUILD_DIR}/usr/lib"
   - make tests
