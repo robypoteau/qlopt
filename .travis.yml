@@ -22,8 +22,8 @@ install:
   - tar xzf boost_1_69_0.tar.gz
   - cd boost_1_69_0
   - ./bootstrap.sh --prefix=${TRAVIS_BUILD_DIR}/usr
-  - ls ${TRAVIS_BUILD_DIR}/usr
   - travis_wait ./b2 -d0 -q --with-math --with-test --with-system install
+  - ls ${TRAVIS_BUILD_DIR}/usr
   - cd ${TRAVIS_BUILD_DIR}
   - wget https://computing.llnl.gov/projects/sundials/download/sundials-4.1.0.tar.gz
   - tar xzf sundials-4.1.0.tar.gz
@@ -35,5 +35,5 @@ install:
   - make install
 script:
   - cd ${TRAVIS_BUILD_DIR}
-  - make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/"
+  - make all CXXFLAGS_EXTRA="-I${TRAVIS_BUILD_DIR}/usr/ -L${TRAVIS_BUILD_DIR}/usr/"
   - make tests
