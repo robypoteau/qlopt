@@ -9,7 +9,7 @@
 
 // External headers
 #include <eigen3/Eigen/QR>
-#include <Eigen/SVD>
+#include <eigen3/Eigen/SVD>
 
 // My headers
 #include <misc.h>

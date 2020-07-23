@@ -1,6 +1,6 @@
 # Qlopt
 
-[![Build Status](https://travis-ci.org/jgoldfar/qlopt.svg?branch=master)](https://travis-ci.org/jgoldfar/qlopt)
+[![Build Status](https://travis-ci.org/robypoteau/qlopt.svg?branch=master)](https://travis-ci.org/robypoteau/qlopt)
 [![Build status](https://ci.appveyor.com/api/projects/status/7oe6e10sjbqt0g6w?svg=true)](https://ci.appveyor.com/project/jgoldfar/qlopt)
 
 
@@ -47,6 +47,19 @@ tar xf boost_1_69_0.tar.gz
 cd boost_1_69_0
 sudo ./bootstrap.sh
 sudo ./b2 install
+```
+
+[SUNDIALS](https://computing.llnl.gov/projects/sundials/download/sundials-4.1.0.tar.gz)
+
+```
+wget https://computing.llnl.gov/projects/sundials/download/sundials-4.1.0.tar.gz
+tar zxf sundails-4.1.0.tar.gz
+cd sundails-4.1.0
+mkdir build/
+cd build
+cmake ..
+make
+make install
 ```
 
 ### Installation
