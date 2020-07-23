@@ -17,14 +17,6 @@ addons:
       - eigen
 
 install:
-  - cd ${TRAVIS_BUILD_DIR}
-  - curl https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz -L -o boost_1_69_0.tar.gz
-  - tar xzf boost_1_69_0.tar.gz
-  - cd boost_1_69_0
-  - ./bootstrap.sh --prefix=${TRAVIS_BUILD_DIR}/usr
-  - travis_wait ./b2 -d0 -q --with-math --with-test --with-system install
-  - ls ${TRAVIS_BUILD_DIR}/usr
-  - cd ${TRAVIS_BUILD_DIR}
   - wget https://computing.llnl.gov/projects/sundials/download/sundials-4.1.0.tar.gz
   - tar xzf sundials-4.1.0.tar.gz
   - cd sundials-4.1.0
