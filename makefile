@@ -23,10 +23,10 @@ endif
 
 # Compilation configuration
 CXXFLAGS_EXTRA?=
-CXXFLAGS=-g -O2 -Wall -Wextra -I$(PWD)/src -I/usr/local/include -rdynamic -fPIC -DNDEBUG -std=c++11 $(CXXFLAGS_EXTRA)
+CXXFLAGS=-g -O2 -Wall -Wextra -I$(PWD)/src -I/usr/local/include -I/usr/local/include/eigen3 -rdynamic -fPIC -DNDEBUG -std=c++11 $(CXXFLAGS_EXTRA)
 
 # Linking configuration
-LIBS=-L$(BUILDDIR) -l$(PRJNAME) -lsplinter-static-3-0 -lsundials_sunnonlinsolnewton -lsundials_sunnonlinsolfixedpoint -lsundials_cvodes -lsundials_nvecserial -L/usr/local/lib
+LIBS=-L$(BUILDDIR) -l$(PRJNAME) -lsundials_sunnonlinsolnewton -lsundials_sunnonlinsolfixedpoint -lsundials_cvodes -lsundials_nvecserial -L/usr/local/lib
 
 #TODO: Document variables
 

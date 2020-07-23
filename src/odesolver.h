@@ -11,8 +11,8 @@ using namespace boost::numeric::odeint;
 
 #include <iostream>
 #include <cvodes/cvodes.h> // prototypes for CVODE fcts., consts.
-#include <cvodes/cvodes_dense.h>
-#include <cvodes/cvodes_lapack.h>
+//#include <cvodes/cvodes_dense.h>
+//#include <cvodes/cvodes_lapack.h>
 #include <cvodes/cvodes_bandpre.h>
 //#include <cvodes/cvodes_spils.h> // access to CVSpils interface
 

@@ -24,9 +24,9 @@ install:
   - ./bootstrap.sh --prefix=${TRAVIS_BUILD_DIR}/usr
   - travis_wait ./b2 -d0 -q --with-math --with-test --with-system install
   - cd ${TRAVIS_BUILD_DIR}
-  - wget https://computation.llnl.gov/projects/sundials/download/cvodes-4.1.0.tar.gz
-  - tar xzf cvodes-4.1.0.tar.gz
-  - cd cvodes-4.1.0
+  - wget https://computing.llnl.gov/projects/sundials/download/sundials-4.1.0.tar.gz
+  - tar xzf sundials-4.1.0.tar.gz
+  - cd sundials-4.1.0
   - mkdir build
   - cd build
   - cmake -DCMAKE_INSTALL_PREFIX:PATH=${TRAVIS_BUILD_DIR}/usr .. 
