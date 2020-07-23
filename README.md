@@ -39,7 +39,7 @@ cmake ../eigen_source
 make install            # may need sudo to run this
 ```
 
-[Boost 1.69.0](https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz)
+<!--[Boost 1.69.0](https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz)
 
 ```
 wget https://dl.bintray.com/boostorg/release/1.69.0/source/boost_1_69_0.tar.gz
@@ -48,6 +48,7 @@ cd boost_1_69_0
 sudo ./bootstrap.sh
 sudo ./b2 install
 ```
+-->
 
 [SUNDIALS](https://computing.llnl.gov/projects/sundials/download/sundials-4.1.0.tar.gz)
 
